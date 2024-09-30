@@ -689,6 +689,30 @@
           <element xsi:nil="true"/>
           <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ExeeNnxEEe-9hqJWrFYmSg" x="9717" y="-1722" width="1621" height="892"/>
         </children>
+        <children xmi:type="notation:Shape" xmi:id="_kfbZQH9bEe-dbfX7NJIOVw" type="oval" fontName="Segoe UI" fontHeight="8" description="Horas mensuales" fillColor="15912618" transparency="0" lineColor="12678440" lineWidth="2">
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_kfbZQX9bEe-dbfX7NJIOVw" type="DiagramName">
+            <element xsi:nil="true"/>
+          </children>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_kfbZQn9bEe-dbfX7NJIOVw" type="Description">
+            <element xsi:nil="true"/>
+          </children>
+          <styles xmi:type="notation:TextStyle" xmi:id="_kfbZQ39bEe-dbfX7NJIOVw" textAlignment="Center"/>
+          <styles xmi:type="notation:LineTypeStyle" xmi:id="_kfbZRH9bEe-dbfX7NJIOVw"/>
+          <element xsi:nil="true"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_kfbZRX9bEe-dbfX7NJIOVw" x="-3567" y="-3567" width="2467" height="892"/>
+        </children>
+        <children xmi:type="notation:Shape" xmi:id="_m5ExMH9bEe-dbfX7NJIOVw" type="oval" fontName="Segoe UI" fontHeight="8" description="Sueldo por hora" fillColor="15912618" transparency="0" lineColor="12678440" lineWidth="2">
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_m5ExMX9bEe-dbfX7NJIOVw" type="DiagramName">
+            <element xsi:nil="true"/>
+          </children>
+          <children xmi:type="notation:BasicDecorationNode" xmi:id="_m5ExMn9bEe-dbfX7NJIOVw" type="Description">
+            <element xsi:nil="true"/>
+          </children>
+          <styles xmi:type="notation:TextStyle" xmi:id="_m5ExM39bEe-dbfX7NJIOVw" textAlignment="Center"/>
+          <styles xmi:type="notation:LineTypeStyle" xmi:id="_m5ExNH9bEe-dbfX7NJIOVw"/>
+          <element xsi:nil="true"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_m5ExNX9bEe-dbfX7NJIOVw" x="-2337" y="-6396" width="2537" height="892"/>
+        </children>
         <element xsi:nil="true"/>
         <edges xmi:type="notation:Connector" xmi:id="_x3sqsJt5Ee6sRYI57Ew_0w" type="line" source="_obCjAJt5Ee6sRYI57Ew_0w" target="_-3RcUJt1Ee6sRYI57Ew_0w" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1">
           <styles xmi:type="notation:ArrowStyle" xmi:id="_x3sqsZt5Ee6sRYI57Ew_0w"/>
@@ -1000,6 +1024,21 @@
           <element xsi:nil="true"/>
           <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_QuPyMnxEEe-9hqJWrFYmSg" points="[-510, 487, 606, 785]$[-776, 487, 340, 785]$[-776, -9, 340, 289]"/>
           <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_QuRAUHxEEe-9hqJWrFYmSg" id="(0.31647131400370143,0.0)"/>
+        </edges>
+        <edges xmi:type="notation:Connector" xmi:id="_pFtn4H9bEe-dbfX7NJIOVw" type="line" source="_m5ExMH9bEe-dbfX7NJIOVw" target="_w6spZnw1Ee-PDJdHwzxzZQ" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1">
+          <styles xmi:type="notation:ArrowStyle" xmi:id="_pFtn4X9bEe-dbfX7NJIOVw"/>
+          <styles xmi:type="notation:LineTypeStyle" xmi:id="_pFtn4n9bEe-dbfX7NJIOVw"/>
+          <element xsi:nil="true"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_pFtn439bEe-dbfX7NJIOVw" points="[23, -35, -151, 9]$[125, -2, -49, 42]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_pFxSQH9bEe-dbfX7NJIOVw" id="(0.8812724014336918,1.0)"/>
+        </edges>
+        <edges xmi:type="notation:Connector" xmi:id="_peJWAH9bEe-dbfX7NJIOVw" type="line" source="_kfbZQH9bEe-dbfX7NJIOVw" target="_w6spYHw1Ee-PDJdHwzxzZQ" roundedBendpointsRadius="4" routing="Rectilinear" lineColor="8421504" lineWidth="1">
+          <styles xmi:type="notation:ArrowStyle" xmi:id="_peJWAX9bEe-dbfX7NJIOVw"/>
+          <styles xmi:type="notation:LineTypeStyle" xmi:id="_peJWAn9bEe-dbfX7NJIOVw"/>
+          <element xsi:nil="true"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_peJWA39bEe-dbfX7NJIOVw" points="[-12, -8, -2546, -1718]$[1687, -8, -847, -1718]$[1687, 952, -847, -758]$[2428, 952, -106, -758]$[2428, 1248, -106, -462]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_peLLMH9bEe-dbfX7NJIOVw" id="(1.0,0.43946188340807174)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_peLLMX9bEe-dbfX7NJIOVw" id="(0.23672476692338873,0.4685598377281947)"/>
         </edges>
       </contents>
       <contents xmi:type="umlnotation:UMLDiagram" xmi:id="_LorEsHwyEe-PDJdHwzxzZQ" type="Freeform" name="AirGest RSP">
