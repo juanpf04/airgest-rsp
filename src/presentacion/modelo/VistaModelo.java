@@ -41,8 +41,8 @@ public class VistaModelo extends JFrame implements Observador {
 		JLabel modelo = new JLabel("MODELO"); // titulo de la ventana en la que
 												// estamos, apareceran las
 												// funciones de modelo
-		// modelo.setBorder(new CompoundBorder(new LineBorder(Color.BLACK, 1),
-		// new MatteBorder(5,3,7,10, Color.ORANGE))); // OPCION 2
+												// modelo.setBorder(new CompoundBorder(new LineBorder(Color.BLACK, 1),
+												// new MatteBorder(5,3,7,10, Color.ORANGE))); // OPCION 2
 		modelo.setBorder(new LineBorder(Color.BLACK, 2));
 		modelo.setFont(new Font("Comic Sans", Font.BOLD, 30));
 		modelo.setHorizontalAlignment(SwingConstants.CENTER);

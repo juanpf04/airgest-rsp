@@ -32,7 +32,7 @@ import presentacion.controlador.EventosControlador;
 public class VistaAñadirHangar extends JFrame implements Observador {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	public void actualizaVista(Object datos) {
 		UtilidadesP.setAirGestRSP(this);
 		this.setSize(1000, 750);
@@ -49,7 +49,7 @@ public class VistaAñadirHangar extends JFrame implements Observador {
 		JPanel centro = new JPanel();
 
 		JPanel panel_titulo = new JPanel();
-		
+
 		JLabel titulo = new JLabel("Añadir Hangar");
 		titulo.setFont(new Font("Tahoma", Font.BOLD, 30));
 		titulo.setBorder(new LineBorder(Color.BLACK, 2));
@@ -60,10 +60,10 @@ public class VistaAñadirHangar extends JFrame implements Observador {
 
 		JPanel panel_etiquetas = new JPanel();
 		panel_etiquetas.setLayout(new BoxLayout(panel_etiquetas, BoxLayout.PAGE_AXIS));
-		
+
 		JPanel panel_textfield = new JPanel();
 		panel_textfield.setLayout(new BoxLayout(panel_textfield, BoxLayout.PAGE_AXIS));
-		
+
 		JLabel etiquetaId = new JLabel("id hangar: ");
 		etiquetaId.setFont(new Font("Tahoma", Font.BOLD, 23));
 		JTextField textoId = new JTextField();
@@ -73,11 +73,10 @@ public class VistaAñadirHangar extends JFrame implements Observador {
 		textoId.setFont(new Font("Tahoma", Font.BOLD, 18));
 		panel_etiquetas.add(etiquetaId);
 		panel_textfield.add(textoId);
-		
+
 		centro.add(panel_etiquetas);
 		centro.add(panel_textfield);
 
-		
 		JLabel etiquetaIni = new JLabel("fecha inicio: ");
 		etiquetaIni.setFont(new Font("Tahoma", Font.BOLD, 23));
 		LocalDate currentDate = LocalDate.now();
@@ -99,10 +98,10 @@ public class VistaAñadirHangar extends JFrame implements Observador {
 		spinnerIni.setEditor(editor);
 		panel_etiquetas.add(etiquetaIni);
 		panel_textfield.add(spinnerIni);
-		
+
 		centro.add(panel_etiquetas);
 		centro.add(panel_textfield);
-		
+
 		JPanel fecha_fin = new JPanel();
 		fecha_fin.setLayout(new BoxLayout(fecha_fin, BoxLayout.LINE_AXIS));
 		JLabel etiquetaFin = new JLabel("fecha fin: ");
@@ -119,10 +118,10 @@ public class VistaAñadirHangar extends JFrame implements Observador {
 		spinnerFin.setEditor(editor2);
 		panel_etiquetas.add(etiquetaFin);
 		panel_textfield.add(spinnerFin);
-		
+
 		centro.add(panel_etiquetas);
 		centro.add(panel_textfield);
-		
+
 		principal.add(funcion);
 		principal.add(centro);
 

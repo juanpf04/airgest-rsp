@@ -18,7 +18,7 @@ public class VistaResultadoConsultarPersonalPorId extends JFrame implements Obse
 	public void actualizaVista(Object datos) {
 		UtilidadesP.setAirGestRSP(this);
 		this.setSize(1000, 750);
-		
+
 		JPanel principal = new JPanel();
 		principal.setLayout(new BorderLayout());
 
@@ -29,7 +29,6 @@ public class VistaResultadoConsultarPersonalPorId extends JFrame implements Obse
 		exito.setFont(new Font("Tahoma", Font.PLAIN, 26));
 		exito.setAlignmentX(CENTER_ALIGNMENT);
 		principal.add(exito, BorderLayout.PAGE_START);
-
 
 		this.setContentPane(principal);
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);

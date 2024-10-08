@@ -28,31 +28,31 @@ public class VistaPrincipal extends JFrame implements Observador {
 
 	@Override
 	public void actualizaVista(Object datos) {
-		UtilidadesP.setAirGestRSP(this);	
+		UtilidadesP.setAirGestRSP(this);
 		this.setSize(320, 300); //hace que la ventana no salga tan chiquitita
 		JPanel principal = new JPanel();
 		principal.setLayout(new BorderLayout());
-		
+
 		JPanel page_start_panel = new JPanel();
-		page_start_panel.setLayout(new BoxLayout(page_start_panel,BoxLayout.PAGE_AXIS));
-		
+		page_start_panel.setLayout(new BoxLayout(page_start_panel, BoxLayout.PAGE_AXIS));
+
 		JPanel panel_label_titulo = new JPanel();
 		JLabel titulo = new JLabel("AIRGEST RSP"); //titulo de la ventana en la que estamos, apareceran las funciones de modelo 
-		titulo.setBorder(new LineBorder(Color.BLACK,2)); 
-		
+		titulo.setBorder(new LineBorder(Color.BLACK, 2));
+
 		titulo.setFont(new Font("Comic Sans", Font.BOLD, 30));
 		titulo.setHorizontalAlignment(SwingConstants.CENTER); //ESTO ES LO QUE LO CENTRA, SWINGCONSTANTS
 		panel_label_titulo.add(titulo);
-		
+
 		JSeparator separador_titulo = new JSeparator(SwingConstants.CENTER);
-		separador_titulo.setBorder(new MatteBorder(1,1,10,10, Color.BLACK));
-		separador_titulo.setPreferredSize(new Dimension(0,2));
+		separador_titulo.setBorder(new MatteBorder(1, 1, 10, 10, Color.BLACK));
+		separador_titulo.setPreferredSize(new Dimension(0, 2));
 		page_start_panel.add(panel_label_titulo);
 		page_start_panel.add(separador_titulo);
 		principal.add(page_start_panel, BorderLayout.PAGE_START);
 
 		JPanel botones = new JPanel();
-		botones.setLayout(new GridLayout(0,1, 1, 7));
+		botones.setLayout(new GridLayout(0, 1, 1, 7));
 
 		Controlador ctrl = Controlador.getInstance();
 
@@ -106,21 +106,21 @@ public class VistaPrincipal extends JFrame implements Observador {
 		botones.add(hangar);
 
 		//-------------------------------------------
-				JButton personal = new JButton("PERSONAL");
-				personal.addActionListener(new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						dispose();
-						ctrl.accion(EventosControlador.VISTA_PERSONAL, null);
-					}
-				});
-				personal.setToolTipText("MODULO PERSONAL");
-				botones.add(personal);
+		JButton personal = new JButton("PERSONAL");
+		personal.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				ctrl.accion(EventosControlador.VISTA_PERSONAL, null);
+			}
+		});
+		personal.setToolTipText("MODULO PERSONAL");
+		botones.add(personal);
 
 		//-------------------------------------------
 		JButton contrato = new JButton("CONTRATO");
 		contrato.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();

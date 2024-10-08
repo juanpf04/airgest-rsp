@@ -34,5 +34,5 @@ public class TModeloAerolinea {
 	public String toString() {
 		return "idModelo: " + this.idModelo + "\nidAerolinea: " + this.idAerolinea;
 	}
-	
+
 }

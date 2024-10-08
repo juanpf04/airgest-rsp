@@ -17,7 +17,7 @@ public class VistaResultadoConsultarAerolineaPorId extends JFrame implements Obs
 
 	public void actualizaVista(Object datos) {
 		UtilidadesP.setAirGestRSP(this);
-		
+
 		JPanel principal = new JPanel();
 		principal.setLayout(new BorderLayout());
 

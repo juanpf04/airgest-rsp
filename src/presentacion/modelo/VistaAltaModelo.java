@@ -38,17 +38,17 @@ public class VistaAltaModelo extends JFrame implements Observador {
 		principal.setLayout(new BoxLayout(principal, BoxLayout.PAGE_AXIS));
 
 		JPanel funcion = new JPanel();
-		funcion.setLayout(new BoxLayout(funcion,BoxLayout.PAGE_AXIS));
-		
+		funcion.setLayout(new BoxLayout(funcion, BoxLayout.PAGE_AXIS));
+
 		JPanel panel_titulo = new JPanel();
 		JLabel titulo = new JLabel("Alta Modelo");
 		titulo.setFont(new Font("Tahoma", Font.BOLD, 30));
 		titulo.setBorder(new LineBorder(Color.BLACK, 2));
 		titulo.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_titulo.add(titulo);
-		
+
 		funcion.add(panel_titulo);
-		
+
 		SpringLayout layout = new SpringLayout();
 		JPanel centro = new JPanel();
 		centro.setLayout(layout);// BoxLayout(centro, BoxLayout.PAGE_AXIS)
@@ -59,12 +59,12 @@ public class VistaAltaModelo extends JFrame implements Observador {
 		etiquetaNombre.setFont(new Font("Times New Roman", Font.BOLD, 25));
 		JTextField textoNombre = new JTextField();
 		textoNombre.setToolTipText("letras-numeros");
-		
+
 		textoNombre.setMaximumSize(new Dimension(200, 30));
 		textoNombre.setMinimumSize(new Dimension(200, 30));
 		textoNombre.setPreferredSize(new Dimension(200, 30));
 		textoNombre.setFont(new Font("Tahoma", Font.BOLD, 18));
-		
+
 		centro.add(etiquetaNombre);
 		centro.add(textoNombre);
 		layout.putConstraint(SpringLayout.WEST, textoNombre, 5, SpringLayout.EAST, etiquetaNombre);
@@ -77,12 +77,11 @@ public class VistaAltaModelo extends JFrame implements Observador {
 		textoMotor.setMinimumSize(new Dimension(200, 30));
 		textoMotor.setPreferredSize(new Dimension(200, 30));
 		textoMotor.setFont(new Font("Tahoma", Font.BOLD, 18));
-		
-		
+
 		layout.putConstraint(SpringLayout.NORTH, etiquetaMotor, 2, SpringLayout.SOUTH, etiquetaNombre);
 		layout.putConstraint(SpringLayout.NORTH, textoMotor, 2, SpringLayout.SOUTH, textoNombre);
 		layout.putConstraint(SpringLayout.WEST, textoMotor, 24, SpringLayout.EAST, etiquetaMotor);
-		
+
 		centro.add(etiquetaMotor);
 		centro.add(textoMotor);
 		// centro.add(motor);

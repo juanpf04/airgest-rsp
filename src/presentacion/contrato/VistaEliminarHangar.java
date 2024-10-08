@@ -22,7 +22,7 @@ import presentacion.controlador.Controlador;
 import presentacion.controlador.EventosControlador;
 
 public class VistaEliminarHangar extends JFrame implements Observador {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	public void actualizaVista(Object datos) {
@@ -41,7 +41,7 @@ public class VistaEliminarHangar extends JFrame implements Observador {
 		titulo.setBorder(new LineBorder(Color.BLACK, 2));
 		titulo.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_titulo.add(titulo);
-		
+
 		principal.add(panel_titulo);
 		JPanel centro = new JPanel();
 		centro.setLayout(new BoxLayout(centro, BoxLayout.PAGE_AXIS));
@@ -58,7 +58,7 @@ public class VistaEliminarHangar extends JFrame implements Observador {
 		id.add(etiquetaId);
 		id.add(textoId);
 		centro.add(id);
-		
+
 		principal.add(centro);
 		JSplitPane botones = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
 		JButton aceptar = new JButton("ACEPTAR");
@@ -97,14 +97,12 @@ public class VistaEliminarHangar extends JFrame implements Observador {
 			}
 
 		});
-		
+
 		atras.setMaximumSize(new Dimension(90, 30));
 		atras.setPreferredSize(new Dimension(90, 30));
-		
-		
+
 		botones.add(atras);
 		principal.add(botones);
-
 
 		this.setContentPane(principal);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

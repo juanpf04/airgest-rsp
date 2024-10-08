@@ -1,6 +1,5 @@
 package presentacion.modelo;
 
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -34,25 +33,25 @@ public class VistaModificarModelo extends JFrame implements Observador {
 		principal.setLayout(new BoxLayout(principal, BoxLayout.PAGE_AXIS));
 
 		JPanel funcion = new JPanel();
-		funcion.setLayout(new BoxLayout(funcion,BoxLayout.PAGE_AXIS));
-		
+		funcion.setLayout(new BoxLayout(funcion, BoxLayout.PAGE_AXIS));
+
 		JPanel centro = new JPanel();
-		
+
 		JPanel panel_titulo = new JPanel();
 		JLabel titulo = new JLabel("Modificar Modelo");
 		titulo.setFont(new Font("Tahoma", Font.BOLD, 30));
 		titulo.setBorder(new LineBorder(Color.BLACK, 2));
 		titulo.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_titulo.add(titulo);
-		
+
 		funcion.add(panel_titulo);
-		
+
 		JPanel panel_etiquetas = new JPanel();
 		panel_etiquetas.setLayout(new BoxLayout(panel_etiquetas, BoxLayout.PAGE_AXIS));
-		
+
 		JPanel panel_textfield = new JPanel();
 		panel_textfield.setLayout(new BoxLayout(panel_textfield, BoxLayout.PAGE_AXIS));
-		
+
 		JLabel etiquetaId = new JLabel("id: ");
 		etiquetaId.setFont(new Font("Tahoma", Font.BOLD, 25));
 		JTextField textoId = new JTextField();
@@ -60,14 +59,13 @@ public class VistaModificarModelo extends JFrame implements Observador {
 		textoId.setMinimumSize(new Dimension(200, 30));
 		textoId.setPreferredSize(new Dimension(200, 30));
 		textoId.setFont(new Font("Tahoma", Font.BOLD, 18));
-		
+
 		panel_etiquetas.add(etiquetaId);
 		panel_textfield.add(textoId);
-		
+
 		centro.add(panel_etiquetas);
 		centro.add(panel_textfield);
 
-		
 		JLabel etiquetaNombre = new JLabel("nombre:");
 		etiquetaNombre.setFont(new Font("Tahoma", Font.BOLD, 25));
 		JTextField textoNombre = new JTextField();
@@ -75,13 +73,12 @@ public class VistaModificarModelo extends JFrame implements Observador {
 		textoNombre.setMinimumSize(new Dimension(200, 30));
 		textoNombre.setPreferredSize(new Dimension(200, 30));
 		textoNombre.setFont(new Font("Tahoma", Font.BOLD, 18));
-		
+
 		panel_etiquetas.add(etiquetaNombre);
 		panel_textfield.add(textoNombre);
-		
+
 		centro.add(panel_etiquetas);
 		centro.add(panel_textfield);
-
 
 		JLabel etiquetaMotor = new JLabel("motor:");
 		etiquetaMotor.setFont(new Font("Tahoma", Font.BOLD, 25));
@@ -90,17 +87,16 @@ public class VistaModificarModelo extends JFrame implements Observador {
 		textoMotor.setMinimumSize(new Dimension(200, 30));
 		textoMotor.setPreferredSize(new Dimension(200, 30));
 		textoMotor.setFont(new Font("Tahoma", Font.BOLD, 18));
-		
+
 		panel_etiquetas.add(etiquetaMotor);
 		panel_textfield.add(textoMotor);
-		
+
 		centro.add(panel_etiquetas);
 		centro.add(panel_textfield);
-		
-		
+
 		principal.add(funcion);
 		principal.add(centro);
-		
+
 		Controlador controlador = Controlador.getInstance();
 
 		JSplitPane botones = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
@@ -127,8 +123,6 @@ public class VistaModificarModelo extends JFrame implements Observador {
 		botones.setMaximumSize(new Dimension(190, 30));
 		botones.setPreferredSize(new Dimension(190, 30));
 
-
-
 		JButton atras = new JButton("ATRAS"); // boton para volver a la ventana
 												// principal
 		atras.setToolTipText("Esto vuelve a la ventana anterior");
@@ -141,7 +135,7 @@ public class VistaModificarModelo extends JFrame implements Observador {
 			}
 
 		});
-		
+
 		atras.setMaximumSize(new Dimension(90, 30));
 		atras.setPreferredSize(new Dimension(90, 30));
 

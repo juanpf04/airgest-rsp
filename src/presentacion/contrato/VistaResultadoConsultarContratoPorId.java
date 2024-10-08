@@ -15,12 +15,12 @@ import presentacion.Observador;
 import presentacion.UtilidadesP;
 
 public class VistaResultadoConsultarContratoPorId extends JFrame implements Observador {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	public void actualizaVista(Object datos) {
 		UtilidadesP.setAirGestRSP(this);
-		
+
 		JPanel principal = new JPanel();
 		principal.setLayout(new BorderLayout());
 

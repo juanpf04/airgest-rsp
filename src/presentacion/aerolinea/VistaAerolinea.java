@@ -35,23 +35,22 @@ public class VistaAerolinea extends JFrame implements Observador {
 		principal.setLayout(new BorderLayout());
 
 		JPanel page_start_panel = new JPanel();
-		page_start_panel.setLayout(new BoxLayout(page_start_panel,BoxLayout.PAGE_AXIS));
-		
+		page_start_panel.setLayout(new BoxLayout(page_start_panel, BoxLayout.PAGE_AXIS));
+
 		JPanel panel_label_aerolinea = new JPanel();
 		JLabel aerolinea = new JLabel("AEROLINEA"); //titulo de la ventana en la que estamos, apareceran las funciones de aerolinea 
 		aerolinea.setFont(new Font("Comic Sans", Font.BOLD, 30));
 		aerolinea.setHorizontalAlignment(SwingConstants.CENTER);
-		aerolinea.setBorder(new LineBorder(Color.BLACK,2));
+		aerolinea.setBorder(new LineBorder(Color.BLACK, 2));
 		panel_label_aerolinea.add(aerolinea);
-		
+
 		JSeparator separador_aerolinea = new JSeparator(SwingConstants.CENTER);
-		separador_aerolinea.setBorder(new MatteBorder(1,1,10,10, Color.BLACK));
-		separador_aerolinea.setPreferredSize(new Dimension(0,2));
+		separador_aerolinea.setBorder(new MatteBorder(1, 1, 10, 10, Color.BLACK));
+		separador_aerolinea.setPreferredSize(new Dimension(0, 2));
 		page_start_panel.add(panel_label_aerolinea);
 		page_start_panel.add(separador_aerolinea);
 		principal.add(page_start_panel, BorderLayout.PAGE_START);
-		
-		
+
 		JPanel botones = new JPanel();
 		botones.setLayout(new GridLayout(0, 1, 7, 7));
 
@@ -118,7 +117,7 @@ public class VistaAerolinea extends JFrame implements Observador {
 		botones.add(modificar);
 
 		principal.add(botones, BorderLayout.CENTER);
-		
+
 		JPanel panel_atras = new JPanel();
 		JButton atras = new JButton("ATRAS"); //boton para volver a la ventana principal
 		atras.setToolTipText("Esto vuelve a la ventana anterior");

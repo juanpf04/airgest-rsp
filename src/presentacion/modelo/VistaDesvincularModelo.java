@@ -1,6 +1,5 @@
 package presentacion.modelo;
 
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -35,26 +34,25 @@ public class VistaDesvincularModelo extends JFrame implements Observador {
 		principal.setLayout(new BoxLayout(principal, BoxLayout.PAGE_AXIS));
 
 		JPanel funcion = new JPanel();
-		funcion.setLayout(new BoxLayout(funcion,BoxLayout.PAGE_AXIS));
-		
+		funcion.setLayout(new BoxLayout(funcion, BoxLayout.PAGE_AXIS));
+
 		JPanel centro = new JPanel();
-		
+
 		JPanel panel_titulo = new JPanel();
 		JLabel titulo = new JLabel("Desvincular Modelo");
 		titulo.setFont(new Font("Tahoma", Font.BOLD, 30));
 		titulo.setBorder(new LineBorder(Color.BLACK, 2));
 		titulo.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_titulo.add(titulo);
-		
+
 		funcion.add(panel_titulo);
-		
+
 		JPanel panel_etiquetas = new JPanel();
 		panel_etiquetas.setLayout(new BoxLayout(panel_etiquetas, BoxLayout.PAGE_AXIS));
-		
+
 		JPanel panel_textfield = new JPanel();
 		panel_textfield.setLayout(new BoxLayout(panel_textfield, BoxLayout.PAGE_AXIS));
-		
-		
+
 		JLabel etiquetaIdModelo = new JLabel("idModelo: ");
 		etiquetaIdModelo.setFont(new Font("Tahoma", Font.BOLD, 23));
 		JTextField textoIdModelo = new JTextField();
@@ -62,13 +60,12 @@ public class VistaDesvincularModelo extends JFrame implements Observador {
 		textoIdModelo.setMinimumSize(new Dimension(200, 30));
 		textoIdModelo.setPreferredSize(new Dimension(200, 30));
 		textoIdModelo.setFont(new Font("Tahoma", Font.BOLD, 18));
-		
+
 		panel_etiquetas.add(etiquetaIdModelo);
 		panel_textfield.add(textoIdModelo);
 		centro.add(panel_etiquetas);
 		centro.add(panel_textfield);
 
-		
 		JLabel etiquetaIdAerolinea = new JLabel("idAerolínea: ");
 		etiquetaIdAerolinea.setFont(new Font("Tahoma", Font.BOLD, 23));
 		JTextField textoIdAerolinea = new JTextField();
@@ -76,13 +73,13 @@ public class VistaDesvincularModelo extends JFrame implements Observador {
 		textoIdAerolinea.setMinimumSize(new Dimension(200, 30));
 		textoIdAerolinea.setPreferredSize(new Dimension(200, 30));
 		textoIdAerolinea.setFont(new Font("Tahoma", Font.BOLD, 18));
-		
+
 		panel_etiquetas.add(etiquetaIdAerolinea);
 		panel_textfield.add(textoIdAerolinea);
-		
+
 		centro.add(panel_etiquetas);
 		centro.add(panel_textfield);
-		
+
 		principal.add(funcion);
 		principal.add(centro);
 
@@ -108,7 +105,6 @@ public class VistaDesvincularModelo extends JFrame implements Observador {
 		aceptar.setPreferredSize(new Dimension(100, 30));
 		botones.setMaximumSize(new Dimension(190, 30));
 		botones.setPreferredSize(new Dimension(190, 30));
-
 
 		JButton atras = new JButton("ATRAS"); // boton para volver a la ventana
 												// principal

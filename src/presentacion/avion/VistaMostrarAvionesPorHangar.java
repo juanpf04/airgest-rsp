@@ -1,7 +1,6 @@
 
 package presentacion.avion;
 
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -33,14 +32,14 @@ public class VistaMostrarAvionesPorHangar extends JFrame implements Observador {
 
 		JPanel principal = new JPanel();
 		principal.setLayout(new BoxLayout(principal, BoxLayout.PAGE_AXIS));
-		
+
 		JPanel panel_titulo = new JPanel();
 		JLabel titulo = new JLabel("Mostrar aviones por Hangar");
 		titulo.setFont(new Font("Tahoma", Font.BOLD, 30));
 		titulo.setBorder(new LineBorder(Color.BLACK, 2));
 		titulo.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_titulo.add(titulo);
-		
+
 		principal.add(panel_titulo);
 		JPanel centro = new JPanel();
 		centro.setLayout(new BoxLayout(centro, BoxLayout.PAGE_AXIS));
@@ -60,7 +59,7 @@ public class VistaMostrarAvionesPorHangar extends JFrame implements Observador {
 		principal.add(centro);
 
 		Controlador controlador = Controlador.getInstance();
-		
+
 		JSplitPane botones = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
 		JButton aceptar = new JButton("ACEPTAR");
 		aceptar.addActionListener(new ActionListener() {
@@ -98,7 +97,7 @@ public class VistaMostrarAvionesPorHangar extends JFrame implements Observador {
 		botones.add(aceptar);
 		botones.add(atras);
 		principal.add(botones);
-		
+
 		this.setContentPane(principal);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);

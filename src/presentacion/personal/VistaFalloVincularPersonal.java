@@ -19,7 +19,7 @@ public class VistaFalloVincularPersonal extends JFrame implements Observador {
 	public void actualizaVista(Object datos) {
 		UtilidadesP.setAirGestRSP(this);
 		this.setSize(600, 660);
-		
+
 		JPanel principal = new JPanel();
 		principal.setLayout(new BorderLayout());
 

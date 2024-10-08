@@ -27,10 +27,10 @@ public class SAContratoImp implements SAContrato {
 		TAerolinea aerolinea = da.leerAerolineaPorId(tCarrito.getIdAerolinea());
 
 		if (aerolinea != null && aerolinea.getActivo()) {
-			if (tCarrito.getLineasContrato().isEmpty()){
+			if (tCarrito.getLineasContrato().isEmpty()) {
 				return -1;
 			}
-			
+
 			for (TLineaContrato linea : tCarrito.getLineasContrato()) {
 				for (TLineaContrato l : tCarrito.getLineasContrato()) {
 					if (l != linea && l.getIdHangar() == linea.getIdHangar()) {

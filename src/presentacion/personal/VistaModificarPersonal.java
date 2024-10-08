@@ -31,26 +31,25 @@ public class VistaModificarPersonal extends JFrame implements Observador {
 	public void actualizaVista(Object datos) {
 		UtilidadesP.setAirGestRSP(this);
 		this.setSize(450, 270);
-		
-		Controlador ctrl = Controlador.getInstance();
 
+		Controlador ctrl = Controlador.getInstance();
 
 		JPanel principal = new JPanel();
 		principal.setLayout(new BoxLayout(principal, BoxLayout.PAGE_AXIS));
 
 		JPanel funcion = new JPanel();
-		funcion.setLayout(new BoxLayout(funcion,BoxLayout.PAGE_AXIS));
-		
+		funcion.setLayout(new BoxLayout(funcion, BoxLayout.PAGE_AXIS));
+
 		JPanel panel_titulo = new JPanel();
 		JLabel titulo = new JLabel("Modificar Personal");
 		titulo.setFont(new Font("Tahoma", Font.BOLD, 30));
 		titulo.setBorder(new LineBorder(Color.BLACK, 2));
 		titulo.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_titulo.add(titulo);
-		
+
 		funcion.add(panel_titulo);
 		principal.add(funcion);
-		
+
 		JPanel centro = new JPanel();
 		centro.setLayout(new BoxLayout(centro, BoxLayout.LINE_AXIS));
 		principal.add(centro);
@@ -60,7 +59,7 @@ public class VistaModificarPersonal extends JFrame implements Observador {
 
 		if (datos == null) {
 			JPanel botones = new JPanel();
-			botones.setLayout(new GridLayout(0,1,8,8));
+			botones.setLayout(new GridLayout(0, 1, 8, 8));
 
 			// -------------------------------------------
 			JButton seguridad = new JButton("PERSONAL DE SEGURIDAD");

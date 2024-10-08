@@ -31,14 +31,14 @@ public class VistaConsultarModeloPorId extends JFrame implements Observador {
 
 		JPanel principal = new JPanel();
 		principal.setLayout(new BoxLayout(principal, BoxLayout.PAGE_AXIS));
-		
+
 		JPanel panel_titulo = new JPanel();
 		JLabel titulo = new JLabel("Consultar modelo por ID");
 		titulo.setFont(new Font("Tahoma", Font.BOLD, 30));
 		titulo.setBorder(new LineBorder(Color.BLACK, 2));
 		titulo.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_titulo.add(titulo);
-		
+
 		principal.add(panel_titulo);
 		JPanel centro = new JPanel();
 		centro.setLayout(new BoxLayout(centro, BoxLayout.PAGE_AXIS));
@@ -58,7 +58,7 @@ public class VistaConsultarModeloPorId extends JFrame implements Observador {
 		principal.add(centro);
 
 		Controlador controlador = Controlador.getInstance();
-		
+
 		JSplitPane botones = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
 		JButton aceptar = new JButton("ACEPTAR");
 		aceptar.addActionListener(new ActionListener() {
@@ -73,12 +73,11 @@ public class VistaConsultarModeloPorId extends JFrame implements Observador {
 				}
 			}
 		});
-		
+
 		aceptar.setMaximumSize(new Dimension(100, 30));
 		aceptar.setPreferredSize(new Dimension(100, 30));
 		botones.setMaximumSize(new Dimension(190, 30));
 		botones.setPreferredSize(new Dimension(190, 30));
-
 
 		JButton atras = new JButton("ATRAS"); // boton para volver a la ventana
 												// principal

@@ -23,7 +23,7 @@ public class VistaResultadoMostrarAvionesPorHangar extends JFrame implements Obs
 	public void actualizaVista(Object datos) {
 		UtilidadesP.setAirGestRSP(this);
 		this.setSize(400, 450);
-		
+
 		JPanel principal = new JPanel();
 		principal.setLayout(new BorderLayout());
 

@@ -42,8 +42,64 @@ public class ValidadorAvion {
 		return tComercial.getTrabajadores() > 0;
 	}
 
+	/** 
+	* <!-- begin-UML-doc -->
+	* <!-- end-UML-doc -->
+	* @param id
+	* @return
+	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	*/
+	public static boolean comprobarId(int id) {
+		// begin-user-code
+		// TODO Auto-generated method stub
+		return false;
+		// end-user-code
+	}
+
 	public static boolean comprobarAsientos(int asientos) {
 		return asientos > 0;
+	}
+
+	/** 
+	* <!-- begin-UML-doc -->
+	* <!-- end-UML-doc -->
+	* @param idHangar
+	* @return
+	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	*/
+	public static boolean comprobarHangar(int idHangar) {
+		// begin-user-code
+		// TODO Auto-generated method stub
+		return false;
+		// end-user-code
+	}
+
+	/** 
+	* <!-- begin-UML-doc -->
+	* <!-- end-UML-doc -->
+	* @param idAerolinea
+	* @return
+	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	*/
+	public static boolean comprobarAerolinea(int idAerolinea) {
+		// begin-user-code
+		// TODO Auto-generated method stub
+		return false;
+		// end-user-code
+	}
+
+	/** 
+	* <!-- begin-UML-doc -->
+	* <!-- end-UML-doc -->
+	* @param idModelo
+	* @return
+	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	*/
+	public static boolean comprobarModelo(int idModelo) {
+		// begin-user-code
+		// TODO Auto-generated method stub
+		return false;
+		// end-user-code
 	}
 
 	// public static boolean comprobarHangar(int idHangar) {

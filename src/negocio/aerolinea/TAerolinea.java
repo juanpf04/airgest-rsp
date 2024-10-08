@@ -1,7 +1,6 @@
 
 package negocio.aerolinea;
 
-
 public class TAerolinea {
 
 	private int id;

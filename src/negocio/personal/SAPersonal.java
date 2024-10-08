@@ -18,5 +18,5 @@ public interface SAPersonal {
 	public TPersonal consultarPersonalPorId(int id);
 
 	public List<TPersonal> consultarPersonalExistente();
-	
+
 }

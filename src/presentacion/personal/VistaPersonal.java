@@ -31,30 +31,28 @@ public class VistaPersonal extends JFrame implements Observador {
 	public void actualizaVista(Object datos) {
 		UtilidadesP.setAirGestRSP(this);
 		this.setSize(430, 390); // hace que la ventana no salga tan chiquitita
-		
+
 		JPanel principal = new JPanel();
 		principal.setLayout(new BorderLayout());
 		JPanel page_start_panel = new JPanel();
-		page_start_panel.setLayout(new BoxLayout(page_start_panel,BoxLayout.PAGE_AXIS));
-		
+		page_start_panel.setLayout(new BoxLayout(page_start_panel, BoxLayout.PAGE_AXIS));
+
 		JPanel panel_label_personal = new JPanel();
 		JLabel personal = new JLabel("PERSONAL"); //titulo de la ventana en la que estamos, apareceran las funciones de personal 
 		personal.setFont(new Font("Comic Sans", Font.BOLD, 30));
 		personal.setHorizontalAlignment(SwingConstants.CENTER);
-		personal.setBorder(new LineBorder(Color.BLACK,2));
+		personal.setBorder(new LineBorder(Color.BLACK, 2));
 		panel_label_personal.add(personal);
-		
+
 		JSeparator separador_personal = new JSeparator(SwingConstants.CENTER);
-		separador_personal.setBorder(new MatteBorder(1,1,10,10, Color.BLACK));
-		separador_personal.setPreferredSize(new Dimension(0,2));
+		separador_personal.setBorder(new MatteBorder(1, 1, 10, 10, Color.BLACK));
+		separador_personal.setPreferredSize(new Dimension(0, 2));
 		page_start_panel.add(panel_label_personal);
 		page_start_panel.add(separador_personal);
 		principal.add(page_start_panel, BorderLayout.PAGE_START);
-		
-		
+
 		JPanel botones = new JPanel();
 		botones.setLayout(new GridLayout(0, 1, 7, 7));
-
 
 		Controlador ctrl = Controlador.getInstance();
 
@@ -147,7 +145,7 @@ public class VistaPersonal extends JFrame implements Observador {
 		principal.add(botones, BorderLayout.CENTER);
 
 		// -----------------------------------------------------
-		
+
 		JPanel panel_atras = new JPanel();
 		JButton atras = new JButton("ATRAS"); // boton para volver a la ventana
 												// principal
@@ -171,5 +169,5 @@ public class VistaPersonal extends JFrame implements Observador {
 		this.setLocation(200, 200);
 
 	}
-	
+
 }

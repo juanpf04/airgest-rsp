@@ -31,25 +31,24 @@ public class VistaAvion extends JFrame implements Observador {
 	public void actualizaVista(Object datos) {
 		UtilidadesP.setAirGestRSP(this);
 		this.setSize(430, 390); // hace que la ventana no salga tan chiquitita
-		
+
 		JPanel principal = new JPanel();
 		principal.setLayout(new BorderLayout());
-		
-		
+
 		JPanel page_start_panel = new JPanel();
-		page_start_panel.setLayout(new BoxLayout(page_start_panel,BoxLayout.PAGE_AXIS));
-		
+		page_start_panel.setLayout(new BoxLayout(page_start_panel, BoxLayout.PAGE_AXIS));
+
 		JPanel panel_label_avion = new JPanel();
 		JLabel avion = new JLabel("AVION"); //titulo de la ventana en la que estamos, apareceran las funciones de avion 
 		avion.setFont(new Font("Comic Sans", Font.BOLD, 30));
 		avion.setHorizontalAlignment(SwingConstants.CENTER);
-		avion.setBorder(new LineBorder(Color.BLACK,2));
+		avion.setBorder(new LineBorder(Color.BLACK, 2));
 		panel_label_avion.add(avion);
 
 		JSeparator separador_avion = new JSeparator(SwingConstants.CENTER);
-		separador_avion.setBorder(new MatteBorder(1,1,10,10, Color.BLACK));
-		separador_avion.setPreferredSize(new Dimension(0,2));
-		
+		separador_avion.setBorder(new MatteBorder(1, 1, 10, 10, Color.BLACK));
+		separador_avion.setPreferredSize(new Dimension(0, 2));
+
 		page_start_panel.add(panel_label_avion);
 		page_start_panel.add(separador_avion);
 		principal.add(page_start_panel, BorderLayout.PAGE_START);

@@ -13,15 +13,14 @@ import javax.swing.SwingConstants;
 import presentacion.Observador;
 import presentacion.UtilidadesP;
 
-
 public class VistaFalloModificarContrato extends JFrame implements Observador {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	public void actualizaVista(Object datos) {
 		UtilidadesP.setAirGestRSP(this);
 		this.setSize(600, 660);
-		
+
 		JPanel principal = new JPanel();
 		principal.setLayout(new BorderLayout());
 

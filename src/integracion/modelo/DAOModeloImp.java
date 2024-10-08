@@ -120,8 +120,8 @@ public class DAOModeloImp implements DAOModelo {
 			return null;
 		}
 	}
-	
-	private JSONObject toJSON(TModelo tModelo){
+
+	private JSONObject toJSON(TModelo tModelo) {
 		JSONObject jo = new JSONObject();
 
 		jo.put("id", tModelo.getId());

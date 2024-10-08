@@ -74,5 +74,5 @@ public class THangar {
 		return "id: " + this.id + "\n" + "direccion: " + direccion + "\nstock: " + stock + "\ncosteDia: " + costeDia
 				+ "\nespacioAlmacenaje:" + espacioAlmacenaje + "\nactivo: " + activo + "\n";
 	}
-	
+
 }

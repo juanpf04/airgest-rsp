@@ -44,7 +44,6 @@ public class DAOModeloAerolineaImp implements DAOModeloAerolinea {
 		return f.exists();
 	}
 
-
 	private JSONObject toJSON(TModeloAerolinea tma) {
 		JSONObject jo = new JSONObject();
 

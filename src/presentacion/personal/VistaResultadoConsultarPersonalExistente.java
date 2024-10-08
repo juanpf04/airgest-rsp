@@ -23,7 +23,7 @@ public class VistaResultadoConsultarPersonalExistente extends JFrame implements 
 	public void actualizaVista(Object datos) {
 		UtilidadesP.setAirGestRSP(this);
 		this.setSize(600, 650);
-		
+
 		JPanel principal = new JPanel();
 		principal.setLayout(new BorderLayout());
 

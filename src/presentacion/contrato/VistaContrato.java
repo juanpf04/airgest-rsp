@@ -23,7 +23,7 @@ import presentacion.UtilidadesP;
 import presentacion.controlador.Controlador;
 import presentacion.controlador.EventosControlador;
 
-public class VistaContrato extends JFrame implements Observador{
+public class VistaContrato extends JFrame implements Observador {
 
 	private static final long serialVersionUID = 1L;
 
@@ -35,23 +35,22 @@ public class VistaContrato extends JFrame implements Observador{
 		principal.setLayout(new BorderLayout());
 
 		JPanel page_start_panel = new JPanel();
-		page_start_panel.setLayout(new BoxLayout(page_start_panel,BoxLayout.PAGE_AXIS));
-		
+		page_start_panel.setLayout(new BoxLayout(page_start_panel, BoxLayout.PAGE_AXIS));
+
 		JPanel panel_label_contrato = new JPanel();
 		JLabel contrato = new JLabel("CONTRATO"); //titulo de la ventana en la que estamos, apareceran las funciones de contrato 
 		contrato.setFont(new Font("Comic Sans", Font.BOLD, 30));
 		contrato.setHorizontalAlignment(SwingConstants.CENTER);
-		contrato.setBorder(new LineBorder(Color.BLACK,2));
+		contrato.setBorder(new LineBorder(Color.BLACK, 2));
 		panel_label_contrato.add(contrato);
-		
-		JSeparator separador_contrato= new JSeparator(SwingConstants.CENTER);
-		separador_contrato.setBorder(new MatteBorder(1,1,10,10, Color.BLACK));
-		separador_contrato.setPreferredSize(new Dimension(0,2));
+
+		JSeparator separador_contrato = new JSeparator(SwingConstants.CENTER);
+		separador_contrato.setBorder(new MatteBorder(1, 1, 10, 10, Color.BLACK));
+		separador_contrato.setPreferredSize(new Dimension(0, 2));
 		page_start_panel.add(panel_label_contrato);
 		page_start_panel.add(separador_contrato);
 		principal.add(page_start_panel, BorderLayout.PAGE_START);
-		
-		
+
 		JPanel botones = new JPanel();
 		botones.setLayout(new GridLayout(0, 1, 7, 7));
 
@@ -132,7 +131,7 @@ public class VistaContrato extends JFrame implements Observador{
 		principal.add(botones, BorderLayout.CENTER);
 
 		//-----------------------------------------------------
-		
+
 		JPanel panel_atras = new JPanel();
 		JButton atras = new JButton("ATRAS"); //boton para volver a la ventana principal
 		atras.setToolTipText("Esto vuelve a la ventana anterior");
@@ -154,8 +153,7 @@ public class VistaContrato extends JFrame implements Observador{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
 		this.setLocation(200, 200);
-		
-	}
-	
-}
 
+	}
+
+}

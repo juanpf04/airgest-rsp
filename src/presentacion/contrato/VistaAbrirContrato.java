@@ -25,7 +25,7 @@ import presentacion.controlador.EventosControlador;
 public class VistaAbrirContrato extends JFrame implements Observador {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	public void actualizaVista(Object datos) {
 		UtilidadesP.setAirGestRSP(this);
 		this.setSize(420, 170);
@@ -34,20 +34,19 @@ public class VistaAbrirContrato extends JFrame implements Observador {
 		principal.setLayout(new BoxLayout(principal, BoxLayout.PAGE_AXIS));
 
 		JPanel funcion = new JPanel();
-		funcion.setLayout(new BoxLayout(funcion,BoxLayout.PAGE_AXIS));
-		
+		funcion.setLayout(new BoxLayout(funcion, BoxLayout.PAGE_AXIS));
+
 		JPanel panel_titulo = new JPanel();
 		JLabel titulo = new JLabel("Abrir Contrato");
 		titulo.setFont(new Font("Tahoma", Font.BOLD, 30));
 		titulo.setBorder(new LineBorder(Color.BLACK, 2));
 		titulo.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_titulo.add(titulo);
-		
+
 		funcion.add(panel_titulo);
 		principal.add(funcion);
-		
+
 		//"Carrito aerolinea " + carrito.getIdAerolinea());
-		
 
 		JPanel centro = new JPanel();
 		centro.setLayout(new BoxLayout(centro, BoxLayout.PAGE_AXIS));

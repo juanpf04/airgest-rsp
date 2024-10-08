@@ -43,25 +43,25 @@ public class VistaModificarLineaContrato extends JFrame implements Observador {
 		principal.setLayout(new BoxLayout(principal, BoxLayout.PAGE_AXIS));
 
 		JPanel funcion = new JPanel();
-		funcion.setLayout(new BoxLayout(funcion,BoxLayout.PAGE_AXIS));
-		
+		funcion.setLayout(new BoxLayout(funcion, BoxLayout.PAGE_AXIS));
+
 		JPanel centro = new JPanel();
-		
+
 		JPanel panel_titulo = new JPanel();
 		JLabel titulo = new JLabel("Modificar linea de Contrato");
 		titulo.setFont(new Font("Tahoma", Font.BOLD, 30));
 		titulo.setBorder(new LineBorder(Color.BLACK, 2));
 		titulo.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_titulo.add(titulo);
-		
+
 		funcion.add(panel_titulo);
 
 		JPanel panel_etiquetas = new JPanel();
 		panel_etiquetas.setLayout(new BoxLayout(panel_etiquetas, BoxLayout.PAGE_AXIS));
-		
+
 		JPanel panel_textfield = new JPanel();
 		panel_textfield.setLayout(new BoxLayout(panel_textfield, BoxLayout.PAGE_AXIS));
-		
+
 		JLabel etiquetaContrato = new JLabel("id contrato: ");
 		etiquetaContrato.setFont(new Font("Tahoma", Font.BOLD, 23));
 		JTextField textoContrato = new JTextField();
@@ -71,12 +71,10 @@ public class VistaModificarLineaContrato extends JFrame implements Observador {
 		textoContrato.setFont(new Font("Tahoma", Font.BOLD, 18));
 		panel_etiquetas.add(etiquetaContrato);
 		panel_textfield.add(textoContrato);
-		
+
 		centro.add(panel_etiquetas);
 		centro.add(panel_textfield);
 
-
-		
 		JLabel etiquetaId = new JLabel("id hangar: ");
 		etiquetaId.setFont(new Font("Tahoma", Font.BOLD, 23));
 		JTextField textoId = new JTextField();
@@ -86,11 +84,10 @@ public class VistaModificarLineaContrato extends JFrame implements Observador {
 		textoId.setFont(new Font("Tahoma", Font.BOLD, 18));
 		panel_etiquetas.add(etiquetaId);
 		panel_textfield.add(textoId);
-		
+
 		centro.add(panel_etiquetas);
 		centro.add(panel_textfield);
 
-		
 		JLabel etiquetaIni = new JLabel("fecha inicio: ");
 		etiquetaIni.setFont(new Font("Tahoma", Font.BOLD, 23));
 		LocalDate currentDate = LocalDate.now();
@@ -110,10 +107,10 @@ public class VistaModificarLineaContrato extends JFrame implements Observador {
 																						// la
 																						// fecha
 		spinnerIni.setEditor(editor);
-		
+
 		panel_etiquetas.add(etiquetaIni);
 		panel_textfield.add(spinnerIni);
-		
+
 		centro.add(panel_etiquetas);
 		centro.add(panel_textfield);
 
@@ -133,10 +130,10 @@ public class VistaModificarLineaContrato extends JFrame implements Observador {
 		spinnerFin.setEditor(editor2);
 		panel_etiquetas.add(etiquetaFin);
 		panel_textfield.add(spinnerFin);
-		
+
 		centro.add(panel_etiquetas);
 		centro.add(panel_textfield);
-		
+
 		principal.add(funcion);
 		principal.add(centro);
 

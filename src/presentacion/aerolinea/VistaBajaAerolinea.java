@@ -38,7 +38,7 @@ public class VistaBajaAerolinea extends JFrame implements Observador {
 		titulo.setBorder(new LineBorder(Color.BLACK, 2));
 		titulo.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_titulo.add(titulo);
-		
+
 		principal.add(panel_titulo);
 		JPanel centro = new JPanel();
 		centro.setLayout(new BoxLayout(centro, BoxLayout.PAGE_AXIS));
@@ -58,9 +58,9 @@ public class VistaBajaAerolinea extends JFrame implements Observador {
 		principal.add(centro);
 
 		Controlador controlador = Controlador.getInstance();
-		
+
 		JSplitPane botones = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
-		
+
 		JButton aceptar = new JButton("ACEPTAR");
 		aceptar.addActionListener(new ActionListener() {
 
@@ -97,8 +97,7 @@ public class VistaBajaAerolinea extends JFrame implements Observador {
 
 		atras.setMaximumSize(new Dimension(90, 30));
 		atras.setPreferredSize(new Dimension(90, 30));
-		
-		
+
 		botones.add(atras);
 		principal.add(botones);
 

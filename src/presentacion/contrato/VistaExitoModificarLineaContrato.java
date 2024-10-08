@@ -20,7 +20,7 @@ public class VistaExitoModificarLineaContrato extends JFrame implements Observad
 	public void actualizaVista(Object datos) {
 		UtilidadesP.setAirGestRSP(this);
 		this.setSize(488, 430);
-		
+
 		JPanel principal = new JPanel();
 		principal.setLayout(new BorderLayout());
 

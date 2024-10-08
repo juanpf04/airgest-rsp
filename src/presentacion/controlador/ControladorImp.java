@@ -25,6 +25,18 @@ import presentacion.Observador;
 
 public class ControladorImp extends Controlador {
 
+	/** 
+	* (non-Javadoc)
+	* @see Controlador#accion(Contexto contexto)
+	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	*/
+	public void accion(Contexto contexto) {
+		// begin-user-code
+		// TODO Auto-generated method stub
+
+		// end-user-code
+	}
+
 	public void accion(EventosControlador evento, Object datos) {
 		FactoriaPresentacion fp = FactoriaPresentacion.getInstance();
 		FactoriaNegocio fn = FactoriaNegocio.getInstance();

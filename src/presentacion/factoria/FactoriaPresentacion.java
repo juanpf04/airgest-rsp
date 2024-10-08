@@ -89,6 +89,14 @@ public abstract class FactoriaPresentacion {
 
 	public abstract Observador crearVistaConsultarContratoPorAerolinea();
 
+	/** 
+	* <!-- begin-UML-doc -->
+	* <!-- end-UML-doc -->
+	* @return
+	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	*/
+	public abstract Observador crearVistaConsultarTodosContratos();
+
 	public abstract Observador crearVistaEliminarHangar();
 
 	public abstract Observador crearVistaExitoCerrarContrato();
@@ -110,6 +118,13 @@ public abstract class FactoriaPresentacion {
 	public abstract Observador crearVistaResultadoConsultarContratosPorAerolinea();
 
 	public abstract Observador crearVistaResultadoConsultarTodosContratos();
+
+	/** 
+	* <!-- begin-UML-doc -->
+	* <!-- end-UML-doc -->
+	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	*/
+	public abstract void crearVistaResultadoConsultarContratoPorId();
 
 	public abstract Observador crearVistaResultadoConsultarContratoPorid();
 
@@ -193,6 +208,14 @@ public abstract class FactoriaPresentacion {
 	public abstract Observador crearVistaDesvincularPersonal();
 
 	public abstract Observador crearVistaConsultarPersonalPorId();
+
+	/** 
+	* <!-- begin-UML-doc -->
+	* <!-- end-UML-doc -->
+	* @return
+	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	*/
+	public abstract Observador crearVistaConsultarPersonalExistente();
 
 	public abstract Observador crearVistaExitoAltaPersonal();
 

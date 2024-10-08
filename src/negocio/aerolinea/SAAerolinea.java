@@ -13,5 +13,5 @@ public interface SAAerolinea {
 	public List<TAerolinea> consultarTodasAerolineas();
 
 	public boolean modificarAerolinea(TAerolinea tAerolinea);
-	
+
 }

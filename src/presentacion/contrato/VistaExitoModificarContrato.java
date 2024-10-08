@@ -16,11 +16,11 @@ import presentacion.UtilidadesP;
 public class VistaExitoModificarContrato extends JFrame implements Observador {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	public void actualizaVista(Object datos) {
 		UtilidadesP.setAirGestRSP(this);
 		this.setSize(488, 430);
-		
+
 		JPanel principal = new JPanel();
 		principal.setLayout(new BorderLayout());
 

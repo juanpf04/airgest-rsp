@@ -29,7 +29,7 @@ import presentacion.controlador.EventosControlador;
 public class VistaCarrito extends JFrame implements Observador {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	public void actualizaVista(Object datos) {
 		UtilidadesP.setAirGestRSP(this);
 		TCarrito carrito = (TCarrito) datos;
@@ -38,20 +38,20 @@ public class VistaCarrito extends JFrame implements Observador {
 		principal.setLayout(new BoxLayout(principal, BoxLayout.PAGE_AXIS));
 
 		JPanel funcion = new JPanel();
-		funcion.setLayout(new BoxLayout(funcion,BoxLayout.PAGE_AXIS));
-		
+		funcion.setLayout(new BoxLayout(funcion, BoxLayout.PAGE_AXIS));
+
 		JPanel panel_titulo = new JPanel();
 		JLabel titulo = new JLabel("Carrito aerolinea " + carrito.getIdAerolinea());
 		titulo.setFont(new Font("Tahoma", Font.BOLD, 30));
 		titulo.setBorder(new LineBorder(Color.BLACK, 2));
 		titulo.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_titulo.add(titulo);
-		
+
 		funcion.add(panel_titulo);
 		principal.add(funcion);
 
 		JPanel botones = new JPanel();
-		botones.setLayout(new GridLayout(0,1,5,5));
+		botones.setLayout(new GridLayout(0, 1, 5, 5));
 
 		Controlador ctrl = Controlador.getInstance();
 
@@ -111,7 +111,7 @@ public class VistaCarrito extends JFrame implements Observador {
 		principal.add(scroll);
 
 		// -----------------------------------------------------
-		
+
 		JPanel panel_atras = new JPanel();
 		JButton atras = new JButton("ATRAS"); // boton para volver a la ventana
 												// principal

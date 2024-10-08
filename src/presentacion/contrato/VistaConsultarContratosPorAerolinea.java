@@ -27,21 +27,21 @@ import presentacion.controlador.EventosControlador;
 public class VistaConsultarContratosPorAerolinea extends JFrame implements Observador {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	public void actualizaVista(Object datos) {
 		UtilidadesP.setAirGestRSP(this);
 		this.setSize(530, 170);
 
 		JPanel principal = new JPanel();
 		principal.setLayout(new BoxLayout(principal, BoxLayout.PAGE_AXIS));
-		
+
 		JPanel panel_titulo = new JPanel();
 		JLabel titulo = new JLabel("Consultar contratos por Aerolinea");
 		titulo.setFont(new Font("Tahoma", Font.BOLD, 30));
 		titulo.setBorder(new LineBorder(Color.BLACK, 2));
 		titulo.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_titulo.add(titulo);
-		
+
 		principal.add(panel_titulo);
 		JPanel centro = new JPanel();
 		centro.setLayout(new BoxLayout(centro, BoxLayout.PAGE_AXIS));
@@ -58,7 +58,7 @@ public class VistaConsultarContratosPorAerolinea extends JFrame implements Obser
 		id.add(etiquetaId);
 		id.add(textoId);
 		centro.add(id);
-		
+
 		principal.add(centro);
 
 		Controlador controlador = Controlador.getInstance();

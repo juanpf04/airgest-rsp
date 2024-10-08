@@ -17,7 +17,7 @@ public class VistaResultadoConsultarAvionPorId extends JFrame implements Observa
 
 	public void actualizaVista(Object datos) {
 		UtilidadesP.setAirGestRSP(this);
-		
+
 		JPanel principal = new JPanel();
 		principal.setLayout(new BorderLayout());
 

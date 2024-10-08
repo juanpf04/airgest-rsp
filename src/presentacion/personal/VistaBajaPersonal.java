@@ -23,6 +23,26 @@ import presentacion.controlador.EventosControlador;
 
 public class VistaBajaPersonal extends JFrame implements Observador {
 
+	/** 
+	* <!-- begin-UML-doc -->
+	* <!-- end-UML-doc -->
+	* @author Usuario
+	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	*/
+	public class VistaExitoAltaPersonal extends JFrame implements Observador {
+		/** 
+		* (non-Javadoc)
+		* @see Observador#actualizaVista(Object datos)
+		* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+		*/
+		public void actualizaVista(Object datos) {
+			// begin-user-code
+			// TODO Auto-generated method stub
+
+			// end-user-code
+		}
+	}
+
 	private static final long serialVersionUID = 1L;
 
 	public void actualizaVista(Object datos) {
@@ -38,7 +58,7 @@ public class VistaBajaPersonal extends JFrame implements Observador {
 		titulo.setBorder(new LineBorder(Color.BLACK, 2));
 		titulo.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_titulo.add(titulo);
-		
+
 		principal.add(panel_titulo);
 		JPanel centro = new JPanel();
 		centro.setLayout(new BoxLayout(centro, BoxLayout.PAGE_AXIS));
@@ -97,8 +117,7 @@ public class VistaBajaPersonal extends JFrame implements Observador {
 
 		atras.setMaximumSize(new Dimension(90, 30));
 		atras.setPreferredSize(new Dimension(90, 30));
-		
-		
+
 		botones.add(atras);
 		principal.add(botones);
 

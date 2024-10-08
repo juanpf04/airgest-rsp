@@ -38,7 +38,7 @@ public class VistaModificarHangar extends JFrame implements Observador {
 		JPanel centro = new JPanel();
 
 		JPanel panel_titulo = new JPanel();
-		
+
 		JLabel titulo = new JLabel("Modificar Hangar");
 		titulo.setFont(new Font("Tahoma", Font.BOLD, 30));
 		titulo.setBorder(new LineBorder(Color.BLACK, 2));
@@ -49,10 +49,10 @@ public class VistaModificarHangar extends JFrame implements Observador {
 
 		JPanel panel_etiquetas = new JPanel();
 		panel_etiquetas.setLayout(new BoxLayout(panel_etiquetas, BoxLayout.PAGE_AXIS));
-		
+
 		JPanel panel_textfield = new JPanel();
 		panel_textfield.setLayout(new BoxLayout(panel_textfield, BoxLayout.PAGE_AXIS));
-		
+
 		JLabel etiquetaId = new JLabel("id: ");
 		etiquetaId.setFont(new Font("Tahoma", Font.BOLD, 23));
 		JTextField textoId = new JTextField();
@@ -61,15 +61,13 @@ public class VistaModificarHangar extends JFrame implements Observador {
 		textoId.setPreferredSize(new Dimension(200, 30));
 		textoId.setFont(new Font("Tahoma", Font.BOLD, 18));
 		textoId.setToolTipText("numero natural sin 0");
-		
-		
+
 		panel_etiquetas.add(etiquetaId);
 		panel_textfield.add(textoId);
-		
+
 		centro.add(panel_etiquetas);
 		centro.add(panel_textfield);
 
-		
 		JLabel etiquetaDir = new JLabel("direccion: ");
 		etiquetaDir.setFont(new Font("Tahoma", Font.BOLD, 23));
 		JTextField textoDir = new JTextField();
@@ -78,10 +76,10 @@ public class VistaModificarHangar extends JFrame implements Observador {
 		textoDir.setPreferredSize(new Dimension(200, 30));
 		textoDir.setFont(new Font("Tahoma", Font.BOLD, 18));
 		textoDir.setToolTipText("letraSy/oNumeros");
-		
+
 		panel_etiquetas.add(etiquetaDir);
 		panel_textfield.add(textoDir);
-		
+
 		centro.add(panel_etiquetas);
 		centro.add(panel_textfield);
 
@@ -93,14 +91,13 @@ public class VistaModificarHangar extends JFrame implements Observador {
 		textoStock.setPreferredSize(new Dimension(200, 30));
 		textoStock.setFont(new Font("Tahoma", Font.BOLD, 18));
 		textoStock.setToolTipText("numero natural con 0");
-		
+
 		panel_etiquetas.add(etiquetaStock);
 		panel_textfield.add(textoStock);
-		
+
 		centro.add(panel_etiquetas);
 		centro.add(panel_textfield);
 
-	
 		JLabel etiquetacosteDia = new JLabel("costeDia:    ");
 		etiquetacosteDia.setFont(new Font("Tahoma", Font.BOLD, 23));
 		JTextField textocosteDia = new JTextField();
@@ -109,14 +106,13 @@ public class VistaModificarHangar extends JFrame implements Observador {
 		textocosteDia.setPreferredSize(new Dimension(200, 30));
 		textocosteDia.setFont(new Font("Tahoma", Font.BOLD, 18));
 		textocosteDia.setToolTipText("numero double");
-		
+
 		panel_etiquetas.add(etiquetacosteDia);
 		panel_textfield.add(textocosteDia);
-		
+
 		centro.add(panel_etiquetas);
 		centro.add(panel_textfield);
 
-		
 		JLabel etiquetaespacioAlmacenaje = new JLabel("espacioAlmacenaje:    ");
 		etiquetaespacioAlmacenaje.setFont(new Font("Tahoma", Font.BOLD, 23));
 		JTextField textoespacioAlmacenaje = new JTextField();
@@ -125,13 +121,13 @@ public class VistaModificarHangar extends JFrame implements Observador {
 		textoespacioAlmacenaje.setPreferredSize(new Dimension(200, 30));
 		textoespacioAlmacenaje.setFont(new Font("Tahoma", Font.BOLD, 18));
 		textoespacioAlmacenaje.setToolTipText("numero natural sin 0");
-		
+
 		panel_etiquetas.add(etiquetaespacioAlmacenaje);
 		panel_textfield.add(textoespacioAlmacenaje);
-		
+
 		centro.add(panel_etiquetas);
 		centro.add(panel_textfield);
-		
+
 		principal.add(funcion);
 		principal.add(centro);
 

@@ -1,7 +1,6 @@
 
 package presentacion.avion;
 
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -40,7 +39,7 @@ public class VistaBajaAvion extends JFrame implements Observador {
 		titulo.setBorder(new LineBorder(Color.BLACK, 2));
 		titulo.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_titulo.add(titulo);
-		
+
 		principal.add(panel_titulo);
 		JPanel centro = new JPanel();
 		centro.setLayout(new BoxLayout(centro, BoxLayout.PAGE_AXIS));
@@ -98,8 +97,7 @@ public class VistaBajaAvion extends JFrame implements Observador {
 		});
 		atras.setMaximumSize(new Dimension(90, 30));
 		atras.setPreferredSize(new Dimension(90, 30));
-		
-		
+
 		botones.add(atras);
 		principal.add(botones);
 

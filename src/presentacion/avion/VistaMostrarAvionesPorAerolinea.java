@@ -32,14 +32,14 @@ public class VistaMostrarAvionesPorAerolinea extends JFrame implements Observado
 
 		JPanel principal = new JPanel();
 		principal.setLayout(new BoxLayout(principal, BoxLayout.PAGE_AXIS));
-		
+
 		JPanel panel_titulo = new JPanel();
 		JLabel titulo = new JLabel("Mostrar aviones por Aerolinea");
 		titulo.setFont(new Font("Tahoma", Font.BOLD, 30));
 		titulo.setBorder(new LineBorder(Color.BLACK, 2));
 		titulo.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_titulo.add(titulo);
-		
+
 		principal.add(panel_titulo);
 		JPanel centro = new JPanel();
 		centro.setLayout(new BoxLayout(centro, BoxLayout.PAGE_AXIS));
@@ -59,7 +59,7 @@ public class VistaMostrarAvionesPorAerolinea extends JFrame implements Observado
 		principal.add(centro);
 
 		Controlador controlador = Controlador.getInstance();
-		
+
 		JSplitPane botones = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
 
 		JButton aceptar = new JButton("ACEPTAR");

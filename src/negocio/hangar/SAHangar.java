@@ -13,5 +13,5 @@ public interface SAHangar {
 	public List<THangar> consultarTodosHangares();
 
 	public boolean modificarHangar(THangar tHangar);
-	
+
 }

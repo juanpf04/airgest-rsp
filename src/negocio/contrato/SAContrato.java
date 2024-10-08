@@ -19,5 +19,5 @@ public interface SAContrato {
 	public boolean modificarLineaContrato(TLineaContrato linea);
 
 	public List<TContrato> consultarContratosPorAerolinea(int id_aerolinea);
-	
+
 }

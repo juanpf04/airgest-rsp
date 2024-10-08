@@ -18,6 +18,18 @@ public class TPersonalHangar {
 		this.idHangar = id;
 	}
 
+	/** 
+	* <!-- begin-UML-doc -->
+	* <!-- end-UML-doc -->
+	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
+	*/
+	public void setIdPersonal() {
+		// begin-user-code
+		// TODO Auto-generated method stub
+
+		// end-user-code
+	}
+
 	public void setIdPersonal(int id) {
 		this.idPersonal = id;
 	}
