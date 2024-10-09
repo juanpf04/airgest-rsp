@@ -5,6 +5,15 @@ public class Contexto {
 	private Evento evento;
 	private Object info;
 
+	public Contexto(Evento evento) {
+		this(evento, null);
+	}
+
+	public Contexto(Evento evento, Object info) {
+		this.evento = evento;
+		this.info = info;
+	}
+
 	public Object getInfo() {
 		return this.info;
 	}
