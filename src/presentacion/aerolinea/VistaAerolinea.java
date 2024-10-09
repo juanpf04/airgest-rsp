@@ -28,7 +28,7 @@ public class VistaAerolinea extends JFrame implements Observador {
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	public void actualizaVista(Object datos) {
+	public void actualizar(Object datos) {
 		UtilidadesP.setAirGestRSP(this);
 		this.setSize(400, 350);
 		JPanel principal = new JPanel();

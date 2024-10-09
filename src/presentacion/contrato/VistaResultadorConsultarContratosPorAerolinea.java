@@ -24,7 +24,7 @@ public class VistaResultadorConsultarContratosPorAerolinea extends JFrame implem
 
 	private static final long serialVersionUID = 1L;
 
-	public void actualizaVista(Object datos) {
+	public void actualizar(Object datos) {
 		UtilidadesP.setAirGestRSP(this);
 		this.setSize(400, 450);
 

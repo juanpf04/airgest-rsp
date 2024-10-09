@@ -27,7 +27,7 @@ public class VistaPrincipal extends JFrame implements Observador {
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	public void actualizaVista(Object datos) {
+	public void actualizar(Object datos) {
 		UtilidadesP.setAirGestRSP(this);
 		this.setSize(320, 300); //hace que la ventana no salga tan chiquitita
 		JPanel principal = new JPanel();

@@ -34,7 +34,7 @@ public class VistaModificarAvion extends JFrame implements Observador {
 
 	private static final long serialVersionUID = 1L;
 
-	public void actualizaVista(Object datos) {
+	public void actualizar(Object datos) {
 		UtilidadesP.setAirGestRSP(this);
 		this.setSize(1000, 750);
 

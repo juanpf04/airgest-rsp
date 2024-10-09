@@ -21,7 +21,7 @@ import negocio.personal.SAPersonal;
 import negocio.personal.TPersonal;
 import negocio.personalHangar.TPersonalHangar;
 import presentacion.factoria.FactoriaComandos;
-import presentacion.factoria.FactoriaPresentacion;
+import presentacion.factoria.FactoriaVistas;
 import presentacion.Observador;
 import presentacion.comandos.Comando;
 
@@ -34,7 +34,7 @@ public class ControladorImp extends Controlador {
 
 		Observador vista = FactoriaVistas.getInstance().crearVista(nuevo_contexto.getEvento());
 
-		vista.actualizaVista(nuevo_contexto);
+		vista.actualizar(nuevo_contexto);
 	}
 	//
 	// public void accion(EventosControlador evento, Object datos) {

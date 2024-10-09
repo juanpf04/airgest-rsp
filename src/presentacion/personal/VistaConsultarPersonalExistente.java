@@ -15,10 +15,10 @@ import presentacion.Observador;
 public class VistaConsultarPersonalExistente extends JFrame implements Observador {
 	/** 
 	* (non-Javadoc)
-	* @see Observador#actualizaVista(Object datos)
+	* @see Observador#actualizar(Object datos)
 	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
 	*/
-	public void actualizaVista(Object datos) {
+	public void actualizar(Object datos) {
 		// begin-user-code
 		// TODO Auto-generated method stub
 

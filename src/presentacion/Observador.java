@@ -2,5 +2,5 @@ package presentacion;
 
 public interface Observador {
 
-	public void actualizaVista(Object datos);
+	public void actualizar(Object datos);
 }
