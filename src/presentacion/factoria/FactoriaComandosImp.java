@@ -2,6 +2,8 @@ package presentacion.factoria;
 
 import presentacion.controlador.Evento;
 import presentacion.comandos.Comando;
+import presentacion.comandos.Error;
+import presentacion.comandos.Iniciar;
 import presentacion.comandos.modelo.*;
 import presentacion.comandos.avion.*;
 import presentacion.comandos.aerolinea.*;
@@ -13,9 +15,13 @@ public class FactoriaComandosImp extends FactoriaComandos {
 
 	@Override
 	public Comando crearComando(Evento evento) {
-		Comando comando = null;
+		Comando comando = new Error();
 
 		switch (evento) {
+		case INICIAR:
+			comando = new Iniciar();
+			break;		
+		
 		case ALTA_MODELO:
 			comando = new AltaModelo();
 			break;
