@@ -62,7 +62,7 @@ public class FactoriaVistasImp extends FactoriaVistas {
 			vista = new VistaMostrarAvionesPorModelo();
 			break;
 		case VISTA_MOSTRAR_AVIONES_POR_AEROLINEA:
-			vista = new VistaMostrarAvionesPorAerolínea();
+			vista = new VistaMostrarAvionesPorAerolinea();
 			break;
 		case VISTA_MOSTRAR_AVIONES_POR_HANGAR:
 			vista = new VistaMostrarAvionesPorHangar();
@@ -109,10 +109,10 @@ public class FactoriaVistasImp extends FactoriaVistas {
 			vista = new VistaModificarContrato();
 			break;
 		case VISTA_MODIFICAR_LINEA_CONTRATO:
-			vista = new VistaModificarLíneaContrato();
+			vista = new VistaModificarLineaContrato();
 			break;
 		case VISTA_MOSTRAR_CONTRATOS_POR_AEROLINEA:
-			vista = new VistaMostrarContratosPorAerolínea();
+			vista = new VistaMostrarContratosPorAerolinea();
 			break;
 
 		case VISTA_HANGAR:

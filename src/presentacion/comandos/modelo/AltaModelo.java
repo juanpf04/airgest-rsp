@@ -1,27 +1,24 @@
-/**
- * 
- */
 package presentacion.comandos.modelo;
 
+import negocio.factoria.FactoriaNegocio;
+import negocio.modelo.SAModelo;
+import negocio.modelo.TModelo;
 import presentacion.comandos.Comando;
 import presentacion.controlador.Contexto;
+import presentacion.controlador.Evento;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author Usuario
-* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-*/
 public class AltaModelo implements Comando {
-	/** 
-	* (non-Javadoc)
-	* @see Comando#ejecutar(Object datos)
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
+
 	public Contexto ejecutar(Object datos) {
-		// begin-user-code
-		// TODO Auto-generated method stub
-		return null;
-		// end-user-code
+		FactoriaNegocio fn = FactoriaNegocio.getInstance();
+		SAModelo sm = fn.crearSAModelo();
+		int id = sm.altaModelo((TModelo) datos);
+		Evento evento = null;
+		if (id != -1) {
+			evento = Evento.VISTA_EXITO_ALTA_MODELO;
+		} else {
+			evento = Evento.VISTA_FALLO_ALTA_MODELO;
+		}
+		return new Contexto(evento, id);
 	}
 }
