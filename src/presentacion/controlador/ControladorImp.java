@@ -1,25 +1,5 @@
 package presentacion.controlador;
 
-import java.util.List;
-
-import negocio.aerolinea.SAAerolinea;
-import negocio.aerolinea.TAerolinea;
-import negocio.avion.SAAvion;
-import negocio.avion.TAvion;
-import negocio.contrato.SAContrato;
-import negocio.contrato.TCarrito;
-import negocio.contrato.TContrato;
-import negocio.contrato.TInfoContrato;
-import negocio.factoria.FactoriaNegocio;
-import negocio.hangar.SAHangar;
-import negocio.hangar.THangar;
-import negocio.lineaContrato.TLineaContrato;
-import negocio.modelo.SAModelo;
-import negocio.modelo.TModelo;
-import negocio.modeloAerolinea.TModeloAerolinea;
-import negocio.personal.SAPersonal;
-import negocio.personal.TPersonal;
-import negocio.personalHangar.TPersonalHangar;
 import presentacion.factoria.FactoriaComandos;
 import presentacion.factoria.FactoriaVistas;
 import presentacion.Observador;
@@ -28,9 +8,9 @@ import presentacion.comandos.Comando;
 public class ControladorImp extends Controlador {
 
 	public void accion(Contexto contexto) {
-		Comando c = FactoriaComandos.getInstance().crearComando(contexto.getEvento());
+		Comando comando = FactoriaComandos.getInstance().crearComando(contexto.getEvento());
 
-		Contexto nuevo_contexto = c.ejecutar(contexto.getInfo());
+		Contexto nuevo_contexto = comando.ejecutar(contexto.getInfo());
 
 		Observador vista = FactoriaVistas.getInstance().crearVista(nuevo_contexto.getEvento());
 
