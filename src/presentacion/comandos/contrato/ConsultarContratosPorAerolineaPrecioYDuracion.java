@@ -3,7 +3,7 @@ package presentacion.comandos.contrato;
 import presentacion.comandos.Comando;
 import presentacion.controlador.Contexto;
 
-public class ConsultarContratosAerolineaPrecioYDuracion implements Comando {
+public class ConsultarContratosPorAerolineaPrecioYDuracion implements Comando {
 
 	@Override
 	public Contexto ejecutar(Object datos) {

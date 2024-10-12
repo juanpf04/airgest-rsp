@@ -15,7 +15,7 @@ public class FactoriaComandosImp extends FactoriaComandos {
 	public Comando crearComando(Evento evento) {
 		Comando comando = null;
 
-		switch (evento) {		
+		switch (evento) {
 		case ALTA_MODELO:
 			comando = new AltaModelo();
 			break;
@@ -37,6 +37,9 @@ public class FactoriaComandosImp extends FactoriaComandos {
 		case DESVINCULAR_MODELO:
 			comando = new DesvincularModelo();
 			break;
+		case CONSULTAR_MODELOS_POR_AEROLINEA:
+			comando = new ConsultarModelosPorAerolinea();
+			break;
 
 		case ALTA_AVION:
 			comando = new AltaAvion();
@@ -53,14 +56,17 @@ public class FactoriaComandosImp extends FactoriaComandos {
 		case MODIFICAR_AVION:
 			comando = new ModificarAvion();
 			break;
-		case MOSTRAR_AVIONES_POR_MODELO:
+		case CONSULTAR_AVIONES_POR_MODELO:
 			comando = new ConsultarAvionesPorModelo();
 			break;
-		case MOSTRAR_AVIONES_POR_AEROLINEA:
+		case CONSULTAR_AVIONES_POR_AEROLINEA:
 			comando = new ConsultarAvionesPorAerolinea();
 			break;
-		case MOSTRAR_AVIONES_POR_HANGAR:
+		case CONSULTAR_AVIONES_POR_HANGAR:
 			comando = new ConsultarAvionesPorHangar();
+			break;
+		case CONSULTAR_AVIONES_DE_AEROLINEA_POR_HANGAR:
+			comando = new ConsultarAvionesDeAerolineaPorHangar();
 			break;
 
 		case ALTA_AEROLINEA:
@@ -72,15 +78,21 @@ public class FactoriaComandosImp extends FactoriaComandos {
 		case CONSULTAR_AEROLINEA_POR_ID:
 			comando = new ConsultarAerolineaPorId();
 			break;
-		case CONSULTAR_TODOS_AEROLINEAS:
-			comando = new ConsultarTodosAerolineas();
+		case CONSULTAR_TODAS_AEROLINEAS:
+			comando = new ConsultarTodasAerolineas();
 			break;
 		case MODIFICAR_AEROLINEA:
 			comando = new ModificarAerolinea();
 			break;
+		case CONSULTAR_AEROLINEAS_POR_MODELO:
+			comando = new ConsultarAerolineasPorModelo();
+			break;
 
 		case ABRIR_CONTRATO:
 			comando = new AbrirContrato();
+			break;
+		case ANYADIR_HANGAR_AL_CONTRATO:
+			comando = new AnyadirHangarAlContrato();
 			break;
 		case CERRAR_CONTRATO:
 			comando = new CerrarContrato();
@@ -97,8 +109,11 @@ public class FactoriaComandosImp extends FactoriaComandos {
 		case MODIFICAR_LINEA_CONTRATO:
 			comando = new ModificarLineaContrato();
 			break;
-		case MOSTRAR_CONTRATOS_POR_AEROLINEA:
+		case CONSULTAR_CONTRATOS_POR_AEROLINEA:
 			comando = new ConsultarContratosPorAerolinea();
+			break;
+		case CONSULTAR_CONTRATOS_POR_AEROLINEA_PRECIO_Y_DURACION:
+			comando = new ConsultarContratosPorAerolineaPrecioYDuracion();
 			break;
 
 		case ALTA_HANGAR:
@@ -115,6 +130,9 @@ public class FactoriaComandosImp extends FactoriaComandos {
 			break;
 		case MODIFICAR_HANGAR:
 			comando = new ModificarHangar();
+			break;
+		case CONSULTAR_HANGARES_POR_PERSONAL:
+			comando = new ConsultarHangaresPorPersonal();
 			break;
 
 		case ALTA_PERSONAL:
@@ -137,6 +155,9 @@ public class FactoriaComandosImp extends FactoriaComandos {
 			break;
 		case MODIFICAR_PERSONAL:
 			comando = new ModificarPersonal();
+			break;
+		case CONSULTAR_PERSONAL_POR_HANGAR:
+			comando = new ConsultarPersonalPorHangar();
 			break;
 
 		default:

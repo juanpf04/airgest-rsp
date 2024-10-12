@@ -17,7 +17,7 @@ public class ConsultarAvionesPorAerolinea implements Comando {
 		SAAvion sav = fn.crearSAAvion();
 		List<TAvion> aviones = sav.consultarAvionesPorAerolinea((int) datos);
 
-		return new Contexto(Evento.VISTA_MOSTRAR_AVIONES_POR_AEROLINEA, aviones);
+		return new Contexto(Evento.VISTA_CONSULTAR_AVIONES_POR_AEROLINEA, aviones);
 	}
 
 }

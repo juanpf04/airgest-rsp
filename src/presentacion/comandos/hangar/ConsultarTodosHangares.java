@@ -16,7 +16,7 @@ public class ConsultarTodosHangares implements Comando {
 		FactoriaNegocio fn = FactoriaNegocio.getInstance();
 		SAHangar sh = fn.crearSAHangar();
 		List<THangar> hangares = sh.consultarTodosHangares();
-		Evento evento = Evento.VISTA_RESULTADO_CONSULTAR_TODOS_LOS_hANGARES;
+		Evento evento = Evento.VISTA_RESULTADO_CONSULTAR_TODOS_LOS_HANGARES;
 		return new Contexto(evento, hangares);
 	}
 
