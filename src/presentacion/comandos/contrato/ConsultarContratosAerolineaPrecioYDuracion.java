@@ -1,9 +1,9 @@
-package presentacion.comandos.modelo;
+package presentacion.comandos.contrato;
 
 import presentacion.comandos.Comando;
 import presentacion.controlador.Contexto;
 
-public class BajaModelo implements Comando {
+public class ConsultarContratosAerolineaPrecioYDuracion implements Comando {
 
 	@Override
 	public Contexto ejecutar(Object datos) {

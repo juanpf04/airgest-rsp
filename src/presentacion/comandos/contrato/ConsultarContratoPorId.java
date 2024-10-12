@@ -1,5 +1,16 @@
 package presentacion.comandos.contrato;
 
-public class ConsultarContratoPorId {
+import presentacion.comandos.Comando;
+import presentacion.controlador.Contexto;
+
+public class ConsultarContratoPorId implements Comando {
+
+	@Override
+	public Contexto ejecutar(Object datos) {
+		// begin-user-code
+		// TODO Auto-generated method stub
+		return null;
+		// end-user-code
+	}
 
 }

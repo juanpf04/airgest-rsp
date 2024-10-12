@@ -9,12 +9,10 @@ import presentacion.comandos.Comando;
 import presentacion.controlador.Contexto;
 import presentacion.controlador.Evento;
 
-public class ConsultarTodosAviones implements Comando
-{
+public class ConsultarTodosAviones implements Comando {
 
 	@Override
-	public Contexto ejecutar(Object datos) 
-	{
+	public Contexto ejecutar(Object datos) {
 		FactoriaNegocio fn = FactoriaNegocio.getInstance();
 		SAAvion sav = fn.crearSAAvion();
 		List<TAvion> aviones = sav.consultarTodosAviones();

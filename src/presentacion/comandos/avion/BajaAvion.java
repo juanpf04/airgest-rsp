@@ -6,8 +6,8 @@ import presentacion.comandos.Comando;
 import presentacion.controlador.Contexto;
 import presentacion.controlador.Evento;
 
-public class BajaAvion implements Comando
-{
+public class BajaAvion implements Comando {
+
 	@Override
 	public Contexto ejecutar(Object datos) {
 		FactoriaNegocio fn = FactoriaNegocio.getInstance();
@@ -19,7 +19,7 @@ public class BajaAvion implements Comando
 		else
 			evento = Evento.VISTA_FALLO_BAJA_AVION;
 
-		return new Contexto(evento, null); 
+		return new Contexto(evento, null);
 	}
 
 }

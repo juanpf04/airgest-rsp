@@ -9,6 +9,7 @@ import presentacion.controlador.Evento;
 
 public class ConsultarAerolineaPorId implements Comando {
 
+	@Override
 	public Contexto ejecutar(Object datos) {
 		FactoriaNegocio fn = FactoriaNegocio.getInstance();
 		SAAerolinea sa = fn.crearSAAerolinea();

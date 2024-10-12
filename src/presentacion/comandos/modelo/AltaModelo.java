@@ -9,6 +9,7 @@ import presentacion.controlador.Evento;
 
 public class AltaModelo implements Comando {
 
+	@Override
 	public Contexto ejecutar(Object datos) {
 		FactoriaNegocio fn = FactoriaNegocio.getInstance();
 		SAModelo sm = fn.crearSAModelo();
@@ -21,4 +22,5 @@ public class AltaModelo implements Comando {
 		}
 		return new Contexto(evento, id);
 	}
+
 }

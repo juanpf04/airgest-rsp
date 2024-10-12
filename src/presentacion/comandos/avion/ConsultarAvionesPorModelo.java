@@ -9,16 +9,14 @@ import presentacion.comandos.Comando;
 import presentacion.controlador.Contexto;
 import presentacion.controlador.Evento;
 
-public class MostrarAvionesPorHangar implements Comando
-{
+public class ConsultarAvionesPorModelo implements Comando {
 
 	@Override
-	public Contexto ejecutar(Object datos) 
-	{
+	public Contexto ejecutar(Object datos) {
 		FactoriaNegocio fn = FactoriaNegocio.getInstance();
 		SAAvion sav = fn.crearSAAvion();
-		List<TAvion> aviones = sav.mostrarAvionesPorHangar((int) datos);
-		return new Contexto(Evento.VISTA_MOSTRAR_AVIONES_POR_HANGAR, aviones);
+		List<TAvion> aviones = sav.mostrarAvionesPorModelo((int) datos);
+		return new Contexto(Evento.VISTA_MOSTRAR_AVIONES_POR_MODELO, aviones);
 	}
 
 }

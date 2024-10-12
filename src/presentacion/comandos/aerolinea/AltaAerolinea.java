@@ -7,17 +7,18 @@ import presentacion.controlador.Contexto;
 import presentacion.controlador.Evento;
 
 public class AltaAerolinea implements Comando {
-	
+
+	@Override
 	public Contexto ejecutar(Object datos) {
 		FactoriaNegocio fn = FactoriaNegocio.getInstance();
 		SAAerolinea sa = fn.crearSAAerolinea();
 		int id = sa.altaAerolinea((TAerolinea) datos);
 		Evento evento = null;
-		if (id != -1) {
+		if (id != -1)
 			evento = Evento.VISTA_EXITO_ALTA_AEROLINEA;
-		} else {
+		else
 			evento = Evento.VISTA_FALLO_ALTA_AEROLINEA;
-		}
+
 		return new Contexto(evento, id);
 	}
 }

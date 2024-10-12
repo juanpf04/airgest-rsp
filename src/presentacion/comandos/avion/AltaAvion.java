@@ -7,12 +7,10 @@ import presentacion.comandos.Comando;
 import presentacion.controlador.Contexto;
 import presentacion.controlador.Evento;
 
-
-public class AltaAvion implements Comando
-{
+public class AltaAvion implements Comando {
+	
 	@Override
-	public Contexto ejecutar(Object datos)
-	{
+	public Contexto ejecutar(Object datos) {
 		FactoriaNegocio fn = FactoriaNegocio.getInstance();
 		SAAvion sav = fn.crearSAAvion();
 		int id = sav.altaAvion((TAvion) datos);
@@ -24,5 +22,5 @@ public class AltaAvion implements Comando
 
 		return new Contexto(evento, id);
 	}
-	
+
 }

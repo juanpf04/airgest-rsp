@@ -54,13 +54,13 @@ public class FactoriaComandosImp extends FactoriaComandos {
 			comando = new ModificarAvion();
 			break;
 		case MOSTRAR_AVIONES_POR_MODELO:
-			comando = new MostrarAvionesPorModelo();
+			comando = new ConsultarAvionesPorModelo();
 			break;
 		case MOSTRAR_AVIONES_POR_AEROLINEA:
 			comando = new ConsultarAvionesPorAerolinea();
 			break;
 		case MOSTRAR_AVIONES_POR_HANGAR:
-			comando = new MostrarAvionesPorHangar();
+			comando = new ConsultarAvionesPorHangar();
 			break;
 
 		case ALTA_AEROLINEA:

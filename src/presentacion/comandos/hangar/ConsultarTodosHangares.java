@@ -9,7 +9,7 @@ import presentacion.comandos.Comando;
 import presentacion.controlador.Contexto;
 import presentacion.controlador.Evento;
 
-public class MostrarTodosHangares implements Comando{
+public class ConsultarTodosHangares implements Comando{
 
 	public Contexto ejecutar(Object datos) {
 		FactoriaNegocio fn = FactoriaNegocio.getInstance();
