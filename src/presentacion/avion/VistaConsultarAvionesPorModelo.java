@@ -19,10 +19,11 @@ import javax.swing.border.LineBorder;
 
 import presentacion.Observador;
 import presentacion.UtilidadesP;
+import presentacion.controlador.Contexto;
 import presentacion.controlador.Controlador;
-import presentacion.controlador.EventosControlador;
+import presentacion.controlador.Evento;
 
-public class VistaMostrarAvionesPorAerolinea extends JFrame implements Observador {
+public class VistaConsultarAvionesPorModelo extends JFrame implements Observador {
 
 	private static final long serialVersionUID = 1L;
 
@@ -34,7 +35,7 @@ public class VistaMostrarAvionesPorAerolinea extends JFrame implements Observado
 		principal.setLayout(new BoxLayout(principal, BoxLayout.PAGE_AXIS));
 
 		JPanel panel_titulo = new JPanel();
-		JLabel titulo = new JLabel("Mostrar aviones por Aerolinea");
+		JLabel titulo = new JLabel("Mostrar aviones por Modelo");
 		titulo.setFont(new Font("Tahoma", Font.BOLD, 30));
 		titulo.setBorder(new LineBorder(Color.BLACK, 2));
 		titulo.setHorizontalAlignment(SwingConstants.CENTER);
@@ -46,7 +47,7 @@ public class VistaMostrarAvionesPorAerolinea extends JFrame implements Observado
 
 		JPanel id = new JPanel();
 		id.setLayout(new BoxLayout(id, BoxLayout.LINE_AXIS));
-		JLabel etiquetaId = new JLabel("id aerolinea: ");
+		JLabel etiquetaId = new JLabel("id modelo: ");
 		etiquetaId.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		JTextField textoId = new JTextField();
 		textoId.setMaximumSize(new Dimension(200, 30));
@@ -59,7 +60,6 @@ public class VistaMostrarAvionesPorAerolinea extends JFrame implements Observado
 		principal.add(centro);
 
 		Controlador controlador = Controlador.getInstance();
-
 		JSplitPane botones = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
 
 		JButton aceptar = new JButton("ACEPTAR");
@@ -69,9 +69,9 @@ public class VistaMostrarAvionesPorAerolinea extends JFrame implements Observado
 			public void actionPerformed(ActionEvent e) {
 				try {
 					int id = Integer.parseInt(textoId.getText());
-					controlador.accion(EventosControlador.MOSTRAR_AVIONES_POR_AEROLINEA, id);
+					controlador.accion(new Contexto(Evento.CONSULTAR_AVIONES_POR_MODELO, id));
 				} catch (NumberFormatException n) {
-					controlador.accion(EventosControlador.MOSTRAR_AVIONES_POR_AEROLINEA, 0);
+					controlador.accion(new Contexto(Evento.CONSULTAR_AVIONES_POR_MODELO, 0));
 				}
 			}
 		});
@@ -88,7 +88,7 @@ public class VistaMostrarAvionesPorAerolinea extends JFrame implements Observado
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				controlador.accion(EventosControlador.VISTA_AVION, null);
+				controlador.accion(new Contexto(Evento.VISTA_AVION, null));
 			}
 		});
 

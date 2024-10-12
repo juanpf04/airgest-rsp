@@ -18,8 +18,9 @@ import javax.swing.border.LineBorder;
 import negocio.contrato.TCarrito;
 import presentacion.Observador;
 import presentacion.UtilidadesP;
+import presentacion.controlador.Contexto;
 import presentacion.controlador.Controlador;
-import presentacion.controlador.EventosControlador;
+import presentacion.controlador.Evento;
 
 public class VistaEliminarHangar extends JFrame implements Observador {
 
@@ -69,7 +70,7 @@ public class VistaEliminarHangar extends JFrame implements Observador {
 				try {
 					int id_hangar = Integer.parseInt(textoId.getText());
 					carrito.eliminarLinea(id_hangar);
-					controlador.accion(EventosControlador.VISTA_CARRITO, carrito);
+					controlador.accion(new Contexto(Evento.VISTA_CARRITO, carrito));
 					dispose();
 				} catch (NumberFormatException n) {
 
@@ -93,7 +94,7 @@ public class VistaEliminarHangar extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				controlador.accion(EventosControlador.VISTA_CARRITO, carrito);
+				controlador.accion(new Contexto(Evento.VISTA_CARRITO, carrito));
 			}
 
 		});

@@ -21,8 +21,9 @@ import negocio.contrato.TCarrito;
 import negocio.contrato.TContrato;
 import presentacion.Observador;
 import presentacion.UtilidadesP;
+import presentacion.controlador.Contexto;
 import presentacion.controlador.Controlador;
-import presentacion.controlador.EventosControlador;
+import presentacion.controlador.Evento;
 
 public class VistaModificarContrato extends JFrame implements Observador {
 
@@ -113,7 +114,7 @@ public class VistaModificarContrato extends JFrame implements Observador {
 					int id_aerolinea = Integer.parseInt(textoAerolinea.getText());
 					double precio = Double.parseDouble(textoPrecio.getText());
 					TContrato c = new TContrato(id_contrato, id_aerolinea, precio);
-					controlador.accion(EventosControlador.MODIFICAR_CONTRATO, c);
+					controlador.accion(new Contexto(Evento.MODIFICAR_CONTRATO, c));
 				} catch (NumberFormatException n) {
 
 				}
@@ -134,7 +135,7 @@ public class VistaModificarContrato extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				controlador.accion(EventosControlador.VISTA_CONTRATO, carrito);
+				controlador.accion(new Contexto(Evento.VISTA_CONTRATO, carrito));
 			}
 
 		});

@@ -21,8 +21,9 @@ import javax.swing.border.LineBorder;
 
 import presentacion.Observador;
 import presentacion.UtilidadesP;
+import presentacion.controlador.Contexto;
 import presentacion.controlador.Controlador;
-import presentacion.controlador.EventosControlador;
+import presentacion.controlador.Evento;
 
 public class VistaConsultarContratosPorAerolinea extends JFrame implements Observador {
 
@@ -70,7 +71,7 @@ public class VistaConsultarContratosPorAerolinea extends JFrame implements Obser
 			public void actionPerformed(ActionEvent e) {
 				try {
 					int id = Integer.parseInt(textoId.getText());
-					controlador.accion(EventosControlador.MOSTRAR_CONTRATOS_POR_AEROLINEA, id);
+					controlador.accion(new Contexto(Evento.VISTA_CONSULTAR_CONTRATOS_POR_AEROLINEA, id));
 					dispose();
 				} catch (NumberFormatException n) {
 
@@ -92,7 +93,7 @@ public class VistaConsultarContratosPorAerolinea extends JFrame implements Obser
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				controlador.accion(EventosControlador.VISTA_CONTRATO, null);
+				controlador.accion(new Contexto(Evento.VISTA_CONTRATO, null));
 			}
 		});
 

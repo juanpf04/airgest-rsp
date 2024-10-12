@@ -23,8 +23,9 @@ import negocio.contrato.TCarrito;
 import negocio.lineaContrato.TLineaContrato;
 import presentacion.Observador;
 import presentacion.UtilidadesP;
+import presentacion.controlador.Contexto;
 import presentacion.controlador.Controlador;
-import presentacion.controlador.EventosControlador;
+import presentacion.controlador.Evento;
 
 public class VistaCarrito extends JFrame implements Observador {
 
@@ -60,7 +61,7 @@ public class VistaCarrito extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				ctrl.accion(EventosControlador.VISTA_ANYADIR_HANGAR_AL_CONTRATO, carrito);
+				ctrl.accion(new Contexto(Evento.VISTA_ANYADIR_HANGAR_AL_CONTRATO, carrito));
 			}
 		});
 		botones.add(añadir);
@@ -71,7 +72,7 @@ public class VistaCarrito extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				ctrl.accion(EventosControlador.VISTA_ELIMINAR_HANGAR_DEL_CONTRATO, carrito);
+				ctrl.accion(new Contexto(Evento.VISTA_ELIMINAR_HANGAR_AL_CONTRATO, carrito));
 			}
 		});
 		botones.add(eliminar);
@@ -83,7 +84,7 @@ public class VistaCarrito extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//dispose();
-				ctrl.accion(EventosControlador.CERRAR_CONTRATO, carrito);
+				ctrl.accion(new Contexto(Evento.CERRAR_CONTRATO, carrito));
 			}
 		});
 		botones.add(cerrar);
@@ -121,7 +122,7 @@ public class VistaCarrito extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				ctrl.accion(EventosControlador.VISTA_CONTRATO, null);
+				ctrl.accion(new Contexto(Evento.VISTA_CONTRATO, null));
 			}
 
 		});

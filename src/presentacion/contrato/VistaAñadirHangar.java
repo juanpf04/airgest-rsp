@@ -26,8 +26,9 @@ import negocio.contrato.TCarrito;
 import negocio.lineaContrato.TLineaContrato;
 import presentacion.Observador;
 import presentacion.UtilidadesP;
+import presentacion.controlador.Contexto;
 import presentacion.controlador.Controlador;
-import presentacion.controlador.EventosControlador;
+import presentacion.controlador.Evento;
 
 public class VistaAñadirHangar extends JFrame implements Observador {
 
@@ -145,7 +146,7 @@ public class VistaAñadirHangar extends JFrame implements Observador {
 					LocalDate fecha_fin = zonedDateTime.toLocalDate();
 					TLineaContrato linea = new TLineaContrato(0, id_hangar, fecha_ini, fecha_fin, 0);
 					carrito.anyadirLinea(linea);
-					controlador.accion(EventosControlador.VISTA_CARRITO, carrito);
+					controlador.accion(new Contexto(Evento.VISTA_CARRITO, carrito));
 					dispose();
 				} catch (NumberFormatException n) {
 
@@ -167,7 +168,7 @@ public class VistaAñadirHangar extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				controlador.accion(EventosControlador.VISTA_CARRITO, carrito);
+				controlador.accion(new Contexto(Evento.VISTA_CARRITO, carrito));
 			}
 
 		});

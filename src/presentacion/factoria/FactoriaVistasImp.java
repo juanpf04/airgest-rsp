@@ -115,7 +115,7 @@ public class FactoriaVistasImp extends FactoriaVistas {
 			vista = new VistaResultadoConsultarAvionPorId();
 			break;
 		case VISTA_CONSULTAR_TODOS_AVIONES:
-			vista = new VistaConsultarTodosAviones();
+			vista = new VistaResultadoConsultarTodosAviones();
 			break;
 		case VISTA_MODIFICAR_AVION:
 			vista = new VistaModificarAvion();
@@ -145,10 +145,10 @@ public class FactoriaVistasImp extends FactoriaVistas {
 			vista = new VistaResultadoConsultarAvionesPorHangar();
 			break;
 		case VISTA_CONSULTAR_AVIONES_DE_AEROLINEA_POR_HANGAR:
-			vista = new VistaConsultarAvionesDeAerolineaPorHangar();
+			vista = new VistaConsultarAvionesDeAerolineaPorHangar();//TODO
 			break;
 		case VISTA_RESULTADO_CONSULTAR_AVIONES_DE_AEROLINEA_POR_HANGAR:
-			vista = new VistaResultadoConsultarAvionesDeAerolineaPorHangar();
+			vista = new VistaResultadoConsultarAvionesDeAerolineaPorHangar();//TODO
 			break;
 		
 		// AEROLÍNEA
@@ -202,23 +202,62 @@ public class FactoriaVistasImp extends FactoriaVistas {
 		case VISTA_CONTRATO:
 			vista = new VistaContrato();
 			break;
+		case VISTA_CARRITO:
+			vista = new VistaCarrito();
+			break;
 		case VISTA_ABRIR_CONTRATO:
 			vista = new VistaAbrirContrato();
 			break;
-		case VISTA_EXITO_ABRIR_CONTRATO:
-			vista = new VistaExitoAbrirContrato();
-			break;
-		case VISTA_FALLO_ABRIR_CONTRATO:
-			vista = new VistaFalloAbrirContrato();
-			break;
 		case VISTA_ANYADIR_HANGAR_AL_CONTRATO:
-			vista = new VistaAnyadirHangarAlContrato();
+			vista = new VistaAñadirHangar();
 			break;
-		case VISTA_EXITO_ANYADIR_HANGAR_AL_CONTRATO:
-			vista = new VistaExitoAnyadirHangarAlContrato();
+		case VISTA_ELIMINAR_HANGAR_AL_CONTRATO:
+			vista = new VistaEliminarHangar();
 			break;
-		case VISTA_FALLO_ANYADIR_HANGAR_AL_CONTRATO:
-			vista = new VistaFalloAnyadirHangarAlContrato();
+		case VISTA_EXITO_CERRAR_CONTRATO:
+			vista = new VistaExitoCerrarContrato();
+			break;
+		case VISTA_FALLO_CERRAR_CONTRATO:
+			vista = new VistaFalloCerrarContrato();
+			break;
+		case VISTA_CONSULTAR_CONTRATO_POR_ID:
+			vista = new VistaConsultarContratoPorId();
+			break;
+		case VISTA_RESULTADO_CONSULTAR_CONTRATO_POR_ID:
+			vista = new VistaResultadoConsultarContratoPorId();
+			break;
+		case VISTA_CONSULTAR_TODOS_CONTRATOS:
+			vista = new VistaConsultarTodosContratos();
+			break;
+		case VISTA_MODIFICAR_CONTRATO:
+			vista = new VistaModificarContrato();
+			break;
+		case VISTA_EXITO_MODIFICAR_CONTRATO:
+			vista = new VistaExitoModificarContrato();
+			break;
+		case VISTA_FALLO_MODIFICAR_CONTRATO:
+			vista = new VistaFalloModificarContrato();
+			break;
+		case VISTA_MODIFICAR_LINEA_CONTRATO:
+			vista = new VistaModificarLineaContrato();
+			break;
+		case VISTA_EXITO_MODIFICAR_LINEA_CONTRATO:
+			vista = new VistaExitoModificarLineaContrato();
+			break;
+		case VISTA_FALLO_MODIFICAR_LINEA_CONTRATO:
+			vista = new VistaFalloModificarLineaContrato();
+			break;
+		case VISTA_CONSULTAR_CONTRATOS_POR_AEROLINEA:
+			vista = new VistaConsultarContratosPorAerolinea();
+			break;
+		case VISTA_RESULTADO_CONSULTAR_CONTRATOS_POR_AEROLINEA:
+			vista = new VistaResultadorConsultarContratosPorAerolinea();
+			break;
+		case VISTA_CONSULTAR_CONTRATOS_POR_AEROLINEA_PRECIO_Y_DURACION:
+			//vista = new VistaResultadorConsultarContratosPorAerolinea(); //TODO
+			break;
+		case VISTA_RESULTADO_CONSULTAR_CONTRATOS_POR_AEROLINEA_PRECIO_Y_DURACION:
+			//vista = new VistaResultadorConsultarContratosPorAerolinea(); //TODO
 			break;
 
 		// HANGAR

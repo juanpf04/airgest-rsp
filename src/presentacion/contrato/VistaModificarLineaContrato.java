@@ -26,8 +26,9 @@ import javax.swing.border.LineBorder;
 import negocio.lineaContrato.TLineaContrato;
 import presentacion.Observador;
 import presentacion.UtilidadesP;
+import presentacion.controlador.Contexto;
 import presentacion.controlador.Controlador;
-import presentacion.controlador.EventosControlador;
+import presentacion.controlador.Evento;
 
 public class VistaModificarLineaContrato extends JFrame implements Observador {
 
@@ -157,7 +158,7 @@ public class VistaModificarLineaContrato extends JFrame implements Observador {
 					zonedDateTime = seleccion.toInstant().atZone(ZoneId.systemDefault());
 					LocalDate fecha_fin = zonedDateTime.toLocalDate();
 					TLineaContrato linea = new TLineaContrato(id_contrato, id_hangar, fecha_ini, fecha_fin, 0);
-					controlador.accion(EventosControlador.MODIFICAR_LINEA_CONTRATO, linea);
+					controlador.accion(new Contexto(Evento.MODIFICAR_LINEA_CONTRATO, linea));
 				} catch (NumberFormatException n) {
 
 				}
@@ -178,7 +179,7 @@ public class VistaModificarLineaContrato extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				controlador.accion(EventosControlador.VISTA_CONTRATO, null);
+				controlador.accion(new Contexto(Evento.VISTA_CONTRATO, null));
 			}
 
 		});

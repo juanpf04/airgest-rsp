@@ -20,8 +20,9 @@ import javax.swing.border.MatteBorder;
 
 import presentacion.Observador;
 import presentacion.UtilidadesP;
+import presentacion.controlador.Contexto;
 import presentacion.controlador.Controlador;
-import presentacion.controlador.EventosControlador;
+import presentacion.controlador.Evento;
 
 public class VistaContrato extends JFrame implements Observador {
 
@@ -61,7 +62,7 @@ public class VistaContrato extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				ctrl.accion(EventosControlador.VISTA_ABRIR_CONTRATO, null);
+				ctrl.accion(new Contexto(Evento.VISTA_ABRIR_CONTRATO, null));
 			}
 		});
 		botones.add(abrir);
@@ -72,7 +73,7 @@ public class VistaContrato extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				ctrl.accion(EventosControlador.VISTA_CONSULTAR_CONTRATO_POR_ID, null);
+				ctrl.accion(new Contexto(Evento.VISTA_CONSULTAR_CONTRATO_POR_ID, null));
 			}
 		});
 		botones.add(consultar);
@@ -84,7 +85,7 @@ public class VistaContrato extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				ctrl.accion(EventosControlador.CONSULTAR_TODOS_CONTRATOS, null);
+				ctrl.accion(new Contexto(Evento.CONSULTAR_TODOS_CONTRATOS, null));
 			}
 		});
 		botones.add(consultarTodos);
@@ -96,7 +97,7 @@ public class VistaContrato extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				ctrl.accion(EventosControlador.VISTA_MODIFICAR_CONTRATO, null);
+				ctrl.accion(new Contexto(Evento.VISTA_MODIFICAR_CONTRATO, null));
 			}
 		});
 
@@ -109,7 +110,7 @@ public class VistaContrato extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				ctrl.accion(EventosControlador.VISTA_MODIFICAR_LINEA_CONTRATO, null);
+				ctrl.accion(new Contexto(Evento.VISTA_MODIFICAR_LINEA_CONTRATO, null));
 			}
 		});
 
@@ -122,7 +123,7 @@ public class VistaContrato extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				ctrl.accion(EventosControlador.VISTA_MOSTRAR_CONTRATOS_POR_AEROLINEA, null);
+				ctrl.accion(new Contexto(Evento.VISTA_CONSULTAR_CONTRATOS_POR_AEROLINEA, null));
 			}
 		});
 
@@ -140,7 +141,7 @@ public class VistaContrato extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				ctrl.accion(EventosControlador.VISTA_PRINCIPAL, null);
+				ctrl.accion(new Contexto(Evento.VISTA_PRINCIPAL, null));
 				dispose();
 			}
 

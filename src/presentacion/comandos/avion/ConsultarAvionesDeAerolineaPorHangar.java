@@ -17,7 +17,7 @@ public class ConsultarAvionesDeAerolineaPorHangar implements Comando {
 		SAAvion sav = fn.crearSAAvion();
 		// List<TAvion> aviones = sav.mostrarAvionesDeAerolineaPorHangar((int)
 		// datos);//TODO cuando Antonio nos la valide
-		return new Contexto(Evento.VISTA_CONSULTAR_AVIONES_POR_HANGAR, aviones);
+		return new Contexto(Evento.VISTA_RESULTADO_CONSULTAR_AVIONES_DE_AEROLINEA_POR_HANGAR, aviones);
 	}
 
 }

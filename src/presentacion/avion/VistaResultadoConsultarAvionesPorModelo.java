@@ -16,7 +16,7 @@ import negocio.avion.TAvion;
 import presentacion.Observador;
 import presentacion.UtilidadesP;
 
-public class VistaResultadoMostrarAvionesPorHangar extends JFrame implements Observador {
+public class VistaResultadoConsultarAvionesPorModelo extends JFrame implements Observador {
 
 	private static final long serialVersionUID = 1L;
 
@@ -61,5 +61,4 @@ public class VistaResultadoMostrarAvionesPorHangar extends JFrame implements Obs
 		this.setVisible(true);
 		this.setLocation(200, 200);
 	}
-
 }

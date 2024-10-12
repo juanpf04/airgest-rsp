@@ -91,9 +91,6 @@ public class FactoriaComandosImp extends FactoriaComandos {
 		case ABRIR_CONTRATO:
 			comando = new AbrirContrato();
 			break;
-		case ANYADIR_HANGAR_AL_CONTRATO:
-			comando = new AnyadirHangarAlContrato();
-			break;
 		case CERRAR_CONTRATO:
 			comando = new CerrarContrato();
 			break;

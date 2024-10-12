@@ -19,8 +19,9 @@ import javax.swing.border.LineBorder;
 
 import presentacion.Observador;
 import presentacion.UtilidadesP;
+import presentacion.controlador.Contexto;
 import presentacion.controlador.Controlador;
-import presentacion.controlador.EventosControlador;
+import presentacion.controlador.Evento;
 
 public class VistaAbrirContrato extends JFrame implements Observador {
 
@@ -73,7 +74,7 @@ public class VistaAbrirContrato extends JFrame implements Observador {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					int id = Integer.parseInt(textoId.getText());
-					controlador.accion(EventosControlador.ABRIR_CONTRATO, id);
+					controlador.accion(new Contexto(Evento.ABRIR_CONTRATO, id));
 					dispose();
 				} catch (NumberFormatException n) {
 
@@ -98,7 +99,7 @@ public class VistaAbrirContrato extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				controlador.accion(EventosControlador.VISTA_CONTRATO, null);
+				controlador.accion(new Contexto(Evento.VISTA_CONTRATO, null));
 			}
 		});
 
