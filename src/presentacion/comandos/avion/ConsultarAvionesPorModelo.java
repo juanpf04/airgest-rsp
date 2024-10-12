@@ -15,7 +15,7 @@ public class ConsultarAvionesPorModelo implements Comando {
 	public Contexto ejecutar(Object datos) {
 		FactoriaNegocio fn = FactoriaNegocio.getInstance();
 		SAAvion sav = fn.crearSAAvion();
-		List<TAvion> aviones = sav.mostrarAvionesPorModelo((int) datos);
+		List<TAvion> aviones = sav.consultarAvionesPorModelo((int) datos);
 		return new Contexto(Evento.VISTA_MOSTRAR_AVIONES_POR_MODELO, aviones);
 	}
 

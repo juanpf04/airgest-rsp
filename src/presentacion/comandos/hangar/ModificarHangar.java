@@ -9,6 +9,7 @@ import presentacion.controlador.Evento;
 
 public class ModificarHangar implements Comando {
 
+	@Override
 	public Contexto ejecutar(Object datos) {
 		FactoriaNegocio fn = FactoriaNegocio.getInstance();
 		SAHangar sh = fn.crearSAHangar();
@@ -20,4 +21,6 @@ public class ModificarHangar implements Comando {
 			evento = Evento.VISTA_FALLO_MODIFICAR_HANGAR;
 		}
 		return new Contexto(evento, exito);
-	}}
+	}
+
+}

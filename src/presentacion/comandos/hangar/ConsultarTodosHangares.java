@@ -9,14 +9,15 @@ import presentacion.comandos.Comando;
 import presentacion.controlador.Contexto;
 import presentacion.controlador.Evento;
 
-public class ConsultarTodosHangares implements Comando{
+public class ConsultarTodosHangares implements Comando {
 
+	@Override
 	public Contexto ejecutar(Object datos) {
 		FactoriaNegocio fn = FactoriaNegocio.getInstance();
 		SAHangar sh = fn.crearSAHangar();
 		List<THangar> hangares = sh.consultarTodosHangares();
-		Evento evento = Evento. VISTA_RESULTADO_CONSULTAR_TODOS_LOS_hANGARES;
-		return new Contexto (evento,hangares);
+		Evento evento = Evento.VISTA_RESULTADO_CONSULTAR_TODOS_LOS_hANGARES;
+		return new Contexto(evento, hangares);
 	}
 
 }
