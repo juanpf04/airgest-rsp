@@ -8,7 +8,6 @@ import presentacion.personal.*;
 import presentacion.contrato.*;
 import presentacion.controlador.Evento;
 import presentacion.Observador;
-import presentacion.VistaError;
 import presentacion.VistaPrincipal;
 
 public class FactoriaVistasImp extends FactoriaVistas {
@@ -20,9 +19,6 @@ public class FactoriaVistasImp extends FactoriaVistas {
 		switch (evento) {
 		case VISTA_PRINCIPAL:
 			vista = new VistaPrincipal();
-			break;
-		case VISTA_ERROR:
-			vista = new VistaError();
 			break;
 
 		case VISTA_ALTA_MODELO:

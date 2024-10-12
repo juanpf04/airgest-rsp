@@ -2,8 +2,6 @@ package presentacion.factoria;
 
 import presentacion.controlador.Evento;
 import presentacion.comandos.Comando;
-import presentacion.comandos.Error;
-import presentacion.comandos.Iniciar;
 import presentacion.comandos.modelo.*;
 import presentacion.comandos.avion.*;
 import presentacion.comandos.aerolinea.*;
@@ -15,13 +13,9 @@ public class FactoriaComandosImp extends FactoriaComandos {
 
 	@Override
 	public Comando crearComando(Evento evento) {
-		Comando comando = new Error();
+		Comando comando = null;
 
-		switch (evento) {
-		case INICIAR:
-			comando = new Iniciar();
-			break;		
-		
+		switch (evento) {		
 		case ALTA_MODELO:
 			comando = new AltaModelo();
 			break;
@@ -63,26 +57,26 @@ public class FactoriaComandosImp extends FactoriaComandos {
 			comando = new MostrarAvionesPorModelo();
 			break;
 		case MOSTRAR_AVIONES_POR_AEROLINEA:
-			comando = new MostrarAvionesPorAerolínea();
+			comando = new ConsultarAvionesPorAerolinea();
 			break;
 		case MOSTRAR_AVIONES_POR_HANGAR:
 			comando = new MostrarAvionesPorHangar();
 			break;
 
 		case ALTA_AEROLINEA:
-			comando = new AltaAerolínea();
+			comando = new AltaAerolinea();
 			break;
 		case BAJA_AEROLINEA:
-			comando = new BajaAerolínea();
+			comando = new BajaAerolinea();
 			break;
 		case CONSULTAR_AEROLINEA_POR_ID:
-			comando = new ConsultarAerolíneaPorId();
+			comando = new ConsultarAerolineaPorId();
 			break;
 		case CONSULTAR_TODOS_AEROLINEAS:
-			comando = new ConsultarTodosAerolíneas();
+			comando = new ConsultarTodosAerolineas();
 			break;
 		case MODIFICAR_AEROLINEA:
-			comando = new ModificarAerolínea();
+			comando = new ModificarAerolinea();
 			break;
 
 		case ABRIR_CONTRATO:
@@ -101,10 +95,10 @@ public class FactoriaComandosImp extends FactoriaComandos {
 			comando = new ModificarContrato();
 			break;
 		case MODIFICAR_LINEA_CONTRATO:
-			comando = new ModificarLíneaContrato();
+			comando = new ModificarLineaContrato();
 			break;
 		case MOSTRAR_CONTRATOS_POR_AEROLINEA:
-			comando = new MostrarContratosPorAerolínea();
+			comando = new ConsultarContratosPorAerolinea();
 			break;
 
 		case ALTA_HANGAR:

@@ -10,11 +10,13 @@ public class ControladorImp extends Controlador {
 	public void accion(Contexto contexto) {
 		Comando comando = FactoriaComandos.getInstance().crearComando(contexto.getEvento());
 
-		Contexto nuevo_contexto = comando.ejecutar(contexto.getInfo());
+		// Si no existe un comando con ese contexto, es una vista
+		if (comando != null)
+			contexto = comando.ejecutar(contexto.getInfo());
 
-		Observador vista = FactoriaVistas.getInstance().crearVista(nuevo_contexto.getEvento());
+		Observador vista = FactoriaVistas.getInstance().crearVista(contexto.getEvento());
 
-		vista.actualizar(nuevo_contexto);
+		vista.actualizar(contexto);
 	}
 	//
 	// public void accion(EventosControlador evento, Object datos) {
