@@ -4,16 +4,16 @@ package integracion.transacciones;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import integracion.conexion.FactoriaConexion;
+
 public class TransactionMySQL implements Transaction {
 	
 	Connection connection;
 	
 	public void start() {
 		
-		// Conectar
-		
 		try {
-			// connection = conexion que genera la clase conectar
+			connection = FactoriaConexion.getInstance().getConnection();
 			connection.setAutoCommit(false);
 		} catch (SQLException e) {
 			
