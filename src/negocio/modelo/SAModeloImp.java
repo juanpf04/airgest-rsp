@@ -128,4 +128,10 @@ public class SAModeloImp implements SAModelo {
 		return false;
 	}
 
+	@Override
+	public List<TModelo> consultarModelosPorAerolinea(int id_aerolinea) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

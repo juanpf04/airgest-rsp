@@ -129,4 +129,10 @@ public class SAPersonalImp implements SAPersonal {
 		DAOPersonal dp = FactoriaIntegracion.getInstance().crearDAOPersonal();
 		return dp.consultarPersonalExistente();
 	}
+
+	@Override
+	public List<TPersonal> consultarPersonalPorHangar(int id_hangar) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

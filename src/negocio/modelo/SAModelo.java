@@ -19,5 +19,7 @@ public interface SAModelo {
 	public boolean vincularModelo(TModeloAerolinea tModeloAerolinea);
 
 	public boolean desvincularModelo(TModeloAerolinea tModeloAerolinea);
+	
+	public List<TModelo> consultarModelosPorAerolinea(int id_aerolinea);
 
 }

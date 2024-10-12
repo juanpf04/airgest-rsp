@@ -90,4 +90,10 @@ public class SAAerolineaImp implements SAAerolinea {
 		return null;
 	}
 
+	@Override
+	public List<TAerolinea> consultarAerolineasPorModelo(int id_modelo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

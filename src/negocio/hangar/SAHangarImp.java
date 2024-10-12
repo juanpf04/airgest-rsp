@@ -78,4 +78,10 @@ public class SAHangarImp implements SAHangar {
 		return false;
 	}
 
+	@Override
+	public List<THangar> consultarHangarPorPersonal(int id_personal) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
