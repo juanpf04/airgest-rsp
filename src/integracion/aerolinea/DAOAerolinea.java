@@ -16,5 +16,7 @@ public interface DAOAerolinea {
 	public boolean bajaAerolinea(int id);
 
 	public List<TAerolinea> consultarTodasAerolineas();
+	
+	public List<TAerolinea> consultarAerolineasPorModelo(int id_modelo);
 
 }

@@ -212,4 +212,10 @@ public class SAContratoImp implements SAContrato {
 		return contratos;
 	}
 
+	@Override
+	public List<TInfoContrato> consultarContratoPorAerolinea(int id_aerolinea, double precio, int dias) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

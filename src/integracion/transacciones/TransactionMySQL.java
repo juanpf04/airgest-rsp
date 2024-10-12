@@ -1,60 +1,49 @@
-/**
- * 
- */
+
 package integracion.transacciones;
 
-/** 
- * <!-- begin-UML-doc -->
- * <!-- end-UML-doc -->
- * @author Usuario
- * @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
- */
+import java.sql.Connection;
+import java.sql.SQLException;
+
+import integracion.conexion.FactoriaConexion;
+
 public class TransactionMySQL implements Transaction {
-	/** 
-	* (non-Javadoc)
-	* @see Transaction#start()
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
+	
+	Connection connection;
+	
 	public void start() {
-		// begin-user-code
-		// TODO Auto-generated method stub
-
-		// end-user-code
+		
+		try {
+			connection = FactoriaConexion.getInstance().getConnection();
+			connection.setAutoCommit(false);
+		} catch (SQLException e) {
+			
+			throw new RuntimeException("No se ha podido iniciar conexión");
+		}
 	}
 
-	/** 
-	* (non-Javadoc)
-	* @see Transaction#commit()
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
 	public void commit() {
-		// begin-user-code
-		// TODO Auto-generated method stub
-
-		// end-user-code
+		try {
+			connection.commit();
+			connection.close();
+			TransactionManager.getInstance().eliminarTransaccion();
+		} catch (SQLException e) {
+			throw new RuntimeException("No se ha podido hacer commit");
+		}
 	}
 
-	/** 
-	* (non-Javadoc)
-	* @see Transaction#rollback()
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
 	public void rollback() {
-		// begin-user-code
-		// TODO Auto-generated method stub
-
-		// end-user-code
+		try {
+			connection.rollback();
+			connection.close();
+			TransactionManager.getInstance().eliminarTransaccion();
+		} catch (SQLException e) {
+			throw new RuntimeException("No se ha podido hacer rollback");
+		}
 	}
 
-	/** 
-	* (non-Javadoc)
-	* @see Transaction#getResource()
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
 	public Object getResource() {
-		// begin-user-code
-		// TODO Auto-generated method stub
-		return null;
-		// end-user-code
+		
+		return connection;
+		
 	}
 }

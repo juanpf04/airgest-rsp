@@ -18,5 +18,7 @@ public interface SAPersonal {
 	public TPersonal consultarPersonalPorId(int id);
 
 	public List<TPersonal> consultarPersonalExistente();
+	
+	public List<TPersonal> consultarPersonalPorHangar(int id_hangar);
 
 }

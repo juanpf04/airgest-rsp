@@ -126,4 +126,10 @@ public class DAOAerolineaImp implements DAOAerolinea {
 		return jo;
 	}
 
+	@Override
+	public List<TAerolinea> consultarAerolineasPorModelo(int id_modelo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

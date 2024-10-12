@@ -13,5 +13,7 @@ public interface SAHangar {
 	public List<THangar> consultarTodosHangares();
 
 	public boolean modificarHangar(THangar tHangar);
+	
+	public List<THangar> consultarHangarPorPersonal(int id_personal);
 
 }

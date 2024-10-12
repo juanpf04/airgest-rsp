@@ -13,7 +13,7 @@ public class ConsultarAerolineaPorModelo {
 	public Contexto ejecutar(Object datos) {
 		FactoriaNegocio fn = FactoriaNegocio.getInstance();
 		SAAerolinea sa = fn.crearSAAerolinea();
-		//TO DO
+		//TODO
 		//meter en SA el metodo consultarAerolineaPorModelo
 		//List<TAerolinea> aerolineas = sa.consultarAerolineaPorModelo((int) datos);
 		List<TAerolinea> aerolineas = null;

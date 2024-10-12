@@ -2,68 +2,33 @@ package integracion.transacciones;
 
 import java.util.concurrent.ConcurrentHashMap;
 
-/**
- * <!-- begin-UML-doc --> <!-- end-UML-doc -->
- * 
- * @author Usuario
- * @generated "UML a Java
- *            (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
- */
 public class TransactionManagerImp extends TransactionManager {
-	/**
-	 * <!-- begin-UML-doc --> <!-- end-UML-doc -->
-	 * 
-	 * @generated "UML a Java
-	 *            (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	 */
-	private ConcurrentHashMap<Thread, Transaction> transaction;
-	/**
-	 * <!-- begin-UML-doc --> <!-- end-UML-doc -->
-	 * 
-	 * @generated "UML a Java
-	 *            (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	 */
-	private TransactionFactory transactionFactory;
+	
+	private ConcurrentHashMap<Thread, Transaction> transactionMap = new ConcurrentHashMap<>();
 
-	/**
-	 * (non-Javadoc)
-	 * 
-	 * @see TransactionManager#nuevaTransaccion()
-	 * @generated "UML a Java
-	 *            (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	 */
 	public Transaction nuevaTransaccion() {
-		// begin-user-code
-		// TODO Auto-generated method stub
-		return null;
-		// end-user-code
+		
+		if (transactionMap.contains(Thread.currentThread())){
+			throw new RuntimeException("Este hilo ya tiene una transacción en curso");
+		}
+		
+		Transaction t = TransactionFactory.getInstance().nuevaTransaccion();
+		transactionMap.put(Thread.currentThread(), t);
+		
+		return t;
 	}
 
-	/**
-	 * (non-Javadoc)
-	 * 
-	 * @see TransactionManager#eliminarTransaccion()
-	 * @generated "UML a Java
-	 *            (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	 */
+	
 	public void eliminarTransaccion() {
-		// begin-user-code
-		// TODO Auto-generated method stub
-
-		// end-user-code
+		transactionMap.remove(Thread.currentThread());
 	}
 
-	/**
-	 * (non-Javadoc)
-	 * 
-	 * @see TransactionManager#getTransaccion()
-	 * @generated "UML a Java
-	 *            (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	 */
 	public Transaction getTransaccion() {
-		// begin-user-code
-		// TODO Auto-generated method stub
-		return null;
-		// end-user-code
+		if (!transactionMap.contains(Thread.currentThread())){
+			throw new RuntimeException("No existe transacción para este hilo");
+		}
+		
+		return transactionMap.get(Thread.currentThread());
+		
 	}
 }

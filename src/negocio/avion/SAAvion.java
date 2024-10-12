@@ -14,10 +14,10 @@ public interface SAAvion {
 
 	public boolean modificarAvion(TAvion tAvion);
 
-	public List<TAvion> mostrarAvionesPorModelo(int idModelo);
+	public List<TAvion> consultarAvionesPorModelo(int idModelo);
 
-	public List<TAvion> mostrarAvionesPorAerolinea(int idAerolinea);
+	public List<TAvion> consultarAvionesPorAerolinea(int idAerolinea);
 
-	public List<TAvion> mostrarAvionesPorHangar(int idHangar);
+	public List<TAvion> consultarAvionesPorHangar(int idHangar);
 
 }
