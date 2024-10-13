@@ -1,8 +1,6 @@
-
-package presentacion.contrato;
+package presentacion.avion;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,18 +11,16 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-
-import negocio.contrato.TContrato;
+import negocio.avion.TAvion;
 import presentacion.Observador;
 import presentacion.UtilidadesP;
-import presentacion.controlador.Contexto;
-import presentacion.controlador.Controlador;
-import presentacion.controlador.Evento;
 
-public class VistaResultadorConsultarContratosPorAerolinea extends JFrame implements Observador {
+
+public class VistaResultadoConsultarAvionesDeAerolineaPorHangar extends JFrame implements Observador{
 
 	private static final long serialVersionUID = 1L;
 
+	@Override
 	public void actualizar(Object datos) {
 		UtilidadesP.setAirGestRSP(this);
 		this.setSize(400, 450);
@@ -33,23 +29,19 @@ public class VistaResultadorConsultarContratosPorAerolinea extends JFrame implem
 		principal.setLayout(new BorderLayout());
 
 		@SuppressWarnings("unchecked")
-		List<TContrato> contratos = (List<TContrato>) datos;
+		List<TAvion> aviones = (List<TAvion>) datos;
 
 		String s = "";
-		for (TContrato c : contratos)
-			s += c.toString() + "\n";
+		for (TAvion a : aviones)
+			s += a.toString() + "\n";
 
 		JTextArea exito = new JTextArea(s);
 		exito.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		exito.setLineWrap(true); // Habilita el ajuste automático de línea
-		exito.setWrapStyleWord(true); // Ajusta el texto en palabras completas
-		exito.setEditable(false); // Hace que el JTextArea sea de solo lectura
+		exito.setEditable(false);
+		principal.add(exito, BorderLayout.PAGE_START);
 
-		JScrollPane scroll = new JScrollPane(exito);
-		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		scroll.setPreferredSize(new Dimension(500, 300)); // Ajusta el tamaño
-															// del JScrollPane
-
+		JScrollPane scroll = new JScrollPane(exito, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		principal.add(scroll, BorderLayout.CENTER);
 
 		JButton atras = new JButton("ATRAS"); // boton para volver a la ventana
@@ -59,17 +51,16 @@ public class VistaResultadorConsultarContratosPorAerolinea extends JFrame implem
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Controlador c = Controlador.getInstance();
-				c.accion(new Contexto(Evento.VISTA_CONTRATO, datos));
 				dispose();
 			}
 		});
 
-		principal.add(atras, BorderLayout.SOUTH);
+		principal.add(atras, BorderLayout.PAGE_END);
 
 		this.setContentPane(principal);
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		this.setVisible(true);
 		this.setLocation(200, 200);
 	}
+
 }

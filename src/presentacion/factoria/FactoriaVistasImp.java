@@ -145,10 +145,10 @@ public class FactoriaVistasImp extends FactoriaVistas {
 			vista = new VistaResultadoConsultarAvionesPorHangar();
 			break;
 		case VISTA_CONSULTAR_AVIONES_DE_AEROLINEA_POR_HANGAR:
-			vista = new VistaConsultarAvionesDeAerolineaPorHangar();//TODO
+			vista = new VistaConsultarAvionesDeAerolineaPorHangar();
 			break;
 		case VISTA_RESULTADO_CONSULTAR_AVIONES_DE_AEROLINEA_POR_HANGAR:
-			vista = new VistaResultadoConsultarAvionesDeAerolineaPorHangar();//TODO
+			vista = new VistaResultadoConsultarAvionesDeAerolineaPorHangar();
 			break;
 		
 		// AEROLÍNEA
@@ -251,13 +251,13 @@ public class FactoriaVistasImp extends FactoriaVistas {
 			vista = new VistaConsultarContratosPorAerolinea();
 			break;
 		case VISTA_RESULTADO_CONSULTAR_CONTRATOS_POR_AEROLINEA:
-			vista = new VistaResultadorConsultarContratosPorAerolinea();
+			vista = new VistaResultadoConsultarContratosPorAerolinea();
 			break;
 		case VISTA_CONSULTAR_CONTRATOS_POR_AEROLINEA_PRECIO_Y_DURACION:
-			//vista = new VistaResultadorConsultarContratosPorAerolinea(); //TODO
+			vista = new VistaConsultarContratoPorAerolineaPyD(); //TODO
 			break;
 		case VISTA_RESULTADO_CONSULTAR_CONTRATOS_POR_AEROLINEA_PRECIO_Y_DURACION:
-			//vista = new VistaResultadorConsultarContratosPorAerolinea(); //TODO
+			vista = new VistaResultadoConsultarConstratosPorAerolineaPyD(); //TODO
 			break;
 
 		// HANGAR
