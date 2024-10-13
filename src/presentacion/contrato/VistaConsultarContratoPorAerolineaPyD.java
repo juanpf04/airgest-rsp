@@ -42,7 +42,7 @@ public class VistaConsultarContratoPorAerolineaPyD extends JFrame implements Obs
 		principal.setLayout(new BoxLayout(principal, BoxLayout.PAGE_AXIS));
 
 		JPanel panel_titulo = new JPanel();
-		JLabel titulo = new JLabel("Consultar contratos por Aerolínea, precio y fecha");
+		JLabel titulo = new JLabel("Consultar contratos por Aerolínea, precio y duración");
 		titulo.setFont(new Font("Tahoma", Font.BOLD, 30));
 		titulo.setBorder(new LineBorder(Color.BLACK, 2));
 		titulo.setHorizontalAlignment(SwingConstants.CENTER);
@@ -51,18 +51,6 @@ public class VistaConsultarContratoPorAerolineaPyD extends JFrame implements Obs
 		principal.add(panel_titulo);
 		JPanel centro = new JPanel();
 		centro.setLayout(new BoxLayout(centro, BoxLayout.PAGE_AXIS));
-		
-		JLabel etiquetaFecha = new JLabel("fecha: ");
-		etiquetaFecha.setFont(new Font("Tahoma", Font.BOLD, 25));
-		LocalDate currentDate = LocalDate.now();
-		Date initialDate = Date.from(currentDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-		SpinnerDateModel model = new SpinnerDateModel(initialDate, null, initialDate, java.util.Calendar.DAY_OF_MONTH);
-		JSpinner spinner = new JSpinner(model);
-		spinner.setMaximumSize(new Dimension(200, 30));
-		spinner.setMinimumSize(new Dimension(200, 30));
-		spinner.setPreferredSize(new Dimension(200, 30));
-		JSpinner.DateEditor editor = new JSpinner.DateEditor(spinner, "dd/MM/yyyy");
-		spinner.setEditor(editor);
 
 		JPanel id = new JPanel();
 		JPanel precio = new JPanel();
@@ -71,11 +59,14 @@ public class VistaConsultarContratoPorAerolineaPyD extends JFrame implements Obs
 		precio.setLayout(new BoxLayout(id, BoxLayout.LINE_AXIS));
 		dia.setLayout(new BoxLayout(id, BoxLayout.LINE_AXIS));
 		JLabel etiquetaId = new JLabel("id aerolinea: ");
-		JLabel etiquetaPrecio = new JLabel("precio: ");
+		JLabel etiquetaPrecio = new JLabel("precio mínimo: ");
+		JLabel etiquetaDia = new JLabel("días mínimos: ");
 		etiquetaId.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		etiquetaPrecio.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		etiquetaDia.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		JTextField textoId = new JTextField();
 		JTextField textoPrecio = new JTextField();
+		JTextField textoDia = new JTextField();
 		textoId.setMaximumSize(new Dimension(200, 30));
 		textoId.setMinimumSize(new Dimension(200, 30));
 		textoId.setPreferredSize(new Dimension(200, 30));
@@ -84,14 +75,18 @@ public class VistaConsultarContratoPorAerolineaPyD extends JFrame implements Obs
 		textoPrecio.setMinimumSize(new Dimension(200, 30));
 		textoPrecio.setPreferredSize(new Dimension(200, 30));
 		textoPrecio.setFont(new Font("Tahoma", Font.BOLD, 18));
+		textoDia.setMaximumSize(new Dimension(200, 30));
+		textoDia.setMinimumSize(new Dimension(200, 30));
+		textoDia.setPreferredSize(new Dimension(200, 30));
+		textoDia.setFont(new Font("Tahoma", Font.BOLD, 18));
 		id.add(etiquetaId);
 		id.add(textoId);
 		centro.add(id);
 		precio.add(etiquetaPrecio);
 		precio.add(textoPrecio);
 		centro.add(precio);
-		dia.add(etiquetaFecha);
-		dia.add(spinner);
+		dia.add(etiquetaDia);
+		dia.add(textoDia);
 		centro.add(dia);
 
 		principal.add(centro);
@@ -105,20 +100,18 @@ public class VistaConsultarContratoPorAerolineaPyD extends JFrame implements Obs
 			public void actionPerformed(ActionEvent e) {
 				try {
 					ArrayList<Object> lista = new ArrayList<>();
-					int id = Integer.parseInt(textoId.getText());
-					double precio = Double.parseDouble(textoPrecio.getText());
-					Date seleccion = (Date) spinner.getValue();
-					ZonedDateTime zonedDateTime = seleccion.toInstant().atZone(ZoneId.systemDefault());
-					LocalDate fecha = zonedDateTime.toLocalDate();
-					lista.add(id);
-					lista.add(precio);
-					lista.add(fecha);
+					int valor_id = Integer.parseInt(textoId.getText());
+					double valor_precio = Double.parseDouble(textoPrecio.getText());
+					int valor_dia = Integer.parseInt(textoDia.getText());
+					lista.add(valor_id);
+					lista.add(valor_precio);
+					lista.add(valor_dia);
 					controlador.accion(new Contexto(Evento.VISTA_CONSULTAR_CONTRATOS_POR_AEROLINEA_PRECIO_Y_DURACION, lista));
 				} catch (NumberFormatException n) {
 					ArrayList<Object> lista = new ArrayList<>();
 					lista.add(0);
 					lista.add(0);
-					lista.add(LocalDate.now());
+					lista.add(0);
 					controlador.accion(new Contexto(Evento.VISTA_CONSULTAR_CONTRATOS_POR_AEROLINEA_PRECIO_Y_DURACION, lista));
 				}
 			}

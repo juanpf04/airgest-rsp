@@ -15,9 +15,9 @@ public class BajaAerolinea implements Comando {
 		boolean exito = sa.bajaAerolinea((int) datos);
 		Evento evento = null;
 		if (exito) {
-			evento = Evento.VISTA_EXITO_ALTA_AEROLINEA;
+			evento = Evento.VISTA_EXITO_BAJA_AEROLINEA;
 		} else {
-			evento = Evento.VISTA_FALLO_ALTA_AEROLINEA;
+			evento = Evento.VISTA_FALLO_BAJA_AEROLINEA;
 		}
 		return new Contexto(evento, exito);
 	}
