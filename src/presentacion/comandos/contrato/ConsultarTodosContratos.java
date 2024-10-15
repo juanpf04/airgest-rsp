@@ -17,7 +17,7 @@ public class ConsultarTodosContratos implements Comando {
 		SAContrato sc = fn.crearSAContrato();
 		List<TContrato> contratos = sc.consultarTodosContratos();
 		
-		return new Contexto(Evento.VISTA_CONSULTAR_TODOS_CONTRATOS, contratos);
+		return new Contexto(Evento.VISTA_RESULTADO_CONSULTAR_TODOS_CONTRATOS, contratos);
 	}
 
 }
