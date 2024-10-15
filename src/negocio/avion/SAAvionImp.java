@@ -100,4 +100,10 @@ public class SAAvionImp implements SAAvion {
 		return da.consultarAvionesPorHangar(idHangar);
 	}
 
+	@Override
+	public List<TAvion> consultarAvionesDeAerolineaPorHangar(int id_aerolinea, int id_hangar) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
