@@ -15,8 +15,8 @@ public class ConsultarAvionesDeAerolineaPorHangar implements Comando {
 	public Contexto ejecutar(Object datos) {
 		FactoriaNegocio fn = FactoriaNegocio.getInstance();
 		SAAvion sav = fn.crearSAAvion();
-		List<Object> info = (List<Object>) datos;
-		List<TAvion> aviones = sav.mostrarAvionesDeAerolineaPorHangar((int)datos[0], (int)datos[1]);
+		Object[] info = (Object[]) datos;
+		List<TAvion> aviones = sav.consultarAvionesDeAerolineaPorHangar((int) info[0], (int) info[1]);
 		return new Contexto(Evento.VISTA_RESULTADO_CONSULTAR_AVIONES_DE_AEROLINEA_POR_HANGAR, aviones);
 	}
 

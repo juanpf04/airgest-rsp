@@ -30,7 +30,7 @@ import presentacion.controlador.Contexto;
 import presentacion.controlador.Controlador;
 import presentacion.controlador.Evento;
 
-public class VistaAñadirHangar extends JFrame implements Observador {
+public class VistaAnyadirHangar extends JFrame implements Observador {
 
 	private static final long serialVersionUID = 1L;
 

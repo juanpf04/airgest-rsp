@@ -83,7 +83,7 @@ public class FactoriaVistasImp extends FactoriaVistas {
 			vista = new VistaConsultarModelosPorAerolinea();
 			break;
 		case VISTA_RESULTADO_CONSULTAR_MODELOS_POR_AEROLINEA:
-			vista = new VistaResultadoConsultarModelsoPorAerolinea();
+			vista = new VistaResultadoConsultarModelosPorAerolinea();
 			break;
 			
 		// AVIÓN
@@ -209,7 +209,7 @@ public class FactoriaVistasImp extends FactoriaVistas {
 			vista = new VistaAbrirContrato();
 			break;
 		case VISTA_ANYADIR_HANGAR_AL_CONTRATO:
-			vista = new VistaAñadirHangar();
+			vista = new VistaAnyadirHangar();
 			break;
 		case VISTA_ELIMINAR_HANGAR_AL_CONTRATO:
 			vista = new VistaEliminarHangar();
@@ -227,7 +227,7 @@ public class FactoriaVistasImp extends FactoriaVistas {
 			vista = new VistaResultadoConsultarContratoPorId();
 			break;
 		case VISTA_RESULTADO_CONSULTAR_TODOS_CONTRATOS:
-			vista = new VistaConsultarTodosContratos();
+			vista = new VistaResultadoConsultarTodosContratos();
 			break;
 		case VISTA_MODIFICAR_CONTRATO:
 			vista = new VistaModificarContrato();
@@ -254,10 +254,10 @@ public class FactoriaVistasImp extends FactoriaVistas {
 			vista = new VistaResultadoConsultarContratosPorAerolinea();
 			break;
 		case VISTA_CONSULTAR_CONTRATOS_POR_AEROLINEA_PRECIO_Y_DURACION:
-			vista = new VistaConsultarContratoPorAerolineaPyD(); //TODO
+			vista = new VistaConsultarContratoPorAerolineaPyD();
 			break;
 		case VISTA_RESULTADO_CONSULTAR_CONTRATOS_POR_AEROLINEA_PRECIO_Y_DURACION:
-			vista = new VistaResultadoConsultarConstratosPorAerolineaPyD(); //TODO
+			vista = new VistaResultadoConsultarConstratosPorAerolineaPyD(); 
 			break;
 
 		// HANGAR
@@ -288,7 +288,7 @@ public class FactoriaVistasImp extends FactoriaVistas {
 		case VISTA_RESULTADO_CONSULTAR_HANGAR_POR_ID:
 			vista = new VistaResultadoConsultarHangarPorId();
 			break;
-		case VISTA_RESULTADO_CONSULTAR_TODOS_HANGARES:
+		case VISTA_RESULTADO_CONSULTAR_TODOS_LOS_HANGARES:
 			vista = new VistaResultadoConsultarTodosHangares();
 			break;
 		case VISTA_MODIFICAR_HANGAR:
@@ -329,8 +329,8 @@ public class FactoriaVistasImp extends FactoriaVistas {
 		case VISTA_RESULTADO_CONSULTAR_PERSONAL_POR_ID:
 			vista = new VistaResultadoConsultarPersonalPorId();
 			break;
-		case VISTA_RESULTADO_CONSULTAR_TODO_PERSONAL:
-			vista = new VistaResultadoConsultarTodoPersonal();
+		case VISTA_RESULTADO_CONSULTAR_PERSONAL_EXISTENTE:
+			vista = new VistaResultadoConsultarPersonalExistente();
 			break;
 		case VISTA_MODIFICAR_PERSONAL:
 			vista = new VistaModificarPersonal();
