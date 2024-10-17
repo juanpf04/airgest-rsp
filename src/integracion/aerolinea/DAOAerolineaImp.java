@@ -5,6 +5,10 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,18 +16,33 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import integracion.UtilidadesI;
+import integracion.transacciones.Transaction;
+import integracion.transacciones.TransactionManager;
 import negocio.aerolinea.TAerolinea;
 
 public class DAOAerolineaImp implements DAOAerolinea {
 
 	public TAerolinea leerAerolineaPorId(int idAerolinea) {
+		
 		try {
-			JSONObject data = new JSONObject(new JSONTokener(
-					new FileReader(UtilidadesI.ruta("aerolinea") + String.format("%05d", idAerolinea) + ".json")));
-			return new TAerolinea(data.getInt("id"), data.getString("nombre"), data.getBoolean("activo"));
-		} catch (FileNotFoundException e) {
+			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
+			PreparedStatement ps = con.prepareStatement("SELECT * FROM Aerolinea WHERE Id=?; ");
+			ps.setInt(1, idAerolinea);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			TAerolinea ta = null;
+			if (rs.next()){
+				boolean activo = rs.getInt(3) == 1 ? true : false;
+				ta = new TAerolinea(rs.getInt(1), rs.getString(2), activo); 
+			}
+			
+			return ta;
+			
+		} catch(SQLException e){
 			return null;
 		}
+		
 	}
 
 	public TAerolinea leerAerolineaPorNombre(String nombre) {
@@ -48,24 +67,27 @@ public class DAOAerolineaImp implements DAOAerolinea {
 	}
 
 	public int altaAerolinea(TAerolinea tAerolinea) {
-		File carpeta = new File(UtilidadesI.ruta("aerolinea"));
-		File[] lista = carpeta.listFiles();
-
+		
 		try {
-			int id = lista.length + 1;
-
-			tAerolinea.setId(id);
-
-			FileWriter archivo = new FileWriter(UtilidadesI.ruta("aerolinea") + String.format("%05d", id) + ".json");
-
-			archivo.write(this.toJSON(tAerolinea).toString());
-			archivo.close();
-
+			Transaction t = TransactionManager.getInstance().getTransaccion();
+			Connection con = (Connection) t.getResource();
+			PreparedStatement ps = con.prepareStatement("INSERT INTO AEROLINEA (Nombre, Activo) VALUES(?,?);", PreparedStatement.RETURN_GENERATED_KEYS);
+			ps.setString(1, tAerolinea.getNombre());
+			ps.setInt(2, 1);
+			
+			int filas = ps.executeUpdate();
+			ResultSet rs = ps.getGeneratedKeys();
+			
+			int id = filas == 1 && rs.next() ? rs.getInt(1) : -1;
+			
+			rs.close();
+			ps.close();
+			
 			return id;
-
-		} catch (IOException e) {
+			
+		} catch (SQLException e) {
+			return -1;
 		}
-		return -1;
 	}
 
 	public boolean modificarAerolinea(TAerolinea tAerolinea) {

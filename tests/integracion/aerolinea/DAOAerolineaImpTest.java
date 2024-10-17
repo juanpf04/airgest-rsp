@@ -8,35 +8,33 @@ import java.util.List;
 import org.junit.Test;
 
 import integracion.UtilidadesI;
+import integracion.factoria.FactoriaIntegracion;
+import integracion.transacciones.Transaction;
+import integracion.transacciones.TransactionManager;
 import negocio.aerolinea.TAerolinea;
 
 public class DAOAerolineaImpTest {
 	
 	@Test
 	public void alta_aerolinea_test() {
-		UtilidadesI.esTest();
-
-		DAOAerolinea da = new DAOAerolineaImp();
-
-		TAerolinea aerolinea = new TAerolinea(3, "tres", true);
-
-		File carpeta = new File(UtilidadesI.ruta("aerolinea"));
-		File[] lista = carpeta.listFiles();
-
-		assertEquals("No ha devuelto el id correcto", lista.length + 1, da.altaAerolinea(aerolinea));
+		Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+		t.start();
+		TAerolinea a = new TAerolinea(-1, "castro", true);
+		DAOAerolinea da = FactoriaIntegracion.getInstance().crearDAOAerolinea();
+		int id = da.altaAerolinea(a);
+		t.commit();
+		assertEquals("No ha devuelto el id correcto", 3, id);
 	}
 	
 	@Test
 	public void leerAerolineaPorIdTest(){
-		UtilidadesI.esTest();
-		
-		DAOAerolinea da = new DAOAerolineaImp();
-		
-		TAerolinea ta = da.leerAerolineaPorId(1);
-		
-		System.out.println(ta);
-		
+		Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+		t.start();
+		DAOAerolinea da = FactoriaIntegracion.getInstance().crearDAOAerolinea();
+		TAerolinea ta = da.leerAerolineaPorId(3);
+		t.commit();
 		assertNotNull("No existe aerolinea", ta);
+		System.out.println(ta);
 	}
 	
 

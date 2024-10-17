@@ -8,7 +8,7 @@ public class TransactionManagerImp extends TransactionManager {
 
 	public Transaction nuevaTransaccion() {
 		
-		if (transactionMap.contains(Thread.currentThread())){
+		if (transactionMap.get(Thread.currentThread()) != null){
 			throw new RuntimeException("Este hilo ya tiene una transacción en curso");
 		}
 		
@@ -24,11 +24,14 @@ public class TransactionManagerImp extends TransactionManager {
 	}
 
 	public Transaction getTransaccion() {
-		if (!transactionMap.contains(Thread.currentThread())){
-			throw new RuntimeException("No existe transacción para este hilo");
+		Transaction t = transactionMap.get(Thread.currentThread());
+		
+		if (t == null){
+			throw new RuntimeException("No existe transaccion para este hilo");
 		}
 		
-		return transactionMap.get(Thread.currentThread());
+		return t;
+		
 		
 	}
 }
