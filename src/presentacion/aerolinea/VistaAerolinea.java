@@ -18,8 +18,9 @@ import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
 
+import presentacion.controlador.Contexto;
 import presentacion.controlador.Controlador;
-import presentacion.controlador.EventosControlador;
+import presentacion.controlador.Evento;
 import presentacion.Observador;
 import presentacion.UtilidadesP;
 
@@ -61,7 +62,7 @@ public class VistaAerolinea extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				ctrl.accion(EventosControlador.VISTA_ALTA_AEROLINEA, null);
+				ctrl.accion(new Contexto(Evento.VISTA_ALTA_AEROLINEA, null));
 			}
 		});
 		alta.setToolTipText("Aqui das de alta una aerolinea crack");
@@ -73,7 +74,7 @@ public class VistaAerolinea extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				ctrl.accion(EventosControlador.VISTA_BAJA_AEROLINEA, null);
+				ctrl.accion(new Contexto(Evento.VISTA_BAJA_AEROLINEA, null));
 			}
 		});
 		baja.setToolTipText("Aqui das de baja una aerolinea crack");
@@ -86,7 +87,7 @@ public class VistaAerolinea extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				ctrl.accion(EventosControlador.VISTA_CONSULTAR_AEROLINEA_POR_ID, null);
+				ctrl.accion(new Contexto(Evento.VISTA_CONSULTAR_AEROLINEA_POR_ID, null));
 			}
 		});
 		botones.add(consultarID);
@@ -97,7 +98,7 @@ public class VistaAerolinea extends JFrame implements Observador {
 		consultarTodas.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ctrl.accion(EventosControlador.CONSULTAR_TODOS_AEROLINEAS, null);
+				ctrl.accion(new Contexto(Evento.VISTA_RESULTADO_CONSULTAR_TODAS_AEROLINEAS, null));
 			}
 		});
 
@@ -110,7 +111,7 @@ public class VistaAerolinea extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				ctrl.accion(EventosControlador.VISTA_MODIFICAR_AEROLINEA, null);
+				ctrl.accion(new Contexto(Evento.VISTA_MODIFICAR_AEROLINEA, null));
 			}
 		});
 
@@ -126,7 +127,7 @@ public class VistaAerolinea extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				ctrl.accion(EventosControlador.VISTA_PRINCIPAL, null);
+				ctrl.accion(new Contexto(Evento.VISTA_PRINCIPAL, null));
 			}
 
 		});

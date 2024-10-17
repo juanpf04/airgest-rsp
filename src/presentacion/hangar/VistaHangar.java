@@ -20,8 +20,9 @@ import javax.swing.border.MatteBorder;
 
 import presentacion.Observador;
 import presentacion.UtilidadesP;
+import presentacion.controlador.Contexto;
 import presentacion.controlador.Controlador;
-import presentacion.controlador.EventosControlador;
+import presentacion.controlador.Evento;
 
 public class VistaHangar extends JFrame implements Observador {
 
@@ -64,7 +65,7 @@ public class VistaHangar extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				ctrl.accion(EventosControlador.VISTA_ALTA_HANGAR, null);
+				ctrl.accion(new Contexto(Evento.VISTA_ALTA_HANGAR, null));
 			}
 		});
 		alta.setToolTipText("Aqui das de alta un hangar maquina");
@@ -76,7 +77,7 @@ public class VistaHangar extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				ctrl.accion(EventosControlador.VISTA_BAJA_HANGAR, null);
+				ctrl.accion(new Contexto(Evento.VISTA_BAJA_HANGAR, null));
 			}
 		});
 		baja.setToolTipText("Aqui das de baja un hangar maquina");
@@ -89,7 +90,7 @@ public class VistaHangar extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				ctrl.accion(EventosControlador.VISTA_CONSULTAR_HANGAR_POR_ID, null);
+				ctrl.accion(new Contexto(Evento.VISTA_CONSULTAR_HANGAR_POR_ID, null));
 			}
 		});
 		botones.add(consultarID);
@@ -100,7 +101,7 @@ public class VistaHangar extends JFrame implements Observador {
 		consultarTodos.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ctrl.accion(EventosControlador.CONSULTAR_TODOS_HANGARES, null);
+				ctrl.accion(new Contexto(Evento.CONSULTAR_TODOS_HANGARES, null));
 			}
 		});
 
@@ -113,7 +114,7 @@ public class VistaHangar extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				ctrl.accion(EventosControlador.VISTA_MODIFICAR_HANGAR, null);
+				ctrl.accion(new Contexto(Evento.VISTA_MODIFICAR_HANGAR, null));
 			}
 		});
 
@@ -134,7 +135,7 @@ public class VistaHangar extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				ctrl.accion(EventosControlador.VISTA_PRINCIPAL, null);
+				ctrl.accion(new Contexto(Evento.VISTA_PRINCIPAL, null));
 			}
 
 		});

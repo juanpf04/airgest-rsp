@@ -19,8 +19,9 @@ import javax.swing.border.LineBorder;
 import negocio.aerolinea.TAerolinea;
 import presentacion.Observador;
 import presentacion.UtilidadesP;
+import presentacion.controlador.Contexto;
 import presentacion.controlador.Controlador;
-import presentacion.controlador.EventosControlador;
+import presentacion.controlador.Evento;
 
 public class VistaAltaAerolinea extends JFrame implements Observador {
 
@@ -73,7 +74,7 @@ public class VistaAltaAerolinea extends JFrame implements Observador {
 			public void actionPerformed(ActionEvent e) {
 				String nombreLeido = textoNombre.getText();
 				TAerolinea transfer = new TAerolinea(0, nombreLeido, true);
-				controlador.accion(EventosControlador.ALTA_AEROLINEA, transfer);
+				controlador.accion(new Contexto(Evento.ALTA_AEROLINEA, transfer));
 			}
 
 		});
@@ -93,7 +94,7 @@ public class VistaAltaAerolinea extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				controlador.accion(EventosControlador.VISTA_AEROLINEA, null);
+				controlador.accion(new Contexto(Evento.VISTA_AEROLINEA, null));
 			}
 
 		});

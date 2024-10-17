@@ -16,80 +16,52 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
-import negocio.modeloAerolinea.TModeloAerolinea;
-import negocio.personalHangar.TPersonalHangar;
 import presentacion.Observador;
 import presentacion.UtilidadesP;
 import presentacion.controlador.Contexto;
 import presentacion.controlador.Controlador;
 import presentacion.controlador.Evento;
 
-public class VistaVincularPersonal extends JFrame implements Observador {
+public class VistaConsultarPersonalPorHangar extends JFrame implements Observador{
+
 
 	private static final long serialVersionUID = 1L;
 
+	@Override
 	public void actualizar(Object datos) {
 		UtilidadesP.setAirGestRSP(this);
-
-		this.setSize(470, 250);
+		this.setSize(400, 160);
 
 		JPanel principal = new JPanel();
 		principal.setLayout(new BoxLayout(principal, BoxLayout.PAGE_AXIS));
 
-		JPanel funcion = new JPanel();
-		funcion.setLayout(new BoxLayout(funcion, BoxLayout.PAGE_AXIS));
-
-		JPanel centro = new JPanel();
-
 		JPanel panel_titulo = new JPanel();
-		JLabel titulo = new JLabel("Vincular Personal");
+		JLabel titulo = new JLabel("Consultar personal por Hangar");
 		titulo.setFont(new Font("Tahoma", Font.BOLD, 30));
 		titulo.setBorder(new LineBorder(Color.BLACK, 2));
 		titulo.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_titulo.add(titulo);
 
-		funcion.add(panel_titulo);
+		principal.add(panel_titulo);
+		JPanel centro = new JPanel();
+		centro.setLayout(new BoxLayout(centro, BoxLayout.PAGE_AXIS));
 
-		JPanel panel_etiquetas = new JPanel();
-		panel_etiquetas.setLayout(new BoxLayout(panel_etiquetas, BoxLayout.PAGE_AXIS));
-
-		JPanel panel_textfield = new JPanel();
-		panel_textfield.setLayout(new BoxLayout(panel_textfield, BoxLayout.PAGE_AXIS));
-
-		JLabel etiquetaIdPersonal = new JLabel("idPersonal: ");
-		etiquetaIdPersonal.setFont(new Font("Tahoma", Font.BOLD, 24));
-		JTextField textoIdPersonal = new JTextField();
-		textoIdPersonal.setMaximumSize(new Dimension(200, 30));
-		textoIdPersonal.setMinimumSize(new Dimension(200, 30));
-		textoIdPersonal.setPreferredSize(new Dimension(200, 30));
-		textoIdPersonal.setFont(new Font("Tahoma", Font.BOLD, 18));
-
-		panel_etiquetas.add(etiquetaIdPersonal);
-		panel_textfield.add(textoIdPersonal);
-
-		centro.add(panel_etiquetas);
-		centro.add(panel_textfield);
-
-		JPanel idHangar = new JPanel();
-		idHangar.setLayout(new BoxLayout(idHangar, BoxLayout.LINE_AXIS));
-		JLabel etiquetaIdHangar = new JLabel("idHangar: ");
-		etiquetaIdHangar.setFont(new Font("Tahoma", Font.BOLD, 24));
-		JTextField textoIdHangar = new JTextField();
-		textoIdHangar.setMaximumSize(new Dimension(200, 30));
-		textoIdHangar.setMinimumSize(new Dimension(200, 30));
-		textoIdHangar.setPreferredSize(new Dimension(200, 30));
-		textoIdHangar.setFont(new Font("Tahoma", Font.BOLD, 18));
-
-		panel_etiquetas.add(etiquetaIdHangar);
-		panel_textfield.add(textoIdHangar);
-
-		centro.add(panel_etiquetas);
-		centro.add(panel_textfield);
-
-		principal.add(funcion);
+		JPanel id = new JPanel();
+		id.setLayout(new BoxLayout(id, BoxLayout.LINE_AXIS));
+		JLabel etiquetaId = new JLabel("id hangar: ");
+		etiquetaId.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		JTextField textoId = new JTextField();
+		textoId.setMaximumSize(new Dimension(200, 30));
+		textoId.setMinimumSize(new Dimension(200, 30));
+		textoId.setPreferredSize(new Dimension(200, 30));
+		textoId.setFont(new Font("Tahoma", Font.BOLD, 18));
+		id.add(etiquetaId);
+		id.add(textoId);
+		centro.add(id);
 		principal.add(centro);
 
 		Controlador controlador = Controlador.getInstance();
+
 		JSplitPane botones = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
 		JButton aceptar = new JButton("ACEPTAR");
 		aceptar.addActionListener(new ActionListener() {
@@ -97,15 +69,12 @@ public class VistaVincularPersonal extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					int idPersonalLeido = Integer.valueOf(textoIdPersonal.getText());
-					int idHangarLeido = Integer.valueOf(textoIdHangar.getText());
-					TPersonalHangar transfer = new TPersonalHangar(idPersonalLeido, idHangarLeido);
-					controlador.accion(new Contexto(Evento.VINCULAR_PERSONAL, transfer));
+					int id = Integer.parseInt(textoId.getText());
+					controlador.accion(new Contexto(Evento.CONSULTAR_PERSONAL_POR_HANGAR, id));
 				} catch (NumberFormatException n) {
-					controlador.accion(new Contexto(Evento.VINCULAR_PERSONAL, new TModeloAerolinea()));
+					controlador.accion(new Contexto(Evento.CONSULTAR_PERSONAL_POR_HANGAR, 0));
 				}
 			}
-
 		});
 
 		aceptar.setMaximumSize(new Dimension(100, 30));
@@ -123,8 +92,8 @@ public class VistaVincularPersonal extends JFrame implements Observador {
 				dispose();
 				controlador.accion(new Contexto(Evento.VISTA_PERSONAL, null));
 			}
-
 		});
+
 		atras.setMaximumSize(new Dimension(90, 30));
 		atras.setPreferredSize(new Dimension(90, 30));
 
@@ -133,9 +102,11 @@ public class VistaVincularPersonal extends JFrame implements Observador {
 		principal.add(botones);
 
 		this.setContentPane(principal);
-		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
 		this.setLocation(200, 200);
 		this.setResizable(false);
+		
 	}
+
 }

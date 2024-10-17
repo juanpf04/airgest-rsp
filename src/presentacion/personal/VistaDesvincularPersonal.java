@@ -20,8 +20,9 @@ import negocio.modeloAerolinea.TModeloAerolinea;
 import negocio.personalHangar.TPersonalHangar;
 import presentacion.Observador;
 import presentacion.UtilidadesP;
+import presentacion.controlador.Contexto;
 import presentacion.controlador.Controlador;
-import presentacion.controlador.EventosControlador;
+import presentacion.controlador.Evento;
 
 public class VistaDesvincularPersonal extends JFrame implements Observador {
 
@@ -96,9 +97,9 @@ public class VistaDesvincularPersonal extends JFrame implements Observador {
 					int idPersonalLeido = Integer.valueOf(textoIdPersonal.getText());
 					int idHangarLeido = Integer.valueOf(textoIdHangar.getText());
 					TPersonalHangar transfer = new TPersonalHangar(idPersonalLeido, idHangarLeido);
-					controlador.accion(EventosControlador.DESVINCULAR_PERSONAL, transfer);
+					controlador.accion(new Contexto(Evento.DESVINCULAR_PERSONAL, transfer));
 				} catch (NumberFormatException n) {
-					controlador.accion(EventosControlador.DESVINCULAR_PERSONAL, new TModeloAerolinea());
+					controlador.accion(new Contexto(Evento.DESVINCULAR_PERSONAL, new TModeloAerolinea()));
 				}
 			}
 
@@ -117,7 +118,7 @@ public class VistaDesvincularPersonal extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				controlador.accion(EventosControlador.VISTA_PERSONAL, null);
+				controlador.accion(new Contexto(Evento.VISTA_PERSONAL, null));
 			}
 
 		});

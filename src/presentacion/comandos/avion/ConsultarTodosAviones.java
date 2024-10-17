@@ -16,7 +16,7 @@ public class ConsultarTodosAviones implements Comando {
 		FactoriaNegocio fn = FactoriaNegocio.getInstance();
 		SAAvion sav = fn.crearSAAvion();
 		List<TAvion> aviones = sav.consultarTodosAviones();
-		return new Contexto(Evento.VISTA_CONSULTAR_TODOS_AVIONES, aviones);
+		return new Contexto(Evento.VISTA_RESULTADO_CONSULTAR_TODOS_AVIONES, aviones);
 	}
 
 }

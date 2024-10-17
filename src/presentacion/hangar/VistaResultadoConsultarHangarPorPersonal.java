@@ -1,4 +1,4 @@
-package presentacion.aerolinea;
+package presentacion.hangar;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
@@ -12,17 +12,18 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-import negocio.aerolinea.TAerolinea;
+import negocio.hangar.THangar;
 import presentacion.Observador;
 import presentacion.UtilidadesP;
 
-public class VistaResultadoConsultarAerolineasPorModelo extends JFrame implements Observador {
+public class VistaResultadoConsultarHangarPorPersonal extends JFrame implements Observador{
 
 	
 	private static final long serialVersionUID = 1L;
 
 	@Override
 	public void actualizar(Object datos) {
+
 		UtilidadesP.setAirGestRSP(this);
 		this.setSize(600, 650);
 
@@ -30,11 +31,11 @@ public class VistaResultadoConsultarAerolineasPorModelo extends JFrame implement
 		principal.setLayout(new BorderLayout());
 
 		@SuppressWarnings("unchecked")
-		List<TAerolinea> aerolineas = (List<TAerolinea>) datos;
+		List<THangar> hangares = (List<THangar>) datos;
 
 		String s = "";
-		for (TAerolinea ae : aerolineas)
-			s += ae.toString() + "\n";
+		for (THangar ha : hangares)
+			s += ha.toString() + "\n";
 
 		JTextArea exito = new JTextArea(s);
 		exito.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -45,7 +46,8 @@ public class VistaResultadoConsultarAerolineasPorModelo extends JFrame implement
 				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		principal.add(scroll, BorderLayout.CENTER);
 
-		JButton atras = new JButton("ATRAS");
+		JButton atras = new JButton("ATRAS"); // boton para volver a la ventana
+												// principal
 		atras.setToolTipText("Esto vuelve a la ventana anterior");
 		atras.addActionListener(new ActionListener() {
 
@@ -61,7 +63,7 @@ public class VistaResultadoConsultarAerolineasPorModelo extends JFrame implement
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		this.setVisible(true);
 		this.setLocation(200, 200);
-		
+
 	}
 
 }

@@ -18,30 +18,11 @@ import javax.swing.border.LineBorder;
 
 import presentacion.Observador;
 import presentacion.UtilidadesP;
+import presentacion.controlador.Contexto;
 import presentacion.controlador.Controlador;
-import presentacion.controlador.EventosControlador;
+import presentacion.controlador.Evento;
 
 public class VistaBajaPersonal extends JFrame implements Observador {
-
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @author Usuario
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
-	public class VistaExitoAltaPersonal extends JFrame implements Observador {
-		/** 
-		* (non-Javadoc)
-		* @see Observador#actualizar(Object datos)
-		* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-		*/
-		public void actualizar(Object datos) {
-			// begin-user-code
-			// TODO Auto-generated method stub
-
-			// end-user-code
-		}
-	}
 
 	private static final long serialVersionUID = 1L;
 
@@ -88,9 +69,9 @@ public class VistaBajaPersonal extends JFrame implements Observador {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					int id = Integer.parseInt(textoId.getText());
-					controlador.accion(EventosControlador.BAJA_PERSONAL, id);
+					controlador.accion(new Contexto(Evento.BAJA_PERSONAL, id));
 				} catch (NumberFormatException n) {
-					controlador.accion(EventosControlador.BAJA_PERSONAL, 0);
+					controlador.accion(new Contexto(Evento.BAJA_PERSONAL, 0));
 				}
 			}
 
@@ -111,7 +92,7 @@ public class VistaBajaPersonal extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				controlador.accion(EventosControlador.VISTA_PERSONAL, null);
+				controlador.accion(new Contexto(Evento.VISTA_PERSONAL, null));
 			}
 		});
 

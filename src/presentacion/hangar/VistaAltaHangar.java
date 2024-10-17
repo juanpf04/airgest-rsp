@@ -20,8 +20,9 @@ import javax.swing.border.LineBorder;
 import negocio.hangar.THangar;
 import presentacion.Observador;
 import presentacion.UtilidadesP;
+import presentacion.controlador.Contexto;
 import presentacion.controlador.Controlador;
-import presentacion.controlador.EventosControlador;
+import presentacion.controlador.Evento;
 
 public class VistaAltaHangar extends JFrame implements Observador {
 
@@ -142,10 +143,10 @@ public class VistaAltaHangar extends JFrame implements Observador {
 																					// error
 					int espacioLeido = Integer.parseInt(textoespacioAlmacenaje.getText());
 					THangar transfer = new THangar(0, dirLeido, stockLeido, costeLeido, espacioLeido, true);
-					controlador.accion(EventosControlador.ALTA_HANGAR, transfer);
+					controlador.accion(new Contexto(Evento.ALTA_HANGAR, transfer));
 				} catch (NumberFormatException n) {
 					THangar hangar = new THangar(0, "", 0, 0, 0, false);
-					controlador.accion(EventosControlador.ALTA_HANGAR, hangar);
+					controlador.accion(new Contexto(Evento.ALTA_HANGAR, hangar));
 				}
 			}
 
@@ -164,7 +165,7 @@ public class VistaAltaHangar extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				controlador.accion(EventosControlador.VISTA_HANGAR, null);
+				controlador.accion(new Contexto(Evento.VISTA_HANGAR, null));
 			}
 
 		});

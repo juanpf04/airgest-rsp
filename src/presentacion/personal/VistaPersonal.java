@@ -20,8 +20,9 @@ import javax.swing.border.MatteBorder;
 
 import presentacion.Observador;
 import presentacion.UtilidadesP;
+import presentacion.controlador.Contexto;
 import presentacion.controlador.Controlador;
-import presentacion.controlador.EventosControlador;
+import presentacion.controlador.Evento;
 
 public class VistaPersonal extends JFrame implements Observador {
 
@@ -61,7 +62,7 @@ public class VistaPersonal extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				ctrl.accion(EventosControlador.VISTA_ALTA_PERSONAL, null);
+				ctrl.accion(new Contexto(Evento.VISTA_ALTA_PERSONAL, null));
 			}
 		});
 		alta.setToolTipText("Aqui das de alta un personal maquina");
@@ -73,7 +74,7 @@ public class VistaPersonal extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				ctrl.accion(EventosControlador.VISTA_BAJA_PERSONAL, null);
+				ctrl.accion(new Contexto(Evento.VISTA_BAJA_PERSONAL, null));
 			}
 		});
 		baja.setToolTipText("Aqui das de baja un personal maquina");
@@ -86,7 +87,7 @@ public class VistaPersonal extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				ctrl.accion(EventosControlador.VISTA_CONSULTAR_PERSONAL_POR_ID, null);
+				ctrl.accion(new Contexto(Evento.VISTA_CONSULTAR_PERSONAL_POR_ID, null));
 			}
 		});
 		botones.add(consultarID);
@@ -97,7 +98,7 @@ public class VistaPersonal extends JFrame implements Observador {
 		consultarTodos.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ctrl.accion(EventosControlador.CONSULTAR_PERSONAL_EXISTENTE, null);
+				ctrl.accion(new Contexto(Evento.CONSULTAR_PERSONAL_EXISTENTE, null));
 			}
 		});
 
@@ -110,7 +111,7 @@ public class VistaPersonal extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				ctrl.accion(EventosControlador.VISTA_MODIFICAR_PERSONAL, null);
+				ctrl.accion(new Contexto(Evento.VISTA_MODIFICAR_PERSONAL, null));
 			}
 		});
 
@@ -123,7 +124,7 @@ public class VistaPersonal extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				ctrl.accion(EventosControlador.VISTA_VINCULAR_PERSONAL, null);
+				ctrl.accion(new Contexto(Evento.VISTA_VINCULAR_PERSONAL, null));
 			}
 		});
 
@@ -136,7 +137,7 @@ public class VistaPersonal extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				ctrl.accion(EventosControlador.VISTA_DESVINCULAR_PERSONAL, null);
+				ctrl.accion(new Contexto(Evento.VISTA_DESVINCULAR_PERSONAL, null));
 			}
 		});
 
@@ -155,7 +156,7 @@ public class VistaPersonal extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				ctrl.accion(EventosControlador.VISTA_PRINCIPAL, null);
+				ctrl.accion(new Contexto(Evento.VISTA_PRINCIPAL, null));
 			}
 
 		});

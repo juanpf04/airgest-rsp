@@ -1,4 +1,4 @@
-package presentacion.modelo;
+package presentacion.hangar;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -22,7 +22,7 @@ import presentacion.controlador.Contexto;
 import presentacion.controlador.Controlador;
 import presentacion.controlador.Evento;
 
-public class VistaConsultarModelosPorAerolinea extends JFrame implements Observador {
+public class VistaConsultarHangarPorPersonal extends JFrame implements Observador{
 
 	
 	private static final long serialVersionUID = 1L;
@@ -36,7 +36,7 @@ public class VistaConsultarModelosPorAerolinea extends JFrame implements Observa
 		principal.setLayout(new BoxLayout(principal, BoxLayout.PAGE_AXIS));
 
 		JPanel panel_titulo = new JPanel();
-		JLabel titulo = new JLabel("Consultar Modelos por Aerolínea");
+		JLabel titulo = new JLabel("Consultar Hangares por Personal");
 		titulo.setFont(new Font("Tahoma", Font.BOLD, 30));
 		titulo.setBorder(new LineBorder(Color.BLACK, 2));
 		titulo.setHorizontalAlignment(SwingConstants.CENTER);
@@ -48,7 +48,7 @@ public class VistaConsultarModelosPorAerolinea extends JFrame implements Observa
 
 		JPanel id = new JPanel();
 		id.setLayout(new BoxLayout(id, BoxLayout.LINE_AXIS));
-		JLabel etiquetaId = new JLabel("id aerolínea: ");
+		JLabel etiquetaId = new JLabel("id personal: ");
 		etiquetaId.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		JTextField textoId = new JTextField();
 		textoId.setMaximumSize(new Dimension(200, 30));
@@ -71,9 +71,9 @@ public class VistaConsultarModelosPorAerolinea extends JFrame implements Observa
 			public void actionPerformed(ActionEvent e) {
 				try {
 					int id = Integer.parseInt(textoId.getText());
-					controlador.accion(new Contexto(Evento.CONSULTAR_MODELOS_POR_AEROLINEA, id));
+					controlador.accion(new Contexto(Evento.CONSULTAR_HANGARES_POR_PERSONAL, id));
 				} catch (NumberFormatException n) {
-					controlador.accion(new Contexto(Evento.CONSULTAR_MODELOS_POR_AEROLINEA, 0));
+					controlador.accion(new Contexto(Evento.CONSULTAR_HANGARES_POR_PERSONAL, 0));
 				}
 			}
 		});
@@ -90,7 +90,7 @@ public class VistaConsultarModelosPorAerolinea extends JFrame implements Observa
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				controlador.accion(new Contexto(Evento.VISTA_MODELO, null));
+				controlador.accion(new Contexto(Evento.VISTA_HANGAR, null));
 			}
 		});
 
@@ -106,6 +106,7 @@ public class VistaConsultarModelosPorAerolinea extends JFrame implements Observa
 		this.setVisible(true);
 		this.setLocation(200, 200);
 		this.setResizable(false);
+		
 	}
 
 }

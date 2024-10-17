@@ -18,8 +18,9 @@ import javax.swing.border.LineBorder;
 
 import presentacion.Observador;
 import presentacion.UtilidadesP;
+import presentacion.controlador.Contexto;
 import presentacion.controlador.Controlador;
-import presentacion.controlador.EventosControlador;
+import presentacion.controlador.Evento;
 
 public class VistaConsultarAerolineaPorId extends JFrame implements Observador {
 
@@ -67,9 +68,9 @@ public class VistaConsultarAerolineaPorId extends JFrame implements Observador {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					int id = Integer.parseInt(textoId.getText());
-					controlador.accion(EventosControlador.CONSULTAR_AEROLINEA_POR_ID, id);
+					controlador.accion(new Contexto(Evento.CONSULTAR_AEROLINEA_POR_ID, id));
 				} catch (NumberFormatException n) {
-					controlador.accion(EventosControlador.CONSULTAR_AEROLINEA_POR_ID, 0);
+					controlador.accion(new Contexto(Evento.CONSULTAR_AEROLINEA_POR_ID, 0));
 				}
 			}
 		});
@@ -87,7 +88,7 @@ public class VistaConsultarAerolineaPorId extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				controlador.accion(EventosControlador.VISTA_AEROLINEA, null);
+				controlador.accion(new Contexto(Evento.VISTA_AEROLINEA, null));
 			}
 		});
 

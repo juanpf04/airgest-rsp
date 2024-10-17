@@ -17,7 +17,7 @@ public class ControladorImp extends Controlador {
 
 		Observador vista = FactoriaVistas.getInstance().crearVista(contexto.getEvento());
 
-		vista.actualizar(contexto);
+		vista.actualizar(contexto.getInfo());
 	}
 
 }

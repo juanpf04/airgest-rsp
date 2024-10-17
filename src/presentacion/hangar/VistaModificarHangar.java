@@ -19,8 +19,9 @@ import javax.swing.border.LineBorder;
 import negocio.hangar.THangar;
 import presentacion.Observador;
 import presentacion.UtilidadesP;
+import presentacion.controlador.Contexto;
 import presentacion.controlador.Controlador;
-import presentacion.controlador.EventosControlador;
+import presentacion.controlador.Evento;
 
 public class VistaModificarHangar extends JFrame implements Observador {
 
@@ -146,9 +147,9 @@ public class VistaModificarHangar extends JFrame implements Observador {
 					double costeLeido = Double.parseDouble(textocosteDia.getText());
 					int espacioLeido = Integer.parseInt(textoespacioAlmacenaje.getText());
 					THangar transfer = new THangar(idLeido, dirLeido, stockLeido, costeLeido, espacioLeido, true);
-					controlador.accion(EventosControlador.MODIFICAR_HANGAR, transfer);
+					controlador.accion(new Contexto(Evento.MODIFICAR_HANGAR, transfer));
 				} catch (NumberFormatException n) {
-					controlador.accion(EventosControlador.MODIFICAR_HANGAR, new THangar());
+					controlador.accion(new Contexto(Evento.MODIFICAR_HANGAR, new THangar()));
 				}
 
 			}
@@ -168,7 +169,7 @@ public class VistaModificarHangar extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				controlador.accion(EventosControlador.VISTA_HANGAR, null);
+				controlador.accion(new Contexto(Evento.VISTA_HANGAR, null));
 			}
 
 		});

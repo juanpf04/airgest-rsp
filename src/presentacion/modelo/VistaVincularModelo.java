@@ -19,8 +19,9 @@ import javax.swing.border.LineBorder;
 import negocio.modeloAerolinea.TModeloAerolinea;
 import presentacion.Observador;
 import presentacion.UtilidadesP;
+import presentacion.controlador.Contexto;
 import presentacion.controlador.Controlador;
-import presentacion.controlador.EventosControlador;
+import presentacion.controlador.Evento;
 
 public class VistaVincularModelo extends JFrame implements Observador {
 
@@ -93,9 +94,9 @@ public class VistaVincularModelo extends JFrame implements Observador {
 					int idModeloLeido = Integer.valueOf(textoIdModelo.getText());
 					int idAerolineaLeido = Integer.valueOf(textoIdAerolinea.getText());
 					TModeloAerolinea transfer = new TModeloAerolinea(idModeloLeido, idAerolineaLeido);
-					controlador.accion(EventosControlador.VINCULAR_MODELO, transfer);
+					controlador.accion(new Contexto(Evento.VINCULAR_MODELO, transfer));
 				} catch (NumberFormatException n) {
-					controlador.accion(EventosControlador.VINCULAR_MODELO, new TModeloAerolinea());
+					controlador.accion(new Contexto(Evento.VINCULAR_MODELO, new TModeloAerolinea()));
 				}
 			}
 
@@ -113,7 +114,7 @@ public class VistaVincularModelo extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				controlador.accion(EventosControlador.VISTA_MODELO, null);
+				controlador.accion(new Contexto(Evento.VISTA_MODELO, null));
 			}
 
 		});

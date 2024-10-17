@@ -22,8 +22,9 @@ import javax.swing.border.LineBorder;
 import negocio.modelo.TModelo;
 import presentacion.Observador;
 import presentacion.UtilidadesP;
+import presentacion.controlador.Contexto;
 import presentacion.controlador.Controlador;
-import presentacion.controlador.EventosControlador;
+import presentacion.controlador.Evento;
 
 public class VistaAltaModelo extends JFrame implements Observador {
 
@@ -99,7 +100,7 @@ public class VistaAltaModelo extends JFrame implements Observador {
 				String nombreLeido = textoNombre.getText();
 				String motorLeido = textoMotor.getText();
 				TModelo transfer = new TModelo(0, nombreLeido, motorLeido, true);
-				controlador.accion(EventosControlador.ALTA_MODELO, transfer);
+				controlador.accion(new Contexto(Evento.ALTA_MODELO, transfer));
 			}
 
 		});
@@ -117,7 +118,7 @@ public class VistaAltaModelo extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				controlador.accion(EventosControlador.VISTA_MODELO, null);
+				controlador.accion(new Contexto(Evento.VISTA_MODELO, null));
 			}
 
 		});

@@ -21,8 +21,9 @@ import negocio.personal.TPSeguridad;
 import negocio.personal.TPersonal;
 import presentacion.Observador;
 import presentacion.UtilidadesP;
+import presentacion.controlador.Contexto;
 import presentacion.controlador.Controlador;
-import presentacion.controlador.EventosControlador;
+import presentacion.controlador.Evento;
 
 public class VistaModificarPersonal extends JFrame implements Observador {
 
@@ -68,7 +69,7 @@ public class VistaModificarPersonal extends JFrame implements Observador {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					dispose();
-					ctrl.accion(EventosControlador.VISTA_MODIFICAR_PERSONAL, "SEGURIDAD");
+					ctrl.accion(new Contexto(Evento.VISTA_MODIFICAR_PERSONAL, "SEGURIDAD"));
 				}
 			});
 
@@ -82,7 +83,7 @@ public class VistaModificarPersonal extends JFrame implements Observador {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					dispose();
-					ctrl.accion(EventosControlador.VISTA_MODIFICAR_PERSONAL, "LIMPIEZA");
+					ctrl.accion(new Contexto(Evento.VISTA_MODIFICAR_PERSONAL, "LIMPIEZA"));
 				}
 			});
 
@@ -179,7 +180,7 @@ public class VistaModificarPersonal extends JFrame implements Observador {
 							String rol = textoRol.getText();
 							transfer = new TPLimpieza(id, idEmpleado, areaAsignada, true, rol);
 						}
-						ctrl.accion(EventosControlador.MODIFICAR_PERSONAL, transfer);
+						ctrl.accion(new Contexto(Evento.MODIFICAR_PERSONAL, transfer));
 					} catch (Exception ex) {
 
 					}
@@ -200,9 +201,9 @@ public class VistaModificarPersonal extends JFrame implements Observador {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 				if (datos == null)
-					ctrl.accion(EventosControlador.VISTA_PERSONAL, null);
+					ctrl.accion(new Contexto(Evento.VISTA_PERSONAL, null));
 				else
-					ctrl.accion(EventosControlador.VISTA_MODIFICAR_PERSONAL, null);
+					ctrl.accion(new Contexto(Evento.VISTA_MODIFICAR_PERSONAL, null));
 			}
 
 		});

@@ -114,7 +114,7 @@ public class FactoriaVistasImp extends FactoriaVistas {
 		case VISTA_RESULTADO_CONSULTAR_AVION_POR_ID:
 			vista = new VistaResultadoConsultarAvionPorId();
 			break;
-		case VISTA_CONSULTAR_TODOS_AVIONES:
+		case VISTA_RESULTADO_CONSULTAR_TODOS_AVIONES:
 			vista = new VistaResultadoConsultarTodosAviones();
 			break;
 		case VISTA_MODIFICAR_AVION:
@@ -300,6 +300,12 @@ public class FactoriaVistasImp extends FactoriaVistas {
 		case VISTA_FALLO_MODIFICAR_HANGAR:
 			vista = new VistaFalloModificarHangar();
 			break;
+		case VISTA_CONSULTAR_HANGARES_POR_PERSONAL:
+			vista = new VistaConsultarHangarPorPersonal();
+			break;
+		case VISTA_RESULTADO_CONSULTAR_HANGARES_POR_PERSONAL:
+			vista = new VistaResultadoConsultarHangarPorPersonal();
+			break;
 
 		// PERSONAL
 		case VISTA_PERSONAL:
@@ -340,6 +346,30 @@ public class FactoriaVistasImp extends FactoriaVistas {
 			break;
 		case VISTA_FALLO_MODIFICAR_PERSONAL:
 			vista = new VistaFalloModificarPersonal();
+			break;
+		case VISTA_CONSULTAR_PERSONAL_POR_HANGAR:
+			vista = new VistaConsultarPersonalPorHangar();
+			break;
+		case VISTA_RESULTADO_CONSULTAR_PERSONAL_POR_HANGAR:
+			vista = new VistaResultadoConsultarPersonalPorHangar();
+			break;
+		case VISTA_VINCULAR_PERSONAL:
+			vista = new VistaVincularPersonal();
+			break;
+		case VISTA_EXITO_VINCULAR_PERSONAL:
+			vista = new VistaExitoVincularPersonal();
+			break;
+		case VISTA_FALLO_VINCULAR_PERSONAL:
+			vista = new VistaFalloVincularPersonal();
+			break;
+		case VISTA_DESVINCULAR_PERSONAL:
+			vista = new VistaDesvincularPersonal();
+			break;
+		case VISTA_EXITO_DESVINCULAR_PERSONAL:
+			vista = new VistaExitoDesvincularPersonal();
+			break;
+		case VISTA_FALLO_DESVINCULAR_PERSONAL:
+			vista = new VistaFalloDesvincularPersonal();
 			break;
 		}
 		return vista;
