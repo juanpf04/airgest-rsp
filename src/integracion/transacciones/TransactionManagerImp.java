@@ -7,9 +7,9 @@ public class TransactionManagerImp extends TransactionManager {
 	private ConcurrentHashMap<Thread, Transaction> transactionMap = new ConcurrentHashMap<>();
 
 	public Transaction nuevaTransaccion() {
-		
-		if (transactionMap.contains(Thread.currentThread())){
-			throw new RuntimeException("Este hilo ya tiene una transacción en curso");
+				
+		if(transactionMap.get(Thread.currentThread()) != null){
+			throw new RuntimeException("Este hilo ya tiene una transaccion en curso");
 		}
 		
 		Transaction t = TransactionFactory.getInstance().nuevaTransaccion();
@@ -23,12 +23,15 @@ public class TransactionManagerImp extends TransactionManager {
 		transactionMap.remove(Thread.currentThread());
 	}
 
-	public Transaction getTransaccion() {
-		if (!transactionMap.contains(Thread.currentThread())){
-			throw new RuntimeException("No existe transacción para este hilo");
+	public Transaction getTransaccion() {		
+		Transaction t = transactionMap.get(Thread.currentThread());
+		
+		if(t == null){
+			throw new RuntimeException("No existe transaccion para este hilo");
 		}
 		
-		return transactionMap.get(Thread.currentThread());
+		return t;
+		
 		
 	}
 }
