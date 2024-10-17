@@ -91,6 +91,18 @@ public class VistaContrato extends JFrame implements Observador {
 		botones.add(consultarTodos);
 
 		//-------------------------------------------
+		JButton consultarContratoPyD = new JButton("CONSULTAR CONTRATOS POR AEROLÍNEA, PRECIO Y DURACIÓN");
+
+		consultarContratoPyD.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				ctrl.accion(new Contexto(Evento.CONSULTAR_CONTRATOS_POR_AEROLINEA_PRECIO_Y_DURACION, null));
+			}
+		});
+		botones.add(consultarContratoPyD);
+
+		//-------------------------------------------
 		JButton modificarContrato = new JButton("MODIFICAR CONTRATO");
 
 		modificarContrato.addActionListener(new ActionListener() {

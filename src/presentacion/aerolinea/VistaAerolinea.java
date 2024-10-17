@@ -105,6 +105,20 @@ public class VistaAerolinea extends JFrame implements Observador {
 		botones.add(consultarTodas);
 
 		//-------------------------------------------
+		
+		JButton consultarPorModelo = new JButton("CONSULTAR AEROLINEAS POR MODELO");
+
+		consultarPorModelo.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					ctrl.accion(new Contexto(Evento.VISTA_CONSULTAR_AEROLINEAS_POR_MODELO, null));
+				}
+			});
+
+		botones.add(consultarPorModelo);
+
+		//-------------------------------------------
+		
 		JButton modificar = new JButton("MODIFICAR AEROLINEA");
 
 		modificar.addActionListener(new ActionListener() {

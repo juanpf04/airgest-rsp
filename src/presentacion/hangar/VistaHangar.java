@@ -108,6 +108,19 @@ public class VistaHangar extends JFrame implements Observador {
 		botones.add(consultarTodos);
 
 		// -------------------------------------------
+		
+		JButton consultarHangarPersonal = new JButton("CONSULTAR HANGARES POR PERSONAL");
+
+		consultarHangarPersonal.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ctrl.accion(new Contexto(Evento.CONSULTAR_HANGARES_POR_PERSONAL, null));
+			}
+		});
+
+		botones.add(consultarHangarPersonal);
+
+		// -------------------------------------------
 		JButton modificar = new JButton("MODIFICAR HANGAR");
 
 		modificar.addActionListener(new ActionListener() {

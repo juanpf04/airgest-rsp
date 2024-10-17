@@ -110,6 +110,19 @@ public class VistaModelo extends JFrame implements Observador {
 		botones.add(consultarTodos);
 
 		// -------------------------------------------
+		
+		JButton consultarModPorAerolinea = new JButton("CONSULTAR MODELOS POR AEROLÍNEA");
+
+		consultarModPorAerolinea.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ctrl.accion(new Contexto(Evento.CONSULTAR_MODELOS_POR_AEROLINEA, null));
+			}
+		});
+
+		botones.add(consultarModPorAerolinea);
+
+		// -------------------------------------------
 		JButton modificar = new JButton("MODIFICAR MODELO");
 
 		modificar.addActionListener(new ActionListener() {

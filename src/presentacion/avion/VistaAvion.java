@@ -107,6 +107,19 @@ public class VistaAvion extends JFrame implements Observador {
 		botones.add(consultarTodos);
 
 		// -------------------------------------------
+		
+		JButton consultarPorAyH = new JButton("CONSULTAR AVIONES POR AEROLÍNEA Y HANGAR");
+
+		consultarPorAyH.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ctrl.accion(new Contexto(Evento.CONSULTAR_AVIONES_DE_AEROLINEA_POR_HANGAR, null));
+			}
+		});
+
+		botones.add(consultarPorAyH);
+
+		// -------------------------------------------
 		JButton modificar = new JButton("MODIFICAR AVION");
 
 		modificar.addActionListener(new ActionListener() {
