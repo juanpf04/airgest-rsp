@@ -4,8 +4,6 @@ import negocio.hangar.THangar;
 
 import java.util.List;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -17,8 +15,6 @@ import java.util.ArrayList;
 
 import org.json.JSONObject;
 import org.json.JSONTokener;
-
-import com.mysql.cj.xdevapi.Result;
 
 import integracion.Querys;
 import integracion.UtilidadesI;
@@ -49,21 +45,20 @@ public class DAOHangarImp implements DAOHangar {
 		}
 	}
 
-	public boolean actualizarStock(int id, int stock) {
-		try {
-			JSONObject data = new JSONObject(
-					new JSONTokener(new FileReader(UtilidadesI.ruta("hangar") + String.format("%05d", id) + ".json")));
-			THangar tHangar = new THangar(data.getInt("id"), data.getString("direccion"), data.getInt("stock"),
-					data.getFloat("costeDia"), data.getInt("espacioAlmacenaje"), data.getBoolean("activo"));
-			tHangar.setStock(stock);
+	public boolean actualizarStock(int id, int stock) {//revisar
+		try{
+			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
+			PreparedStatement ps = con.prepareStatement(Querys.actualizaStock);
+			ps.setInt(1,  stock);
+			ps.setInt(2, id);
+			int filasNuevas = ps.executeUpdate();
+			boolean modificado = filasNuevas == 1 ? true : false;
+			
+			ps.close();
 
-			FileWriter archivo = new FileWriter(UtilidadesI.ruta("hangar") + String.format("%05d", id) + ".json");
-
-			archivo.write(toJSON(tHangar).toString());
-			archivo.close();
-
-			return true;
-		} catch (IOException e) {
+			return modificado;		
+			
+		}catch(SQLException e){
 			return false;
 		}
 	}
