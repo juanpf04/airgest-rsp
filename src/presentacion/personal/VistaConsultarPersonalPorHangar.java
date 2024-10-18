@@ -30,57 +30,34 @@ public class VistaConsultarPersonalPorHangar extends JFrame implements Observado
 	@Override
 	public void actualizar(Object datos) {
 		UtilidadesP.setAirGestRSP(this);
-		this.setSize(400, 160);
+		this.setSize(450, 250);
+
+		Controlador ctrl = Controlador.getInstance();
 
 		JPanel principal = new JPanel();
 		principal.setLayout(new BoxLayout(principal, BoxLayout.PAGE_AXIS));
 
+		JPanel funcion = new JPanel();
+		funcion.setLayout(new BoxLayout(funcion, BoxLayout.PAGE_AXIS));
+
 		JPanel panel_titulo = new JPanel();
-		JLabel titulo = new JLabel("Consultar personal por Hangar");
+		JLabel titulo = new JLabel("Consultar Personal por Hangar");
 		titulo.setFont(new Font("Tahoma", Font.BOLD, 30));
 		titulo.setBorder(new LineBorder(Color.BLACK, 2));
 		titulo.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_titulo.add(titulo);
 
-		principal.add(panel_titulo);
+		funcion.add(panel_titulo);
+		principal.add(funcion);
+
 		JPanel centro = new JPanel();
-		centro.setLayout(new BoxLayout(centro, BoxLayout.PAGE_AXIS));
-
-		JPanel id = new JPanel();
-		id.setLayout(new BoxLayout(id, BoxLayout.LINE_AXIS));
-		JLabel etiquetaId = new JLabel("id hangar: ");
-		etiquetaId.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		JTextField textoId = new JTextField();
-		textoId.setMaximumSize(new Dimension(200, 30));
-		textoId.setMinimumSize(new Dimension(200, 30));
-		textoId.setPreferredSize(new Dimension(200, 30));
-		textoId.setFont(new Font("Tahoma", Font.BOLD, 18));
-		id.add(etiquetaId);
-		id.add(textoId);
-		centro.add(id);
-		principal.add(centro);
-
-		Controlador controlador = Controlador.getInstance();
-
-		JSplitPane botones = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
-		JButton aceptar = new JButton("ACEPTAR");
-		aceptar.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				try {
-					int id = Integer.parseInt(textoId.getText());
-					controlador.accion(new Contexto(Evento.CONSULTAR_PERSONAL_POR_HANGAR, id));
-				} catch (NumberFormatException n) {
-					controlador.accion(new Contexto(Evento.CONSULTAR_PERSONAL_POR_HANGAR, 0));
-				}
-			}
-		});
-
-		aceptar.setMaximumSize(new Dimension(100, 30));
-		aceptar.setPreferredSize(new Dimension(100, 30));
-		botones.setMaximumSize(new Dimension(190, 30));
-		botones.setPreferredSize(new Dimension(190, 30));
+		centro.setLayout(new BoxLayout(centro, BoxLayout.LINE_AXIS));
+		centro.setAlignmentX(CENTER_ALIGNMENT);
+		principal.add(centro);	
+		
+		JPanel panelBotones = new JPanel();
+		principal.add(panelBotones);
+		panelBotones.setAlignmentX(CENTER_ALIGNMENT);
 
 		JButton atras = new JButton("ATRAS"); // boton para volver a la ventana
 												// principal
@@ -90,22 +67,61 @@ public class VistaConsultarPersonalPorHangar extends JFrame implements Observado
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				controlador.accion(new Contexto(Evento.VISTA_PERSONAL, null));
+				ctrl.accion(new Contexto(Evento.VISTA_PERSONAL, null));
+			}
+
+		});
+		panelBotones.add(atras);
+		
+		
+		JPanel panelEtiquetas = new JPanel();
+		panelEtiquetas.setLayout(new BoxLayout(panelEtiquetas, BoxLayout.PAGE_AXIS));
+		panelEtiquetas.setAlignmentX(CENTER_ALIGNMENT);
+
+		JPanel panelTexto = new JPanel();
+		panelTexto.setLayout(new BoxLayout(panelTexto, BoxLayout.PAGE_AXIS));
+		panelTexto.setAlignmentX(CENTER_ALIGNMENT);
+
+		JLabel etiquetaA = new JLabel("id Hangar: ");
+		etiquetaA.setFont(new Font("Tahoma", Font.BOLD, 25));
+		JTextField textoA = new JTextField();
+		textoA.setMaximumSize(new Dimension(200, 30));
+		textoA.setMinimumSize(new Dimension(200, 30));
+		textoA.setPreferredSize(new Dimension(200, 30));
+		textoA.setFont(new Font("Tahoma", Font.BOLD, 18));
+		panelEtiquetas.add(etiquetaA);
+		panelTexto.add(textoA);
+		
+		centro.add(panelEtiquetas);
+		centro.add(panelTexto);
+		
+		
+		JButton aceptar = new JButton("ACEPTAR");
+		aceptar.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try 
+				{
+					int idHang = Integer.valueOf(textoA.getText());
+					
+					ctrl.accion(new Contexto(Evento.CONSULTAR_PERSONAL_POR_HANGAR, idHang));
+
+				} catch (Exception ex) 
+				{
+					ctrl.accion(new Contexto(Evento.CONSULTAR_PERSONAL_POR_HANGAR, 0));
+				}
 			}
 		});
-
-		atras.setMaximumSize(new Dimension(90, 30));
-		atras.setPreferredSize(new Dimension(90, 30));
-
-		botones.add(aceptar);
-		botones.add(atras);
-		principal.add(botones);
-
+		
+		panelBotones.add(aceptar);
+		
 		this.setContentPane(principal);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		this.setVisible(true);
 		this.setLocation(200, 200);
 		this.setResizable(false);
+		this.pack();
 		
 	}
 

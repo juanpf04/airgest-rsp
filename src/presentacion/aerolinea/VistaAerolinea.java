@@ -111,6 +111,7 @@ public class VistaAerolinea extends JFrame implements Observador {
 		consultarPorModelo.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					dispose();
 					ctrl.accion(new Contexto(Evento.VISTA_CONSULTAR_AEROLINEAS_POR_MODELO, null));
 				}
 			});

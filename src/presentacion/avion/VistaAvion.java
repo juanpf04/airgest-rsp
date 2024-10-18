@@ -113,7 +113,8 @@ public class VistaAvion extends JFrame implements Observador {
 		consultarPorAyH.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ctrl.accion(new Contexto(Evento.CONSULTAR_AVIONES_DE_AEROLINEA_POR_HANGAR, null));
+				dispose();
+				ctrl.accion(new Contexto(Evento.VISTA_CONSULTAR_AVIONES_DE_AEROLINEA_POR_HANGAR, null));
 			}
 		});
 

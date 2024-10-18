@@ -31,7 +31,7 @@ public class VistaContrato extends JFrame implements Observador {
 	@Override
 	public void actualizar(Object datos) {
 		UtilidadesP.setAirGestRSP(this);
-		this.setSize(400, 370);
+		this.setSize(415, 370);
 		JPanel principal = new JPanel();
 		principal.setLayout(new BorderLayout());
 
@@ -97,7 +97,7 @@ public class VistaContrato extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				ctrl.accion(new Contexto(Evento.CONSULTAR_CONTRATOS_POR_AEROLINEA_PRECIO_Y_DURACION, null));
+				ctrl.accion(new Contexto(Evento.VISTA_CONSULTAR_CONTRATOS_POR_AEROLINEA_PRECIO_Y_DURACION, null));
 			}
 		});
 		botones.add(consultarContratoPyD);

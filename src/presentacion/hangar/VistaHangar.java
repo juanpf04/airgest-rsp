@@ -114,7 +114,7 @@ public class VistaHangar extends JFrame implements Observador {
 		consultarHangarPersonal.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ctrl.accion(new Contexto(Evento.CONSULTAR_HANGARES_POR_PERSONAL, null));
+				ctrl.accion(new Contexto(Evento.VISTA_CONSULTAR_HANGARES_POR_PERSONAL, null));
 			}
 		});
 

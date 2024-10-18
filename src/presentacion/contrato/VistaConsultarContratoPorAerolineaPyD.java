@@ -12,7 +12,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSplitPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
@@ -30,92 +29,34 @@ public class VistaConsultarContratoPorAerolineaPyD extends JFrame implements Obs
 	@Override
 	public void actualizar(Object datos) {
 		UtilidadesP.setAirGestRSP(this);
-		this.setSize(530, 170);
+		this.setSize(450, 250);
+
+		Controlador ctrl = Controlador.getInstance();
 
 		JPanel principal = new JPanel();
 		principal.setLayout(new BoxLayout(principal, BoxLayout.PAGE_AXIS));
 
+		JPanel funcion = new JPanel();
+		funcion.setLayout(new BoxLayout(funcion, BoxLayout.PAGE_AXIS));
+
 		JPanel panel_titulo = new JPanel();
-		JLabel titulo = new JLabel("Consultar contratos por Aerolínea, precio y duración");
+		JLabel titulo = new JLabel("Consultar Contrato por Aerolínea, precio y duración");
 		titulo.setFont(new Font("Tahoma", Font.BOLD, 30));
 		titulo.setBorder(new LineBorder(Color.BLACK, 2));
 		titulo.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_titulo.add(titulo);
 
-		principal.add(panel_titulo);
+		funcion.add(panel_titulo);
+		principal.add(funcion);
+
 		JPanel centro = new JPanel();
-		centro.setLayout(new BoxLayout(centro, BoxLayout.PAGE_AXIS));
-
-		JPanel id = new JPanel();
-		JPanel precio = new JPanel();
-		JPanel dia = new JPanel();
-		id.setLayout(new BoxLayout(id, BoxLayout.LINE_AXIS));
-		precio.setLayout(new BoxLayout(id, BoxLayout.LINE_AXIS));
-		dia.setLayout(new BoxLayout(id, BoxLayout.LINE_AXIS));
-		JLabel etiquetaId = new JLabel("id aerolinea: ");
-		JLabel etiquetaPrecio = new JLabel("precio mínimo: ");
-		JLabel etiquetaDia = new JLabel("días mínimos: ");
-		etiquetaId.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		etiquetaPrecio.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		etiquetaDia.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		JTextField textoId = new JTextField();
-		JTextField textoPrecio = new JTextField();
-		JTextField textoDia = new JTextField();
-		textoId.setMaximumSize(new Dimension(200, 30));
-		textoId.setMinimumSize(new Dimension(200, 30));
-		textoId.setPreferredSize(new Dimension(200, 30));
-		textoId.setFont(new Font("Tahoma", Font.BOLD, 18));
-		textoPrecio.setMaximumSize(new Dimension(200, 30));
-		textoPrecio.setMinimumSize(new Dimension(200, 30));
-		textoPrecio.setPreferredSize(new Dimension(200, 30));
-		textoPrecio.setFont(new Font("Tahoma", Font.BOLD, 18));
-		textoDia.setMaximumSize(new Dimension(200, 30));
-		textoDia.setMinimumSize(new Dimension(200, 30));
-		textoDia.setPreferredSize(new Dimension(200, 30));
-		textoDia.setFont(new Font("Tahoma", Font.BOLD, 18));
-		id.add(etiquetaId);
-		id.add(textoId);
-		centro.add(id);
-		precio.add(etiquetaPrecio);
-		precio.add(textoPrecio);
-		centro.add(precio);
-		dia.add(etiquetaDia);
-		dia.add(textoDia);
-		centro.add(dia);
-
-		principal.add(centro);
-
-		Controlador controlador = Controlador.getInstance();
-		JSplitPane botones = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
-		JButton aceptar = new JButton("ACEPTAR");
-		aceptar.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				try {
-					ArrayList<Object> lista = new ArrayList<>();
-					int valor_id = Integer.parseInt(textoId.getText());
-					double valor_precio = Double.parseDouble(textoPrecio.getText());
-					int valor_dia = Integer.parseInt(textoDia.getText());
-					lista.add(valor_id);
-					lista.add(valor_precio);
-					lista.add(valor_dia);
-					controlador.accion(new Contexto(Evento.VISTA_CONSULTAR_CONTRATOS_POR_AEROLINEA_PRECIO_Y_DURACION, lista));
-				} catch (NumberFormatException n) {
-					ArrayList<Object> lista = new ArrayList<>();
-					lista.add(0);
-					lista.add(0);
-					lista.add(0);
-					controlador.accion(new Contexto(Evento.VISTA_CONSULTAR_CONTRATOS_POR_AEROLINEA_PRECIO_Y_DURACION, lista));
-				}
-			}
-
-		});
-
-		aceptar.setMaximumSize(new Dimension(100, 30));
-		aceptar.setPreferredSize(new Dimension(100, 30));
-		botones.setMaximumSize(new Dimension(190, 30));
-		botones.setPreferredSize(new Dimension(190, 30));
+		centro.setLayout(new BoxLayout(centro, BoxLayout.LINE_AXIS));
+		centro.setAlignmentX(CENTER_ALIGNMENT);
+		principal.add(centro);	
+		
+		JPanel panelBotones = new JPanel();
+		principal.add(panelBotones);
+		panelBotones.setAlignmentX(CENTER_ALIGNMENT);
 
 		JButton atras = new JButton("ATRAS"); // boton para volver a la ventana
 												// principal
@@ -125,23 +66,93 @@ public class VistaConsultarContratoPorAerolineaPyD extends JFrame implements Obs
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				controlador.accion(new Contexto(Evento.VISTA_CONTRATO, null));
+				ctrl.accion(new Contexto(Evento.VISTA_CONTRATO, null));
+			}
+
+		});
+		panelBotones.add(atras);
+		
+		
+		JPanel panelEtiquetas = new JPanel();
+		panelEtiquetas.setLayout(new BoxLayout(panelEtiquetas, BoxLayout.PAGE_AXIS));
+		panelEtiquetas.setAlignmentX(CENTER_ALIGNMENT);
+
+		JPanel panelTexto = new JPanel();
+		panelTexto.setLayout(new BoxLayout(panelTexto, BoxLayout.PAGE_AXIS));
+		panelTexto.setAlignmentX(CENTER_ALIGNMENT);
+
+		JLabel etiquetaA = new JLabel("id Aerolínea: ");
+		etiquetaA.setFont(new Font("Tahoma", Font.BOLD, 25));
+		JTextField textoA = new JTextField();
+		textoA.setMaximumSize(new Dimension(200, 30));
+		textoA.setMinimumSize(new Dimension(200, 30));
+		textoA.setPreferredSize(new Dimension(200, 30));
+		textoA.setFont(new Font("Tahoma", Font.BOLD, 18));
+		panelEtiquetas.add(etiquetaA);
+		panelTexto.add(textoA);
+		
+		JLabel etiquetaP = new JLabel("precio mínimo: ");
+		etiquetaP.setFont(new Font("Tahoma", Font.BOLD, 25));
+		JTextField textoP = new JTextField();
+		textoP.setMaximumSize(new Dimension(200, 30));
+		textoP.setMinimumSize(new Dimension(200, 30));
+		textoP.setPreferredSize(new Dimension(200, 30));
+		textoP.setFont(new Font("Tahoma", Font.BOLD, 18));
+		panelEtiquetas.add(etiquetaP);
+		panelTexto.add(textoP);
+		
+		JLabel etiquetaD = new JLabel("duración mínima: ");
+		etiquetaD.setFont(new Font("Tahoma", Font.BOLD, 25));
+		JTextField textoD = new JTextField();
+		textoD.setMaximumSize(new Dimension(200, 30));
+		textoD.setMinimumSize(new Dimension(200, 30));
+		textoD.setPreferredSize(new Dimension(200, 30));
+		textoD.setFont(new Font("Tahoma", Font.BOLD, 18));
+		panelEtiquetas.add(etiquetaD);
+		panelTexto.add(textoD);
+		
+		centro.add(panelEtiquetas);
+		centro.add(panelTexto);
+		
+		
+		JButton aceptar = new JButton("ACEPTAR");
+		aceptar.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try 
+				{
+					ArrayList<Object> parameters = new ArrayList<>();
+					int idAero = Integer.valueOf(textoA.getText());
+					Double precioMin = Double.valueOf(textoP.getText());
+					int durMin = Integer.valueOf(textoA.getText());
+					
+					parameters.add(idAero);
+					parameters.add(precioMin);
+					parameters.add(durMin);
+					
+					ctrl.accion(new Contexto(Evento.CONSULTAR_CONTRATOS_POR_AEROLINEA_PRECIO_Y_DURACION, parameters));
+
+				} catch (Exception ex) 
+				{
+					ArrayList<Object> parameters = new ArrayList<>();
+					parameters.add(0);
+					parameters.add(0);
+					parameters.add(0);
+					
+					ctrl.accion(new Contexto(Evento.CONSULTAR_CONTRATOS_POR_AEROLINEA_PRECIO_Y_DURACION, 0));
+				}
 			}
 		});
-
-		atras.setMaximumSize(new Dimension(90, 30));
-		atras.setPreferredSize(new Dimension(90, 30));
-
-		botones.setAlignmentX(LEFT_ALIGNMENT);
-		botones.add(aceptar);
-		botones.add(atras);
-		principal.add(botones);
-
+		
+		panelBotones.add(aceptar);
+		
 		this.setContentPane(principal);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		this.setVisible(true);
 		this.setLocation(200, 200);
-		this.setResizable(false);		
+		this.setResizable(false);
+		this.pack();
 	}
 
 }

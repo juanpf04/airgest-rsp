@@ -12,7 +12,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSplitPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
@@ -30,75 +29,34 @@ public class VistaConsultarAvionesDeAerolineaPorHangar extends JFrame implements
 	@Override
 	public void actualizar(Object datos) {
 		UtilidadesP.setAirGestRSP(this);
-		this.setSize(470, 160);
+		this.setSize(450, 250);
+
+		Controlador ctrl = Controlador.getInstance();
 
 		JPanel principal = new JPanel();
 		principal.setLayout(new BoxLayout(principal, BoxLayout.PAGE_AXIS));
 
+		JPanel funcion = new JPanel();
+		funcion.setLayout(new BoxLayout(funcion, BoxLayout.PAGE_AXIS));
+
 		JPanel panel_titulo = new JPanel();
-		JLabel titulo = new JLabel("Consultar aviones de una Aerolínea por Hangar");
+		JLabel titulo = new JLabel("Consultar Aviones por Aerolínea y Hangar");
 		titulo.setFont(new Font("Tahoma", Font.BOLD, 30));
 		titulo.setBorder(new LineBorder(Color.BLACK, 2));
 		titulo.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_titulo.add(titulo);
 
-		principal.add(panel_titulo);
+		funcion.add(panel_titulo);
+		principal.add(funcion);
+
 		JPanel centro = new JPanel();
-		centro.setLayout(new BoxLayout(centro, BoxLayout.PAGE_AXIS));
-
-		JPanel idA = new JPanel();
-		JPanel idH = new JPanel();
-		idA.setLayout(new BoxLayout(idA, BoxLayout.LINE_AXIS));
-		idH.setLayout(new BoxLayout(idA, BoxLayout.LINE_AXIS));
-		JLabel etiquetaIdAerolinea = new JLabel("id aerolínea: ");
-		JLabel etiquetaIdHangar = new JLabel("id hangar: ");
-		etiquetaIdAerolinea.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		etiquetaIdHangar.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		JTextField textoIdA = new JTextField();
-		JTextField textoIdH = new JTextField();
-		textoIdA.setMaximumSize(new Dimension(200, 30));
-		textoIdA.setMinimumSize(new Dimension(200, 30));
-		textoIdA.setPreferredSize(new Dimension(200, 30));
-		textoIdA.setFont(new Font("Tahoma", Font.BOLD, 18));
-		textoIdH.setMaximumSize(new Dimension(200, 30));
-		textoIdH.setMinimumSize(new Dimension(200, 30));
-		textoIdH.setPreferredSize(new Dimension(200, 30));
-		textoIdH.setFont(new Font("Tahoma", Font.BOLD, 18));
-		idA.add(etiquetaIdAerolinea);
-		idA.add(textoIdA);
-		centro.add(idH);
-		idH.add(etiquetaIdHangar);
-		idH.add(textoIdH);
-		centro.add(idA);
-		principal.add(centro);
-
-		Controlador controlador = Controlador.getInstance();
-		JSplitPane botones = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
-
-		JButton aceptar = new JButton("ACEPTAR");
-		aceptar.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				try {
-					int idA = Integer.parseInt(textoIdA.getText());
-					int idH = Integer.parseInt(textoIdH.getText());
-					ArrayList<Integer> lista = new ArrayList<>();
-					lista.add(idA);
-					lista.add(idH);
-					controlador.accion(new Contexto(Evento.CONSULTAR_AVIONES_DE_AEROLINEA_POR_HANGAR, lista));
-				} catch (NumberFormatException n) {
-					ArrayList<Integer> lista = new ArrayList<>();
-					lista.add(0);
-					lista.add(0);
-					controlador.accion(new Contexto(Evento.CONSULTAR_AVIONES_DE_AEROLINEA_POR_HANGAR, lista));
-				}
-			}
-		});
-		aceptar.setMaximumSize(new Dimension(100, 30));
-		aceptar.setPreferredSize(new Dimension(100, 30));
-		botones.setMaximumSize(new Dimension(190, 30));
-		botones.setPreferredSize(new Dimension(190, 30));
+		centro.setLayout(new BoxLayout(centro, BoxLayout.LINE_AXIS));
+		centro.setAlignmentX(CENTER_ALIGNMENT);
+		principal.add(centro);	
+		
+		JPanel panelBotones = new JPanel();
+		principal.add(panelBotones);
+		panelBotones.setAlignmentX(CENTER_ALIGNMENT);
 
 		JButton atras = new JButton("ATRAS"); // boton para volver a la ventana
 												// principal
@@ -108,22 +66,77 @@ public class VistaConsultarAvionesDeAerolineaPorHangar extends JFrame implements
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				controlador.accion(new Contexto(Evento.VISTA_AVION, null));
+				ctrl.accion(new Contexto(Evento.VISTA_AVION, null));
+			}
+
+		});
+		panelBotones.add(atras);
+		
+		
+		JPanel panelEtiquetas = new JPanel();
+		panelEtiquetas.setLayout(new BoxLayout(panelEtiquetas, BoxLayout.PAGE_AXIS));
+		panelEtiquetas.setAlignmentX(CENTER_ALIGNMENT);
+
+		JPanel panelTexto = new JPanel();
+		panelTexto.setLayout(new BoxLayout(panelTexto, BoxLayout.PAGE_AXIS));
+		panelTexto.setAlignmentX(CENTER_ALIGNMENT);
+
+		JLabel etiquetaA = new JLabel("id Aerolínea: ");
+		etiquetaA.setFont(new Font("Tahoma", Font.BOLD, 25));
+		JTextField textoA = new JTextField();
+		textoA.setMaximumSize(new Dimension(200, 30));
+		textoA.setMinimumSize(new Dimension(200, 30));
+		textoA.setPreferredSize(new Dimension(200, 30));
+		textoA.setFont(new Font("Tahoma", Font.BOLD, 18));
+		panelEtiquetas.add(etiquetaA);
+		panelTexto.add(textoA);
+		
+		JLabel etiquetaH = new JLabel("id Hangar: ");
+		etiquetaH.setFont(new Font("Tahoma", Font.BOLD, 25));
+		JTextField textoH = new JTextField();
+		textoH.setMaximumSize(new Dimension(200, 30));
+		textoH.setMinimumSize(new Dimension(200, 30));
+		textoH.setPreferredSize(new Dimension(200, 30));
+		textoH.setFont(new Font("Tahoma", Font.BOLD, 18));
+		panelEtiquetas.add(etiquetaH);
+		panelTexto.add(textoH);
+		centro.add(panelEtiquetas);
+		centro.add(panelTexto);
+		
+		JButton aceptar = new JButton("ACEPTAR");
+		aceptar.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try 
+				{
+					int idAer = Integer.valueOf(textoA.getText());
+					int idHan = Integer.valueOf(textoH.getText());
+					ArrayList<Integer> idList = new ArrayList<>();
+					idList.add(idAer);
+					idList.add(idHan);
+					
+					ctrl.accion(new Contexto(Evento.CONSULTAR_AVIONES_DE_AEROLINEA_POR_HANGAR, idList));
+
+				} catch (Exception ex) 
+				{
+					ArrayList<Integer> idList = new ArrayList<>();
+					idList.add(0);
+					idList.add(0);
+					ctrl.accion(new Contexto(Evento.CONSULTAR_AVIONES_DE_AEROLINEA_POR_HANGAR, idList));
+				}
 			}
 		});
-
-		atras.setMaximumSize(new Dimension(90, 30));
-		atras.setPreferredSize(new Dimension(90, 30));
-
-		botones.add(aceptar);
-		botones.add(atras);
-		principal.add(botones);
-
+		
+		panelBotones.add(aceptar);
+		
 		this.setContentPane(principal);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		this.setVisible(true);
 		this.setLocation(200, 200);
-		this.setResizable(false);		
+		this.setResizable(false);
+		this.pack();
+
 	}
 
 }
