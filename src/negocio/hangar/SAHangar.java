@@ -6,7 +6,8 @@ public interface SAHangar {
 
 	public int altaHangar(THangar tHangar);
 
-	public boolean bajaHangar(int id);
+	public boolean bajaHangar(int id);//LLAMAR A FUNCION DE COMPROBAR Q NO TENGA AVIONES ACTIVOS PARA PODER DAR DE BAJA
+	//NO SE PUEDE HACER HASTA Q NO ESTÉ HECHO AVION :)
 
 	public THangar consultarHangarPorId(int id);
 
