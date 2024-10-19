@@ -16,10 +16,8 @@ public class ConsultarTodosModelos implements Comando {
 		FactoriaNegocio fn = FactoriaNegocio.getInstance();
 		SAModelo sm = fn.crearSAModelo();
 		List<TModelo> modelos = sm.consultarTodosModelos();
-		
-		Evento evento = null;
-		//Evento evento = Evento.VISTA_RESULTADO_CONSULTAR_TODOS_MODELOS;
-		return new Contexto (evento,modelos);
+		Evento evento = Evento.VISTA_RESULTADO_CONSULTAR_TODOS_MODELOS;
+		return new Contexto(evento, modelos);
 	}
 
 }
