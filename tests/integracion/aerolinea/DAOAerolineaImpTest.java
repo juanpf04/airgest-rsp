@@ -40,44 +40,57 @@ public class DAOAerolineaImpTest {
 
 	@Test
 	public void leer_aerolinea_por_nombre_test() {
-		UtilidadesI.esTest();
-
-		DAOAerolinea da = new DAOAerolineaImp();
-
-		assertEquals("la aerolinea con nombre uno es la id 1", 1, da.leerAerolineaPorNombre("uno").getId());
+		Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+		t.start();
+		DAOAerolinea da = FactoriaIntegracion.getInstance().crearDAOAerolinea();
+		TAerolinea ta = da.leerAerolineaPorNombre("Miguelito");
+		t.commit();
+		assertNotNull("No existe aerolinea", ta);
+		System.out.println(ta);
 	}
 	
 	
 	@Test
 	public void modificar_aerolinea_test() {
-		UtilidadesI.esTest();
-		DAOAerolinea da = new DAOAerolineaImp();
-
-		TAerolinea aerolinea = new TAerolinea(1, "unoMODIFICADO",true);
-
-		assertTrue("Ha leido mal el fichero", da.modificarAerolinea(aerolinea));
+		Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+		t.start();
+		DAOAerolinea da = FactoriaIntegracion.getInstance().crearDAOAerolinea();
+		TAerolinea ta = new TAerolinea(1, "javi", false);
+		boolean b = da.modificarAerolinea(ta);
+		t.commit();
+		assertTrue("No se ha modificado aerolínea", b);
+		System.out.println(ta);
 	}
 
 	@Test
 	public void baja_aerolinea_test() {
-		UtilidadesI.esTest();
-
-		DAOAerolinea da = new DAOAerolineaImp();
-
-		assertTrue("No se ha dado de baja", da.bajaAerolinea(2));
+		Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+		t.start();
+		DAOAerolinea da = FactoriaIntegracion.getInstance().crearDAOAerolinea();
+		boolean b = da.bajaAerolinea(2);
+		t.commit();
+		assertTrue("No se ha eliminado aerolínea", b);
 	}
 
 	@Test
 	public void consultar_todas_aerolineas_test() {
-		UtilidadesI.esTest();
-
-		DAOAerolinea da = new DAOAerolineaImp();
-
-		List<TAerolinea> aerolineas = da.consultarTodasAerolineas();
-
-		File carpeta = new File(UtilidadesI.ruta("aerolinea"));
-		File[] lista = carpeta.listFiles();
-
-		assertEquals("tiene que haber tantas aerolineas como ficheros", lista.length, aerolineas.size());
+		Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+		t.start();
+		DAOAerolinea da = FactoriaIntegracion.getInstance().crearDAOAerolinea();
+		List<TAerolinea> lista = da.consultarTodasAerolineas();
+		t.commit();
+		assertEquals("No coincide el tamaño", 3, lista.size());
+		System.out.println(lista);
+	}
+	
+	@Test
+	public void consultar_aerolineas_por_modelo_test(){
+		Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+		t.start();
+		DAOAerolinea da = FactoriaIntegracion.getInstance().crearDAOAerolinea();
+		List<TAerolinea> lista = da.consultarAerolineasPorModelo(1);
+		t.commit();
+		assertEquals("No coincide el tamaño", 2, lista.size());
+		System.out.println(lista);
 	}
 }

@@ -1,21 +1,10 @@
 package integracion.aerolinea;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.json.JSONObject;
-import org.json.JSONTokener;
-
-import integracion.UtilidadesI;
 import integracion.transacciones.Transaction;
 import integracion.transacciones.TransactionManager;
 import negocio.aerolinea.TAerolinea;
@@ -39,31 +28,31 @@ public class DAOAerolineaImp implements DAOAerolinea {
 			
 			return ta;
 			
-		} catch(SQLException e){
+		} catch(Exception e){
 			return null;
 		}
 		
 	}
 
 	public TAerolinea leerAerolineaPorNombre(String nombre) {
-		File carpeta = new File(UtilidadesI.ruta("aerolinea"));
-		File[] lista = carpeta.listFiles();
-
-		int i = 0;
-		while (i < lista.length) {
-			JSONObject data = new JSONObject();
-			try {
-				data = new JSONObject(new JSONTokener(new FileReader(lista[i])));
-			} catch (FileNotFoundException e) {
+		try {
+			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
+			PreparedStatement ps = con.prepareStatement("SELECT * FROM Aerolinea WHERE Nombre=?; ");
+			ps.setString(1, nombre);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			TAerolinea ta = null;
+			if (rs.next()){
+				boolean activo = rs.getInt(3) == 1 ? true : false;
+				ta = new TAerolinea(rs.getInt(1), rs.getString(2), activo); 
 			}
-
-			if (data.getString("nombre").equals(nombre)) {
-				return new TAerolinea(data.getInt("id"), data.getString("nombre"), data.getBoolean("activo"));
-			}
-
-			i++;
+			
+			return ta;
+			
+		} catch(Exception e){
+			return null;
 		}
-		return null;
 	}
 
 	public int altaAerolinea(TAerolinea tAerolinea) {
@@ -85,73 +74,97 @@ public class DAOAerolineaImp implements DAOAerolinea {
 			
 			return id;
 			
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			return -1;
 		}
 	}
 
 	public boolean modificarAerolinea(TAerolinea tAerolinea) {
-		try {
-			FileWriter archivo = new FileWriter(
-					UtilidadesI.ruta("aerolinea") + String.format("%05d", tAerolinea.getId()) + ".json");
-			archivo.write(this.toJSON(tAerolinea).toString());
-			archivo.close();
-
-			return true;
-		} catch (IOException e) {
+		try{
+			Transaction t = TransactionManager.getInstance().getTransaccion();
+			Connection con = (Connection) t.getResource();
+			PreparedStatement ps = con.prepareStatement("UPDATE Aerolinea SET Nombre = ?, Activo = ? WHERE Id = ?;");
+			ps.setString(1, tAerolinea.getNombre());
+			int activo = tAerolinea.getActivo() ? 1 : 0;
+			ps.setInt(2, activo);
+			ps.setInt(3, tAerolinea.getId());
+			
+			int filas = ps.executeUpdate();
+			boolean modificado = filas == 1 ? true : false;
+			
+			ps.close();
+			
+			return modificado;
+		} catch(Exception e){
+			return false;
 		}
-		return false;
 	}
 
 	public boolean bajaAerolinea(int id) {
-		try {
-			JSONObject data = new JSONObject(new JSONTokener(
-					new FileReader(UtilidadesI.ruta("aerolinea") + String.format("%05d", id) + ".json")));
-
-			data.put("activo", false);
-
-			FileWriter archivo = new FileWriter(UtilidadesI.ruta("aerolinea") + String.format("%05d", id) + ".json");
-
-			archivo.write(data.toString());
-			archivo.close();
-
-			return true;
-		} catch (IOException e) {
+		try{
+			Transaction t = TransactionManager.getInstance().getTransaccion();
+			Connection con = (Connection) t.getResource();
+			PreparedStatement ps = con.prepareStatement("UPDATE Aerolinea SET Activo = ? WHERE Id = ?;");
+			ps.setInt(1, 0);
+			ps.setInt(2, id);
+			
+			int filas = ps.executeUpdate();
+			boolean eliminado = filas == 1 ? true : false;
+			
+			ps.close();
+			
+			return eliminado;
+		} catch(Exception e){
+			return false;
 		}
-		return false;
 	}
 
 	public List<TAerolinea> consultarTodasAerolineas() {
-		File carpeta = new File(UtilidadesI.ruta("aerolinea"));
-		File[] lista = carpeta.listFiles();
-
-		List<TAerolinea> aerolineas = new ArrayList<>();
-
-		for (File f : lista) {
-			try {
-				JSONObject data = new JSONObject(new JSONTokener(new FileReader(f)));
-				aerolineas.add(new TAerolinea(data.getInt("id"), data.getString("nombre"), data.getBoolean("activo")));
-			} catch (FileNotFoundException e) {
+		try{
+			Transaction t = TransactionManager.getInstance().getTransaccion();
+			Connection con = (Connection) t.getResource();
+			PreparedStatement ps = con.prepareStatement("SELECT * FROM Aerolinea");
+			
+			ResultSet rs = ps.executeQuery();
+			List<TAerolinea> lista = new ArrayList<>();
+			
+			while (rs.next()){
+				lista.add(new TAerolinea(rs.getInt(1), rs.getString(2), rs.getBoolean(3)));
 			}
+			
+			rs.close();
+			ps.close();
+			
+			return lista;
+			
+		} catch(Exception e){
+			return new ArrayList<TAerolinea>();
 		}
-
-		return aerolineas;
-	}
-
-	private JSONObject toJSON(TAerolinea taerolinea) {
-		JSONObject jo = new JSONObject();
-
-		jo.put("id", taerolinea.getId());
-		jo.put("nombre", taerolinea.getNombre());
-		jo.put("activo", taerolinea.getActivo());
-
-		return jo;
 	}
 
 	@Override
 	public List<TAerolinea> consultarAerolineasPorModelo(int id_modelo) {
-		// TODO Auto-generated method stub
-		return null;
+		try{
+			Transaction t = TransactionManager.getInstance().getTransaccion();
+			Connection con = (Connection) t.getResource();
+			PreparedStatement ps = con.prepareStatement("SELECT * FROM aerolinea a JOIN aerolinea_modelo am ON a.Id = am.Id_Aerolinea WHERE am.Id_Modelo = ?;");
+			ps.setInt(1, id_modelo);
+			
+			ResultSet rs = ps.executeQuery();
+			List<TAerolinea> lista = new ArrayList<>();
+			
+			while (rs.next()){
+				lista.add(new TAerolinea(rs.getInt(1), rs.getString(2), rs.getBoolean(3)));
+			}
+			
+			rs.close();
+			ps.close();
+			
+			return lista;
+			
+		} catch(Exception e){
+			return new ArrayList<TAerolinea>();
+		}
 	}
 
 }
