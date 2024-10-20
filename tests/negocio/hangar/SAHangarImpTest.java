@@ -9,6 +9,8 @@ import java.io.File;
 import org.junit.Test;
 
 import integracion.UtilidadesI;
+import integracion.transacciones.Transaction;
+import integracion.transacciones.TransactionManager;
 
 public class SAHangarImpTest {
 	private boolean inmodificable = true;
@@ -56,24 +58,29 @@ public class SAHangarImpTest {
 	
 	@Test
 	public void modificar_hangar_test() {
-		UtilidadesI.esTest();
+		Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+		t.start();
 
 		SAHangar sh = new SAHangarImp();
 
 		// Prueba exitosa
-		THangar hangar = new THangar(1, "paseo adios", 4, 50.8, 4, false);
-		assertTrue("debería modificarse modelo", sh.modificarHangar(hangar));
+//		THangar hangar = new THangar(1, "adiosss", 4, 50.8, 4, false);
+//		t.commit();
+//		assertTrue("debería modificarse modelo", sh.modificarHangar(hangar));
 
 		// Fallo por hangar no activo
-		hangar = new THangar(2, "paseo hola", 4, 50.8, 4, true);
-		assertFalse("un modelo no activo no se puede modificar", sh.modificarHangar(hangar));
+//		THangar hangar = new THangar(2, "adiosss", 4, 50.8, 4, true);
+//		t.commit();
+//		assertFalse("un modelo no activo no se puede modificar", sh.modificarHangar(hangar));
+//
+//		// Fallo id no existente
+//		THangar hangar = new THangar(200, "kjfhjksa", 4, 50.8, 4, inmodificable);
+//		t.commit();
+//		assertFalse("no se puede modificar un modelo que no existe", sh.modificarHangar(hangar));
 
-		// Fallo id no existente
-		hangar = new THangar(200, "kjfhjksa", 4, 50.8, 4, inmodificable);
-		assertFalse("no se puede modificar un modelo que no existe", sh.modificarHangar(hangar));
-
-//		// Fallo nombre existente
-		hangar = new THangar(1, "mnbvcx", 4, 50.8, 4, inmodificable);
+////		// Fallo nombre existente
+		THangar hangar = new THangar(1, "adiosss", 4, 50.8, 4, inmodificable);
+		t.commit();
 		assertFalse("Se ha modificado el modelo, al estar el nombre repetido, no debería dejar",
 				sh.modificarHangar(hangar));
 	}

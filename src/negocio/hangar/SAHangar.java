@@ -15,6 +15,6 @@ public interface SAHangar {
 
 	public boolean modificarHangar(THangar tHangar);
 	
-	public List<THangar> consultarHangarPorPersonal(int id_personal);
+	public List<THangar> consultarHangarPorPersonal(int id_personal);//HASTA Q NO TENGAMOS PERSONAL HECHO, NO SE PUEDE HACER
 
 }

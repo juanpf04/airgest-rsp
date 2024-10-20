@@ -5,6 +5,8 @@ import java.util.List;
 import integracion.avion.DAOAvion;
 import integracion.factoria.FactoriaIntegracion;
 import integracion.hangar.DAOHangar;
+import integracion.transacciones.Transaction;
+import integracion.transacciones.TransactionManager;
 import negocio.UtilidadesN;
 
 public class SAHangarImp implements SAHangar {
@@ -45,22 +47,38 @@ public class SAHangarImp implements SAHangar {
 	}
 
 	public THangar consultarHangarPorId(int id) {
+		THangar th = null;
+		
 		if (UtilidadesN.comprobarId(id)) {
+			Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+			t.start();
 			DAOHangar dh = FactoriaIntegracion.getInstance().crearDAOHangar();
-
-			return dh.leerHangarPorId(id);
+			
+			th = dh.leerHangarPorId(id);
+			
+			t.commit();
 		}
 
-		return null;
+		return th;
 	}
 
 	public List<THangar> consultarTodosHangares() {
+		Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+		t.start();
+		
 		DAOHangar dh = FactoriaIntegracion.getInstance().crearDAOHangar();
-		return dh.consultarTodosHangares();
+		List<THangar> list= dh.consultarTodosHangares();
+		t.commit();
+		
+		return list;
 	}
 
 	public boolean modificarHangar(THangar tHangar) {
+		boolean ok = false;
 		if (UtilidadesN.comprobarId(tHangar.getId()) && ValidadorHangar.comprobarDatos(tHangar)) {
+			Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+			t.start();
+			
 			DAOHangar dh = FactoriaIntegracion.getInstance().crearDAOHangar();
 
 			int id = tHangar.getId();
@@ -68,14 +86,18 @@ public class SAHangarImp implements SAHangar {
 
 			THangar leido = dh.leerHangarPorId(id);
 
+			
 			if (leido != null) {
 				if (leido.getActivo()
 						&& (leido.getDireccion().equals(direccion) || dh.leerHangarPorDireccion(direccion) == null)) {
-					return dh.modificarHangar(tHangar);
+					ok = dh.modificarHangar(tHangar);
 				}
 			}
+			
+			if(ok) t.commit();
+			else t.rollback();
 		}
-		return false;
+		return ok;
 	}
 
 	@Override
