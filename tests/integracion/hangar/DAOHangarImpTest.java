@@ -3,13 +3,10 @@ package integracion.hangar;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.io.File;
-import java.sql.Connection;
 import java.util.List;
 
 import org.junit.Test;
 
-import integracion.UtilidadesI;
 import integracion.factoria.FactoriaIntegracionImp;
 import integracion.transacciones.Transaction;
 import integracion.transacciones.TransactionManager;

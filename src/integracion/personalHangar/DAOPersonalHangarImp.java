@@ -1,17 +1,12 @@
 package integracion.personalHangar;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import integracion.Querys;
-import integracion.UtilidadesI;
 import integracion.transacciones.TransactionManager;
-import negocio.hangar.THangar;
 
 public class DAOPersonalHangarImp implements DAOPersonalHangar {
 

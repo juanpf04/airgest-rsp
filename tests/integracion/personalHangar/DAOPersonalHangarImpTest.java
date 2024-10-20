@@ -4,11 +4,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import integracion.UtilidadesI;
 import integracion.factoria.FactoriaIntegracionImp;
-import integracion.hangar.DAOHangar;
-import integracion.modeloAerolinea.DAOModeloAerolinea;
-import integracion.modeloAerolinea.DAOModeloAerolineaImp;
 import integracion.transacciones.Transaction;
 import integracion.transacciones.TransactionManager;
 
