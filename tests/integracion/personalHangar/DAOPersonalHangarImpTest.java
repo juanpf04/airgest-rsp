@@ -5,31 +5,50 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import integracion.UtilidadesI;
+import integracion.factoria.FactoriaIntegracionImp;
+import integracion.hangar.DAOHangar;
 import integracion.modeloAerolinea.DAOModeloAerolinea;
 import integracion.modeloAerolinea.DAOModeloAerolineaImp;
+import integracion.transacciones.Transaction;
+import integracion.transacciones.TransactionManager;
 
 public class DAOPersonalHangarImpTest {
 	@Test
 	public void comprobarVinculacionTest() {
-		UtilidadesI.esTest();
-		DAOModeloAerolinea dma = new DAOModeloAerolineaImp();
+		Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+		t.start();
 
-		assertTrue("No existe vinculación", dma.comprobarVinculacion(6, 1));
+		DAOPersonalHangar dma = FactoriaIntegracionImp.getInstance().crearDAOPersonalHangar();
+
+		boolean vinculado = dma.comprobarVinculacion(6, 1);
+		t.commit();
+		
+		assertTrue("No existe vinculación", vinculado);
 	}
 
 	@Test
 	public void vincularTest() {
-		UtilidadesI.esTest();
-		DAOPersonalHangar dph = new DAOPersonalHangarImp();
+		Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+		t.start();
 
-		assertTrue("No se ha podido vincular", dph.vincular(5, 5));
+		DAOPersonalHangar dma = FactoriaIntegracionImp.getInstance().crearDAOPersonalHangar();
+
+		boolean vinculado = dma.vincular(3, 1);
+		t.commit();
+		
+		assertTrue("No existe vinculación", vinculado);
 	}
 
 	@Test
 	public void desvincularTest() {
-		UtilidadesI.esTest();
-		DAOPersonalHangar dph = new DAOPersonalHangarImp();
+		Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+		t.start();
 
-		assertTrue("No se ha podido desvincular", dph.desvincular(5, 5));
+		DAOPersonalHangar dma = FactoriaIntegracionImp.getInstance().crearDAOPersonalHangar();
+
+		boolean desvinculado = dma.desvincular(6, 1);
+		t.commit();
+		
+		assertTrue("No existe vinculación", desvinculado);
 	}
 }

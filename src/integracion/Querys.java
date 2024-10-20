@@ -17,6 +17,12 @@ public class Querys {
 	public static String leerHangarPorDireccion = "SELECT * FROM HANGAR WHERE direccion = ?";
 	public static String actualizaStock = "UPDATE HANGAR SET Stock = ? WHERE id = ?";
 	
+	public static String vincularPersonalHangar = "INSERT INTO PERSONAL_HANGAR (Id_personal, Id_hangar) VALUES (?, ?)";
+	public static String desvincularPersonalHangar = "DELETE FROM PERSONAL_HANGAR WHERE Id_personal = ?, Id_hangar = ?";
+	public static String comprobarvinculacionPersonalHangar = "SELECT COUNT(*) AS NUM FROM PERSONAL_HANGAR WHERE Id_personal = ?, Id_hangar = ?";
+
+
+	
 	//MODELO
 	
 	//PERSONAL
