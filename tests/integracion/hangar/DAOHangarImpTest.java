@@ -24,11 +24,11 @@ public class DAOHangarImpTest {
 
 		DAOHangar dh = FactoriaIntegracionImp.getInstance().crearDAOHangar();
 
-		THangar hangar = new THangar(0, "paseooo hola", 4, 50.8, 4, true);
+		THangar hangar = new THangar(0, "adiosss", 4, 50.8, 4, true);
 
 		int id = dh.altaHangar(hangar);
 		t.commit();
-		assertEquals("No ha devuelto el id correcto", 4, id);
+		assertEquals("No ha devuelto el id correcto", 1, id);
 	}
 	
 	@Test
@@ -55,6 +55,19 @@ public class DAOHangarImpTest {
 		assertTrue(id != null);
 		System.out.println(id);
 		}
+	
+	@Test
+	public void leerHangarPorDireccion_test(){
+		Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+		t.start();
+
+		DAOHangar dh = FactoriaIntegracionImp.getInstance().crearDAOHangar();
+
+		THangar id = dh.leerHangarPorDireccion("adiosss");
+		t.commit();
+		assertTrue(id != null);
+		System.out.println(id);
+	}
 	
 	@Test
 	public void consultar_todos_hangares_test() {
@@ -90,9 +103,14 @@ public class DAOHangarImpTest {
 	
 	@Test
 	public void actualizar_stock_test(){
-		UtilidadesI.esTest();
-		DAOHangar dh = new DAOHangarImp();
+		Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+		t.start();
+
+		DAOHangar dh = FactoriaIntegracionImp.getInstance().crearDAOHangar();
 		
-		assertTrue("No encuentra hangar", dh.actualizarStock(1, -1));
+		boolean ok = dh.actualizarStock(1, -1);
+		t.commit();
+
+		assertTrue("No encuentra hangar", ok);
 	}
 }

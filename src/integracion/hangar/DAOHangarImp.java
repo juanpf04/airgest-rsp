@@ -158,8 +158,10 @@ public class DAOHangarImp implements DAOHangar {
 			
 			ResultSet res = ps.executeQuery();
 			THangar t;
-			if(res.next())
-				t = new THangar(res.getInt("id"), direccion, res.getInt("stock"), res.getDouble("costeDia"), res.getInt("espacioAlmacenaje"), res.getBoolean("activo"));
+			if(res.next()){
+				boolean activo = res.getInt("activo") == 1 ? true : false;
+				t = new THangar(res.getInt("id"), direccion, res.getInt("stock"), res.getDouble("coste_Dia"), res.getInt("espacio_Almacenaje"), activo);
+			}
 			else
 				t = new THangar(-1, "mal", 1, 1, 1, false);
 			

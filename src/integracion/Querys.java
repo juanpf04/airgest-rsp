@@ -15,7 +15,7 @@ public class Querys {
 	public static String consultarTodosHangares = "SELECT * FROM HANGAR";
 	public static String modificarHangar = "UPDATE HANGAR SET Stock = ?, direccion = ?, espacio_almacenaje = ?, coste_dia = ?, activo = ? WHERE id = ?";
 	public static String leerHangarPorDireccion = "SELECT * FROM HANGAR WHERE direccion = ?";
-	public static String actualizaStock = "UPDATE HANGAR SET (Stock, ?) WHERE id = ?";
+	public static String actualizaStock = "UPDATE HANGAR SET Stock = ? WHERE id = ?";
 	
 	//MODELO
 	
