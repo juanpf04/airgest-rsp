@@ -13,7 +13,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSplitPane;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
@@ -33,7 +32,7 @@ public class VistaAltaModelo extends JFrame implements Observador {
 	@Override
 	public void actualizar(Object datos) {
 		UtilidadesP.setAirGestRSP(this);
-		this.setSize(320, 200);
+		this.setSize(300, 200);
 
 		JPanel principal = new JPanel();
 		principal.setLayout(new BoxLayout(principal, BoxLayout.PAGE_AXIS));
@@ -57,7 +56,7 @@ public class VistaAltaModelo extends JFrame implements Observador {
 		// JPanel nombre = new JPanel();
 		// nombre.setLayout(new BoxLayout(nombre, BoxLayout.LINE_AXIS));
 		JLabel etiquetaNombre = new JLabel("nombre:");
-		etiquetaNombre.setFont(new Font("Times New Roman", Font.BOLD, 25));
+		etiquetaNombre.setFont(new Font("Tahoma", Font.BOLD, 25));
 		JTextField textoNombre = new JTextField();
 		textoNombre.setToolTipText("letras-numeros");
 
@@ -71,7 +70,7 @@ public class VistaAltaModelo extends JFrame implements Observador {
 		layout.putConstraint(SpringLayout.WEST, textoNombre, 5, SpringLayout.EAST, etiquetaNombre);
 
 		JLabel etiquetaMotor = new JLabel("motor:");
-		etiquetaMotor.setFont(new Font("Times New Roman", Font.BOLD, 25));
+		etiquetaMotor.setFont(new Font("Tahoma", Font.BOLD, 25));
 		JTextField textoMotor = new JTextField();
 		textoMotor.setToolTipText("{3}MAYUS-{2}NUM");
 		textoMotor.setMaximumSize(new Dimension(200, 30));
@@ -91,7 +90,7 @@ public class VistaAltaModelo extends JFrame implements Observador {
 
 		principal.add(funcion);
 		principal.add(centro);
-		JSplitPane botones = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
+		JPanel botones = new JPanel();
 		JButton aceptar = new JButton("ACEPTAR");
 		aceptar.addActionListener(new ActionListener() {
 
@@ -107,8 +106,6 @@ public class VistaAltaModelo extends JFrame implements Observador {
 
 		aceptar.setMaximumSize(new Dimension(100, 30));
 		aceptar.setPreferredSize(new Dimension(100, 30));
-		botones.setMaximumSize(new Dimension(190, 30));
-		botones.setPreferredSize(new Dimension(190, 30));
 
 		JButton atras = new JButton("ATRAS"); // boton para volver a la ventana
 												// principal
@@ -126,13 +123,14 @@ public class VistaAltaModelo extends JFrame implements Observador {
 		atras.setMaximumSize(new Dimension(90, 30));
 		atras.setPreferredSize(new Dimension(90, 30));
 
-		botones.add(aceptar);
 		botones.add(atras);
+		botones.add(aceptar);
 		principal.add(botones, BorderLayout.PAGE_END);
 
 		this.setContentPane(principal);
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		this.setVisible(true);
+		this.setResizable(false);
 		this.setLocation(200, 200);
 	}
 

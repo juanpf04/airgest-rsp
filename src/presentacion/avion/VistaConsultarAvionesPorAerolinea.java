@@ -12,7 +12,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSplitPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
@@ -29,13 +28,13 @@ public class VistaConsultarAvionesPorAerolinea extends JFrame implements Observa
 
 	public void actualizar(Object datos) {
 		UtilidadesP.setAirGestRSP(this);
-		this.setSize(470, 160);
+		this.setSize(500, 160);
 
 		JPanel principal = new JPanel();
 		principal.setLayout(new BoxLayout(principal, BoxLayout.PAGE_AXIS));
 
 		JPanel panel_titulo = new JPanel();
-		JLabel titulo = new JLabel("Mostrar aviones por Aerolinea");
+		JLabel titulo = new JLabel("Consultar aviones por Aerolinea");
 		titulo.setFont(new Font("Tahoma", Font.BOLD, 30));
 		titulo.setBorder(new LineBorder(Color.BLACK, 2));
 		titulo.setHorizontalAlignment(SwingConstants.CENTER);
@@ -48,7 +47,7 @@ public class VistaConsultarAvionesPorAerolinea extends JFrame implements Observa
 		JPanel id = new JPanel();
 		id.setLayout(new BoxLayout(id, BoxLayout.LINE_AXIS));
 		JLabel etiquetaId = new JLabel("id aerolinea: ");
-		etiquetaId.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		etiquetaId.setFont(new Font("Tahoma", Font.BOLD, 25));
 		JTextField textoId = new JTextField();
 		textoId.setMaximumSize(new Dimension(200, 30));
 		textoId.setMinimumSize(new Dimension(200, 30));
@@ -61,7 +60,7 @@ public class VistaConsultarAvionesPorAerolinea extends JFrame implements Observa
 
 		Controlador controlador = Controlador.getInstance();
 
-		JSplitPane botones = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
+		JPanel botones = new JPanel();
 
 		JButton aceptar = new JButton("ACEPTAR");
 		aceptar.addActionListener(new ActionListener() {
@@ -78,8 +77,6 @@ public class VistaConsultarAvionesPorAerolinea extends JFrame implements Observa
 		});
 		aceptar.setMaximumSize(new Dimension(100, 30));
 		aceptar.setPreferredSize(new Dimension(100, 30));
-		botones.setMaximumSize(new Dimension(190, 30));
-		botones.setPreferredSize(new Dimension(190, 30));
 
 		JButton atras = new JButton("ATRAS"); // boton para volver a la ventana
 												// principal
@@ -96,8 +93,8 @@ public class VistaConsultarAvionesPorAerolinea extends JFrame implements Observa
 		atras.setMaximumSize(new Dimension(90, 30));
 		atras.setPreferredSize(new Dimension(90, 30));
 
-		botones.add(aceptar);
 		botones.add(atras);
+		botones.add(aceptar);
 		principal.add(botones);
 
 		this.setContentPane(principal);

@@ -134,7 +134,7 @@ public class VistaAvion extends JFrame implements Observador {
 		botones.add(modificar);
 
 		// -------------------------------------------
-		JButton mostrarPorModelo = new JButton("MOSTRAR AVIONES POR MODELO");
+		JButton mostrarPorModelo = new JButton("CONSULTAR AVIONES POR MODELO");
 
 		mostrarPorModelo.addActionListener(new ActionListener() {
 			@Override
@@ -147,7 +147,7 @@ public class VistaAvion extends JFrame implements Observador {
 		botones.add(mostrarPorModelo);
 
 		// -------------------------------------------
-		JButton mostrarPorHangar = new JButton("MOSTRAR AVIONES POR HANGAR");
+		JButton mostrarPorHangar = new JButton("CONSULTAR AVIONES POR HANGAR");
 
 		mostrarPorHangar.addActionListener(new ActionListener() {
 			@Override
@@ -160,7 +160,7 @@ public class VistaAvion extends JFrame implements Observador {
 		botones.add(mostrarPorHangar);
 
 		// -------------------------------------------
-		JButton mostrarPorAerolinea = new JButton("MOSTRAR AVIONES POR AEROLINEA");
+		JButton mostrarPorAerolinea = new JButton("CONSULTAR AVIONES POR AEROLINEA");
 
 		mostrarPorAerolinea.addActionListener(new ActionListener() {
 			@Override

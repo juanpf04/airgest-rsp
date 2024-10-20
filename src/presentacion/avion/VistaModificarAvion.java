@@ -61,6 +61,7 @@ public class VistaModificarAvion extends JFrame implements Observador {
 		centro.setLayout(new BoxLayout(centro, BoxLayout.LINE_AXIS));
 		principal.add(centro);
 
+		JPanel botonAceptar = new JPanel();
 		JPanel panelBotones = new JPanel();
 		principal.add(panelBotones);
 
@@ -287,7 +288,7 @@ public class VistaModificarAvion extends JFrame implements Observador {
 
 			});
 
-			panelBotones.add(aceptar);
+			botonAceptar.add(aceptar);
 
 		}
 
@@ -307,6 +308,7 @@ public class VistaModificarAvion extends JFrame implements Observador {
 
 		});
 		panelBotones.add(atras);
+		panelBotones.add(botonAceptar);
 
 		this.setContentPane(principal);
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
