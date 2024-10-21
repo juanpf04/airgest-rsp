@@ -2,12 +2,10 @@ package integracion.aerolinea;
 
 import static org.junit.Assert.*;
 
-import java.io.File;
 import java.util.List;
 
 import org.junit.Test;
 
-import integracion.UtilidadesI;
 import integracion.factoria.FactoriaIntegracion;
 import integracion.transacciones.Transaction;
 import integracion.transacciones.TransactionManager;
@@ -19,11 +17,11 @@ public class DAOAerolineaImpTest {
 	public void alta_aerolinea_test() {
 		Transaction t = TransactionManager.getInstance().nuevaTransaccion();
 		t.start();
-		TAerolinea a = new TAerolinea(-1, "javi", true);
+		TAerolinea a = new TAerolinea(-1, "sara", true);
 		DAOAerolinea da = FactoriaIntegracion.getInstance().crearDAOAerolinea();
 		int id = da.altaAerolinea(a);
 		t.commit();
-		assertEquals("No ha devuelto el id correcto", 2, id);
+		assertEquals("No ha devuelto el id correcto", 3, id);
 	}
 	
 	@Test
@@ -31,7 +29,7 @@ public class DAOAerolineaImpTest {
 		Transaction t = TransactionManager.getInstance().nuevaTransaccion();
 		t.start();
 		DAOAerolinea da = FactoriaIntegracion.getInstance().crearDAOAerolinea();
-		TAerolinea ta = da.leerAerolineaPorId(3);
+		TAerolinea ta = da.leerAerolineaPorId(1);
 		t.commit();
 		assertNotNull("No existe aerolinea", ta);
 		System.out.println(ta);
@@ -43,7 +41,7 @@ public class DAOAerolineaImpTest {
 		Transaction t = TransactionManager.getInstance().nuevaTransaccion();
 		t.start();
 		DAOAerolinea da = FactoriaIntegracion.getInstance().crearDAOAerolinea();
-		TAerolinea ta = da.leerAerolineaPorNombre("Miguelito");
+		TAerolinea ta = da.leerAerolineaPorNombre("javi");
 		t.commit();
 		assertNotNull("No existe aerolinea", ta);
 		System.out.println(ta);
@@ -55,7 +53,7 @@ public class DAOAerolineaImpTest {
 		Transaction t = TransactionManager.getInstance().nuevaTransaccion();
 		t.start();
 		DAOAerolinea da = FactoriaIntegracion.getInstance().crearDAOAerolinea();
-		TAerolinea ta = new TAerolinea(1, "javi", false);
+		TAerolinea ta = new TAerolinea(1, "pepito", false);
 		boolean b = da.modificarAerolinea(ta);
 		t.commit();
 		assertTrue("No se ha modificado aerolínea", b);

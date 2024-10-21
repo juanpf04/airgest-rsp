@@ -1,18 +1,10 @@
 package integracion.modeloAerolinea;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-
-import org.json.JSONObject;
-
-import integracion.UtilidadesI;
 import integracion.transacciones.Transaction;
 import integracion.transacciones.TransactionManager;
-import negocio.modeloAerolinea.TModeloAerolinea;
 
 public class DAOModeloAerolineaImp implements DAOModeloAerolinea {
 
@@ -60,7 +52,7 @@ public class DAOModeloAerolineaImp implements DAOModeloAerolinea {
 		try{
 			Transaction t = TransactionManager.getInstance().getTransaccion();
 			Connection con = (Connection) t.getResource();
-			PreparedStatement ps = con.prepareStatement("SELECT * FROM aerolinea_modelo WHERE Id_Aerolinea = ? AND Id_Modelo = ?;");
+			PreparedStatement ps = con.prepareStatement("SELECT * FROM aerolinea_modelo WHERE Id_Aerolinea = ? AND Id_Modelo = ? FOR UPDATE;");
 			ps.setInt(1, idAerolinea);
 			ps.setInt(2, idModelo);
 			

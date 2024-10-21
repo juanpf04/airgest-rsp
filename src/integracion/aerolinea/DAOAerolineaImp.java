@@ -15,7 +15,7 @@ public class DAOAerolineaImp implements DAOAerolinea {
 		
 		try {
 			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
-			PreparedStatement ps = con.prepareStatement("SELECT * FROM Aerolinea WHERE Id=?; ");
+			PreparedStatement ps = con.prepareStatement("SELECT * FROM Aerolinea WHERE Id=? FOR UPDATE; ");
 			ps.setInt(1, idAerolinea);
 			
 			ResultSet rs = ps.executeQuery();
@@ -35,7 +35,7 @@ public class DAOAerolineaImp implements DAOAerolinea {
 	public TAerolinea leerAerolineaPorNombre(String nombre) {
 		try {
 			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
-			PreparedStatement ps = con.prepareStatement("SELECT * FROM Aerolinea WHERE Nombre=?; ");
+			PreparedStatement ps = con.prepareStatement("SELECT * FROM Aerolinea WHERE Nombre=? FOR UPDATE; ");
 			ps.setString(1, nombre);
 			
 			ResultSet rs = ps.executeQuery();
@@ -118,7 +118,7 @@ public class DAOAerolineaImp implements DAOAerolinea {
 		try{
 			Transaction t = TransactionManager.getInstance().getTransaccion();
 			Connection con = (Connection) t.getResource();
-			PreparedStatement ps = con.prepareStatement("SELECT * FROM Aerolinea");
+			PreparedStatement ps = con.prepareStatement("SELECT * FROM Aerolinea FOR UPDATE");
 			
 			ResultSet rs = ps.executeQuery();
 			List<TAerolinea> lista = new ArrayList<>();
@@ -142,7 +142,7 @@ public class DAOAerolineaImp implements DAOAerolinea {
 		try{
 			Transaction t = TransactionManager.getInstance().getTransaccion();
 			Connection con = (Connection) t.getResource();
-			PreparedStatement ps = con.prepareStatement("SELECT * FROM aerolinea a JOIN aerolinea_modelo am ON a.Id = am.Id_Aerolinea WHERE am.Id_Modelo = ?;");
+			PreparedStatement ps = con.prepareStatement("SELECT * FROM aerolinea a JOIN aerolinea_modelo am ON a.Id = am.Id_Aerolinea WHERE am.Id_Modelo = ? FOR UPDATE;");
 			ps.setInt(1, id_modelo);
 			
 			ResultSet rs = ps.executeQuery();
