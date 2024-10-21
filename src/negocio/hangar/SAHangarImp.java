@@ -1,5 +1,6 @@
 package negocio.hangar;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import integracion.avion.DAOAvion;
@@ -118,8 +119,26 @@ public class SAHangarImp implements SAHangar {
 
 	@Override
 	public List<THangar> consultarHangarPorPersonal(int id_personal) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		List<THangar> lista =  new ArrayList<>();
+		
+		if (UtilidadesN.comprobarId(id_personal)){
+			Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+			t.start();
+			DAOHangar dh = FactoriaIntegracion.getInstance().crearDAOHangar();
+			
+			//TODO comprobar que existe un personal con ese id
+			
+			lista = dh.consultarHangarPorPersonal(id_personal);
+			
+			if(lista.size() == 0){
+				t.rollback();
+			}else{
+				t.commit();
+			}
+		}
+		
+		return lista;
 	}
 
 }
