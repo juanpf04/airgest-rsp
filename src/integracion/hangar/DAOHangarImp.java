@@ -1,6 +1,5 @@
 package integracion.hangar;
 
-import negocio.aerolinea.TAerolinea;
 import negocio.hangar.THangar;
 
 import java.util.List;
@@ -8,7 +7,6 @@ import java.util.List;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import integracion.Querys;
@@ -35,7 +33,7 @@ public class DAOHangarImp implements DAOHangar {
 
 			return t;		
 			
-		}catch(SQLException e){
+		}catch(Exception e){
 			return null;
 		}
 	}
@@ -53,7 +51,7 @@ public class DAOHangarImp implements DAOHangar {
 
 			return modificado;		
 			
-		}catch(SQLException e){
+		}catch(Exception e){
 			return false;
 		}
 	}
@@ -77,7 +75,7 @@ public class DAOHangarImp implements DAOHangar {
 
 			return id;		
 			
-		}catch(SQLException e){
+		}catch(Exception e){
 			return -1;
 		}
 		
@@ -95,7 +93,7 @@ public class DAOHangarImp implements DAOHangar {
 
 			return eliminado;		
 			
-		}catch(SQLException e){
+		}catch(Exception e){
 			return false;
 		}
 	}
@@ -115,7 +113,7 @@ public class DAOHangarImp implements DAOHangar {
 
 			return t;		
 			
-		}catch(SQLException e){
+		}catch(Exception e){
 			return new ArrayList<THangar>();
 		}
 	}
@@ -137,7 +135,7 @@ public class DAOHangarImp implements DAOHangar {
 
 			return modificado;		
 			
-		}catch(SQLException e){
+		}catch(Exception e){
 			return false;
 		}
 	}
@@ -160,7 +158,7 @@ public class DAOHangarImp implements DAOHangar {
 
 			return t;		
 			
-		}catch(SQLException e){
+		}catch(Exception e){
 			return null;
 		}
 	}

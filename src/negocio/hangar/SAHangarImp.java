@@ -3,12 +3,13 @@ package negocio.hangar;
 import java.util.ArrayList;
 import java.util.List;
 
-import integracion.avion.DAOAvion;
 import integracion.factoria.FactoriaIntegracion;
 import integracion.hangar.DAOHangar;
+import integracion.personal.DAOPersonal;
 import integracion.transacciones.Transaction;
 import integracion.transacciones.TransactionManager;
 import negocio.UtilidadesN;
+import negocio.personal.TPersonal;
 
 public class SAHangarImp implements SAHangar {
 
@@ -127,15 +128,21 @@ public class SAHangarImp implements SAHangar {
 			t.start();
 			DAOHangar dh = FactoriaIntegracion.getInstance().crearDAOHangar();
 			
-			//TODO comprobar que existe un personal con ese id
+			DAOPersonal dp = FactoriaIntegracion.getInstance().crearDAOPersonal();
 			
-			lista = dh.consultarHangarPorPersonal(id_personal);
+			TPersonal leido = dp.consultarPersonalPorId(id_personal);
 			
-			if(lista.size() == 0){
-				t.rollback();
-			}else{
-				t.commit();
-			}
+			if(leido.getId() != -1){
+			
+				lista = dh.consultarHangarPorPersonal(id_personal);
+				
+				if(lista.size() == 0){
+					t.rollback();
+				}else{
+					t.commit();
+				}
+				
+			}else t.rollback();
 		}
 		
 		return lista;
