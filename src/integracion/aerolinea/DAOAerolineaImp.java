@@ -21,10 +21,8 @@ public class DAOAerolineaImp implements DAOAerolinea {
 			ResultSet rs = ps.executeQuery();
 			
 			TAerolinea ta = null;
-			if (rs.next()){
-				boolean activo = rs.getInt(3) == 1 ? true : false;
-				ta = new TAerolinea(rs.getInt(1), rs.getString(2), activo); 
-			}
+			if (rs.next())
+				ta = new TAerolinea(rs.getInt(1), rs.getString(2), rs.getBoolean(3)); 
 			
 			return ta;
 			
@@ -43,10 +41,8 @@ public class DAOAerolineaImp implements DAOAerolinea {
 			ResultSet rs = ps.executeQuery();
 			
 			TAerolinea ta = null;
-			if (rs.next()){
-				boolean activo = rs.getInt(3) == 1 ? true : false;
-				ta = new TAerolinea(rs.getInt(1), rs.getString(2), activo); 
-			}
+			if (rs.next())
+				ta = new TAerolinea(rs.getInt(1), rs.getString(2), rs.getBoolean(3)); 
 			
 			return ta;
 			
@@ -62,7 +58,7 @@ public class DAOAerolineaImp implements DAOAerolinea {
 			Connection con = (Connection) t.getResource();
 			PreparedStatement ps = con.prepareStatement("INSERT INTO AEROLINEA (Nombre, Activo) VALUES(?,?);", PreparedStatement.RETURN_GENERATED_KEYS);
 			ps.setString(1, tAerolinea.getNombre());
-			ps.setInt(2, 1);
+			ps.setBoolean(2, true);
 			
 			int filas = ps.executeUpdate();
 			ResultSet rs = ps.getGeneratedKeys();
@@ -85,8 +81,7 @@ public class DAOAerolineaImp implements DAOAerolinea {
 			Connection con = (Connection) t.getResource();
 			PreparedStatement ps = con.prepareStatement("UPDATE Aerolinea SET Nombre = ?, Activo = ? WHERE Id = ?;");
 			ps.setString(1, tAerolinea.getNombre());
-			int activo = tAerolinea.getActivo() ? 1 : 0;
-			ps.setInt(2, activo);
+			ps.setBoolean(2, tAerolinea.getActivo());
 			ps.setInt(3, tAerolinea.getId());
 			
 			int filas = ps.executeUpdate();
@@ -105,7 +100,7 @@ public class DAOAerolineaImp implements DAOAerolinea {
 			Transaction t = TransactionManager.getInstance().getTransaccion();
 			Connection con = (Connection) t.getResource();
 			PreparedStatement ps = con.prepareStatement("UPDATE Aerolinea SET Activo = ? WHERE Id = ?;");
-			ps.setInt(1, 0);
+			ps.setBoolean(1, false);
 			ps.setInt(2, id);
 			
 			int filas = ps.executeUpdate();
