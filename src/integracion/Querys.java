@@ -9,7 +9,7 @@ public class Querys {
 	
 	
 	//HANGAR
-	public static String alta_hangar = "INSERT INTO HANGAR (Stock, direccion , espacio_almacenaje, coste_dia, activo) VALUES (?, ?, ?, ?, 1)";
+	public static String alta_hangar = "INSERT INTO HANGAR (Stock, direccion , espacio_almacenaje, coste_dia, activo) VALUES (?, ?, ?, ?, true)";
 	public static String baja_hangar = "UPDATE HANGAR SET activo = false WHERE id = ?";
 	public static String leerHangarPorId = "SELECT * FROM HANGAR WHERE id = ?";
 	public static String consultarTodosHangares = "SELECT * FROM HANGAR";

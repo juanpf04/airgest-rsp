@@ -23,10 +23,9 @@ public class DAOHangarImp implements DAOHangar {
 			
 			ResultSet res = ps.executeQuery();
 			THangar t;
-			if(res.next()){
-				boolean activo = res.getInt("activo") == 1 ? true : false;
-				t = new THangar(id, res.getString("direccion"), res.getInt("stock"), res.getDouble("coste_Dia"), res.getInt("espacio_Almacenaje"), activo);
-			}else
+			if(res.next())
+				t = new THangar(id, res.getString("direccion"), res.getInt("stock"), res.getDouble("coste_Dia"), res.getInt("espacio_Almacenaje"), res.getBoolean("activo"));
+			else
 				t = new THangar(-1, "mal", 1, 1, 1, false);
 			
 			res.close();
@@ -106,10 +105,9 @@ public class DAOHangarImp implements DAOHangar {
 			
 			ResultSet res = ps.executeQuery();
 			List<THangar> t = new ArrayList<>();
-			while(res.next()){
-				boolean activo = res.getInt("activo") == 1 ? true : false;
-				t.add(new THangar(res.getInt("id"), res.getString("direccion"), res.getInt("stock"), res.getDouble("coste_Dia"), res.getInt("espacio_Almacenaje"), activo));
-			}
+			while(res.next())
+				t.add(new THangar(res.getInt("id"), res.getString("direccion"), res.getInt("stock"), res.getDouble("coste_Dia"), res.getInt("espacio_Almacenaje"), res.getBoolean("activo")));
+			
 			res.close();
 			ps.close();
 
@@ -128,8 +126,7 @@ public class DAOHangarImp implements DAOHangar {
 			ps.setString(2, tHangar.getDireccion());
 			ps.setInt(3, tHangar.getEspacioAlmacenaje());
 			ps.setDouble(4,  tHangar.getCosteDia());
-			int activo = tHangar.getActivo() ? 1 : 0;
-			ps.setInt(5, activo);
+			ps.setBoolean(5, tHangar.getActivo());
 			ps.setInt(6, tHangar.getId());
 			int filasNuevas = ps.executeUpdate();
 			boolean modificado = filasNuevas == 1 ? true : false;
@@ -151,10 +148,8 @@ public class DAOHangarImp implements DAOHangar {
 			
 			ResultSet res = ps.executeQuery();
 			THangar t;
-			if(res.next()){
-				boolean activo = res.getInt("activo") == 1 ? true : false;
-				t = new THangar(res.getInt("id"), direccion, res.getInt("stock"), res.getDouble("coste_Dia"), res.getInt("espacio_Almacenaje"), activo);
-			}
+			if(res.next())
+				t = new THangar(res.getInt("id"), direccion, res.getInt("stock"), res.getDouble("coste_Dia"), res.getInt("espacio_Almacenaje"), res.getBoolean("activo"));
 			else
 				t = new THangar(-1, "mal", 1, 1, 1, false);
 			

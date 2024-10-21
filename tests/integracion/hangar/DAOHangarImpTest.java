@@ -77,7 +77,7 @@ public class DAOHangarImpTest {
 		List<THangar> id = dh.consultarTodosHangares();
 		t.commit();
 
-		assertEquals("tiene que haber tantos modelos como ficheros", 3, id.size());
+		assertEquals("No hay el mismo numero de entidades que en la base de datos", 3, id.size());
 		System.out.println(id);
 	}
 	
@@ -94,7 +94,7 @@ public class DAOHangarImpTest {
 		boolean id = dh.modificarHangar(hangar);
 		t.commit();
 
-		assertTrue("Ha leido mal el fichero", id);
+		assertTrue("No se ha modificado", id);
 		System.out.println(hangar);
 	}
 	
