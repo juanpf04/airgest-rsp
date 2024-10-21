@@ -12,38 +12,54 @@ import negocio.UtilidadesN;
 public class SAHangarImp implements SAHangar {
 
 	public int altaHangar(THangar tHangar) {
+		int id = -1;
 		if (ValidadorHangar.comprobarDatos(tHangar)) {
+			Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+			t.start();
+			
 			DAOHangar dh = FactoriaIntegracion.getInstance().crearDAOHangar();
+			
 			THangar leido = dh.leerHangarPorDireccion(tHangar.getDireccion());
-
-			if (leido == null)
-				return dh.altaHangar(tHangar);
+			
+			if (leido == null){
+				id = dh.altaHangar(tHangar);
+				if (id != -1) t.commit();
+				else t.rollback();
+			}
 			else if (!leido.getActivo()) {
 				tHangar.setId(leido.getId());
-				dh.modificarHangar(tHangar);
-				return tHangar.getId();
-			}
+				boolean ok = dh.modificarHangar(tHangar);
+				if(ok){ 
+					id = tHangar.getId();
+					t.commit();
+				}
+				else t.rollback();
+			}else t.rollback();
 		}
 
-		return -1;
+		return id;
 	}
 
 	public boolean bajaHangar(int id) {
+		boolean ok = false;
 		if (UtilidadesN.comprobarId(id)) {
+			Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+			t.start();
+			
 			DAOHangar dh = FactoriaIntegracion.getInstance().crearDAOHangar();
 
 			THangar leido = dh.leerHangarPorId(id);
-
-			if (leido != null && leido.getActivo()) {
-				DAOAvion da = FactoriaIntegracion.getInstance().crearDAOAvion();
-
-				if (da.consultarAvionesActivosPorHangar(id).isEmpty()) {
-					return dh.bajaHangar(id);
+			
+			if (leido != null) {
+				if (leido.getActivo()) {
+					ok = dh.bajaHangar(id);
 				}
 			}
+			
+			if(ok) t.commit();
+			else t.rollback();
 		}
-
-		return false;
+		return ok;
 	}
 
 	public THangar consultarHangarPorId(int id) {

@@ -21,7 +21,7 @@ public class DAOHangarImpTest {
 
 		DAOHangar dh = FactoriaIntegracionImp.getInstance().crearDAOHangar();
 
-		THangar hangar = new THangar(0, "adiosss", 4, 50.8, 4, true);
+		THangar hangar = new THangar(0, "adiossss", 4, 50.8, 4, true);
 
 		int id = dh.altaHangar(hangar);
 		t.commit();

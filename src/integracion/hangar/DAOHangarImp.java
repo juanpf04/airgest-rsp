@@ -26,7 +26,7 @@ public class DAOHangarImp implements DAOHangar {
 			if(res.next())
 				t = new THangar(id, res.getString("direccion"), res.getInt("stock"), res.getDouble("coste_Dia"), res.getInt("espacio_Almacenaje"), res.getBoolean("activo"));
 			else
-				t = new THangar(-1, "mal", 1, 1, 1, false);
+				t = null;
 			
 			res.close();
 			ps.close();
@@ -34,7 +34,7 @@ public class DAOHangarImp implements DAOHangar {
 			return t;		
 			
 		}catch(SQLException e){
-			return new THangar(-1, "mal", 1, 1, 1, false);
+			return null;
 		}
 	}
 
@@ -151,7 +151,7 @@ public class DAOHangarImp implements DAOHangar {
 			if(res.next())
 				t = new THangar(res.getInt("id"), direccion, res.getInt("stock"), res.getDouble("coste_Dia"), res.getInt("espacio_Almacenaje"), res.getBoolean("activo"));
 			else
-				t = new THangar(-1, "mal", 1, 1, 1, false);
+				t = null;
 			
 			res.close();
 			ps.close();
@@ -159,7 +159,7 @@ public class DAOHangarImp implements DAOHangar {
 			return t;		
 			
 		}catch(SQLException e){
-			return new THangar(-1, "mal", 1, 1, 1, false);
+			return null;
 		}
 	}
 
