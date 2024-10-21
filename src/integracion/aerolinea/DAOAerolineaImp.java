@@ -85,7 +85,7 @@ public class DAOAerolineaImp implements DAOAerolinea {
 			ps.setInt(3, tAerolinea.getId());
 			
 			int filas = ps.executeUpdate();
-			boolean modificado = filas == 1 ? true : false;
+			boolean modificado = filas == 1;
 			
 			ps.close();
 			
@@ -104,7 +104,7 @@ public class DAOAerolineaImp implements DAOAerolinea {
 			ps.setInt(2, id);
 			
 			int filas = ps.executeUpdate();
-			boolean eliminado = filas == 1 ? true : false;
+			boolean eliminado = filas == 1;
 			
 			ps.close();
 			

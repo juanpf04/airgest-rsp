@@ -19,11 +19,11 @@ public class DAOAerolineaImpTest {
 	public void alta_aerolinea_test() {
 		Transaction t = TransactionManager.getInstance().nuevaTransaccion();
 		t.start();
-		TAerolinea a = new TAerolinea(-1, "castro", true);
+		TAerolinea a = new TAerolinea(-1, "javi", true);
 		DAOAerolinea da = FactoriaIntegracion.getInstance().crearDAOAerolinea();
 		int id = da.altaAerolinea(a);
 		t.commit();
-		assertEquals("No ha devuelto el id correcto", 3, id);
+		assertEquals("No ha devuelto el id correcto", 2, id);
 	}
 	
 	@Test
