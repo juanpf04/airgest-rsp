@@ -1,5 +1,6 @@
 package integracion.hangar;
 
+import negocio.aerolinea.TAerolinea;
 import negocio.hangar.THangar;
 
 import java.util.List;
@@ -11,6 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import integracion.Querys;
+import integracion.transacciones.Transaction;
 import integracion.transacciones.TransactionManager;
 
 public class DAOHangarImp implements DAOHangar {
@@ -162,6 +164,34 @@ public class DAOHangarImp implements DAOHangar {
 			return null;
 		}
 	}
+	
+	public List<THangar> consultarHangarPorPersonal(int id_personal) {
+		try{
+			Transaction t = TransactionManager.getInstance().getTransaccion();
+			Connection con = (Connection) t.getResource();
+			PreparedStatement ps = con.prepareStatement(Querys.consultarHangarPorPersonal);
+			ps.setInt(1, id_personal);
+			
+			ResultSet res = ps.executeQuery();
+			List<THangar> lista = new ArrayList<>();
+			
+			while (res.next()){
+				lista.add(new THangar(res.getInt("id"), res.getString("direccion"), res.getInt("stock"), res.getDouble("coste_Dia"), res.getInt("espacio_Almacenaje"), res.getBoolean("activo")));
+			}
+			
+			res.close();
+			ps.close();
+			
+			return lista;
+			
+		} catch(Exception e){
+			return new ArrayList<THangar>();
+		}
+	}
+	
+	
+	
+	
 
 
 
