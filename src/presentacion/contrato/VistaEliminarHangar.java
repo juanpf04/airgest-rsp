@@ -10,7 +10,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSplitPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
@@ -18,14 +17,15 @@ import javax.swing.border.LineBorder;
 import negocio.contrato.TCarrito;
 import presentacion.Observador;
 import presentacion.UtilidadesP;
+import presentacion.controlador.Contexto;
 import presentacion.controlador.Controlador;
-import presentacion.controlador.EventosControlador;
+import presentacion.controlador.Evento;
 
 public class VistaEliminarHangar extends JFrame implements Observador {
 
 	private static final long serialVersionUID = 1L;
 
-	public void actualizaVista(Object datos) {
+	public void actualizar(Object datos) {
 		UtilidadesP.setAirGestRSP(this);
 		this.setSize(450, 180);
 
@@ -60,7 +60,7 @@ public class VistaEliminarHangar extends JFrame implements Observador {
 		centro.add(id);
 
 		principal.add(centro);
-		JSplitPane botones = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
+		JPanel botones = new JPanel();
 		JButton aceptar = new JButton("ACEPTAR");
 		aceptar.addActionListener(new ActionListener() {
 
@@ -69,7 +69,7 @@ public class VistaEliminarHangar extends JFrame implements Observador {
 				try {
 					int id_hangar = Integer.parseInt(textoId.getText());
 					carrito.eliminarLinea(id_hangar);
-					controlador.accion(EventosControlador.VISTA_CARRITO, carrito);
+					controlador.accion(new Contexto(Evento.VISTA_CARRITO, carrito));
 					dispose();
 				} catch (NumberFormatException n) {
 
@@ -80,10 +80,7 @@ public class VistaEliminarHangar extends JFrame implements Observador {
 
 		aceptar.setMaximumSize(new Dimension(100, 30));
 		aceptar.setPreferredSize(new Dimension(100, 30));
-		botones.setMaximumSize(new Dimension(190, 30));
-		botones.setPreferredSize(new Dimension(190, 30));
 
-		botones.add(aceptar);
 
 		JButton atras = new JButton("ATRAS"); // boton para volver a la ventana
 												// principal
@@ -93,7 +90,7 @@ public class VistaEliminarHangar extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				controlador.accion(EventosControlador.VISTA_CARRITO, carrito);
+				controlador.accion(new Contexto(Evento.VISTA_CARRITO, carrito));
 			}
 
 		});
@@ -102,6 +99,7 @@ public class VistaEliminarHangar extends JFrame implements Observador {
 		atras.setPreferredSize(new Dimension(90, 30));
 
 		botones.add(atras);
+		botones.add(aceptar);
 		principal.add(botones);
 
 		this.setContentPane(principal);

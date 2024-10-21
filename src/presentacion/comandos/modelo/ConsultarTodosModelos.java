@@ -1,27 +1,23 @@
-/**
- * 
- */
 package presentacion.comandos.modelo;
 
+import java.util.List;
+
+import negocio.factoria.FactoriaNegocio;
+import negocio.modelo.SAModelo;
+import negocio.modelo.TModelo;
 import presentacion.comandos.Comando;
 import presentacion.controlador.Contexto;
+import presentacion.controlador.Evento;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author Usuario
-* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-*/
 public class ConsultarTodosModelos implements Comando {
-	/** 
-	* (non-Javadoc)
-	* @see Comando#ejecutar(Object datos)
-	* @generated "UML a Java (com.ibm.xtools.transform.uml2.java5.internal.UML2JavaTransform)"
-	*/
+
+	@Override
 	public Contexto ejecutar(Object datos) {
-		// begin-user-code
-		// TODO Auto-generated method stub
-		return null;
-		// end-user-code
+		FactoriaNegocio fn = FactoriaNegocio.getInstance();
+		SAModelo sm = fn.crearSAModelo();
+		List<TModelo> modelos = sm.consultarTodosModelos();
+		Evento evento = Evento.VISTA_RESULTADO_CONSULTAR_TODOS_MODELOS;
+		return new Contexto(evento, modelos);
 	}
+
 }

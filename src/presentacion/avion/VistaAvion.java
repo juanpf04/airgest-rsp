@@ -20,15 +20,16 @@ import javax.swing.border.MatteBorder;
 
 import presentacion.Observador;
 import presentacion.UtilidadesP;
+import presentacion.controlador.Contexto;
 import presentacion.controlador.Controlador;
-import presentacion.controlador.EventosControlador;
+import presentacion.controlador.Evento;
 
 public class VistaAvion extends JFrame implements Observador {
 
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	public void actualizaVista(Object datos) {
+	public void actualizar(Object datos) {
 		UtilidadesP.setAirGestRSP(this);
 		this.setSize(430, 390); // hace que la ventana no salga tan chiquitita
 
@@ -63,7 +64,7 @@ public class VistaAvion extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				ctrl.accion(EventosControlador.VISTA_ALTA_AVION, null);
+				ctrl.accion(new Contexto(Evento.VISTA_ALTA_AVION, null));
 			}
 		});
 		alta.setToolTipText("Aqui das de alta un avion maquina");
@@ -75,7 +76,7 @@ public class VistaAvion extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				ctrl.accion(EventosControlador.VISTA_BAJA_AVION, null);
+				ctrl.accion(new Contexto(Evento.VISTA_BAJA_AVION, null));
 			}
 		});
 		baja.setToolTipText("Aqui das de baja un avion maquina");
@@ -88,7 +89,7 @@ public class VistaAvion extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				ctrl.accion(EventosControlador.VISTA_CONSULTAR_AVION_POR_ID, null);
+				ctrl.accion(new Contexto(Evento.VISTA_CONSULTAR_AVION_POR_ID, null));
 			}
 		});
 		botones.add(consultarID);
@@ -99,11 +100,25 @@ public class VistaAvion extends JFrame implements Observador {
 		consultarTodos.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ctrl.accion(EventosControlador.CONSULTAR_TODOS_AVIONES, null);
+				ctrl.accion(new Contexto(Evento.CONSULTAR_TODOS_AVIONES, null));
 			}
 		});
 
 		botones.add(consultarTodos);
+
+		// -------------------------------------------
+		
+		JButton consultarPorAyH = new JButton("CONSULTAR AVIONES POR AEROLÍNEA Y HANGAR");
+
+		consultarPorAyH.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				ctrl.accion(new Contexto(Evento.VISTA_CONSULTAR_AVIONES_DE_AEROLINEA_POR_HANGAR, null));
+			}
+		});
+
+		botones.add(consultarPorAyH);
 
 		// -------------------------------------------
 		JButton modificar = new JButton("MODIFICAR AVION");
@@ -112,46 +127,46 @@ public class VistaAvion extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				ctrl.accion(EventosControlador.VISTA_MODIFICAR_AVION, null);
+				ctrl.accion(new Contexto(Evento.VISTA_MODIFICAR_AVION, null));
 			}
 		});
 
 		botones.add(modificar);
 
 		// -------------------------------------------
-		JButton mostrarPorModelo = new JButton("MOSTRAR AVIONES POR MODELO");
+		JButton mostrarPorModelo = new JButton("CONSULTAR AVIONES POR MODELO");
 
 		mostrarPorModelo.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				ctrl.accion(EventosControlador.VISTA_MOSTRAR_AVIONES_POR_MODELO, null);
+				ctrl.accion(new Contexto(Evento.VISTA_CONSULTAR_AVIONES_POR_MODELO, null));
 			}
 		});
 
 		botones.add(mostrarPorModelo);
 
 		// -------------------------------------------
-		JButton mostrarPorHangar = new JButton("MOSTRAR AVIONES POR HANGAR");
+		JButton mostrarPorHangar = new JButton("CONSULTAR AVIONES POR HANGAR");
 
 		mostrarPorHangar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				ctrl.accion(EventosControlador.VISTA_MOSTRAR_AVIONES_POR_HANGAR, null);
+				ctrl.accion(new Contexto(Evento.VISTA_CONSULTAR_AVIONES_POR_HANGAR, null));
 			}
 		});
 
 		botones.add(mostrarPorHangar);
 
 		// -------------------------------------------
-		JButton mostrarPorAerolinea = new JButton("MOSTRAR AVIONES POR AEROLINEA");
+		JButton mostrarPorAerolinea = new JButton("CONSULTAR AVIONES POR AEROLINEA");
 
 		mostrarPorAerolinea.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				ctrl.accion(EventosControlador.VISTA_MOSTRAR_AVIONES_POR_AEROLINEA, null);
+				ctrl.accion(new Contexto(Evento.VISTA_CONSULTAR_AVIONES_POR_AEROLINEA, null));
 			}
 		});
 
@@ -168,7 +183,7 @@ public class VistaAvion extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				ctrl.accion(EventosControlador.VISTA_PRINCIPAL, null);
+				ctrl.accion(new Contexto(Evento.VISTA_PRINCIPAL, null));
 			}
 
 		});

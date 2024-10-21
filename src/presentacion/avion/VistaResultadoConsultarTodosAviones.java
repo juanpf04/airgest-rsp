@@ -21,7 +21,7 @@ public class VistaResultadoConsultarTodosAviones extends JFrame implements Obser
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	public void actualizaVista(Object datos) {
+	public void actualizar(Object datos) {
 		UtilidadesP.setAirGestRSP(this);
 		this.setSize(400, 450);
 

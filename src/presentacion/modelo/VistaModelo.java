@@ -20,15 +20,16 @@ import javax.swing.border.MatteBorder;
 
 import presentacion.Observador;
 import presentacion.UtilidadesP;
+import presentacion.controlador.Contexto;
 import presentacion.controlador.Controlador;
-import presentacion.controlador.EventosControlador;
+import presentacion.controlador.Evento;
 
 public class VistaModelo extends JFrame implements Observador {
 
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	public void actualizaVista(Object datos) {
+	public void actualizar(Object datos) {
 		UtilidadesP.setAirGestRSP(this);
 		this.setSize(430, 390); // hace que la ventana no salga tan chiquitita
 		JPanel principal = new JPanel();
@@ -66,7 +67,7 @@ public class VistaModelo extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				ctrl.accion(EventosControlador.VISTA_ALTA_MODELO, null);
+				ctrl.accion(new Contexto(Evento.VISTA_ALTA_MODELO, null));
 			}
 		});
 		alta.setToolTipText("Aqui das de alta un modelo maquina");
@@ -78,7 +79,7 @@ public class VistaModelo extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				ctrl.accion(EventosControlador.VISTA_BAJA_MODELO, null);
+				ctrl.accion(new Contexto(Evento.VISTA_BAJA_MODELO, null));
 			}
 		});
 		baja.setToolTipText("Aqui das de baja un modelo maquina");
@@ -91,7 +92,7 @@ public class VistaModelo extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				ctrl.accion(EventosControlador.VISTA_CONSULTAR_MODELO_POR_ID, null);
+				ctrl.accion(new Contexto(Evento.VISTA_CONSULTAR_MODELO_POR_ID, null));
 			}
 		});
 		botones.add(consultarID);
@@ -102,11 +103,25 @@ public class VistaModelo extends JFrame implements Observador {
 		consultarTodos.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ctrl.accion(EventosControlador.CONSULTAR_TODOS_MODELOS, null);
+				ctrl.accion(new Contexto(Evento.CONSULTAR_TODOS_MODELOS, null));
 			}
 		});
 
 		botones.add(consultarTodos);
+
+		// -------------------------------------------
+		
+		JButton consultarModPorAerolinea = new JButton("CONSULTAR MODELOS POR AEROLÍNEA");
+
+		consultarModPorAerolinea.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				ctrl.accion(new Contexto(Evento.VISTA_CONSULTAR_MODELOS_POR_AEROLINEA, null));
+			}
+		});
+
+		botones.add(consultarModPorAerolinea);
 
 		// -------------------------------------------
 		JButton modificar = new JButton("MODIFICAR MODELO");
@@ -115,7 +130,7 @@ public class VistaModelo extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				ctrl.accion(EventosControlador.VISTA_MODIFICAR_MODELO, null);
+				ctrl.accion(new Contexto(Evento.VISTA_MODIFICAR_MODELO, null));
 			}
 		});
 
@@ -128,7 +143,7 @@ public class VistaModelo extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				ctrl.accion(EventosControlador.VISTA_VINCULAR_MODELO, null);
+				ctrl.accion(new Contexto(Evento.VISTA_VINCULAR_MODELO, null));
 			}
 		});
 
@@ -141,7 +156,7 @@ public class VistaModelo extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				ctrl.accion(EventosControlador.VISTA_DESVINCULAR_MODELO, null);
+				ctrl.accion(new Contexto(Evento.VISTA_DESVINCULAR_MODELO, null));
 			}
 		});
 
@@ -159,7 +174,7 @@ public class VistaModelo extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				ctrl.accion(EventosControlador.VISTA_PRINCIPAL, null);
+				ctrl.accion(new Contexto(Evento.VISTA_PRINCIPAL, null));
 			}
 
 		});

@@ -17,14 +17,15 @@ import javax.swing.JTextArea;
 import negocio.contrato.TContrato;
 import presentacion.Observador;
 import presentacion.UtilidadesP;
+import presentacion.controlador.Contexto;
 import presentacion.controlador.Controlador;
-import presentacion.controlador.EventosControlador;
+import presentacion.controlador.Evento;
 
 public class VistaResultadoConsultarTodosContratos extends JFrame implements Observador {
 
 	private static final long serialVersionUID = 1L;
 
-	public void actualizaVista(Object datos) {
+	public void actualizar(Object datos) {
 		UtilidadesP.setAirGestRSP(this);
 		this.setSize(400, 450);
 
@@ -59,7 +60,7 @@ public class VistaResultadoConsultarTodosContratos extends JFrame implements Obs
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Controlador c = Controlador.getInstance();
-				c.accion(EventosControlador.VISTA_CONTRATO, datos);
+				c.accion(new Contexto(Evento.VISTA_CONTRATO, datos));
 				dispose();
 			}
 		});

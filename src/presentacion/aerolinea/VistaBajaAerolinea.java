@@ -11,21 +11,21 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSplitPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
 import presentacion.Observador;
 import presentacion.UtilidadesP;
+import presentacion.controlador.Contexto;
 import presentacion.controlador.Controlador;
-import presentacion.controlador.EventosControlador;
+import presentacion.controlador.Evento;
 
 public class VistaBajaAerolinea extends JFrame implements Observador {
 
 	private static final long serialVersionUID = 1L;
 
-	public void actualizaVista(Object datos) {
+	public void actualizar(Object datos) {
 		UtilidadesP.setAirGestRSP(this);
 		this.setSize(375, 170);
 
@@ -59,7 +59,7 @@ public class VistaBajaAerolinea extends JFrame implements Observador {
 
 		Controlador controlador = Controlador.getInstance();
 
-		JSplitPane botones = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
+		JPanel botones = new JPanel();
 
 		JButton aceptar = new JButton("ACEPTAR");
 		aceptar.addActionListener(new ActionListener() {
@@ -68,9 +68,9 @@ public class VistaBajaAerolinea extends JFrame implements Observador {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					int id = Integer.parseInt(textoId.getText());
-					controlador.accion(EventosControlador.BAJA_AEROLINEA, id);
+					controlador.accion(new Contexto(Evento.BAJA_AEROLINEA, id));
 				} catch (NumberFormatException n) {
-					controlador.accion(EventosControlador.BAJA_AEROLINEA, 0);
+					controlador.accion(new Contexto(Evento.BAJA_AEROLINEA, 0));
 				}
 			}
 
@@ -78,10 +78,7 @@ public class VistaBajaAerolinea extends JFrame implements Observador {
 
 		aceptar.setMaximumSize(new Dimension(100, 30));
 		aceptar.setPreferredSize(new Dimension(100, 30));
-		botones.setMaximumSize(new Dimension(190, 30));
-		botones.setPreferredSize(new Dimension(190, 30));
 
-		botones.add(aceptar);
 
 		JButton atras = new JButton("ATRAS"); // boton para volver a la ventana
 												// principal
@@ -91,7 +88,7 @@ public class VistaBajaAerolinea extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				controlador.accion(EventosControlador.VISTA_AEROLINEA, null);
+				controlador.accion(new Contexto(Evento.VISTA_AEROLINEA, null));
 			}
 		});
 
@@ -99,6 +96,7 @@ public class VistaBajaAerolinea extends JFrame implements Observador {
 		atras.setPreferredSize(new Dimension(90, 30));
 
 		botones.add(atras);
+		botones.add(aceptar);
 		principal.add(botones);
 
 		this.setContentPane(principal);

@@ -17,7 +17,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
-import javax.swing.JSplitPane;
 import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
 import javax.swing.SwingConstants;
@@ -26,14 +25,15 @@ import javax.swing.border.LineBorder;
 import negocio.lineaContrato.TLineaContrato;
 import presentacion.Observador;
 import presentacion.UtilidadesP;
+import presentacion.controlador.Contexto;
 import presentacion.controlador.Controlador;
-import presentacion.controlador.EventosControlador;
+import presentacion.controlador.Evento;
 
 public class VistaModificarLineaContrato extends JFrame implements Observador {
 
 	private static final long serialVersionUID = 1L;
 
-	public void actualizaVista(Object datos) {
+	public void actualizar(Object datos) {
 		UtilidadesP.setAirGestRSP(this);
 		this.setSize(450, 300);
 
@@ -137,7 +137,7 @@ public class VistaModificarLineaContrato extends JFrame implements Observador {
 		principal.add(funcion);
 		principal.add(centro);
 
-		JSplitPane botones = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
+		JPanel botones = new JPanel();
 		JButton aceptar = new JButton("ACEPTAR");
 		aceptar.addActionListener(new ActionListener() {
 
@@ -157,7 +157,7 @@ public class VistaModificarLineaContrato extends JFrame implements Observador {
 					zonedDateTime = seleccion.toInstant().atZone(ZoneId.systemDefault());
 					LocalDate fecha_fin = zonedDateTime.toLocalDate();
 					TLineaContrato linea = new TLineaContrato(id_contrato, id_hangar, fecha_ini, fecha_fin, 0);
-					controlador.accion(EventosControlador.MODIFICAR_LINEA_CONTRATO, linea);
+					controlador.accion(new Contexto(Evento.MODIFICAR_LINEA_CONTRATO, linea));
 				} catch (NumberFormatException n) {
 
 				}
@@ -167,8 +167,6 @@ public class VistaModificarLineaContrato extends JFrame implements Observador {
 
 		aceptar.setMaximumSize(new Dimension(100, 30));
 		aceptar.setPreferredSize(new Dimension(100, 30));
-		botones.setMaximumSize(new Dimension(190, 30));
-		botones.setPreferredSize(new Dimension(190, 30));
 
 		JButton atras = new JButton("ATRAS"); // boton para volver a la ventana
 												// principal
@@ -178,7 +176,7 @@ public class VistaModificarLineaContrato extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				controlador.accion(EventosControlador.VISTA_CONTRATO, null);
+				controlador.accion(new Contexto(Evento.VISTA_CONTRATO, null));
 			}
 
 		});
@@ -186,8 +184,8 @@ public class VistaModificarLineaContrato extends JFrame implements Observador {
 		atras.setMaximumSize(new Dimension(90, 30));
 		atras.setPreferredSize(new Dimension(90, 30));
 
-		botones.add(aceptar);
 		botones.add(atras);
+		botones.add(aceptar);
 		principal.add(botones);
 
 		this.setContentPane(principal);

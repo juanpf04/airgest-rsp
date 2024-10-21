@@ -21,14 +21,15 @@ import negocio.personal.TPSeguridad;
 import negocio.personal.TPersonal;
 import presentacion.Observador;
 import presentacion.UtilidadesP;
+import presentacion.controlador.Contexto;
 import presentacion.controlador.Controlador;
-import presentacion.controlador.EventosControlador;
+import presentacion.controlador.Evento;
 
 public class VistaAltaPersonal extends JFrame implements Observador {
 
 	private static final long serialVersionUID = 1L;
 
-	public void actualizaVista(Object datos) {
+	public void actualizar(Object datos) {
 		UtilidadesP.setAirGestRSP(this);
 		this.setSize(450, 250);
 
@@ -54,6 +55,8 @@ public class VistaAltaPersonal extends JFrame implements Observador {
 		centro.setLayout(new BoxLayout(centro, BoxLayout.LINE_AXIS));
 		centro.setAlignmentX(CENTER_ALIGNMENT);
 		principal.add(centro);
+		
+		JPanel panelAceptar = new JPanel();
 
 		JPanel panelBotones = new JPanel();
 		principal.add(panelBotones);
@@ -70,7 +73,7 @@ public class VistaAltaPersonal extends JFrame implements Observador {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					dispose();
-					ctrl.accion(EventosControlador.VISTA_ALTA_PERSONAL, "SEGURIDAD");
+					ctrl.accion(new Contexto(Evento.VISTA_ALTA_PERSONAL, "SEGURIDAD"));
 				}
 			});
 
@@ -84,7 +87,7 @@ public class VistaAltaPersonal extends JFrame implements Observador {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					dispose();
-					ctrl.accion(EventosControlador.VISTA_ALTA_PERSONAL, "LIMPIEZA");
+					ctrl.accion(new Contexto(Evento.VISTA_ALTA_PERSONAL, "LIMPIEZA"));
 				}
 			});
 
@@ -167,7 +170,7 @@ public class VistaAltaPersonal extends JFrame implements Observador {
 							String rol = textoRol.getText();
 							transfer = new TPLimpieza(0, idEmpleado, areaAsignada, true, rol);
 						}
-						ctrl.accion(EventosControlador.ALTA_PERSONAL, transfer);
+						ctrl.accion(new Contexto(Evento.ALTA_PERSONAL, transfer));
 					} catch (Exception ex) {
 
 					}
@@ -175,7 +178,7 @@ public class VistaAltaPersonal extends JFrame implements Observador {
 
 			});
 
-			panelBotones.add(aceptar);
+			panelAceptar.add(aceptar);
 
 		}
 
@@ -188,13 +191,14 @@ public class VistaAltaPersonal extends JFrame implements Observador {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 				if (datos == null)
-					ctrl.accion(EventosControlador.VISTA_PERSONAL, null);
+					ctrl.accion(new Contexto(Evento.VISTA_PERSONAL, null));
 				else
-					ctrl.accion(EventosControlador.VISTA_ALTA_PERSONAL, null);
+					ctrl.accion(new Contexto(Evento.VISTA_ALTA_PERSONAL, null));
 			}
 
 		});
 		panelBotones.add(atras);
+		panelBotones.add(panelAceptar);
 
 		this.setContentPane(principal);
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);

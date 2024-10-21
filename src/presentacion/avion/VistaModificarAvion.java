@@ -27,14 +27,15 @@ import negocio.avion.TAPrivado;
 import negocio.avion.TAvion;
 import presentacion.Observador;
 import presentacion.UtilidadesP;
+import presentacion.controlador.Contexto;
 import presentacion.controlador.Controlador;
-import presentacion.controlador.EventosControlador;
+import presentacion.controlador.Evento;
 
 public class VistaModificarAvion extends JFrame implements Observador {
 
 	private static final long serialVersionUID = 1L;
 
-	public void actualizaVista(Object datos) {
+	public void actualizar(Object datos) {
 		UtilidadesP.setAirGestRSP(this);
 		this.setSize(1000, 750);
 
@@ -60,6 +61,7 @@ public class VistaModificarAvion extends JFrame implements Observador {
 		centro.setLayout(new BoxLayout(centro, BoxLayout.LINE_AXIS));
 		principal.add(centro);
 
+		JPanel botonAceptar = new JPanel();
 		JPanel panelBotones = new JPanel();
 		principal.add(panelBotones);
 
@@ -74,7 +76,7 @@ public class VistaModificarAvion extends JFrame implements Observador {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					dispose();
-					ctrl.accion(EventosControlador.VISTA_MODIFICAR_AVION, "COMERCIAL");
+					ctrl.accion(new Contexto(Evento.VISTA_MODIFICAR_AVION, "COMERCIAL"));
 				}
 			});
 
@@ -88,7 +90,7 @@ public class VistaModificarAvion extends JFrame implements Observador {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					dispose();
-					ctrl.accion(EventosControlador.VISTA_MODIFICAR_AVION, "PRIVADO");
+					ctrl.accion(new Contexto(Evento.VISTA_MODIFICAR_AVION, "PRIVADO"));
 				}
 			});
 
@@ -278,7 +280,7 @@ public class VistaModificarAvion extends JFrame implements Observador {
 							transfer = new TAPrivado(idLeido, numAsientos, fecha, nombre, matricula, true, idAerolinea,
 									idModelo, idHangar, nombre_duenyo, idCarnet);
 						}
-						ctrl.accion(EventosControlador.MODIFICAR_AVION, transfer);
+						ctrl.accion(new Contexto(Evento.MODIFICAR_AVION, transfer));
 					} catch (Exception ex) {
 
 					}
@@ -286,7 +288,7 @@ public class VistaModificarAvion extends JFrame implements Observador {
 
 			});
 
-			panelBotones.add(aceptar);
+			botonAceptar.add(aceptar);
 
 		}
 
@@ -299,13 +301,14 @@ public class VistaModificarAvion extends JFrame implements Observador {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 				if (datos == null)
-					ctrl.accion(EventosControlador.VISTA_AVION, null);
+					ctrl.accion(new Contexto(Evento.VISTA_AVION, null));
 				else
-					ctrl.accion(EventosControlador.VISTA_MODIFICAR_AVION, null);
+					ctrl.accion(new Contexto(Evento.VISTA_MODIFICAR_AVION, null));
 			}
 
 		});
 		panelBotones.add(atras);
+		panelBotones.add(botonAceptar);
 
 		this.setContentPane(principal);
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);

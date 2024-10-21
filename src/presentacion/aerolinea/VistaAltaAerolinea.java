@@ -11,7 +11,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSplitPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
@@ -19,16 +18,19 @@ import javax.swing.border.LineBorder;
 import negocio.aerolinea.TAerolinea;
 import presentacion.Observador;
 import presentacion.UtilidadesP;
+import presentacion.controlador.Contexto;
 import presentacion.controlador.Controlador;
-import presentacion.controlador.EventosControlador;
+import presentacion.controlador.Evento;
 
 public class VistaAltaAerolinea extends JFrame implements Observador {
 
 	private static final long serialVersionUID = 1L;
 
-	public void actualizaVista(Object datos) {
+	public void actualizar(Object datos) {
 		UtilidadesP.setAirGestRSP(this);
-		this.setSize(375, 180);
+		this.setSize(450, 250);
+
+		Controlador ctrl = Controlador.getInstance();
 
 		JPanel principal = new JPanel();
 		principal.setLayout(new BoxLayout(principal, BoxLayout.PAGE_AXIS));
@@ -37,7 +39,7 @@ public class VistaAltaAerolinea extends JFrame implements Observador {
 		funcion.setLayout(new BoxLayout(funcion, BoxLayout.PAGE_AXIS));
 
 		JPanel panel_titulo = new JPanel();
-		JLabel titulo = new JLabel("Alta Aerolinea");
+		JLabel titulo = new JLabel("Alta Aerolínea");
 		titulo.setFont(new Font("Tahoma", Font.BOLD, 30));
 		titulo.setBorder(new LineBorder(Color.BLACK, 2));
 		titulo.setHorizontalAlignment(SwingConstants.CENTER);
@@ -47,43 +49,13 @@ public class VistaAltaAerolinea extends JFrame implements Observador {
 		principal.add(funcion);
 
 		JPanel centro = new JPanel();
-		centro.setLayout(new BoxLayout(centro, BoxLayout.PAGE_AXIS));
-
-		JPanel nombre = new JPanel();
-		nombre.setLayout(new BoxLayout(nombre, BoxLayout.LINE_AXIS));
-		JLabel etiquetaNombre = new JLabel("nombre: ");
-		etiquetaNombre.setFont(new Font("Tahoma", Font.BOLD, 25));
-		JTextField textoNombre = new JTextField();
-		textoNombre.setMaximumSize(new Dimension(200, 30));
-		textoNombre.setMinimumSize(new Dimension(200, 30));
-		textoNombre.setPreferredSize(new Dimension(200, 30));
-		textoNombre.setToolTipText("nombre");
-		textoNombre.setFont(new Font("Tahoma", Font.BOLD, 18));
-		nombre.add(etiquetaNombre);
-		nombre.add(textoNombre);
-		centro.add(nombre);
-
-		Controlador controlador = Controlador.getInstance();
-
-		JSplitPane botones = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
-		JButton aceptar = new JButton("ACEPTAR");
-		aceptar.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				String nombreLeido = textoNombre.getText();
-				TAerolinea transfer = new TAerolinea(0, nombreLeido, true);
-				controlador.accion(EventosControlador.ALTA_AEROLINEA, transfer);
-			}
-
-		});
-		aceptar.setMaximumSize(new Dimension(100, 30));
-		aceptar.setPreferredSize(new Dimension(100, 30));
-		botones.setMaximumSize(new Dimension(190, 30));
-		botones.setPreferredSize(new Dimension(190, 30));
-
-		centro.add(aceptar);
-		principal.add(centro);
+		centro.setLayout(new BoxLayout(centro, BoxLayout.LINE_AXIS));
+		centro.setAlignmentX(CENTER_ALIGNMENT);
+		principal.add(centro);	
+		
+		JPanel panelBotones = new JPanel();
+		principal.add(panelBotones);
+		panelBotones.setAlignmentX(CENTER_ALIGNMENT);
 
 		JButton atras = new JButton("ATRAS"); // boton para volver a la ventana
 												// principal
@@ -93,21 +65,53 @@ public class VistaAltaAerolinea extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				controlador.accion(EventosControlador.VISTA_AEROLINEA, null);
+				ctrl.accion(new Contexto(Evento.VISTA_AEROLINEA, null));
 			}
 
 		});
-		atras.setMaximumSize(new Dimension(90, 30));
-		atras.setPreferredSize(new Dimension(90, 30));
+		panelBotones.add(atras);
+		
+		
+		JPanel panelEtiquetas = new JPanel();
+		panelEtiquetas.setLayout(new BoxLayout(panelEtiquetas, BoxLayout.PAGE_AXIS));
+		panelEtiquetas.setAlignmentX(CENTER_ALIGNMENT);
 
-		botones.add(aceptar);
-		botones.add(atras);
-		principal.add(botones);
+		JPanel panelTexto = new JPanel();
+		panelTexto.setLayout(new BoxLayout(panelTexto, BoxLayout.PAGE_AXIS));
+		panelTexto.setAlignmentX(CENTER_ALIGNMENT);
 
+		JLabel etiquetaA = new JLabel("Nombre: ");
+		etiquetaA.setFont(new Font("Tahoma", Font.BOLD, 25));
+		JTextField textoA = new JTextField();
+		textoA.setMaximumSize(new Dimension(200, 30));
+		textoA.setMinimumSize(new Dimension(200, 30));
+		textoA.setPreferredSize(new Dimension(200, 30));
+		textoA.setFont(new Font("Tahoma", Font.BOLD, 18));
+		panelEtiquetas.add(etiquetaA);
+		panelTexto.add(textoA);
+		
+		centro.add(panelEtiquetas);
+		centro.add(panelTexto);
+		
+		
+		JButton aceptar = new JButton("ACEPTAR");
+		aceptar.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String nombreLeido = textoA.getText();
+				TAerolinea transfer = new TAerolinea(0, nombreLeido, true);
+				ctrl.accion(new Contexto(Evento.ALTA_AEROLINEA, transfer));
+			}
+		});
+		
+		panelBotones.add(aceptar);
+		
 		this.setContentPane(principal);
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		this.setVisible(true);
 		this.setLocation(200, 200);
 		this.setResizable(false);
+		this.pack();
 	}
 }

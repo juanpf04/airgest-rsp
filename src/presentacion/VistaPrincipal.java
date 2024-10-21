@@ -19,15 +19,16 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
 
 import presentacion.Observador;
+import presentacion.controlador.Contexto;
 import presentacion.controlador.Controlador;
-import presentacion.controlador.EventosControlador;
+import presentacion.controlador.Evento;
 
 public class VistaPrincipal extends JFrame implements Observador {
 
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	public void actualizaVista(Object datos) {
+	public void actualizar(Object datos) {
 		UtilidadesP.setAirGestRSP(this);
 		this.setSize(320, 300); //hace que la ventana no salga tan chiquitita
 		JPanel principal = new JPanel();
@@ -63,7 +64,7 @@ public class VistaPrincipal extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				ctrl.accion(EventosControlador.VISTA_MODELO, null);
+				ctrl.accion(new Contexto(Evento.VISTA_MODELO));
 			}
 		});
 		modelo.setToolTipText("MODULO MODELO");
@@ -75,7 +76,7 @@ public class VistaPrincipal extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				ctrl.accion(EventosControlador.VISTA_AVION, null);
+				ctrl.accion(new Contexto(Evento.VISTA_AVION));
 			}
 		});
 		avion.setToolTipText("MODULO AVION");
@@ -87,7 +88,7 @@ public class VistaPrincipal extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				ctrl.accion(EventosControlador.VISTA_AEROLINEA, null);
+				ctrl.accion(new Contexto(Evento.VISTA_AEROLINEA));
 			}
 		});
 		aerolinea.setToolTipText("MODULO AEROLINEA");
@@ -99,7 +100,7 @@ public class VistaPrincipal extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				ctrl.accion(EventosControlador.VISTA_HANGAR, null);
+				ctrl.accion(new Contexto(Evento.VISTA_HANGAR));
 			}
 		});
 		hangar.setToolTipText("MODULO HANGAR");
@@ -111,7 +112,7 @@ public class VistaPrincipal extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				ctrl.accion(EventosControlador.VISTA_PERSONAL, null);
+				ctrl.accion(new Contexto(Evento.VISTA_PERSONAL));
 			}
 		});
 		personal.setToolTipText("MODULO PERSONAL");
@@ -124,7 +125,7 @@ public class VistaPrincipal extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				ctrl.accion(EventosControlador.VISTA_CONTRATO, null);
+				ctrl.accion(new Contexto(Evento.VISTA_CONTRATO));
 			}
 		});
 		botones.setToolTipText("MODULO CONTRATO");

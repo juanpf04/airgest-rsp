@@ -1,6 +1,3 @@
-/**
- * 
- */
 package presentacion.contrato;
 
 import java.awt.Color;
@@ -14,21 +11,21 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSplitPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
 import presentacion.Observador;
 import presentacion.UtilidadesP;
+import presentacion.controlador.Contexto;
 import presentacion.controlador.Controlador;
-import presentacion.controlador.EventosControlador;
+import presentacion.controlador.Evento;
 
 public class VistaConsultarContratosPorAerolinea extends JFrame implements Observador {
 
 	private static final long serialVersionUID = 1L;
 
-	public void actualizaVista(Object datos) {
+	public void actualizar(Object datos) {
 		UtilidadesP.setAirGestRSP(this);
 		this.setSize(530, 170);
 
@@ -49,7 +46,7 @@ public class VistaConsultarContratosPorAerolinea extends JFrame implements Obser
 		JPanel id = new JPanel();
 		id.setLayout(new BoxLayout(id, BoxLayout.LINE_AXIS));
 		JLabel etiquetaId = new JLabel("id aerolinea: ");
-		etiquetaId.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		etiquetaId.setFont(new Font("Tahoma", Font.BOLD, 25));
 		JTextField textoId = new JTextField();
 		textoId.setMaximumSize(new Dimension(200, 30));
 		textoId.setMinimumSize(new Dimension(200, 30));
@@ -62,7 +59,7 @@ public class VistaConsultarContratosPorAerolinea extends JFrame implements Obser
 		principal.add(centro);
 
 		Controlador controlador = Controlador.getInstance();
-		JSplitPane botones = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
+		JPanel botones = new JPanel();
 		JButton aceptar = new JButton("ACEPTAR");
 		aceptar.addActionListener(new ActionListener() {
 
@@ -70,7 +67,7 @@ public class VistaConsultarContratosPorAerolinea extends JFrame implements Obser
 			public void actionPerformed(ActionEvent e) {
 				try {
 					int id = Integer.parseInt(textoId.getText());
-					controlador.accion(EventosControlador.MOSTRAR_CONTRATOS_POR_AEROLINEA, id);
+					controlador.accion(new Contexto(Evento.VISTA_CONSULTAR_CONTRATOS_POR_AEROLINEA, id));
 					dispose();
 				} catch (NumberFormatException n) {
 
@@ -81,9 +78,7 @@ public class VistaConsultarContratosPorAerolinea extends JFrame implements Obser
 
 		aceptar.setMaximumSize(new Dimension(100, 30));
 		aceptar.setPreferredSize(new Dimension(100, 30));
-		botones.setMaximumSize(new Dimension(190, 30));
-		botones.setPreferredSize(new Dimension(190, 30));
-
+		
 		JButton atras = new JButton("ATRAS"); // boton para volver a la ventana
 												// principal
 		atras.setToolTipText("Esto vuelve a la ventana anterior");
@@ -92,16 +87,15 @@ public class VistaConsultarContratosPorAerolinea extends JFrame implements Obser
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				controlador.accion(EventosControlador.VISTA_CONTRATO, null);
+				controlador.accion(new Contexto(Evento.VISTA_CONTRATO, null));
 			}
 		});
 
 		atras.setMaximumSize(new Dimension(90, 30));
 		atras.setPreferredSize(new Dimension(90, 30));
 
-		botones.setAlignmentX(LEFT_ALIGNMENT);
-		botones.add(aceptar);
 		botones.add(atras);
+		botones.add(aceptar);
 		principal.add(botones);
 
 		this.setContentPane(principal);

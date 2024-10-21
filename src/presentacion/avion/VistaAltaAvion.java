@@ -28,14 +28,15 @@ import negocio.avion.TAPrivado;
 import negocio.avion.TAvion;
 import presentacion.Observador;
 import presentacion.UtilidadesP;
+import presentacion.controlador.Contexto;
 import presentacion.controlador.Controlador;
-import presentacion.controlador.EventosControlador;
+import presentacion.controlador.Evento;
 
 public class VistaAltaAvion extends JFrame implements Observador {
 
 	private static final long serialVersionUID = 1L;
 
-	public void actualizaVista(Object datos) {
+	public void actualizar(Object datos) {
 		UtilidadesP.setAirGestRSP(this);
 		this.setSize(450, 250);
 
@@ -75,9 +76,9 @@ public class VistaAltaAvion extends JFrame implements Observador {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 				if (datos == null)
-					ctrl.accion(EventosControlador.VISTA_AVION, null);
+					ctrl.accion(new Contexto(Evento.VISTA_AVION, null));
 				else
-					ctrl.accion(EventosControlador.VISTA_ALTA_AVION, null);
+					ctrl.accion(new Contexto(Evento.VISTA_ALTA_AVION, null));
 			}
 
 		});
@@ -94,7 +95,7 @@ public class VistaAltaAvion extends JFrame implements Observador {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					dispose();
-					ctrl.accion(EventosControlador.VISTA_ALTA_AVION, "COMERCIAL");
+					ctrl.accion(new Contexto(Evento.VISTA_ALTA_AVION, "COMERCIAL"));
 				}
 			});
 
@@ -108,7 +109,7 @@ public class VistaAltaAvion extends JFrame implements Observador {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					dispose();
-					ctrl.accion(EventosControlador.VISTA_ALTA_AVION, "PRIVADO");
+					ctrl.accion(new Contexto(Evento.VISTA_ALTA_AVION, "PRIVADO"));
 				}
 			});
 
@@ -288,9 +289,9 @@ public class VistaAltaAvion extends JFrame implements Observador {
 							transfer = new TAPrivado(0, numAsientos, fecha, nombre, matricula, true, idAerolinea,
 									idModelo, idHangar, nombre_duenyo, idCarnet);
 						}
-						ctrl.accion(EventosControlador.ALTA_AVION, transfer);
+						ctrl.accion(new Contexto(Evento.ALTA_AVION, transfer));
 					} catch (Exception ex) {
-						ctrl.accion(EventosControlador.ALTA_AVION, null);
+						ctrl.accion(new Contexto(Evento.ALTA_AVION, null));
 					}
 				}
 
