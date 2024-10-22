@@ -42,7 +42,7 @@ public class SAHangarImp implements SAHangar {
 		return id;
 	}
 
-	public boolean bajaHangar(int id) {
+	public boolean bajaHangar(int id) {//comprobar q el hangar no tenga personal vinculado ademas de aviones activos
 		boolean ok = false;
 		if (UtilidadesN.comprobarId(id)) {
 			Transaction t = TransactionManager.getInstance().nuevaTransaccion();
