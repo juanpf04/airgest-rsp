@@ -3,76 +3,111 @@ package integracion.hangar;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.io.File;
 import java.util.List;
 
 import org.junit.Test;
 
-import integracion.UtilidadesI;
+import integracion.factoria.FactoriaIntegracionImp;
+import integracion.transacciones.Transaction;
+import integracion.transacciones.TransactionManager;
 import negocio.hangar.THangar;
 
 public class DAOHangarImpTest {
 	@Test
 	public void alta_hangar_test() {
-		UtilidadesI.esTest();
+		
+		Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+		t.start();
 
-		DAOHangar dh = new DAOHangarImp();
+		DAOHangar dh = FactoriaIntegracionImp.getInstance().crearDAOHangar();
 
-		THangar hangar = new THangar(0, "paseo hola", 4, 50.8, 4, true);
+		THangar hangar = new THangar(0, "adiossss", 4, 50.8, 4, true);
 
-		File carpeta = new File(UtilidadesI.ruta("hangar"));
-		File[] lista = carpeta.listFiles();
-
-		assertEquals("No ha devuelto el id correcto", lista.length + 1, dh.altaHangar(hangar));
+		int id = dh.altaHangar(hangar);
+		t.commit();
+		assertEquals("No ha devuelto el id correcto", 1, id);
 	}
 	
 	@Test
 	public void baja_hangar_test() {
-		UtilidadesI.esTest();
+		Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+		t.start();
 
-		DAOHangar dh = new DAOHangarImp();
+		DAOHangar dh = FactoriaIntegracionImp.getInstance().crearDAOHangar();
 
-		assertTrue("No se ha dado de baja", dh.bajaHangar(2));
+		boolean id = dh.bajaHangar(1);
+		t.commit();
+		assertTrue("No se ha podido dar de baja", id);
 	}
 	
 	@Test
 	public void leer_hangar_por_id_test() {
-		UtilidadesI.esTest();
+		Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+		t.start();
 
-		DAOHangar dh = new DAOHangarImp();
+		DAOHangar dh = FactoriaIntegracionImp.getInstance().crearDAOHangar();
 
-		assertEquals("el hangar con id 3 tiene direccion paseo hola", "paseo hola", dh.leerHangarPorId(3).getDireccion());
+		THangar id = dh.leerHangarPorId(3);
+		t.commit();
+		assertTrue(id != null);
+		System.out.println(id);
+		}
+	
+	@Test
+	public void leerHangarPorDireccion_test(){
+		Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+		t.start();
+
+		DAOHangar dh = FactoriaIntegracionImp.getInstance().crearDAOHangar();
+
+		THangar id = dh.leerHangarPorDireccion("adiosss");
+		t.commit();
+		assertTrue(id != null);
+		System.out.println(id);
 	}
 	
 	@Test
 	public void consultar_todos_hangares_test() {
-		UtilidadesI.esTest();
 
-		DAOHangar dh = new DAOHangarImp();
+		Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+		t.start();
 
-		List<THangar> hangares = dh.consultarTodosHangares();
+		DAOHangar dh = FactoriaIntegracionImp.getInstance().crearDAOHangar();
 
-		File carpeta = new File(UtilidadesI.ruta("hangar"));
-		File[] lista = carpeta.listFiles();
+		List<THangar> id = dh.consultarTodosHangares();
+		t.commit();
 
-		assertEquals("tiene que haber tantos modelos como ficheros", lista.length, hangares.size());
+		assertEquals("No hay el mismo numero de entidades que en la base de datos", 3, id.size());
+		System.out.println(id);
 	}
 	
 	@Test
 	public void modificar_hangar_test() {
-		UtilidadesI.esTest();
-		DAOHangar dh = new DAOHangarImp();
+		
+		Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+		t.start();
 
-		THangar hangar = new THangar(1, "paseo adios", 4, 50.8, 4, true);
+		DAOHangar dh = FactoriaIntegracionImp.getInstance().crearDAOHangar();
+		
+		THangar hangar = new THangar(1, "adios", 5, 50.8, 4, true);
 
-		assertTrue("Ha leido mal el fichero", dh.modificarHangar(hangar));
+		boolean id = dh.modificarHangar(hangar);
+		t.commit();
+
+		assertTrue("No se ha modificado", id);
+		System.out.println(hangar);
 	}
 	
 	@Test
 	public void actualizar_stock_test(){
-		UtilidadesI.esTest();
-		DAOHangar dh = new DAOHangarImp();
+		Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+		t.start();
+
+		DAOHangar dh = FactoriaIntegracionImp.getInstance().crearDAOHangar();
 		
-		assertTrue("No encuentra hangar", dh.actualizarStock(1, -1));
+		boolean ok = dh.actualizarStock(1, -1);
+		t.commit();
+
+		assertTrue("No encuentra hangar", ok);
 	}
 }

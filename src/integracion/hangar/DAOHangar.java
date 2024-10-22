@@ -18,5 +18,7 @@ public interface DAOHangar {
 	public boolean modificarHangar(THangar tHangar);
 
 	public THangar leerHangarPorDireccion(String direccion);
+	
+	public List<THangar> consultarHangarPorPersonal(int id_personal);
 
 }

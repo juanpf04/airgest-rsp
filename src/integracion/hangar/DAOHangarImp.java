@@ -3,155 +3,194 @@ package integracion.hangar;
 import negocio.hangar.THangar;
 
 import java.util.List;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
-import org.json.JSONObject;
-import org.json.JSONTokener;
-
-import integracion.UtilidadesI;
+import integracion.Querys;
+import integracion.transacciones.Transaction;
+import integracion.transacciones.TransactionManager;
 
 public class DAOHangarImp implements DAOHangar {
 
 	public THangar leerHangarPorId(int id) {
-		try {
-			JSONObject data = new JSONObject(
-					new JSONTokener(new FileReader(UtilidadesI.ruta("hangar") + String.format("%05d", id) + ".json")));
-			return new THangar(data.getInt("id"), data.getString("direccion"), data.getInt("stock"),
-					data.getFloat("costeDia"), data.getInt("espacioAlmacenaje"), data.getBoolean("activo"));
-		} catch (FileNotFoundException e) {
+		try{
+			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
+			PreparedStatement ps = con.prepareStatement(Querys.leerHangarPorId);
+			ps.setInt(1, id);
+			
+			ResultSet res = ps.executeQuery();
+			THangar t;
+			if(res.next())
+				t = new THangar(id, res.getString("direccion"), res.getInt("stock"), res.getDouble("coste_Dia"), res.getInt("espacio_Almacenaje"), res.getBoolean("activo"));
+			else
+				t = null;
+			
+			res.close();
+			ps.close();
+
+			return t;		
+			
+		}catch(Exception e){
 			return null;
 		}
 	}
 
-	public boolean actualizarStock(int id, int stock) {
-		try {
-			JSONObject data = new JSONObject(
-					new JSONTokener(new FileReader(UtilidadesI.ruta("hangar") + String.format("%05d", id) + ".json")));
-			THangar tHangar = new THangar(data.getInt("id"), data.getString("direccion"), data.getInt("stock"),
-					data.getFloat("costeDia"), data.getInt("espacioAlmacenaje"), data.getBoolean("activo"));
-			tHangar.setStock(stock);
+	public boolean actualizarStock(int id, int stock) {//revisar
+		try{
+			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
+			PreparedStatement ps = con.prepareStatement(Querys.actualizaStock);
+			ps.setInt(1,  stock);
+			ps.setInt(2, id);
+			int filasNuevas = ps.executeUpdate();
+			boolean modificado = filasNuevas == 1 ? true : false;
+			
+			ps.close();
 
-			FileWriter archivo = new FileWriter(UtilidadesI.ruta("hangar") + String.format("%05d", id) + ".json");
-
-			archivo.write(toJSON(tHangar).toString());
-			archivo.close();
-
-			return true;
-		} catch (IOException e) {
+			return modificado;		
+			
+		}catch(Exception e){
 			return false;
 		}
 	}
 
-	public int altaHangar(THangar tHangar) {
-		File carpeta = new File(UtilidadesI.ruta("hangar"));
-		File[] lista = carpeta.listFiles();
+	public int altaHangar(THangar tHangar){
+		try{
+			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
+			PreparedStatement ps = con.prepareStatement(Querys.alta_hangar, PreparedStatement.RETURN_GENERATED_KEYS);
+			
+			ps.setInt(1,  tHangar.getStock());
+			ps.setString(2, tHangar.getDireccion());
+			ps.setInt(3, tHangar.getEspacioAlmacenaje());
+			ps.setDouble(4,  tHangar.getCosteDia());
+			
+			int filasNuevas = ps.executeUpdate();
+			ResultSet res = ps.getGeneratedKeys();
+			int id = filasNuevas == 1 && res.next() ? res.getInt(1) : -1;
+			
+			res.close();
+			ps.close();
 
-		try {
-			int id = lista.length + 1;
-
-			tHangar.setId(id);
-
-			FileWriter archivo = new FileWriter(UtilidadesI.ruta("hangar") + String.format("%05d", id) + ".json");
-
-			archivo.write(toJSON(tHangar).toString());
-			archivo.close();
-
-			return id;
-
-		} catch (IOException e) {
+			return id;		
+			
+		}catch(Exception e){
+			return -1;
 		}
-		return -1;
+		
 	}
 
 	public boolean bajaHangar(int id) {
-		try {
-			JSONObject data = new JSONObject(
-					new JSONTokener(new FileReader(UtilidadesI.ruta("hangar") + String.format("%05d", id) + ".json")));
+		try{
+			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
+			PreparedStatement ps = con.prepareStatement(Querys.baja_hangar);
+			ps.setInt(1, id);
+			int filasNuevas = ps.executeUpdate();
+			boolean eliminado = filasNuevas == 1 ? true : false;
+			
+			ps.close();
 
-			data.put("activo", false);
-
-			FileWriter archivo = new FileWriter(UtilidadesI.ruta("hangar") + String.format("%05d", id) + ".json");
-
-			archivo.write(data.toString());
-			archivo.close();
-
-			return true;
-		} catch (IOException e) {
+			return eliminado;		
+			
+		}catch(Exception e){
+			return false;
 		}
-		return false;
 	}
 
 	public List<THangar> consultarTodosHangares() {
-		File carpeta = new File(UtilidadesI.ruta("hangar"));
-		File[] lista = carpeta.listFiles();
+		try{
+			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
+			PreparedStatement ps = con.prepareStatement(Querys.consultarTodosHangares);
+			
+			ResultSet res = ps.executeQuery();
+			List<THangar> t = new ArrayList<>();
+			while(res.next())
+				t.add(new THangar(res.getInt("id"), res.getString("direccion"), res.getInt("stock"), res.getDouble("coste_Dia"), res.getInt("espacio_Almacenaje"), res.getBoolean("activo")));
+			
+			res.close();
+			ps.close();
 
-		List<THangar> hangares = new ArrayList<>();
-
-		for (File f : lista) {
-			try {
-				JSONObject data = new JSONObject(new JSONTokener(new FileReader(f)));
-				hangares.add(new THangar(data.getInt("id"), data.getString("direccion"), data.getInt("stock"),
-						data.getFloat("costeDia"), data.getInt("espacioAlmacenaje"), data.getBoolean("activo")));
-			} catch (FileNotFoundException e) {
-			}
+			return t;		
+			
+		}catch(Exception e){
+			return new ArrayList<THangar>();
 		}
-
-		return hangares;
 	}
 
 	public boolean modificarHangar(THangar tHangar) {
-		try {
-			FileWriter archivo = new FileWriter(
-					UtilidadesI.ruta("hangar") + String.format("%05d", tHangar.getId()) + ".json");
-			archivo.write(toJSON(tHangar).toString());
-			archivo.close();
+		try{
+			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
+			PreparedStatement ps = con.prepareStatement(Querys.modificarHangar);
+			ps.setInt(1,  tHangar.getStock());
+			ps.setString(2, tHangar.getDireccion());
+			ps.setInt(3, tHangar.getEspacioAlmacenaje());
+			ps.setDouble(4,  tHangar.getCosteDia());
+			ps.setBoolean(5, tHangar.getActivo());
+			ps.setInt(6, tHangar.getId());
+			int filasNuevas = ps.executeUpdate();
+			boolean modificado = filasNuevas == 1 ? true : false;
+			
+			ps.close();
 
-			return true;
-		} catch (IOException e) {
+			return modificado;		
+			
+		}catch(Exception e){
+			return false;
 		}
-		return false;
 	}
 
 	public THangar leerHangarPorDireccion(String direccion) {
-		File carpeta = new File(UtilidadesI.ruta("hangar"));
-		File[] lista = carpeta.listFiles();
+		try{
+			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
+			PreparedStatement ps = con.prepareStatement(Querys.leerHangarPorDireccion);
+			ps.setString(1, direccion);
+			
+			ResultSet res = ps.executeQuery();
+			THangar t;
+			if(res.next())
+				t = new THangar(res.getInt("id"), direccion, res.getInt("stock"), res.getDouble("coste_Dia"), res.getInt("espacio_Almacenaje"), res.getBoolean("activo"));
+			else
+				t = null;
+			
+			res.close();
+			ps.close();
 
-		int i = 0;
-		while (i < lista.length) {
-			JSONObject data = new JSONObject();
-			try {
-				data = new JSONObject(new JSONTokener(new FileReader(lista[i])));
-			} catch (FileNotFoundException e) {
-			}
-
-			if (data.getString("direccion").equals(direccion)) {
-				return new THangar(data.getInt("id"), data.getString("direccion"), data.getInt("stock"),
-						data.getFloat("costeDia"), data.getInt("espacioAlmacenaje"), data.getBoolean("activo"));
-			}
-
-			i++;
+			return t;		
+			
+		}catch(Exception e){
+			return null;
 		}
-
-		return null;
 	}
-
-	private JSONObject toJSON(THangar hangar) {
-		JSONObject jo = new JSONObject();
-
-		jo.put("id", hangar.getId());
-		jo.put("direccion", hangar.getDireccion());
-		jo.put("stock", hangar.getStock());
-		jo.put("costeDia", hangar.getCosteDia());
-		jo.put("espacioAlmacenaje", hangar.getEspacioAlmacenaje());
-		jo.put("activo", hangar.getActivo());
-
-		return jo;
-
+	
+	public List<THangar> consultarHangarPorPersonal(int id_personal) {
+		try{
+			Transaction t = TransactionManager.getInstance().getTransaccion();
+			Connection con = (Connection) t.getResource();
+			PreparedStatement ps = con.prepareStatement(Querys.consultarHangarPorPersonal);
+			ps.setInt(1, id_personal);
+			
+			ResultSet res = ps.executeQuery();
+			List<THangar> lista = new ArrayList<>();
+			
+			while (res.next()){
+				lista.add(new THangar(res.getInt("id"), res.getString("direccion"), res.getInt("stock"), res.getDouble("coste_Dia"), res.getInt("espacio_Almacenaje"), res.getBoolean("activo")));
+			}
+			
+			res.close();
+			ps.close();
+			
+			return lista;
+			
+		} catch(Exception e){
+			return new ArrayList<THangar>();
+		}
 	}
+	
+	
+	
+	
+
+
 
 }

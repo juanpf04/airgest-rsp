@@ -1,46 +1,73 @@
 package integracion.personalHangar;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
-import integracion.UtilidadesI;
+import integracion.Querys;
+import integracion.transacciones.TransactionManager;
 
 public class DAOPersonalHangarImp implements DAOPersonalHangar {
 
 	@Override
 	public boolean vincular(int idPersonal, int idHangar) {
 		try {
-			FileWriter archivo = new FileWriter(UtilidadesI.ruta("personalHangar") + String.format("%05d", idPersonal)
-					+ "_" + String.format("%05d", idHangar) + ".json");
-			archivo.write("{\"idPersonal\":" + idPersonal + ", \"idHangar\":" + idHangar + "}");
-			archivo.close();
-			return true;
-		} catch (IOException e) {
+			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
+			PreparedStatement ps = con.prepareStatement(Querys.vincularPersonalHangar);
+			ps.setInt(1, idPersonal);
+			ps.setInt(2, idHangar);
+			
+			int filas = ps.executeUpdate();
+			boolean vinculado = filas == 1 ? true : false;
+			
+			ps.close();
 
+			return vinculado;	
+		} catch (SQLException e) {
+			return false;
 		}
-
-		return false;
 	}
 
 	@Override
 	public boolean desvincular(int idPersonal, int idHangar) {
-		File f = new File(UtilidadesI.ruta("personalHangar") + String.format("%05d", idPersonal) + "_"
-				+ String.format("%05d", idHangar) + ".json");
+		try {
+			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
+			PreparedStatement ps = con.prepareStatement(Querys.desvincularPersonalHangar);
+			ps.setInt(1, idPersonal);
+			ps.setInt(2, idHangar);
+			
+			int filas = ps.executeUpdate();
+			boolean desvinculado = filas == 1 ? true : false;
+			
+			ps.close();
 
-		if (f.exists()) {
-			return f.delete();
+			return desvinculado;	
+		} catch (SQLException e) {
+			return false;
 		}
-
-		return false;
 	}
 
 	@Override
 	public boolean comprobarVinculacion(int idPersonal, int idHangar) {
-		File f = new File(UtilidadesI.ruta("personalHangar") + String.format("%05d", idPersonal) + "_"
-				+ String.format("%05d", idHangar) + ".json");
+		try {
+			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
+			PreparedStatement ps = con.prepareStatement(Querys.comprobarvinculacionPersonalHangar);
+			ps.setInt(1, idPersonal);
+			ps.setInt(2, idHangar);
+			
+			ResultSet rs = ps.executeQuery();
+			boolean vinculado = false;
+			if(rs.next()){
+				vinculado = rs.getInt("NUM") == 1;
+			}
+			
+			ps.close();
 
-		return f.exists();
+			return vinculado;	
+		} catch (SQLException e) {
+			return false;
+		}
 	}
 
 }
