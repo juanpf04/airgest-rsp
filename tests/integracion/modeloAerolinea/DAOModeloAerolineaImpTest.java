@@ -40,4 +40,24 @@ public class DAOModeloAerolineaImpTest {
 
 		assertTrue("No se ha podido desvincular", b);
 	}
+	
+	@Test
+	public void comprobarVinculacionAerolineaTest() {
+		Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+		t.start();
+		DAOModeloAerolinea da = FactoriaIntegracion.getInstance().crearDAOModeloAerolinea();
+		boolean b = da.comprobarVinculacionAerolinea(1);
+		t.commit();
+		assertTrue("Aerolínea no tiene vinculaciones", b);
+	}
+	
+	@Test
+	public void comprobarVinculacionModeloTest() {
+		Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+		t.start();
+		DAOModeloAerolinea da = FactoriaIntegracion.getInstance().crearDAOModeloAerolinea();
+		boolean b = da.comprobarVinculacionModelo(3);
+		t.commit();
+		assertTrue("Modelo no tiene vinculaciones", b);
+	}
 }
