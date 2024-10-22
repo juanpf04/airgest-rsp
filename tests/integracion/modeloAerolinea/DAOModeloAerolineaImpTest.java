@@ -2,7 +2,9 @@ package integracion.modeloAerolinea;
 
 import org.junit.Test;
 
-import integracion.UtilidadesI;
+import integracion.factoria.FactoriaIntegracion;
+import integracion.transacciones.Transaction;
+import integracion.transacciones.TransactionManager;
 
 import static org.junit.Assert.*;
 
@@ -10,25 +12,52 @@ public class DAOModeloAerolineaImpTest {
 
 	@Test
 	public void comprobarVinculacionTest() {
-		UtilidadesI.esTest();
-		DAOModeloAerolinea dma = new DAOModeloAerolineaImp();
-
-		assertTrue("No existe vinculación", dma.comprobarVinculacion(1, 1));
+		Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+		t.start();
+		DAOModeloAerolinea da = FactoriaIntegracion.getInstance().crearDAOModeloAerolinea();
+		boolean b = da.comprobarVinculacion(2, 3);
+		t.commit();
+		assertTrue("No estan vinculados aerolínea y modelo", b);
 	}
 
 	@Test
 	public void vincular() {
-		UtilidadesI.esTest();
-		DAOModeloAerolinea dma = new DAOModeloAerolineaImp();
-
-		assertTrue("No se ha podido vincular", dma.vincular(2, 2));
+		Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+		t.start();
+		DAOModeloAerolinea da = FactoriaIntegracion.getInstance().crearDAOModeloAerolinea();
+		boolean b = da.vincular(2, 1);
+		t.commit();
+		assertTrue("No se ha vinculado aerolínea y modelo", b);
 	}
 
 	@Test
 	public void desvincular() {
-		UtilidadesI.esTest();
-		DAOModeloAerolinea dma = new DAOModeloAerolineaImp();
+		Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+		t.start();
+		DAOModeloAerolinea da = FactoriaIntegracion.getInstance().crearDAOModeloAerolinea();
+		boolean b = da.desvincular(2, 1);
+		t.commit();
 
-		assertTrue("No se ha podido desvincular", dma.desvincular(2, 2));
+		assertTrue("No se ha podido desvincular", b);
+	}
+	
+	@Test
+	public void comprobarVinculacionAerolineaTest() {
+		Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+		t.start();
+		DAOModeloAerolinea da = FactoriaIntegracion.getInstance().crearDAOModeloAerolinea();
+		boolean b = da.comprobarVinculacionAerolinea(1);
+		t.commit();
+		assertTrue("Aerolínea no tiene vinculaciones", b);
+	}
+	
+	@Test
+	public void comprobarVinculacionModeloTest() {
+		Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+		t.start();
+		DAOModeloAerolinea da = FactoriaIntegracion.getInstance().crearDAOModeloAerolinea();
+		boolean b = da.comprobarVinculacionModelo(3);
+		t.commit();
+		assertTrue("Modelo no tiene vinculaciones", b);
 	}
 }
