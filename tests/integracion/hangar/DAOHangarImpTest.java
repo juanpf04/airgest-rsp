@@ -110,4 +110,16 @@ public class DAOHangarImpTest {
 
 		assertTrue("No encuentra hangar", ok);
 	}
+	
+	@Test
+	public void consultar_hangares_por_personal_test(){
+		Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+		t.start();
+
+		DAOHangar dh = FactoriaIntegracionImp.getInstance().crearDAOHangar();
+		List<THangar> list = dh.consultarHangarPorPersonal(1);
+		t.commit();
+		
+		assertEquals("Fallo terrible", 2, list.size());
+	}
 }

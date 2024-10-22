@@ -16,7 +16,7 @@ public class DAOPersonalHangarImpTest {
 
 		DAOPersonalHangar dma = FactoriaIntegracionImp.getInstance().crearDAOPersonalHangar();
 
-		boolean vinculado = dma.comprobarVinculacion(6, 1);
+		boolean vinculado = dma.comprobarVinculacion(1, 1);
 		t.commit();
 		
 		assertTrue("No existe vinculación", vinculado);
@@ -29,7 +29,7 @@ public class DAOPersonalHangarImpTest {
 
 		DAOPersonalHangar dma = FactoriaIntegracionImp.getInstance().crearDAOPersonalHangar();
 
-		boolean vinculado = dma.vincular(3, 1);
+		boolean vinculado = dma.vincular(1, 1);
 		t.commit();
 		
 		assertTrue("No existe vinculación", vinculado);
@@ -42,7 +42,7 @@ public class DAOPersonalHangarImpTest {
 
 		DAOPersonalHangar dma = FactoriaIntegracionImp.getInstance().crearDAOPersonalHangar();
 
-		boolean desvinculado = dma.desvincular(6, 1);
+		boolean desvinculado = dma.desvincular(1, 1);
 		t.commit();
 		
 		assertTrue("No existe vinculación", desvinculado);
