@@ -5,6 +5,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +15,10 @@ import java.util.List;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+import integracion.Querys;
 import integracion.UtilidadesI;
+import integracion.transacciones.Transaction;
+import integracion.transacciones.TransactionManager;
 import negocio.lineaContrato.TLineaContrato;
 
 public class DAOLineaContratoImp implements DAOLineaContrato {
@@ -20,20 +26,53 @@ public class DAOLineaContratoImp implements DAOLineaContrato {
 	@Override
 	public boolean altaLineaContrato(TLineaContrato tLineaContrato) {
 		try {
-			FileWriter archivo = new FileWriter(
-					UtilidadesI.ruta("lineaContrato") + String.format("%05d", tLineaContrato.getIdContrato()) + "_"
-							+ String.format("%05d", tLineaContrato.getIdHangar()) + ".json");
-			archivo.write(toJSON(tLineaContrato).toString());
-			archivo.close();
-			return true;
-		} catch (IOException e) {
-
+			Transaction t = TransactionManager.getInstance().getTransaccion();
+			Connection con = (Connection) t.getResource();
+			PreparedStatement ps = con.prepareStatement(Querys.alta_linea_contrato, PreparedStatement.RETURN_GENERATED_KEYS);
+			ps.setInt(1, tLineaContrato.getIdHangar());
+			ps.setInt(2, tLineaContrato.getIdContrato());
+			ps.setString(3, tLineaContrato.getFechaIni());
+			ps.setString(4,  tLineaContrato.getFechaFin());
+			ps.setDouble(5,  tLineaContrato.getPrecio());
+			
+			int filas = ps.executeUpdate();
+			
+			boolean ok = filas == 1;
+			
+			ps.close();
+			
+			return ok;
+			
+		} catch (Exception e) {
+			return false;
 		}
+	}
 
+	@Override
+	public boolean modificarLineaContrato(TLineaContrato tLineaContrato) {
+		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
+	public List<TLineaContrato> leerLineasPorContrato(int id_contrato) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<TLineaContrato> leerLineasPorHangar(int id_hangar) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean leerLineaContrato(int id_contrato, int id_hangar) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	/*@Override
 	public boolean modificarLineaContrato(TLineaContrato tLineaContrato) {
 		try {
 			FileWriter archivo = new FileWriter(
@@ -46,9 +85,9 @@ public class DAOLineaContratoImp implements DAOLineaContrato {
 		} catch (IOException e) {
 		}
 		return false;
-	}
+	}*/
 
-	@Override
+	/*@Override
 	public List<TLineaContrato> leerLineasPorContrato(int id_contrato) {
 		File carpeta = new File(UtilidadesI.ruta("lineaContrato"));
 		File[] lista = carpeta.listFiles();
@@ -78,9 +117,9 @@ public class DAOLineaContratoImp implements DAOLineaContrato {
 		}
 
 		return lineas;
-	}
+	}*/
 
-	@Override
+	/*@Override
 	public List<TLineaContrato> leerLineasPorHangar(int id_hangar) {
 		File carpeta = new File(UtilidadesI.ruta("lineaContrato"));
 		File[] lista = carpeta.listFiles();
@@ -110,9 +149,9 @@ public class DAOLineaContratoImp implements DAOLineaContrato {
 		}
 
 		return lineas;
-	}
+	}*/
 
-	@Override
+	/*@Override
 	public boolean leerLineaContrato(int id_contrato, int id_hangar) {
 		File f = new File(UtilidadesI.ruta("lineaContrato") + String.format("%05d", id_contrato) + "_"
 				+ String.format("%05d", id_hangar) + ".json");
@@ -142,6 +181,6 @@ public class DAOLineaContratoImp implements DAOLineaContrato {
 
 		return jo;
 
-	}
+	}*/
 
 }

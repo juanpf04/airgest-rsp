@@ -6,7 +6,14 @@ public class Querys {
 	//AVION
 	
 	//CONTRATO
+	public static String alta_contrato = "INSERT INTO contrato (Precio , Id_Aerolinea) VALUES(?,?)";
+	public static String leerContratoPorId = "SELECT * FROM Contrato WHERE Id=? FOR UPDATE";
+	public static String modificarContrato = "UPDATE Contrato SET Precio = ?, Id_Aerolinea = ? WHERE Id = ?";
+	public static String leerTodosContratos = "SELECT * FROM Contrato FOR UPDATE";
+	public static String leerContratosPorAerolinea = "SELECT * FROM Contrato WHERE Id_Aerolinea = ?";	
 	
+	//LINEA DE CONTRATO
+	public static String alta_linea_contrato = "INSERT INTO linea_contrato (Id_Hangar, Id_Contrato, Fecha_Ini, Fecha_Fin, Coste_Por_Dia) VALUES(?,?,?,?,?)";
 	
 	//HANGAR
 	public static String alta_hangar = "INSERT INTO HANGAR (Stock, direccion , espacio_almacenaje, coste_dia, activo) VALUES (?, ?, ?, ?, true)";

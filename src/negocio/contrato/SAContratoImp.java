@@ -23,7 +23,7 @@ public class SAContratoImp implements SAContrato {
 	}
 
 	public int cerrarContrato(TCarrito tCarrito) {
-		DAOAerolinea da = FactoriaIntegracion.getInstance().crearDAOAerolinea();
+		/*DAOAerolinea da = FactoriaIntegracion.getInstance().crearDAOAerolinea();
 		TAerolinea aerolinea = da.leerAerolineaPorId(tCarrito.getIdAerolinea());
 
 		if (aerolinea != null && aerolinea.getActivo()) {
@@ -86,7 +86,7 @@ public class SAContratoImp implements SAContrato {
 			}
 
 			return id;
-		}
+		}*/
 
 		return -1;
 	}
@@ -150,7 +150,7 @@ public class SAContratoImp implements SAContrato {
 	}
 
 	public boolean modificarLineaContrato(TLineaContrato linea) {
-		if (ValidadorLineaContrato.comprobarDatos(linea)) {
+		/*if (ValidadorLineaContrato.comprobarDatos(linea)) {
 			DAOLineaContrato dl = FactoriaIntegracion.getInstance().crearDAOLineaContrato();
 
 			if (dl.leerLineaContrato(linea.getIdContrato(), linea.getIdHangar())) {
@@ -192,7 +192,7 @@ public class SAContratoImp implements SAContrato {
 					}
 				}
 			}
-		}
+		}*/
 		return false;
 	}
 

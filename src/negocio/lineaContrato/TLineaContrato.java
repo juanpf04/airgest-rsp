@@ -1,7 +1,6 @@
 
 package negocio.lineaContrato;
 
-import java.time.LocalDate;
 
 public class TLineaContrato {
 
@@ -9,9 +8,9 @@ public class TLineaContrato {
 
 	private int id_hangar;
 
-	private LocalDate fecha_ini;
+	private String fecha_ini;
 
-	private LocalDate fecha_fin;
+	private String fecha_fin;
 
 	private double precio;
 
@@ -19,7 +18,7 @@ public class TLineaContrato {
 
 	}
 
-	public TLineaContrato(int id_contrato, int id_hangar, LocalDate fecha_ini, LocalDate fecha_fin, double precio) {
+	public TLineaContrato(int id_contrato, int id_hangar, String fecha_ini, String fecha_fin, double precio) {
 		this.id_contrato = id_contrato;
 		this.id_hangar = id_hangar;
 		this.fecha_ini = fecha_ini;
@@ -35,11 +34,11 @@ public class TLineaContrato {
 		return this.id_hangar;
 	}
 
-	public LocalDate getFechaIni() {
+	public String getFechaIni() {
 		return this.fecha_ini;
 	}
 
-	public LocalDate getFechaFin() {
+	public String getFechaFin() {
 		return this.fecha_fin;
 	}
 
@@ -55,11 +54,11 @@ public class TLineaContrato {
 		this.id_hangar = id_hangar;
 	}
 
-	public void setFechaIni(LocalDate fecha_ini) {
+	public void setFechaIni(String fecha_ini) {
 		this.fecha_ini = fecha_ini;
 	}
 
-	public void setFechaFin(LocalDate fecha_fin) {
+	public void setFechaFin(String fecha_fin) {
 		this.fecha_fin = fecha_fin;
 	}
 
