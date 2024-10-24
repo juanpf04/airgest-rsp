@@ -110,7 +110,7 @@ public class SAHangarImp implements SAHangar {
 			int id = tHangar.getId();
 			String direccion = tHangar.getDireccion();
 
-			THangar leido = dh.leerHangarPorId(id);
+ 			THangar leido = dh.leerHangarPorId(id);
 
 			
 			if (leido != null) {
