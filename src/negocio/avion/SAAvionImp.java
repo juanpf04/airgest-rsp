@@ -10,7 +10,7 @@ import negocio.UtilidadesN;
 public class SAAvionImp implements SAAvion {
 
 	public int altaAvion(TAvion tAvion) {
-		if (ValidadorAvion.comprobarDatos(tAvion)) {
+		/*if (ValidadorAvion.comprobarDatos(tAvion)) {
 			DAOAvion da = FactoriaIntegracion.getInstance().crearDAOAvion();
 			TAvion leido = da.consultarAvionesPorMatricula(tAvion.getMatricula());
 			DAOHangar dh = FactoriaIntegracion.getInstance().crearDAOHangar();
@@ -27,7 +27,7 @@ public class SAAvionImp implements SAAvion {
 				da.modificarAvion(tAvion);
 				return tAvion.getId();
 			}
-		}
+		}*/
 
 		return -1;
 	}
@@ -65,7 +65,7 @@ public class SAAvionImp implements SAAvion {
 	}
 
 	public boolean modificarAvion(TAvion tAvion) {
-		if (UtilidadesN.comprobarId(tAvion.getId()) && ValidadorAvion.comprobarDatos(tAvion)) {
+		/*if (UtilidadesN.comprobarId(tAvion.getId()) && ValidadorAvion.comprobarDatos(tAvion)) {
 			DAOAvion da = FactoriaIntegracion.getInstance().crearDAOAvion();
 			int id = tAvion.getId();
 			String matricula = tAvion.getMatricula();
@@ -81,7 +81,7 @@ public class SAAvionImp implements SAAvion {
 					return da.modificarAvion(tAvion);
 				}
 			}
-		}
+		}*/
 		return false;
 	}
 
