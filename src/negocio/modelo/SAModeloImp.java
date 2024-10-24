@@ -1,5 +1,6 @@
 package negocio.modelo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import integracion.aerolinea.DAOAerolinea;
@@ -57,14 +58,20 @@ public class SAModeloImp implements SAModelo {
 			DAOModelo dm = FactoriaIntegracion.getInstance().crearDAOModelo();
 
 			TModelo leido = dm.leerModeloPorId(id);
-
-			/*if (leido != null && leido.getActivo()) {
-				DAOAvion da = FactoriaIntegracion.getInstance().crearDAOAvion();
+			boolean ok = false;
+			if (leido != null && leido.getActivo()) {
+				ok = dm.bajaModelo(id);
+				if(ok) t.commit();
+				else t.rollback();
+			}else t.rollback();
+			
+			return ok;
+				/*DAOAvion da = FactoriaIntegracion.getInstance().crearDAOAvion();
 
 				if (da.consultarAvionesActivosPorModelo(id).isEmpty()) {
 					return dm.bajaModelo(id);
-				}
-			}*/ //TODO meter lo de avion
+				}*/
+			 //TODO meter lo de avion y aerolinea
 		}
 
 		return false;
@@ -189,13 +196,29 @@ public class SAModeloImp implements SAModelo {
 
 	@Override
 	public List<TModelo> consultarModelosPorAerolinea(int id_aerolinea) {
-		Transaction t = TransactionManager.getInstance().nuevaTransaccion();
-		t.start();
+		if (UtilidadesN.comprobarId(id_aerolinea)) {
+			Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+			t.start();
+			
+			DAOModelo dm = FactoriaIntegracion.getInstance().crearDAOModelo();
+			
+			DAOAerolinea da = FactoriaIntegracion.getInstance().crearDAOAerolinea();
+			
+			TAerolinea tAerolinea = da.leerAerolineaPorId(id_aerolinea);
+			
+			List<TModelo> lista;
+			
+			if(tAerolinea != null && tAerolinea.getActivo()){
+				 lista = dm.consultarModelosPorAerolinea(id_aerolinea);
+				 t.commit();
+			}else{
+				lista = new ArrayList<TModelo>();
+				t.rollback();
+			}
+			return lista;
+		}
 		
-		DAOModelo dm = FactoriaIntegracion.getInstance().crearDAOModelo();
-		//List<TModelo> list = dm.consultarModelosPorAerolinea(id_aerolinea);
-		t.commit();
-		return null;
+		return new ArrayList<TModelo>();
 	}
 
 }
