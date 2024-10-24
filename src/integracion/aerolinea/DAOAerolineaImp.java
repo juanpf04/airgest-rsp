@@ -1,5 +1,6 @@
 package integracion.aerolinea;
 
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,56 +8,17 @@ import java.util.ArrayList;
 import java.util.List;
 import integracion.transacciones.Transaction;
 import integracion.transacciones.TransactionManager;
+import integracion.Querys;
 import negocio.aerolinea.TAerolinea;
 
 public class DAOAerolineaImp implements DAOAerolinea {
-
-	public TAerolinea leerAerolineaPorId(int idAerolinea) {
-		
-		try {
-			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
-			PreparedStatement ps = con.prepareStatement("SELECT * FROM Aerolinea WHERE Id=? FOR UPDATE; ");
-			ps.setInt(1, idAerolinea);
-			
-			ResultSet rs = ps.executeQuery();
-			
-			TAerolinea ta = null;
-			if (rs.next())
-				ta = new TAerolinea(rs.getInt(1), rs.getString(2), rs.getBoolean(3)); 
-			
-			return ta;
-			
-		} catch(Exception e){
-			return null;
-		}
-		
-	}
-
-	public TAerolinea leerAerolineaPorNombre(String nombre) {
-		try {
-			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
-			PreparedStatement ps = con.prepareStatement("SELECT * FROM Aerolinea WHERE Nombre=? FOR UPDATE; ");
-			ps.setString(1, nombre);
-			
-			ResultSet rs = ps.executeQuery();
-			
-			TAerolinea ta = null;
-			if (rs.next())
-				ta = new TAerolinea(rs.getInt(1), rs.getString(2), rs.getBoolean(3)); 
-			
-			return ta;
-			
-		} catch(Exception e){
-			return null;
-		}
-	}
 
 	public int altaAerolinea(TAerolinea tAerolinea) {
 		
 		try {
 			Transaction t = TransactionManager.getInstance().getTransaccion();
 			Connection con = (Connection) t.getResource();
-			PreparedStatement ps = con.prepareStatement("INSERT INTO AEROLINEA (Nombre, Activo) VALUES(?,?);", PreparedStatement.RETURN_GENERATED_KEYS);
+			PreparedStatement ps = con.prepareStatement(Querys.altaAerolinea);
 			ps.setString(1, tAerolinea.getNombre());
 			ps.setBoolean(2, true);
 			
@@ -74,12 +36,31 @@ public class DAOAerolineaImp implements DAOAerolinea {
 			return -1;
 		}
 	}
+	
+	public boolean bajaAerolinea(int id) {
+		try{
+			Transaction t = TransactionManager.getInstance().getTransaccion();
+			Connection con = (Connection) t.getResource();
+			PreparedStatement ps = con.prepareStatement(Querys.bajaAerolinea);
+			ps.setBoolean(1, false);
+			ps.setInt(2, id);
+			
+			int filas = ps.executeUpdate();
+			boolean eliminado = filas == 1;
+			
+			ps.close();
+			
+			return eliminado;
+		} catch(Exception e){
+			return false;
+		}
+	}
 
 	public boolean modificarAerolinea(TAerolinea tAerolinea) {
 		try{
 			Transaction t = TransactionManager.getInstance().getTransaccion();
 			Connection con = (Connection) t.getResource();
-			PreparedStatement ps = con.prepareStatement("UPDATE Aerolinea SET Nombre = ?, Activo = ? WHERE Id = ?;");
+			PreparedStatement ps = con.prepareStatement(Querys.modificarAerolinea);
 			ps.setString(1, tAerolinea.getNombre());
 			ps.setBoolean(2, tAerolinea.getActivo());
 			ps.setInt(3, tAerolinea.getId());
@@ -95,30 +76,59 @@ public class DAOAerolineaImp implements DAOAerolinea {
 		}
 	}
 
-	public boolean bajaAerolinea(int id) {
-		try{
-			Transaction t = TransactionManager.getInstance().getTransaccion();
-			Connection con = (Connection) t.getResource();
-			PreparedStatement ps = con.prepareStatement("UPDATE Aerolinea SET Activo = ? WHERE Id = ?;");
-			ps.setBoolean(1, false);
-			ps.setInt(2, id);
+	
+
+	public TAerolinea consultarAerolineaPorId(int idAerolinea) {
+		
+		try {
+			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
+			PreparedStatement ps = con.prepareStatement(Querys.consultarAerolineaPorId);
+			ps.setInt(1, idAerolinea);
 			
-			int filas = ps.executeUpdate();
-			boolean eliminado = filas == 1;
+			ResultSet rs = ps.executeQuery();
 			
+			TAerolinea ta = null;
+			if (rs.next())
+				ta = new TAerolinea(rs.getInt(1), rs.getString(2), rs.getBoolean(3)); 
+			
+			rs.close();
 			ps.close();
 			
-			return eliminado;
+			return ta;
+			
 		} catch(Exception e){
-			return false;
+			return null;
 		}
+		
 	}
 
+	public TAerolinea consultarAerolineaPorNombre(String nombre) {
+		try {
+			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
+			PreparedStatement ps = con.prepareStatement(Querys.consultarAerolineaPorNombre);
+			ps.setString(1, nombre);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			TAerolinea ta = null;
+			if (rs.next())
+				ta = new TAerolinea(rs.getInt(1), rs.getString(2), rs.getBoolean(3)); 
+			
+			rs.close();
+			ps.close();
+			
+			return ta;
+			
+		} catch(Exception e){
+			return null;
+		}
+	}
+	
 	public List<TAerolinea> consultarTodasAerolineas() {
 		try{
 			Transaction t = TransactionManager.getInstance().getTransaccion();
 			Connection con = (Connection) t.getResource();
-			PreparedStatement ps = con.prepareStatement("SELECT * FROM Aerolinea FOR UPDATE");
+			PreparedStatement ps = con.prepareStatement(Querys.consultarTodasAerolineas);
 			
 			ResultSet rs = ps.executeQuery();
 			List<TAerolinea> lista = new ArrayList<>();
@@ -142,7 +152,7 @@ public class DAOAerolineaImp implements DAOAerolinea {
 		try{
 			Transaction t = TransactionManager.getInstance().getTransaccion();
 			Connection con = (Connection) t.getResource();
-			PreparedStatement ps = con.prepareStatement("SELECT * FROM aerolinea a JOIN aerolinea_modelo am ON a.Id = am.Id_Aerolinea WHERE am.Id_Modelo = ? FOR UPDATE;");
+			PreparedStatement ps = con.prepareStatement(Querys.consultarAerolineasPorModelo);
 			ps.setInt(1, id_modelo);
 			
 			ResultSet rs = ps.executeQuery();
@@ -161,5 +171,4 @@ public class DAOAerolineaImp implements DAOAerolinea {
 			return new ArrayList<TAerolinea>();
 		}
 	}
-
 }

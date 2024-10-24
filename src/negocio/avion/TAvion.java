@@ -1,7 +1,6 @@
 
 package negocio.avion;
 
-import java.time.LocalDate;
 
 public class TAvion {
 
@@ -9,7 +8,7 @@ public class TAvion {
 
 	private int numAsientos;
 
-	private LocalDate fechaFabricacion;
+	private String fechaFabricacion;
 
 	private String nombre;
 
@@ -26,7 +25,7 @@ public class TAvion {
 	public TAvion() {
 	}
 
-	public TAvion(int id, int numAsientos, LocalDate fechaFabricacion, String nombre, String matricula, boolean activo,
+	public TAvion(int id, int numAsientos, String fechaFabricacion, String nombre, String matricula, boolean activo,
 			int idAerolinea, int idModelo, int idHangar) {
 		this.id = id;
 		this.numAsientos = numAsientos;
@@ -47,7 +46,7 @@ public class TAvion {
 		return this.numAsientos;
 	}
 
-	public LocalDate getFechaFabricacion() {
+	public String getFechaFabricacion() {
 		return this.fechaFabricacion;
 	}
 
@@ -83,7 +82,7 @@ public class TAvion {
 		this.numAsientos = numAsientos;
 	}
 
-	public void setFechaFabricacion(LocalDate fechaFabricacion) {
+	public void setFechaFabricacion(String fechaFabricacion) {
 		this.fechaFabricacion = fechaFabricacion;
 	}
 

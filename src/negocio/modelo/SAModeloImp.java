@@ -91,7 +91,7 @@ public class SAModeloImp implements SAModelo {
 			DAOAerolinea da = FactoriaIntegracion.getInstance().crearDAOAerolinea();
 
 			TModelo mLeido = dm.leerModeloPorId(idModelo);
-			TAerolinea aLeida = da.leerAerolineaPorId(idAerolinea);
+			TAerolinea aLeida = da.consultarAerolineaPorId(idAerolinea);
 
 			if (mLeido != null && mLeido.getActivo() && aLeida != null && aLeida.getActivo()) {
 				DAOModeloAerolinea dma = FactoriaIntegracion.getInstance().crearDAOModeloAerolinea();
@@ -114,7 +114,7 @@ public class SAModeloImp implements SAModelo {
 			DAOAerolinea da = FactoriaIntegracion.getInstance().crearDAOAerolinea();
 
 			TModelo mLeido = dm.leerModeloPorId(idModelo);
-			TAerolinea aLeida = da.leerAerolineaPorId(idAerolinea);
+			TAerolinea aLeida = da.consultarAerolineaPorId(idAerolinea);
 
 			if (mLeido != null && mLeido.getActivo() && aLeida != null && aLeida.getActivo()) {
 				DAOModeloAerolinea dma = FactoriaIntegracion.getInstance().crearDAOModeloAerolinea();

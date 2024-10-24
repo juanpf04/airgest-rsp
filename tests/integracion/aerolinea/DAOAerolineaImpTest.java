@@ -29,7 +29,7 @@ public class DAOAerolineaImpTest {
 		Transaction t = TransactionManager.getInstance().nuevaTransaccion();
 		t.start();
 		DAOAerolinea da = FactoriaIntegracion.getInstance().crearDAOAerolinea();
-		TAerolinea ta = da.leerAerolineaPorId(1);
+		TAerolinea ta = da.consultarAerolineaPorId(1);
 		t.commit();
 		assertNotNull("No existe aerolinea", ta);
 		System.out.println(ta);
@@ -41,7 +41,7 @@ public class DAOAerolineaImpTest {
 		Transaction t = TransactionManager.getInstance().nuevaTransaccion();
 		t.start();
 		DAOAerolinea da = FactoriaIntegracion.getInstance().crearDAOAerolinea();
-		TAerolinea ta = da.leerAerolineaPorNombre("javi");
+		TAerolinea ta = da.consultarAerolineaPorNombre("javi");
 		t.commit();
 		assertNotNull("No existe aerolinea", ta);
 		System.out.println(ta);

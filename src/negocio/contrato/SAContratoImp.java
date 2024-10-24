@@ -24,7 +24,7 @@ public class SAContratoImp implements SAContrato {
 
 	public int cerrarContrato(TCarrito tCarrito) {
 		DAOAerolinea da = FactoriaIntegracion.getInstance().crearDAOAerolinea();
-		TAerolinea aerolinea = da.leerAerolineaPorId(tCarrito.getIdAerolinea());
+		TAerolinea aerolinea = da.consultarAerolineaPorId(tCarrito.getIdAerolinea());
 
 		if (aerolinea != null && aerolinea.getActivo()) {
 			if (tCarrito.getLineasContrato().isEmpty()) {
@@ -103,7 +103,7 @@ public class SAContratoImp implements SAContrato {
 
 			if (contrato != null) {
 				DAOAerolinea da = FactoriaIntegracion.getInstance().crearDAOAerolinea();
-				TAerolinea aerolinea = da.leerAerolineaPorId(contrato.getIdAerolinea());
+				TAerolinea aerolinea = da.consultarAerolineaPorId(contrato.getIdAerolinea());
 
 				DAOLineaContrato dl = FactoriaIntegracion.getInstance().crearDAOLineaContrato();
 				List<TLineaContrato> lineas = dl.leerLineasPorContrato(id);
@@ -139,7 +139,7 @@ public class SAContratoImp implements SAContrato {
 
 			if (leido != null) {
 				DAOAerolinea da = FactoriaIntegracion.getInstance().crearDAOAerolinea();
-				TAerolinea aerolinea = da.leerAerolineaPorId(tContrato.getIdAerolinea());
+				TAerolinea aerolinea = da.consultarAerolineaPorId(tContrato.getIdAerolinea());
 				if (aerolinea != null && aerolinea.getActivo()) {
 					return dc.modificarContrato(tContrato);
 				}
@@ -201,7 +201,7 @@ public class SAContratoImp implements SAContrato {
 		if (UtilidadesN.comprobarId(id_aerolinea)) {
 			DAOAerolinea da = FactoriaIntegracion.getInstance().crearDAOAerolinea();
 
-			TAerolinea aerolinea = da.leerAerolineaPorId(id_aerolinea);
+			TAerolinea aerolinea = da.consultarAerolineaPorId(id_aerolinea);
 
 			if (aerolinea != null) {
 				DAOContrato dc = FactoriaIntegracion.getInstance().crearDAOContrato();
