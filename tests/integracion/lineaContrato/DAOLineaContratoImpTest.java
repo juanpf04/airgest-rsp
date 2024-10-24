@@ -22,7 +22,7 @@ public class DAOLineaContratoImpTest {
 	public void alta_linea_contrato_test() {
 		Transaction t = TransactionManager.getInstance().nuevaTransaccion();
 		t.start();
-		TLineaContrato tlc = new TLineaContrato(1, 1, "16-01-2003", "02-07-2004", 1000000);
+		TLineaContrato tlc = new TLineaContrato(1, 1, "16-01-2003", "02-07-2004", 10000);
 		DAOLineaContrato dlc = FactoriaIntegracion.getInstance().crearDAOLineaContrato();
 		boolean ok = dlc.altaLineaContrato(tlc);
 		t.commit();
