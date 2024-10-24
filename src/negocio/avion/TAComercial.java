@@ -7,7 +7,7 @@ public class TAComercial extends TAvion {
 
 	private int trabajadores;
 
-	public TAComercial(int id, int numAsientos, LocalDate fechaFabricacion, String nombre, String matricula,
+	public TAComercial(int id, int numAsientos, String fechaFabricacion, String nombre, String matricula,
 			boolean activo, int idAerolinea, int idModelo, int idHangar, int trabajadores) {
 		super(id, numAsientos, fechaFabricacion, nombre, matricula, activo, idAerolinea, idModelo, idHangar);
 		this.trabajadores = trabajadores;

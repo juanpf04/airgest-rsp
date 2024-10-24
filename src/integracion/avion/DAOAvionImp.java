@@ -312,4 +312,36 @@ public class DAOAvionImp implements DAOAvion {
 			return new ArrayList<TAvion>();
 		}
 	}
+	
+	
+	public List<TAvion> consultarAvionesDeAerolineaPorHangar(int id_aerolinea, int id_hangar) {
+	    try {
+	        Transaction t = TransactionManager.getInstance().getTransaccion();
+	        Connection con = (Connection) t.getResource();
+	        
+	        
+	        PreparedStatement ps = con.prepareStatement(Querys.consultarAvionesDeAerolineaPorHangar);
+	        ps.setInt(1, id_aerolinea);
+	        ps.setInt(2, id_hangar);
+	        
+	       
+	        ResultSet rs = ps.executeQuery();
+	        List<TAvion> lista = new ArrayList<>();
+	        
+	        
+	        while (rs.next()) {
+	            lista.add(new TAvion(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getBoolean(6), 
+	                                 rs.getInt(7), rs.getInt(8), rs.getInt(9)));
+	        }
+	        
+	        rs.close();
+	        ps.close();
+	        
+	        return lista;
+	        
+	    } catch (Exception e) {
+	        return new ArrayList<TAvion>();  // Si ocurre un error, devolvemos una lista vacía
+	    }
+	}
+
 }

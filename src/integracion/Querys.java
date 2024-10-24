@@ -26,7 +26,7 @@ public class Querys {
 	public static String consultarAvionesActivosPorAerolinea = "SELECT * FROM avion av JOIN aerolinea ON av.Id_Aerolinea = ? AND av.Activo = true FOR UPDATE";
 	public static String consultarAvionesPorHangar = "SELECT * FROM avion av JOIN hangar ON av.Id_Hangar = ? FOR UPDATE";
 	public static String consultarAvionesActivosPorHangar = "SELECT * FROM avion av JOIN hangar ON av.Id_Hangar = ? AND av.Activo = true FOR UPDATE";
-
+	public static String consultarAvionesDeAerolineaPorHangar = "SELECT * FROM Avion WHERE id_aerolinea = ? AND id_hangar = ? AND activo = true";
 	
 	
 	//CONTRATO
@@ -45,6 +45,7 @@ public class Querys {
 	public static String vincularPersonalHangar = "INSERT INTO PERSONAL_HANGAR (Id_personal, Id_hangar) VALUES (?, ?)";
 	public static String desvincularPersonalHangar = "DELETE FROM PERSONAL_HANGAR WHERE Id_personal = ? AND Id_hangar = ?";
 	public static String comprobarvinculacionPersonalHangar = "SELECT COUNT(*) AS NUM FROM PERSONAL_HANGAR WHERE Id_personal = ? AND Id_hangar = ? FOR UPDATE";
+	
 
 
 	

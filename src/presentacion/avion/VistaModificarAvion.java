@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 import javax.swing.BoxLayout;
@@ -268,16 +269,19 @@ public class VistaModificarAvion extends JFrame implements Observador {
 																											// a
 																											// localDate
 						LocalDate fecha = zonedDateTime.toLocalDate();
+						// Formatear la fecha como dd-MM-yyyy
+				        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+				        String fechaFormateada = fecha.format(formatter);
 
 						TAvion transfer;
 						if (datos == "COMERCIAL") {
 							int trabajadores = Integer.valueOf(textoTrabajadores.getText());
-							transfer = new TAComercial(idLeido, numAsientos, fecha, nombre, matricula, true,
+							transfer = new TAComercial(idLeido, numAsientos, fechaFormateada, nombre, matricula, true,
 									idAerolinea, idModelo, idHangar, trabajadores);
 						} else {
 							String nombre_duenyo = textoDuenyo.getText();
 							int idCarnet = Integer.valueOf(textoCarnet.getText());
-							transfer = new TAPrivado(idLeido, numAsientos, fecha, nombre, matricula, true, idAerolinea,
+							transfer = new TAPrivado(idLeido, numAsientos, fechaFormateada, nombre, matricula, true, idAerolinea,
 									idModelo, idHangar, nombre_duenyo, idCarnet);
 						}
 						ctrl.accion(new Contexto(Evento.MODIFICAR_AVION, transfer));

@@ -1,109 +1,167 @@
 package negocio.avion;
 
 import java.util.List;
-
 import integracion.avion.DAOAvion;
 import integracion.factoria.FactoriaIntegracion;
 import integracion.hangar.DAOHangar;
+import integracion.transacciones.Transaction;
+import integracion.transacciones.TransactionManager;
 import negocio.UtilidadesN;
 
 public class SAAvionImp implements SAAvion {
 
-	public int altaAvion(TAvion tAvion) {
-		if (ValidadorAvion.comprobarDatos(tAvion)) {
-			DAOAvion da = FactoriaIntegracion.getInstance().crearDAOAvion();
-			TAvion leido = da.consultarAvionesPorMatricula(tAvion.getMatricula());
-			DAOHangar dh = FactoriaIntegracion.getInstance().crearDAOHangar();
-			int nuevo_stock = dh.leerHangarPorId(tAvion.getIdHangar()).getStock() - 1;
+    public int altaAvion(TAvion tAvion) {
+        int id = -1;
+        if (ValidadorAvion.comprobarDatos(tAvion)) {
+            Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+            t.start();
+            
+            DAOAvion da = FactoriaIntegracion.getInstance().crearDAOAvion();
+            TAvion leido = da.consultarAvionPorMatricula(tAvion.getMatricula());
+            DAOHangar dh = FactoriaIntegracion.getInstance().crearDAOHangar();
+            int nuevo_stock = dh.leerHangarPorId(tAvion.getIdHangar()).getStock() - 1;
 
-			if (leido == null && nuevo_stock >= 0) {
+            if (leido == null && nuevo_stock >= 0) {
+                dh.actualizarStock(tAvion.getIdHangar(), nuevo_stock);
+                id = da.altaAvion(tAvion);
+                if (id != -1) t.commit();
+                else t.rollback();
+            } else if (!leido.getActivo() && nuevo_stock >= 0) {
+                dh.actualizarStock(tAvion.getIdHangar(), nuevo_stock);
+                tAvion.setId(leido.getId());
+                boolean ok = da.modificarAvion(tAvion);
+                if (ok) {
+                    id = tAvion.getId();
+                    t.commit();
+                } else {
+                    t.rollback();
+                }
+            } else {
+                t.rollback();
+            }
+        }
+        return id;
+    }
 
-				dh.actualizarStock(tAvion.getIdHangar(), nuevo_stock);
-				return da.altaAvion(tAvion);
-			} else if (!leido.getActivo() && nuevo_stock >= 0) {
+    public boolean bajaAvion(int idAvion) {
+        boolean ok = false;
+        if (UtilidadesN.comprobarId(idAvion)) {
+            Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+            t.start();
 
-				dh.actualizarStock(tAvion.getIdHangar(), nuevo_stock);
-				tAvion.setId(leido.getId());
-				da.modificarAvion(tAvion);
-				return tAvion.getId();
-			}
-		}
+            DAOAvion da = FactoriaIntegracion.getInstance().crearDAOAvion();
+            TAvion leido = da.consultarAvionPorId(idAvion);
 
-		return -1;
-	}
+            if (leido != null && leido.getActivo()) {
+                DAOHangar dh = FactoriaIntegracion.getInstance().crearDAOHangar();
+                dh.actualizarStock(leido.getIdHangar(), dh.leerHangarPorId(leido.getIdHangar()).getStock() + 1);
+                ok = da.bajaAvion(idAvion);
+            }
 
-	public boolean bajaAvion(int idAvion) {
-		if (UtilidadesN.comprobarId(idAvion)) {
-			DAOAvion da = FactoriaIntegracion.getInstance().crearDAOAvion();
+            if (ok) t.commit();
+            else t.rollback();
+        }
+        return ok;
+    }
 
-			TAvion leido = da.consultarAvionPorId(idAvion);
+    public TAvion consultarAvionPorId(int idAvion) {
+        TAvion avion = null;
+        if (UtilidadesN.comprobarId(idAvion)) {
+            Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+            t.start();
+            
+            DAOAvion da = FactoriaIntegracion.getInstance().crearDAOAvion();
+            avion = da.consultarAvionPorId(idAvion);
+            t.commit();
+        }
+        return avion;
+    }
 
-			if (leido != null && leido.getActivo()) {
+    public List<TAvion> consultarTodosAviones() {
+        Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+        t.start();
+        
+        DAOAvion da = FactoriaIntegracion.getInstance().crearDAOAvion();
+        List<TAvion> list = da.consultarTodosAviones();
+        t.commit();
+        
+        return list;
+    }
 
-				DAOHangar dh = FactoriaIntegracion.getInstance().crearDAOHangar();
-				dh.actualizarStock(leido.getIdHangar(), dh.leerHangarPorId(leido.getIdHangar()).getStock() + 1);
-				return da.bajaAvion(idAvion);
-			}
-		}
+    public boolean modificarAvion(TAvion tAvion) {
+        boolean ok = false;
+        if (UtilidadesN.comprobarId(tAvion.getId()) && ValidadorAvion.comprobarDatos(tAvion)) {
+            Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+            t.start();
+            
+            DAOAvion da = FactoriaIntegracion.getInstance().crearDAOAvion();
+            DAOHangar dh = FactoriaIntegracion.getInstance().crearDAOHangar();
+            TAvion leido = da.consultarAvionPorId(tAvion.getId());
+            int nuevo_stock = dh.leerHangarPorId(tAvion.getIdHangar()).getStock() - 1;
 
-		return false;
-	}
+            if (leido != null && leido.getActivo() && (leido.getMatricula().equals(tAvion.getMatricula())
+                    || da.consultarAvionPorMatricula(tAvion.getMatricula()) == null) && nuevo_stock >= 0) {
+                dh.actualizarStock(leido.getIdHangar(), dh.leerHangarPorId(leido.getIdHangar()).getStock() + 1);
+                dh.actualizarStock(tAvion.getIdHangar(), nuevo_stock);
+                ok = da.modificarAvion(tAvion);
+            }
 
-	public TAvion consultarAvionPorId(int idAvion) {
-		if (UtilidadesN.comprobarId(idAvion)) {
-			DAOAvion da = FactoriaIntegracion.getInstance().crearDAOAvion();
+            if (ok) t.commit();
+            else t.rollback();
+        }
+        return ok;
+    }
 
-			return da.consultarAvionPorId(idAvion);
-		}
+    public List<TAvion> consultarAvionesPorModelo(int idModelo) {
+        Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+        t.start();
 
-		return null;
-	}
+        DAOAvion da = FactoriaIntegracion.getInstance().crearDAOAvion();
+        List<TAvion> list = da.consultarAvionesPorModelo(idModelo);
+        t.commit();
+        
+        return list;
+    }
 
-	public List<TAvion> consultarTodosAviones() {
-		DAOAvion da = FactoriaIntegracion.getInstance().crearDAOAvion();
-		return da.consultarTodosAviones();
-	}
+    public List<TAvion> consultarAvionesPorAerolinea(int idAerolinea) {
+        Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+        t.start();
 
-	public boolean modificarAvion(TAvion tAvion) {
-		if (UtilidadesN.comprobarId(tAvion.getId()) && ValidadorAvion.comprobarDatos(tAvion)) {
-			DAOAvion da = FactoriaIntegracion.getInstance().crearDAOAvion();
-			int id = tAvion.getId();
-			String matricula = tAvion.getMatricula();
-			DAOHangar dh = FactoriaIntegracion.getInstance().crearDAOHangar();
+        DAOAvion da = FactoriaIntegracion.getInstance().crearDAOAvion();
+        List<TAvion> list = da.consultarAvionesPorAerolinea(idAerolinea);
+        t.commit();
+        
+        return list;
+    }
 
-			TAvion leido = da.consultarAvionPorId(id);
-			int nuevo_stock = dh.leerHangarPorId(tAvion.getIdHangar()).getStock() - 1;
-			if (leido != null) {
-				if (leido.getActivo() && (leido.getMatricula().equals(matricula)
-						|| da.consultarAvionesPorMatricula(matricula) == null) && nuevo_stock >= 0) {
-					dh.actualizarStock(leido.getIdHangar(), dh.leerHangarPorId(leido.getIdHangar()).getStock() + 1);
-					dh.actualizarStock(tAvion.getIdHangar(), nuevo_stock);
-					return da.modificarAvion(tAvion);
-				}
-			}
-		}
-		return false;
-	}
+    public List<TAvion> consultarAvionesPorHangar(int idHangar) {
+        Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+        t.start();
 
-	public List<TAvion> consultarAvionesPorModelo(int idModelo) {
-		DAOAvion da = FactoriaIntegracion.getInstance().crearDAOAvion();
-		return da.consultarAvionesPorModelo(idModelo);
-	}
+        DAOAvion da = FactoriaIntegracion.getInstance().crearDAOAvion();
+        List<TAvion> list = da.consultarAvionesPorHangar(idHangar);
+        t.commit();
+        
+        return list;
+    }
 
-	public List<TAvion> consultarAvionesPorAerolinea(int idAerolinea) {
-		DAOAvion da = FactoriaIntegracion.getInstance().crearDAOAvion();
-		return da.consultarAvionesPorAerolinea(idAerolinea);
-	}
+    @Override
+    public List<TAvion> consultarAvionesDeAerolineaPorHangar(int id_aerolinea, int id_hangar) {
+        List<TAvion> listaAviones = null;
+        if (UtilidadesN.comprobarId(id_aerolinea) && UtilidadesN.comprobarId(id_hangar)) {
+            Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+            t.start();
 
-	public List<TAvion> consultarAvionesPorHangar(int idHangar) {
-		DAOAvion da = FactoriaIntegracion.getInstance().crearDAOAvion();
-		return da.consultarAvionesPorHangar(idHangar);
-	}
+            DAOAvion da = FactoriaIntegracion.getInstance().crearDAOAvion();
+            listaAviones = da.consultarAvionesDeAerolineaPorHangar(id_aerolinea, id_hangar);
 
-	@Override
-	public List<TAvion> consultarAvionesDeAerolineaPorHangar(int id_aerolinea, int id_hangar) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+            if (listaAviones != null) {
+                t.commit();
+            } else {
+                t.rollback();
+            }
+        }
+        return listaAviones;
+    }
 
 }

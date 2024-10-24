@@ -8,7 +8,7 @@ public class TAPrivado extends TAvion {
 	private String nombreDuenyo;
 	private int idCarnet;
 
-	public TAPrivado(int id, int numAsientos, LocalDate fechaFabricacion, String nombre, String matricula,
+	public TAPrivado(int id, int numAsientos, String fechaFabricacion, String nombre, String matricula,
 			boolean activo, int idAerolinea, int idModelo, int idHangar, String nombre_duenyo, int idCarnet) {
 		super(id, numAsientos, fechaFabricacion, nombre, matricula, activo, idAerolinea, idModelo, idHangar);
 		this.nombreDuenyo = nombre_duenyo;
