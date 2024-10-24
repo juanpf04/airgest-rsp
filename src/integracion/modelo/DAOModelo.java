@@ -16,5 +16,7 @@ public interface DAOModelo {
 	public List<TModelo> consultarTodosModelos();
 
 	public TModelo leerModeloPorId(int id);
+	
+	public List<TModelo> consultarModelosPorAerolinea(int idAerolinea);
 
 }
