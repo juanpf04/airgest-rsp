@@ -2,134 +2,178 @@ package integracion.modelo;
 
 import negocio.modelo.TModelo;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.json.JSONObject;
-import org.json.JSONTokener;
-
-import integracion.UtilidadesI;
+import integracion.Querys;
+import integracion.transacciones.TransactionManager;
 
 public class DAOModeloImp implements DAOModelo {
 
 	public TModelo leerModeloPorNombre(String nombre) {
-		File carpeta = new File(UtilidadesI.ruta("modelo"));
-		File[] lista = carpeta.listFiles();
+		try{
+		Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
+		
+		PreparedStatement ps = con.prepareStatement(Querys.leer_modelo_por_nombre);
+		ps.setString(1, nombre);
+		
+		ResultSet res = ps.executeQuery();
+		
+		TModelo t;
+		
+		if(res.next()) t = new TModelo(res.getInt("id"), nombre, res.getString("motor"), res.getBoolean("activo"));
+		else t =  null;
+		
+		res.close();
+		ps.close();
 
-		int i = 0;
-		while (i < lista.length) {
-			JSONObject data = new JSONObject();
-			try {
-				data = new JSONObject(new JSONTokener(new FileReader(lista[i])));
-			} catch (FileNotFoundException e) {
-			}
-
-			if (data.getString("nombre").equals(nombre)) {
-				return new TModelo(data.getInt("id"), data.getString("nombre"), data.getString("motor"),
-						data.getBoolean("activo"));
-			}
-
-			i++;
-		}
-
-		return null;
-	}
-
-	public int altaModelo(TModelo tModelo) {
-		File carpeta = new File(UtilidadesI.ruta("modelo"));
-		File[] lista = carpeta.listFiles();
-
-		try {
-			int id = lista.length + 1;
-
-			tModelo.setId(id);
-
-			FileWriter archivo = new FileWriter(UtilidadesI.ruta("modelo") + String.format("%05d", id) + ".json");
-
-			archivo.write(toJSON(tModelo).toString());
-			archivo.close();
-
-			return id;
-
-		} catch (IOException e) {
-		}
-		return -1;
-	}
-
-	public boolean modificarModelo(TModelo tModelo) {
-		try {
-			FileWriter archivo = new FileWriter(
-					UtilidadesI.ruta("modelo") + String.format("%05d", tModelo.getId()) + ".json");
-			archivo.write(toJSON(tModelo).toString());
-			archivo.close();
-
-			return true;
-		} catch (IOException e) {
-		}
-		return false;
-	}
-
-	public boolean bajaModelo(int id) {
-		try {
-			JSONObject data = new JSONObject(
-					new JSONTokener(new FileReader(UtilidadesI.ruta("modelo") + String.format("%05d", id) + ".json")));
-
-			data.put("activo", false);
-
-			FileWriter archivo = new FileWriter(UtilidadesI.ruta("modelo") + String.format("%05d", id) + ".json");
-
-			archivo.write(data.toString());
-			archivo.close();
-
-			return true;
-		} catch (IOException e) {
-		}
-		return false;
-	}
-
-	public List<TModelo> consultarTodosModelos() {
-		File carpeta = new File(UtilidadesI.ruta("modelo"));
-		File[] lista = carpeta.listFiles();
-
-		List<TModelo> modelos = new ArrayList<>();
-
-		for (File f : lista) {
-			try {
-				JSONObject data = new JSONObject(new JSONTokener(new FileReader(f)));
-				modelos.add(new TModelo(data.getInt("id"), data.getString("nombre"), data.getString("motor"),
-						data.getBoolean("activo")));
-			} catch (FileNotFoundException e) {
-			}
-		}
-
-		return modelos;
-	}
-
-	public TModelo leerModeloPorId(int id) {
-		try {
-			JSONObject data = new JSONObject(
-					new JSONTokener(new FileReader(UtilidadesI.ruta("modelo") + String.format("%05d", id) + ".json")));
-			return new TModelo(data.getInt("id"), data.getString("nombre"), data.getString("motor"),
-					data.getBoolean("activo"));
-		} catch (FileNotFoundException e) {
+		return t;
+		}catch (Exception e){
 			return null;
 		}
 	}
 
-	private JSONObject toJSON(TModelo tModelo) {
-		JSONObject jo = new JSONObject();
+	public int altaModelo(TModelo tModelo) {
 
-		jo.put("id", tModelo.getId());
-		jo.put("nombre", tModelo.getNombre());
-		jo.put("motor", tModelo.getMotor());
-		jo.put("activo", tModelo.getActivo());
-
-		return jo;
+		try {
+			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
+			
+			PreparedStatement ps = con.prepareStatement(Querys.alta_modelo, Statement.RETURN_GENERATED_KEYS);
+			ps.setString(1, tModelo.getNombre());
+			ps.setString(2, tModelo.getMotor());
+			
+			int filasNuevas = ps.executeUpdate();
+			ResultSet res = ps.getGeneratedKeys();
+			
+			int id = filasNuevas == 1 && res.next() ? res.getInt(1) : -1;
+			
+			res.close();
+			ps.close();
+			
+			return id;
+			
+		} catch (Exception e) {
+			return -1;
+		}
 	}
+
+	public boolean modificarModelo(TModelo tModelo) {
+		try {
+			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
+			
+			PreparedStatement ps = con.prepareStatement(Querys.modificar_modelo);
+			
+			ps.setString(1, tModelo.getNombre());
+			ps.setString(2, tModelo.getMotor());
+			ps.setBoolean(3, tModelo.getActivo());
+			ps.setInt(4, tModelo.getId());
+			
+			int filasNuevas = ps.executeUpdate();
+			
+			boolean ok = filasNuevas == 1 ? true : false;
+			
+			ps.close();
+			
+			return ok;
+			
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	public boolean bajaModelo(int id) {
+		try {
+			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
+			
+			PreparedStatement ps = con.prepareStatement(Querys.baja_modelo);
+			
+			ps.setInt(1, id);
+			
+			int filasNuevas = ps.executeUpdate();
+			
+			boolean ok = filasNuevas == 1 ? true : false;
+			
+			ps.close();
+			
+			return ok;
+			
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	public List<TModelo> consultarTodosModelos() {
+		try{
+			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
+			PreparedStatement ps = con.prepareStatement(Querys.consultar_todos_modelos);			
+			ResultSet res = ps.executeQuery();
+			
+			List<TModelo> t = new ArrayList<>();
+			
+			while(res.next()) t.add(new TModelo(res.getInt("id"), res.getString("nombre"), res.getString("motor"), res.getBoolean("activo")));
+			
+			res.close();
+			ps.close();
+
+			return t;
+			}catch (Exception e){
+				return new ArrayList<TModelo>();
+			}
+	}
+
+	public TModelo leerModeloPorId(int id) {
+		try{
+			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
+			
+			PreparedStatement ps = con.prepareStatement(Querys.leer_modelo_por_id);
+			ps.setInt(1, id);
+			
+			ResultSet res = ps.executeQuery();
+			
+			TModelo t;
+			
+			if(res.next()) t = new TModelo(id, res.getString("nombre"), res.getString("motor"), res.getBoolean("activo"));
+			else t =  null;
+			
+			res.close();
+			ps.close();
+
+			return t;
+		}catch (Exception e){
+				return null;
+		}
+	}
+	
+	public List<TModelo> consultarModelosPorAerolinea(int idAerolinea) {
+		try{
+		Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
+		
+		PreparedStatement ps = con.prepareStatement(Querys.leer_modelo_por_aerolinea);
+		ps.setInt(1, idAerolinea);
+		
+		ResultSet res = ps.executeQuery();
+		
+		List<TModelo> t = new ArrayList<>();
+		
+		while(res.next())
+		{
+			t.add(new TModelo(res.getInt("id"), res.getString("nombre"), res.getString("motor"), res.getBoolean("activo")));
+		}
+		
+		
+		res.close();
+		ps.close();
+
+		return t;
+		}catch (Exception e){
+			return new ArrayList<>();
+		}
+	} 
+
+
 
 }
