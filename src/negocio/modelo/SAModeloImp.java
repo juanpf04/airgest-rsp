@@ -125,7 +125,6 @@ public class SAModeloImp implements SAModelo {
 		}
 		return ok;
 	}
-
 	public boolean vincularModelo(TModeloAerolinea tModeloAerolinea) {
 		int idModelo = tModeloAerolinea.getIdModelo();
 		int idAerolinea = tModeloAerolinea.getIdAerolinea();
