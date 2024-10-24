@@ -86,7 +86,7 @@ public class FactoriaVistasImp extends FactoriaVistas {
 			vista = new VistaResultadoConsultarModelosPorAerolinea();
 			break;
 			
-		// AVIÓN
+		// AVIï¿½N
 		case VISTA_AVION:
 			vista = new VistaAvion();
 			break;
@@ -151,7 +151,7 @@ public class FactoriaVistasImp extends FactoriaVistas {
 			vista = new VistaResultadoConsultarAvionesDeAerolineaPorHangar();
 			break;
 		
-		// AEROLÍNEA
+		// AEROLï¿½NEA
 		case VISTA_AEROLINEA:
 			vista = new VistaAerolinea();
 			break;
@@ -293,6 +293,9 @@ public class FactoriaVistasImp extends FactoriaVistas {
 			break;
 		case VISTA_MODIFICAR_HANGAR:
 			vista = new VistaModificarHangar();
+			break;
+		case VISTA_MODIFICAR_ID_HANGAR:
+			vista = new VistaModificarIdHangar();
 			break;
 		case VISTA_EXITO_MODIFICAR_HANGAR:
 			vista = new VistaExitoModificarHangar();

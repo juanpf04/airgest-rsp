@@ -27,6 +27,7 @@ public class VistaModificarHangar extends JFrame implements Observador {
 	private static final long serialVersionUID = 1L;
 
 	public void actualizar(Object datos) {
+		THangar th = (THangar) datos;
 		UtilidadesP.setAirGestRSP(this);
 
 		JPanel principal = new JPanel();
@@ -52,18 +53,6 @@ public class VistaModificarHangar extends JFrame implements Observador {
 
 		JPanel panel_textfield = new JPanel();
 		panel_textfield.setLayout(new BoxLayout(panel_textfield, BoxLayout.PAGE_AXIS));
-
-		JLabel etiquetaId = new JLabel("id: ");
-		etiquetaId.setFont(new Font("Tahoma", Font.BOLD, 23));
-		JTextField textoId = new JTextField();
-		textoId.setMaximumSize(new Dimension(200, 30));
-		textoId.setMinimumSize(new Dimension(200, 30));
-		textoId.setPreferredSize(new Dimension(200, 30));
-		textoId.setFont(new Font("Tahoma", Font.BOLD, 18));
-		textoId.setToolTipText("numero natural sin 0");
-
-		panel_etiquetas.add(etiquetaId);
-		panel_textfield.add(textoId);
 
 		centro.add(panel_etiquetas);
 		centro.add(panel_textfield);
@@ -140,12 +129,11 @@ public class VistaModificarHangar extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					int idLeido = Integer.parseInt(textoId.getText());
 					String dirLeido = textoDir.getText();
 					int stockLeido = Integer.parseInt(textoStock.getText());
 					double costeLeido = Double.parseDouble(textocosteDia.getText());
 					int espacioLeido = Integer.parseInt(textoespacioAlmacenaje.getText());
-					THangar transfer = new THangar(idLeido, dirLeido, stockLeido, costeLeido, espacioLeido, true);
+					THangar transfer = new THangar(th.getId(), dirLeido, stockLeido, costeLeido, espacioLeido, true);
 					controlador.accion(new Contexto(Evento.MODIFICAR_HANGAR, transfer));
 				} catch (NumberFormatException n) {
 					controlador.accion(new Contexto(Evento.MODIFICAR_HANGAR, new THangar()));
