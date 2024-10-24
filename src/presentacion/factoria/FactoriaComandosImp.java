@@ -131,6 +131,9 @@ public class FactoriaComandosImp extends FactoriaComandos {
 		case MODIFICAR_HANGAR:
 			comando = new ModificarHangar();
 			break;
+		case MODIFICAR_HANGAR_ID:
+			comando = new ModificarHangarId();
+			break;
 		case CONSULTAR_HANGARES_POR_PERSONAL:
 			comando = new ConsultarHangaresPorPersonal();
 			break;

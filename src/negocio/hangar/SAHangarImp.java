@@ -3,12 +3,14 @@ package negocio.hangar;
 import java.util.ArrayList;
 import java.util.List;
 
+import integracion.avion.DAOAvion;
 import integracion.factoria.FactoriaIntegracion;
 import integracion.hangar.DAOHangar;
 import integracion.personal.DAOPersonal;
 import integracion.transacciones.Transaction;
 import integracion.transacciones.TransactionManager;
 import negocio.UtilidadesN;
+import negocio.avion.TAvion;
 import negocio.personal.TPersonal;
 
 public class SAHangarImp implements SAHangar {
@@ -54,7 +56,13 @@ public class SAHangarImp implements SAHangar {
 			
 			if (leido != null) {
 				if (leido.getActivo()) {
-					ok = dh.bajaHangar(id);
+					
+					DAOAvion da = FactoriaIntegracion.getInstance().crearDAOAvion();
+					
+					List<TAvion> lista = da.consultarAvionesActivosPorHangar(id);
+					
+					if(lista.isEmpty())
+						ok = dh.bajaHangar(id);
 				}
 			}
 			
@@ -102,7 +110,7 @@ public class SAHangarImp implements SAHangar {
 			int id = tHangar.getId();
 			String direccion = tHangar.getDireccion();
 
-			THangar leido = dh.leerHangarPorId(id);
+ 			THangar leido = dh.leerHangarPorId(id);
 
 			
 			if (leido != null) {

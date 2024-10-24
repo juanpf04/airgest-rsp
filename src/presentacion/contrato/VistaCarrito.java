@@ -56,15 +56,15 @@ public class VistaCarrito extends JFrame implements Observador {
 
 		Controlador ctrl = Controlador.getInstance();
 
-		JButton añadir = new JButton("AÑADIR HANGAR");
-		añadir.addActionListener(new ActionListener() {
+		JButton anyadir = new JButton("Aï¿½ADIR HANGAR");
+		anyadir.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 				ctrl.accion(new Contexto(Evento.VISTA_ANYADIR_HANGAR_AL_CONTRATO, carrito));
 			}
 		});
-		botones.add(añadir);
+		botones.add(anyadir);
 
 		// -------------------------------------------
 		JButton eliminar = new JButton("ELIMINAR HANGAR");
@@ -101,13 +101,13 @@ public class VistaCarrito extends JFrame implements Observador {
 
 		JTextArea exito = new JTextArea(s);
 		exito.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		exito.setLineWrap(true); // Habilita el ajuste automático de línea
+		exito.setLineWrap(true); // Habilita el ajuste automï¿½tico de lï¿½nea
 		exito.setWrapStyleWord(true); // Ajusta el texto en palabras completas
 		exito.setEditable(false); // Hace que el JTextArea sea de solo lectura
 
 		JScrollPane scroll = new JScrollPane(exito);
 		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		scroll.setPreferredSize(new Dimension(500, 300)); // Ajusta el tamaño
+		scroll.setPreferredSize(new Dimension(500, 300)); // Ajusta el tamaï¿½o
 															// del JScrollPane
 		principal.add(scroll);
 
