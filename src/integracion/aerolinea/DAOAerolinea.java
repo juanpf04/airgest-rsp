@@ -5,9 +5,9 @@ import java.util.List;
 
 public interface DAOAerolinea {
 
-	public TAerolinea leerAerolineaPorId(int idAerolinea);
+	public TAerolinea consultarAerolineaPorId(int idAerolinea);
 
-	public TAerolinea leerAerolineaPorNombre(String nombre);
+	public TAerolinea consultarAerolineaPorNombre(String nombre);
 
 	public int altaAerolinea(TAerolinea tAerolinea);
 

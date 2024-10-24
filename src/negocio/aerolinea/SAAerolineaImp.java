@@ -22,7 +22,7 @@ public class SAAerolineaImp implements SAAerolinea {
 			t.start();
 			
 			DAOAerolinea da = FactoriaIntegracion.getInstance().crearDAOAerolinea();
-			TAerolinea leido = da.leerAerolineaPorNombre(tAerolinea.getNombre());
+			TAerolinea leido = da.consultarAerolineaPorNombre(tAerolinea.getNombre());
 
 			if (leido == null){
 				id = da.altaAerolinea(tAerolinea);
@@ -56,7 +56,7 @@ public class SAAerolineaImp implements SAAerolinea {
 			
 			DAOAerolinea da = FactoriaIntegracion.getInstance().crearDAOAerolinea();
 
-			TAerolinea leido = da.leerAerolineaPorId(id);
+			TAerolinea leido = da.consultarAerolineaPorId(id);
 			
 			if (leido != null && leido.getActivo()){
 				DAOModeloAerolinea dam = FactoriaIntegracion.getInstance().crearDAOModeloAerolinea();
@@ -95,7 +95,7 @@ public class SAAerolineaImp implements SAAerolinea {
 			
 			DAOAerolinea da = FactoriaIntegracion.getInstance().crearDAOAerolinea();
 
-			ta = da.leerAerolineaPorId(id);
+			ta = da.consultarAerolineaPorId(id);
 			t.commit();
 		}
 
@@ -124,11 +124,11 @@ public class SAAerolineaImp implements SAAerolinea {
 			int id = tAerolinea.getId();
 			String nombre = tAerolinea.getNombre();
 
-			TAerolinea leido = da.leerAerolineaPorId(id);
+			TAerolinea leido = da.consultarAerolineaPorId(id);
 
 			if (leido != null) {
 				if (leido.getActivo()
-						&& (leido.getNombre().equals(nombre) || da.leerAerolineaPorNombre(nombre) == null)) {
+						&& (leido.getNombre().equals(nombre) || da.consultarAerolineaPorNombre(nombre) == null)) {
 					ok = da.modificarAerolinea(tAerolinea);
 				}
 			}
