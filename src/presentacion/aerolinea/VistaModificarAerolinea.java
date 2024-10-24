@@ -27,6 +27,7 @@ public class VistaModificarAerolinea extends JFrame implements Observador {
 	private static final long serialVersionUID = 1L;
 
 	public void actualizar(Object datos) {
+		TAerolinea ta = (TAerolinea) datos;
 		UtilidadesP.setAirGestRSP(this);
 		this.setSize(420, 220);
 
@@ -53,21 +54,9 @@ public class VistaModificarAerolinea extends JFrame implements Observador {
 		JPanel panel_textfield = new JPanel();
 		panel_textfield.setLayout(new BoxLayout(panel_textfield, BoxLayout.PAGE_AXIS));
 
-		JLabel etiquetaId = new JLabel("id: ");
-		etiquetaId.setFont(new Font("Tahoma", Font.BOLD, 25));
-		JTextField textoId = new JTextField();
-		textoId.setMaximumSize(new Dimension(200, 30));
-		textoId.setMinimumSize(new Dimension(200, 30));
-		textoId.setPreferredSize(new Dimension(200, 30));
-		textoId.setFont(new Font("Tahoma", Font.BOLD, 18));
-		panel_etiquetas.add(etiquetaId);
-		panel_textfield.add(textoId);
-		centro.add(panel_etiquetas);
-		centro.add(panel_textfield);
-
 		JLabel etiquetaNombre = new JLabel("nombre: ");
 		etiquetaNombre.setFont(new Font("Tahoma", Font.BOLD, 25));
-		JTextField textoNombre = new JTextField();
+		JTextField textoNombre = new JTextField(ta.getNombre());
 		textoNombre.setMaximumSize(new Dimension(200, 30));
 		textoNombre.setMinimumSize(new Dimension(200, 30));
 		textoNombre.setPreferredSize(new Dimension(200, 30));
@@ -91,9 +80,8 @@ public class VistaModificarAerolinea extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					int idLeido = Integer.parseInt(textoId.getText());
 					String nombreLeido = textoNombre.getText();
-					TAerolinea transfer = new TAerolinea(idLeido, nombreLeido, true);
+					TAerolinea transfer = new TAerolinea(ta.getId(), nombreLeido, true);
 					controlador.accion(new Contexto(Evento.MODIFICAR_AEROLINEA, transfer));
 				} catch (NumberFormatException n) {
 					controlador.accion(new Contexto(Evento.MODIFICAR_AEROLINEA, new TAerolinea()));

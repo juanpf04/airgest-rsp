@@ -126,7 +126,7 @@ public class VistaAerolinea extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				ctrl.accion(new Contexto(Evento.VISTA_MODIFICAR_AEROLINEA, null));
+				ctrl.accion(new Contexto(Evento.VISTA_MODIFICAR_AEROLINEA_ID, null));
 			}
 		});
 

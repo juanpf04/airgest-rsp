@@ -84,6 +84,9 @@ public class FactoriaComandosImp extends FactoriaComandos {
 		case MODIFICAR_AEROLINEA:
 			comando = new ModificarAerolinea();
 			break;
+		case MODIFICAR_AEROLINEA_ID:
+			comando = new ModificarAerolineaId();
+			break;
 		case CONSULTAR_AEROLINEAS_POR_MODELO:
 			comando = new ConsultarAerolineasPorModelo();
 			break;
