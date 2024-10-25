@@ -7,6 +7,8 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import integracion.UtilidadesI;
+import integracion.transacciones.Transaction;
+import integracion.transacciones.TransactionManager;
 import negocio.personalHangar.TPersonalHangar;
 
 public class SAPersonalTest {
@@ -24,13 +26,15 @@ public class SAPersonalTest {
 	}
 
 	@Test
-	public void bajaPersonalTest() {
-		UtilidadesI.esTest();
+	public void bajaPersonalTest() {//perfe
+		Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+		t.start();
 
 		SAPersonal sp = new SAPersonalImp();
+		t.commit();
 		
-		assertFalse("no se puede dar de baja un empleaod que no existe", sp.bajaPersonal(500));
-		assertTrue("deberia poder darse de baja el personal 4", sp.bajaPersonal(4));
+		assertFalse("no se puede dar de baja un empleaod que no existe", sp.bajaPersonal(3));
+		assertTrue("deberia poder darse de baja el personal 2", sp.bajaPersonal(2));
 		
 	}
 
@@ -52,14 +56,16 @@ public class SAPersonalTest {
 	}
 
 	@Test
-	public void desvincularPersonalTest() {
-		UtilidadesI.esTest();
-
+	public void desvincularPersonalTest() {//perfe
+		Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+		t.start();
+		
 		SAPersonal sp = new SAPersonalImp();
 		TPersonalHangar tph = new TPersonalHangar(1, 1);
 
-		sp.vincularPersonal(tph); // vinculamos
+//		sp.vincularPersonal(tph); // vinculamos
 		
+		t.commit();
 		// prueba exitosa
 		assertTrue("No se han podido desvincular", sp.desvincularPersonal(tph));
 

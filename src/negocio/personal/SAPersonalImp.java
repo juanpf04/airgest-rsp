@@ -11,6 +11,8 @@ import integracion.factoria.FactoriaIntegracion;
 import integracion.hangar.DAOHangar;
 import integracion.personal.DAOPersonal;
 import integracion.personalHangar.DAOPersonalHangar;
+import integracion.transacciones.Transaction;
+import integracion.transacciones.TransactionManager;
 
 public class SAPersonalImp implements SAPersonal {
 
@@ -32,18 +34,25 @@ public class SAPersonalImp implements SAPersonal {
 	}
 
 	@Override
-	public boolean bajaPersonal(int id) {
+	public boolean bajaPersonal(int id) {//perfe
+		boolean ok = false;
 		if (UtilidadesN.comprobarId(id)) {
+			Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+			t.start();
+			
 			DAOPersonal dp = FactoriaIntegracion.getInstance().crearDAOPersonal();
 
 			TPersonal leido = dp.consultarPersonalPorId(id);
 
 			if (leido != null && leido.getActivo()) {
-				return dp.bajaPersonal(id);
+				ok = dp.bajaPersonal(id);
 			}
+			
+			if(ok) t.commit();
+			else t.rollback();
 		}
 
-		return false;
+		return ok;
 	}
 
 	@Override
@@ -71,11 +80,14 @@ public class SAPersonalImp implements SAPersonal {
 	}
 
 	@Override
-	public boolean desvincularPersonal(TPersonalHangar tPersonalHangar) {
+	public boolean desvincularPersonal(TPersonalHangar tPersonalHangar) {//perfe
 		int idPersonal = tPersonalHangar.getIdPersonal();
 		int idHangar = tPersonalHangar.getIdHangar();
-
+		boolean ok = false;
 		if (ValidadorPersonalHangar.comprobarDatos(tPersonalHangar)) {
+			Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+			t.start();
+			
 			DAOPersonal dp = FactoriaIntegracion.getInstance().crearDAOPersonal();
 			DAOHangar dh = FactoriaIntegracion.getInstance().crearDAOHangar();
 
@@ -86,12 +98,14 @@ public class SAPersonalImp implements SAPersonal {
 				DAOPersonalHangar dph = FactoriaIntegracion.getInstance().crearDAOPersonalHangar();
 
 				if (dph.comprobarVinculacion(idPersonal, idHangar)) {
-					return dph.desvincular(idPersonal, idHangar);
+					ok = dph.desvincular(idPersonal, idHangar);
 				}
 			}
+			if(ok)t.commit();
+			else t.rollback();
 		}
 
-		return false;
+		return ok;
 	}
 
 	@Override
