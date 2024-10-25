@@ -18,7 +18,7 @@ public class DAOAerolineaImp implements DAOAerolinea {
 		try {
 			Transaction t = TransactionManager.getInstance().getTransaccion();
 			Connection con = (Connection) t.getResource();
-			PreparedStatement ps = con.prepareStatement(Querys.altaAerolinea);
+			PreparedStatement ps = con.prepareStatement(Querys.altaAerolinea, PreparedStatement.RETURN_GENERATED_KEYS);
 			ps.setString(1, tAerolinea.getNombre());
 			ps.setBoolean(2, true);
 			
