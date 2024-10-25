@@ -1,5 +1,6 @@
 package integracion.personal;
 
+import negocio.hangar.THangar;
 import negocio.personal.TPLimpieza;
 import negocio.personal.TPSeguridad;
 import negocio.personal.TPersonal;
@@ -10,6 +11,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import org.json.JSONObject;
 import org.json.JSONTokener;
@@ -132,15 +134,22 @@ public class DAOPersonalImp implements DAOPersonal {
 
 	@Override
 	public List<TPersonal> consultarPersonalExistente() {
-		List<TPersonal> personal = new ArrayList<>();
+		try{
+			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
+			PreparedStatement ps = con.prepareStatement("SELECT * FROM PERSONAL FOR UPDATE");
+			
+			ResultSet res = ps.executeQuery();
+			List<TPersonal> t = new ArrayList<>();
+			while(res.next())
+				t.add(new TPersonal(res.getInt("id"), res.getBoolean("activo"), res.getInt("dni"), res.getString("area_Asignada")));
+			
+			res.close();
+			ps.close();
 
-		File carpeta = new File(UtilidadesI.ruta("personal"));
-		File[] lista = carpeta.listFiles();
-
-		for (File f : lista)
-			personal.add(this.leerFichero(f));
-
-		return personal;
+			return t;		
+			
+		}catch(Exception e){
+			return new ArrayList<TPersonal>();
+		}
 	}
-
 }

@@ -14,6 +14,7 @@ import integracion.transacciones.Transaction;
 import integracion.transacciones.TransactionManager;
 import negocio.personal.TPSeguridad;
 import negocio.personal.TPersonal;
+import negocio.hangar.THangar;
 import negocio.personal.TPLimpieza;
 
 public class DAOPersonalTest {
@@ -43,11 +44,11 @@ public class DAOPersonalTest {
 
 		DAOPersonal dp = FactoriaIntegracionImp.getInstance().crearDAOPersonal();
 
-//		boolean id = dp.bajaPersonal(1);
-		boolean id2 = dp.bajaPersonal(2);
+		boolean id = dp.bajaPersonal(1);
+//		boolean id2 = dp.bajaPersonal(2);
 		t.commit();
-//		assertTrue("No se ha dado de baja", id);
-		assertFalse("Se ha dado de baja un empleado que no existe", id2);
+		assertTrue("No se ha dado de baja", id);
+//		assertFalse("Se ha dado de baja un empleado que no existe", id2);
 	}
 
 	@Test
@@ -72,16 +73,17 @@ public class DAOPersonalTest {
 	}
 
 	@Test
-	public void consultarTodosPersonalTest() {
-		UtilidadesI.esTest();
+	public void consultarTodosPersonalTest() {//perfee
+		Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+		t.start();
 
-		DAOPersonal daoPersonal = new DAOPersonalImp();
+		DAOPersonal dp = FactoriaIntegracionImp.getInstance().crearDAOPersonal();
 
-		List<TPersonal> personal = daoPersonal.consultarPersonalExistente();
+		List<TPersonal> id = dp.consultarPersonalExistente();
+		t.commit();
 
-		File carpeta = new File(UtilidadesI.ruta("personal"));
-		File[] lista = carpeta.listFiles();
-
-		assertEquals("Tiene que haber tantos empleados como ficheros", lista.length, personal.size());
+		assertEquals("No hay el mismo numero de entidades que en la base de datos", 2, id.size());
+		System.out.println(id);
 	}
+
 }
