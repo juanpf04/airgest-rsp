@@ -52,6 +52,9 @@ public class FactoriaVistasImp extends FactoriaVistas {
 		case VISTA_RESULTADO_CONSULTAR_TODOS_MODELOS:
 			vista = new VistaResultadoConsultarTodosModelos();
 			break;
+		case VISTA_MODIFICAR_MODELO_ID:
+			vista = new VistaModificarIdModelo();
+			break;
 		case VISTA_MODIFICAR_MODELO:
 			vista = new VistaModificarModelo();
 			break;

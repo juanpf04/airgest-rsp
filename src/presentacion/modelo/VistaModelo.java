@@ -130,7 +130,7 @@ public class VistaModelo extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				ctrl.accion(new Contexto(Evento.VISTA_MODIFICAR_MODELO, null));
+				ctrl.accion(new Contexto(Evento.VISTA_MODIFICAR_MODELO_ID, null));
 			}
 		});
 

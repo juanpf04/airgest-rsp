@@ -15,23 +15,22 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
-import negocio.modelo.TModelo;
 import presentacion.Observador;
 import presentacion.UtilidadesP;
 import presentacion.controlador.Contexto;
 import presentacion.controlador.Controlador;
 import presentacion.controlador.Evento;
 
-public class VistaModificarModelo extends JFrame implements Observador {
+public class VistaModificarIdModelo extends JFrame implements Observador{
 
 	private static final long serialVersionUID = 1L;
 
+	@Override
 	public void actualizar(Object datos) {
 		UtilidadesP.setAirGestRSP(this);
 
 		JPanel principal = new JPanel();
 		principal.setLayout(new BoxLayout(principal, BoxLayout.PAGE_AXIS));
-		TModelo tm = (TModelo) datos;
 
 		JPanel funcion = new JPanel();
 		funcion.setLayout(new BoxLayout(funcion, BoxLayout.PAGE_AXIS));
@@ -53,29 +52,16 @@ public class VistaModificarModelo extends JFrame implements Observador {
 		JPanel panel_textfield = new JPanel();
 		panel_textfield.setLayout(new BoxLayout(panel_textfield, BoxLayout.PAGE_AXIS));
 
+		JLabel etiquetaId = new JLabel("id: ");
+		etiquetaId.setFont(new Font("Tahoma", Font.BOLD, 25));
+		JTextField textoId = new JTextField();
+		textoId.setMaximumSize(new Dimension(200, 30));
+		textoId.setMinimumSize(new Dimension(200, 30));
+		textoId.setPreferredSize(new Dimension(200, 30));
+		textoId.setFont(new Font("Tahoma", Font.BOLD, 18));
 
-		JLabel etiquetaNombre = new JLabel("nombre:");
-		etiquetaNombre.setFont(new Font("Tahoma", Font.BOLD, 25));
-		JTextField textoNombre = new JTextField(tm.getNombre());
-		textoNombre.setMaximumSize(new Dimension(200, 30));
-		textoNombre.setMinimumSize(new Dimension(200, 30));
-		textoNombre.setPreferredSize(new Dimension(200, 30));
-		textoNombre.setFont(new Font("Tahoma", Font.BOLD, 18));
-
-		panel_etiquetas.add(etiquetaNombre);
-		panel_textfield.add(textoNombre);
-
-
-		JLabel etiquetaMotor = new JLabel("motor:");
-		etiquetaMotor.setFont(new Font("Tahoma", Font.BOLD, 25));
-		JTextField textoMotor = new JTextField(tm.getMotor());
-		textoMotor.setMaximumSize(new Dimension(200, 30));
-		textoMotor.setMinimumSize(new Dimension(200, 30));
-		textoMotor.setPreferredSize(new Dimension(200, 30));
-		textoMotor.setFont(new Font("Tahoma", Font.BOLD, 18));
-
-		panel_etiquetas.add(etiquetaMotor);
-		panel_textfield.add(textoMotor);
+		panel_etiquetas.add(etiquetaId);
+		panel_textfield.add(textoId);
 
 		centro.add(panel_etiquetas);
 		centro.add(panel_textfield);
@@ -92,14 +78,12 @@ public class VistaModificarModelo extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					String nombreLeido = textoNombre.getText();
-					String motorLeido = textoMotor.getText();
-					TModelo transfer = new TModelo(tm.getId(), nombreLeido, motorLeido, true);
+					int idLeido = Integer.parseInt(textoId.getText());
 					dispose();
-					controlador.accion(new Contexto(Evento.MODIFICAR_MODELO, transfer));
+					controlador.accion(new Contexto(Evento.MODIFICAR_MODELO_ID, idLeido));
 				} catch (NumberFormatException n) {
-					controlador.accion(new Contexto(Evento.MODIFICAR_MODELO, new TModelo()));
 					dispose();
+					controlador.accion(new Contexto(Evento.MODIFICAR_MODELO_ID, 0));
 				}
 
 			}
@@ -135,4 +119,5 @@ public class VistaModificarModelo extends JFrame implements Observador {
 		this.pack();
 		this.setResizable(false);
 	}
+	
 }
