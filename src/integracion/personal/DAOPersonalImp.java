@@ -91,7 +91,7 @@ public class DAOPersonalImp implements DAOPersonal {
 	public boolean bajaPersonal(int id) {//perfe
 		try{
 			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
-			PreparedStatement ps = con.prepareStatement("UPDATE PERSONAL SET activo = false WHERE id = ?");
+			PreparedStatement ps = con.prepareStatement(Querys.bajaPersonal);
 			ps.setInt(1, id);
 			int filasNuevas = ps.executeUpdate();
 			boolean eliminado = filasNuevas == 1 ? true : false;
@@ -136,7 +136,7 @@ public class DAOPersonalImp implements DAOPersonal {
 	public List<TPersonal> consultarPersonalExistente() {
 		try{
 			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
-			PreparedStatement ps = con.prepareStatement("SELECT * FROM PERSONAL FOR UPDATE");
+			PreparedStatement ps = con.prepareStatement(Querys.consultarPersonalExistente);
 			
 			ResultSet res = ps.executeQuery();
 			List<TPersonal> t = new ArrayList<>();

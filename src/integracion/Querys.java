@@ -51,6 +51,7 @@ public class Querys {
 	//MODELO
 	
 	//PERSONAL
-		
+	public static String bajaPersonal = "UPDATE PERSONAL SET activo = false WHERE id = ?";
+	public static String consultarPersonalExistente = "SELECT * FROM PERSONAL FOR UPDATE";
 		
 }
