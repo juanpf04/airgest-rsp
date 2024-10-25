@@ -8,11 +8,15 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+import integracion.Querys;
 import integracion.UtilidadesI;
+import integracion.transacciones.TransactionManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,14 +86,21 @@ public class DAOPersonalImp implements DAOPersonal {
 	}
 
 	@Override
-	public boolean bajaPersonal(int id) {
-		TPersonal transfer = this
-				.leerFichero(new File(UtilidadesI.ruta("personal") + String.format("%05d", id) + ".json"));
-		if (transfer == null)
-			return false;
-		transfer.setActivo(false);
+	public boolean bajaPersonal(int id) {//perfe
+		try{
+			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
+			PreparedStatement ps = con.prepareStatement("UPDATE PERSONAL SET activo = false WHERE id = ?");
+			ps.setInt(1, id);
+			int filasNuevas = ps.executeUpdate();
+			boolean eliminado = filasNuevas == 1 ? true : false;
+			
+			ps.close();
 
-		return this.escribirFichero(transfer);
+			return eliminado;
+			
+		}catch(Exception e){
+			return false;
+		}
 	}
 
 	@Override

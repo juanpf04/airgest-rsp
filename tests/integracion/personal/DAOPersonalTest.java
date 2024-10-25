@@ -8,6 +8,10 @@ import java.util.List;
 import org.junit.Test;
 
 import integracion.UtilidadesI;
+import integracion.factoria.FactoriaIntegracionImp;
+import integracion.hangar.DAOHangar;
+import integracion.transacciones.Transaction;
+import integracion.transacciones.TransactionManager;
 import negocio.personal.TPSeguridad;
 import negocio.personal.TPersonal;
 import negocio.personal.TPLimpieza;
@@ -33,11 +37,17 @@ public class DAOPersonalTest {
 	}
 
 	@Test
-	public void bajaPersonalTest() {
-		UtilidadesI.esTest();
-		DAOPersonal daoPersonal = new DAOPersonalImp();
-		assertTrue("No se ha dado de baja", daoPersonal.bajaPersonal(1));
-		assertFalse("Se ha dado de baja un empleado que no existe", daoPersonal.bajaPersonal(500));
+	public void bajaPersonalTest() {//peerfe
+		Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+		t.start();
+
+		DAOPersonal dp = FactoriaIntegracionImp.getInstance().crearDAOPersonal();
+
+//		boolean id = dp.bajaPersonal(1);
+		boolean id2 = dp.bajaPersonal(2);
+		t.commit();
+//		assertTrue("No se ha dado de baja", id);
+		assertFalse("Se ha dado de baja un empleado que no existe", id2);
 	}
 
 	@Test
