@@ -120,6 +120,9 @@ public class FactoriaVistasImp extends FactoriaVistas {
 		case VISTA_MODIFICAR_AVION:
 			vista = new VistaModificarAvion();
 			break;
+		case VISTA_MODIFICAR_AVION_ID:
+			vista = new VistaModificarIdAvion();
+			break;
 		case VISTA_EXITO_MODIFICAR_AVION:
 			vista = new VistaExitoModificarAvion();
 			break;

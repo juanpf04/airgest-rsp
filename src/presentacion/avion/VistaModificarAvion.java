@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.swing.BoxLayout;
@@ -39,7 +40,9 @@ public class VistaModificarAvion extends JFrame implements Observador {
 	public void actualizar(Object datos) {
 		UtilidadesP.setAirGestRSP(this);
 		this.setSize(1000, 750);
-
+		
+		@SuppressWarnings("unchecked")
+		ArrayList<Object> listaInfo = (ArrayList<Object>) datos;
 		Controlador ctrl = Controlador.getInstance();
 
 		JPanel principal = new JPanel();
@@ -66,18 +69,18 @@ public class VistaModificarAvion extends JFrame implements Observador {
 		JPanel panelBotones = new JPanel();
 		principal.add(panelBotones);
 
-		if (datos == null) {
+		if (listaInfo.get(1) == null) {
 			JPanel botones = new JPanel();
 			botones.setLayout(new GridLayout(0, 1, 10, 10));
-
 			// -------------------------------------------
 			JButton comercial = new JButton("AVION COMERCIAL");
 
 			comercial.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					listaInfo.add(1, "COMERCIAL");
 					dispose();
-					ctrl.accion(new Contexto(Evento.VISTA_MODIFICAR_AVION, "COMERCIAL"));
+					ctrl.accion(new Contexto(Evento.VISTA_MODIFICAR_AVION, listaInfo));
 				}
 			});
 
@@ -91,7 +94,8 @@ public class VistaModificarAvion extends JFrame implements Observador {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					dispose();
-					ctrl.accion(new Contexto(Evento.VISTA_MODIFICAR_AVION, "PRIVADO"));
+					listaInfo.add(1, "PRIVADO");
+					ctrl.accion(new Contexto(Evento.VISTA_MODIFICAR_AVION, listaInfo));
 				}
 			});
 
@@ -102,28 +106,16 @@ public class VistaModificarAvion extends JFrame implements Observador {
 
 			// -----------------------------------------------------
 		} else { // TODO
+			TAvion aux = (TAvion)listaInfo.get(0);
 			JPanel panelEtiquetas = new JPanel();
 			panelEtiquetas.setLayout(new BoxLayout(panelEtiquetas, BoxLayout.PAGE_AXIS));
 
 			JPanel panelTexto = new JPanel();
 			panelTexto.setLayout(new BoxLayout(panelTexto, BoxLayout.PAGE_AXIS));
 
-			JLabel etiquetaId = new JLabel("Id: ");
-			etiquetaId.setFont(new Font("Tahoma", Font.BOLD, 25));
-			JTextField textoId = new JTextField();
-			textoId.setMaximumSize(new Dimension(200, 30));
-			textoId.setMinimumSize(new Dimension(200, 30));
-			textoId.setPreferredSize(new Dimension(200, 30));
-			textoId.setFont(new Font("Tahoma", Font.BOLD, 18));
-			textoId.setToolTipText("numero natural sin 0");
-			panelEtiquetas.add(etiquetaId);
-			panelTexto.add(textoId);
-			centro.add(panelEtiquetas);
-			centro.add(panelTexto);
-
 			JLabel etiquetaNombre = new JLabel("Nombre: ");
 			etiquetaNombre.setFont(new Font("Tahoma", Font.BOLD, 25));
-			JTextField textoNombre = new JTextField();
+			JTextField textoNombre = new JTextField(aux.getNombre());
 			textoNombre.setMaximumSize(new Dimension(200, 30));
 			textoNombre.setMinimumSize(new Dimension(200, 30));
 			textoNombre.setPreferredSize(new Dimension(200, 30));
@@ -135,7 +127,7 @@ public class VistaModificarAvion extends JFrame implements Observador {
 
 			JLabel etiquetaMatricula = new JLabel("Matricula:    ");
 			etiquetaMatricula.setFont(new Font("Tahoma", Font.BOLD, 25));
-			JTextField textoMatricula = new JTextField();
+			JTextField textoMatricula = new JTextField(aux.getMatricula());
 			textoMatricula.setMaximumSize(new Dimension(200, 30));
 			textoMatricula.setMinimumSize(new Dimension(200, 30));
 			textoMatricula.setPreferredSize(new Dimension(200, 30));
@@ -170,7 +162,7 @@ public class VistaModificarAvion extends JFrame implements Observador {
 
 			JLabel etiquetaAsientos = new JLabel("Número de asientos:    ");
 			etiquetaAsientos.setFont(new Font("Tahoma", Font.BOLD, 25));
-			JTextField textoAsientos = new JTextField();
+			JTextField textoAsientos = new JTextField("" + aux.getNumAsientos());
 			textoAsientos.setMaximumSize(new Dimension(200, 30));
 			textoAsientos.setMinimumSize(new Dimension(200, 30));
 			textoAsientos.setPreferredSize(new Dimension(200, 30));
@@ -181,7 +173,7 @@ public class VistaModificarAvion extends JFrame implements Observador {
 
 			JLabel etiquetaAerolinea = new JLabel("Id aerolínea:    ");
 			etiquetaAerolinea.setFont(new Font("Tahoma", Font.BOLD, 25));
-			JTextField textoAerolinea = new JTextField();
+			JTextField textoAerolinea = new JTextField("" + aux.getIdAerolinea());
 			textoAerolinea.setMaximumSize(new Dimension(200, 30));
 			textoAerolinea.setMinimumSize(new Dimension(200, 30));
 			textoAerolinea.setPreferredSize(new Dimension(200, 30));
@@ -192,7 +184,7 @@ public class VistaModificarAvion extends JFrame implements Observador {
 
 			JLabel etiquetaModelo = new JLabel("Id modelo:    ");
 			etiquetaModelo.setFont(new Font("Tahoma", Font.BOLD, 25));
-			JTextField textomodelo = new JTextField();
+			JTextField textomodelo = new JTextField("" + aux.getIdModelo());
 			textomodelo.setMaximumSize(new Dimension(200, 30));
 			textomodelo.setMinimumSize(new Dimension(200, 30));
 			textomodelo.setPreferredSize(new Dimension(200, 30));
@@ -203,7 +195,7 @@ public class VistaModificarAvion extends JFrame implements Observador {
 
 			JLabel etiquetaHangar = new JLabel("Id hangar:    ");
 			etiquetaHangar.setFont(new Font("Tahoma", Font.BOLD, 25));
-			JTextField textoHangar = new JTextField();
+			JTextField textoHangar = new JTextField("" + aux.getIdHangar());
 			textoHangar.setMaximumSize(new Dimension(200, 30));
 			textoHangar.setMinimumSize(new Dimension(200, 30));
 			textoHangar.setPreferredSize(new Dimension(200, 30));
@@ -238,7 +230,7 @@ public class VistaModificarAvion extends JFrame implements Observador {
 			textoCarnet.setFont(new Font("Tahoma", Font.BOLD, 18));
 			textoCarnet.setToolTipText("numero natural sin 0");
 
-			if ("COMERCIAL" == datos) {
+			if ("COMERCIAL" == listaInfo.get(1)) {
 				panelEtiquetas.add(etiquetaTrabajadores);
 				panelTexto.add(textoTrabajadores);
 			} else {
@@ -255,7 +247,8 @@ public class VistaModificarAvion extends JFrame implements Observador {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					try {
-						int idLeido = Integer.valueOf(textoId.getText());
+						
+						int idLeido = aux.getId();
 						String nombre = textoNombre.getText();
 						String matricula = textoMatricula.getText();
 						int numAsientos = Integer.valueOf(textoAsientos.getText());
@@ -274,7 +267,7 @@ public class VistaModificarAvion extends JFrame implements Observador {
 				        String fechaFormateada = fecha.format(formatter);
 
 						TAvion transfer;
-						if (datos == "COMERCIAL") {
+						if (listaInfo.get(1) == "COMERCIAL") {
 							String empresa = textoTrabajadores.getText();
 							transfer = new TAComercial(idLeido, numAsientos, fechaFormateada, nombre, matricula, true,
 									idAerolinea, idModelo, idHangar, empresa);
@@ -304,10 +297,13 @@ public class VistaModificarAvion extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				if (datos == null)
+				if (listaInfo.get(1) == null)
 					ctrl.accion(new Contexto(Evento.VISTA_AVION, null));
 				else
-					ctrl.accion(new Contexto(Evento.VISTA_MODIFICAR_AVION, null));
+				{
+					listaInfo.add(1, null);
+					ctrl.accion(new Contexto(Evento.VISTA_MODIFICAR_AVION, listaInfo));
+				}
 			}
 
 		});
