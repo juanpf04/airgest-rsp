@@ -212,7 +212,7 @@ public class VistaModificarAvion extends JFrame implements Observador {
 			panelEtiquetas.add(etiquetaHangar);
 			panelTexto.add(textoHangar);
 
-			JLabel etiquetaTrabajadores = new JLabel("Número de trabajadores:    ");
+			JLabel etiquetaTrabajadores = new JLabel("Empresa:    ");
 			etiquetaTrabajadores.setFont(new Font("Tahoma", Font.BOLD, 25));
 			JTextField textoTrabajadores = new JTextField();
 			textoTrabajadores.setMaximumSize(new Dimension(200, 30));
@@ -275,9 +275,9 @@ public class VistaModificarAvion extends JFrame implements Observador {
 
 						TAvion transfer;
 						if (datos == "COMERCIAL") {
-							int trabajadores = Integer.valueOf(textoTrabajadores.getText());
+							String empresa = textoTrabajadores.getText();
 							transfer = new TAComercial(idLeido, numAsientos, fechaFormateada, nombre, matricula, true,
-									idAerolinea, idModelo, idHangar, trabajadores);
+									idAerolinea, idModelo, idHangar, empresa);
 						} else {
 							String nombre_duenyo = textoDuenyo.getText();
 							int idCarnet = Integer.valueOf(textoCarnet.getText());

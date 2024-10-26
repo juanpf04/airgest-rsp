@@ -15,7 +15,7 @@ public class ValidadorAvion {
 
 	public static boolean comprobarComercial(TAComercial tComercial) {
 
-		return comprobarInfo(tComercial) && comprobarTrabajadores(tComercial);
+		return comprobarInfo(tComercial) && comprobarEmpresa(tComercial);
 
 	}
 
@@ -38,8 +38,8 @@ public class ValidadorAvion {
 		return tPriv.getNombreDuenyo() != null && !tPriv.getNombreDuenyo().isEmpty();
 	}
 
-	public static boolean comprobarTrabajadores(TAComercial tComercial) {
-		return tComercial.getTrabajadores() > 0;
+	public static boolean comprobarEmpresa(TAComercial tComercial) {
+		return tComercial.getEmpresa().matches("[a-zA-Z]+");
 	}
 
 	/** 

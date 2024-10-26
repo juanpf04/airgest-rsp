@@ -5,20 +5,20 @@ import java.time.LocalDate;
 
 public class TAComercial extends TAvion {
 
-	private int trabajadores;
+	private String empresa;
 
 	public TAComercial(int id, int numAsientos, String fechaFabricacion, String nombre, String matricula,
-			boolean activo, int idAerolinea, int idModelo, int idHangar, int trabajadores) {
+			boolean activo, int idAerolinea, int idModelo, int idHangar, String empresa) {
 		super(id, numAsientos, fechaFabricacion, nombre, matricula, activo, idAerolinea, idModelo, idHangar);
-		this.trabajadores = trabajadores;
+		this.empresa = empresa;
 	}
 
-	public int getTrabajadores() {
-		return this.trabajadores;
+	public String getEmpresa() {
+		return this.empresa;
 	}
 
-	public void setTrabajadores(int trabajadores) {
-		this.trabajadores = trabajadores;
+	public void setEmpresa(String empresa) {
+		this.empresa = empresa;
 	}
 
 	/** 
@@ -45,6 +45,6 @@ public class TAComercial extends TAvion {
 
 	@Override
 	public String toString() {
-		return super.toString() + "\nNúmero de trabajadores: " + this.getTrabajadores();
+		return super.toString() + "\nEmpresa de trabajadores: " + this.getEmpresa();
 	}
 }

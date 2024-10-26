@@ -14,18 +14,26 @@ public class Querys {
 	
 	//AVION
 	
-	public static String altaAvion = "INSERT INTO AVION (Nombre, Activo) VALUES(?,?)";
+	public static String altaAvion = "INSERT INTO AVION (Nombre, Num_Asientos, Matricula, Fecha_Fabricacion, Id_Hangar, Id_Modelo, Id_Aerolinea, Activo) VALUES(?,?,?,?,?,?,?,true)";
+	public static String altaAvionComercial = "INSERT INTO COMERCIAL (Id_Avion, Empresa) VALUES(?,?)";
+	public static String altaAvionPrivado = "INSERT INTO PRIVADO (Id_Avion, Nombre_Duenyo, Carnet) VALUES(?,?,?)";
 	public static String bajaAvion = "UPDATE AVION SET Activo = false WHERE Id = ?";
 	public static String consultarAvionPorId = "SELECT * FROM Avion WHERE Id=? FOR UPDATE ";
+	public static String consultarComercialPorId = "SELECT * FROM Comercial WHERE Id_Avion = ? FOR UPDATE ";
+	public static String consultarPrivadoPorId = "SELECT * FROM Privado WHERE Id_Avion = ? FOR UPDATE ";
 	public static String consultarAvionPorMatricula = "SELECT * FROM avion av WHERE av.Matricula = ? FOR UPDATE";
 	public static String consultarTodosAviones = "SELECT * FROM Avion FOR UPDATE";
 	public static String modificarAvion = "UPDATE Avion SET Nombre = ?, Num_Asientos = ?, Matricula = ?, Fecha_Fabricacion = ?, Id_Hangar = ?, Id_Modelo = ?, Id_Aerolinea = ?, Activo = ? WHERE Id = ?";
-	public static String consultarAvionesPorModelo = "SELECT * FROM avion av JOIN modelo ON av.Id_Modelo = ? FOR UPDATE";
-	public static String consultarAvionesActivosPorModelo = "SELECT * FROM avion av JOIN modelo ON av.Id_Modelo = ? AND av.Activo = true FOR UPDATE";
-	public static String consultarAvionesPorAerolinea = "SELECT * FROM avion av JOIN aerolinea ON av.Id_Aerolinea = ? FOR UPDATE";
-	public static String consultarAvionesActivosPorAerolinea = "SELECT * FROM avion av JOIN aerolinea ON av.Id_Aerolinea = ? AND av.Activo = true FOR UPDATE";
-	public static String consultarAvionesPorHangar = "SELECT * FROM avion av JOIN hangar ON av.Id_Hangar = ? FOR UPDATE";
-	public static String consultarAvionesActivosPorHangar = "SELECT * FROM avion av JOIN hangar ON av.Id_Hangar = ? AND av.Activo = true FOR UPDATE";
+	public static String modificarComercial = "UPDATE Comercial SET Empresa = ? WHERE Id_avion = ?";
+	public static String modificarPrivado = "UPDATE Privado SET Nombre_Duenyo = ?, Carnet = ? WHERE Id_avion = ?";
+	public static String eliminarComercial = "DELETE FROM Comercial WHERE Id_avion = ?";
+	public static String eliminarPrivado = "DELETE FROM Privado WHERE Id_avion = ?";
+	public static String consultarAvionesPorModelo = "SELECT * FROM avion av WHERE av.Id_Modelo = ? FOR UPDATE";
+	public static String consultarAvionesActivosPorModelo = "SELECT * FROM avion av WHERE av.Id_Modelo = ? AND av.Activo = true FOR UPDATE";
+	public static String consultarAvionesPorAerolinea = "SELECT * FROM avion av WHERE av.Id_Aerolinea = ? FOR UPDATE";
+	public static String consultarAvionesActivosPorAerolinea = "SELECT * FROM avion av WHERE av.Id_Aerolinea = ? AND av.Activo = true FOR UPDATE";
+	public static String consultarAvionesPorHangar = "SELECT * FROM avion av WHERE av.Id_Hangar = ? FOR UPDATE";
+	public static String consultarAvionesActivosPorHangar = "SELECT * FROM avion av WHERE av.Id_Hangar = ? AND av.Activo = true FOR UPDATE";
 	public static String consultarAvionesDeAerolineaPorHangar = "SELECT * FROM Avion WHERE id_aerolinea = ? AND id_hangar = ? AND activo = true";
 	
 	

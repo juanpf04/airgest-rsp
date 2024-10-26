@@ -1,7 +1,6 @@
 
 package negocio.avion;
 
-import java.time.LocalDate;
 
 public class TAvion {
 

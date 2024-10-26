@@ -3,7 +3,6 @@ package integracion.avion;
 import static org.junit.Assert.*;
 
 import java.io.File;
-import java.time.LocalDate;
 import java.util.List;
 
 import org.junit.Test;
@@ -61,7 +60,7 @@ public class DAOAvionImpTest {
 
 		DAOAvion da = new DAOAvionImp();
 
-		assertEquals("el avion con matricula EC-12C tiene id 1", 1, da.consultarAvionesPorMatricula("EC-12C").getId());
+		assertEquals("el avion con matricula EC-12C tiene id 1", 1, da.consultarAvionPorMatricula("EC-12C").getId());
 	}
 
 	@Test
@@ -138,13 +137,13 @@ public class DAOAvionImpTest {
 		File carpeta = new File(UtilidadesI.ruta("avion"));
 		File[] lista = carpeta.listFiles();
 
-		TAvion avion = new TAComercial(0, 5, LocalDate.of(2004, 12, 6), "nombrePrueba", "EC-1234", 
-				true, 4, 10, 11, 12);
+		TAvion avion = new TAComercial(0, 5, "06-12-2004", "nombrePrueba", "EC-1234", 
+				true, 4, 10, 11, "Empresa");
 		assertEquals("Deberia darse de alta el avion comercial", lista.length + 1, da.altaAvion(avion));
 		
 		lista = carpeta.listFiles();
 		
-		avion = new TAPrivado(0, 5, LocalDate.of(2004, 12, 6), "nombrePrueba2", "EC-2", 
+		avion = new TAPrivado(0, 5, "06-12-2004", "nombrePrueba2", "EC-2", 
 				true, 7, 8, 9, "Patricio", 7);
 		assertEquals("Deberia darse de alta el avion comercial", lista.length + 1, da.altaAvion(avion));
 	}
@@ -154,12 +153,12 @@ public class DAOAvionImpTest {
 		UtilidadesI.esTest();
 		DAOAvion da = new DAOAvionImp();
 
-		TAvion avion = new TAComercial(5, 5, LocalDate.of(2004, 12, 6), "nombrePruebaModif", "EC-123ASD", 
-				true, 4, 10, 11, 12);
+		TAvion avion = new TAComercial(5, 5, "06-12-2004", "nombrePruebaModif", "EC-123ASD", 
+				true, 4, 10, 11, "UCM");
 
 		assertTrue("Deberia modificarse el avion comercial", da.modificarAvion(avion));
 		
-		avion = new TAPrivado(6, 5, LocalDate.of(2004, 12, 6), "nombrePruebaModif2", "EC-2Cambio", 
+		avion = new TAPrivado(6, 5, "06-12-2004", "nombrePruebaModif2", "EC-2Cambio", 
 				true, 7, 8, 9, "Pablo", 7);
 
 		assertTrue("Deberia modificarse el avion privado", da.modificarAvion(avion));
