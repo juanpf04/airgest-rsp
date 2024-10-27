@@ -1,8 +1,6 @@
 package integracion.lineaContrato;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -31,49 +29,45 @@ public class DAOLineaContratoImpTest {
 	
 	@Test
 	public void modificar_linea_contrato_test() {
-		UtilidadesI.esTest();
-		DAOLineaContrato dc = new DAOLineaContratoImp();
-
-		LocalDate fecha_ini = LocalDate.of(2024, 4, 12);
-		LocalDate fecha_fin = LocalDate.of(2024, 9, 23);
-		
-		//TLineaContrato linea = new TLineaContrato(1, 2, fecha_ini, fecha_fin, 124.5);
-
-		//assertTrue("Ha leido mal el fichero", dc.modificarLineaContrato(linea));
+		Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+		t.start();
+		TLineaContrato tlc = new TLineaContrato(1, 1, "12-04-2003", "02-07-2004", 150);
+		DAOLineaContrato dlc = FactoriaIntegracion.getInstance().crearDAOLineaContrato();
+		boolean ok = dlc.modificarLineaContrato(tlc);
+		t.commit();
+		assertTrue("No se ha modificado", ok);
 	}
 	
 	@Test 
 	public void consultar_lineas_por_contrato_test(){
-		UtilidadesI.esTest();
-
-		DAOLineaContrato dc = new DAOLineaContratoImp();
-		
-		List<TLineaContrato> lineas = dc.leerLineasPorContrato(1);
-		
-		assertEquals("tiene que haber 1 linea con contrato 1", 1, lineas.size());
+		Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+		t.start();
+		DAOLineaContrato dlc = FactoriaIntegracion.getInstance().crearDAOLineaContrato();
+		List<TLineaContrato> lista = dlc.consultarLineasPorContrato(1);
+		t.commit();
+		assertEquals("No se han encontrado todas", 2, lista.size());
+		System.out.println(lista);
 	}
 	
 	@Test 
 	public void consultar_lineas_por_hangar_test(){
-		UtilidadesI.esTest();
-
-		DAOLineaContrato dc = new DAOLineaContratoImp();
-		
-		List<TLineaContrato> lineas = dc.leerLineasPorHangar(2);
-		
-		assertEquals("tiene que haber 2 linea con hangar 2", 2, lineas.size());
+		Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+		t.start();
+		DAOLineaContrato dlc = FactoriaIntegracion.getInstance().crearDAOLineaContrato();
+		List<TLineaContrato> lista = dlc.consultarLineasPorHangar(1);
+		t.commit();
+		assertEquals("No se han encontrado todas", 3, lista.size());
+		System.out.println(lista);
 	}
 	
 	@Test
 	public void leer_linea_contrato_test(){
-		UtilidadesI.esTest();
-
-		DAOLineaContrato dc = new DAOLineaContratoImp();
-		
-		//Prueba exitosa
-		assertTrue("Existe la linea", dc.leerLineaContrato(1, 1));
-		
-		//Preuba fallida
-		assertFalse("No existe la linea", dc.leerLineaContrato(9, 1));
+		Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+		t.start();
+		DAOLineaContrato dlc = FactoriaIntegracion.getInstance().crearDAOLineaContrato();
+		TLineaContrato tlc = dlc.consultarLineaContrato(1, 1);
+		t.commit();
+		assertNotNull("No se ha encontrado linea contrato", tlc);
+		System.out.println(tlc);
 	}
 }

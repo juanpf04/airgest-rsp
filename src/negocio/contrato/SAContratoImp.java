@@ -99,14 +99,14 @@ public class SAContratoImp implements SAContrato {
 		if (UtilidadesN.comprobarId(id)) {
 			DAOContrato dc = FactoriaIntegracion.getInstance().crearDAOContrato();
 
-			TContrato contrato = dc.leerContratoPorId(id);
+			TContrato contrato = dc.consultarContratoPorId(id);
 
 			if (contrato != null) {
 				DAOAerolinea da = FactoriaIntegracion.getInstance().crearDAOAerolinea();
 				TAerolinea aerolinea = da.leerAerolineaPorId(contrato.getIdAerolinea());
 
 				DAOLineaContrato dl = FactoriaIntegracion.getInstance().crearDAOLineaContrato();
-				List<TLineaContrato> lineas = dl.leerLineasPorContrato(id);
+				List<TLineaContrato> lineas = dl.consultarLineasPorContrato(id);
 
 				DAOHangar dh = FactoriaIntegracion.getInstance().crearDAOHangar();
 				HashMap<Integer, THangar> hangares = new HashMap<>();
@@ -126,7 +126,7 @@ public class SAContratoImp implements SAContrato {
 
 	public List<TContrato> consultarTodosContratos() {
 		DAOContrato dc = FactoriaIntegracion.getInstance().crearDAOContrato();
-		return dc.leerTodosContratos();
+		return dc.consultarTodosContratos();
 	}
 
 	public boolean modificarContrato(TContrato tContrato) {
@@ -135,7 +135,7 @@ public class SAContratoImp implements SAContrato {
 
 			int id = tContrato.getId();
 
-			TContrato leido = dc.leerContratoPorId(id);
+			TContrato leido = dc.consultarContratoPorId(id);
 
 			if (leido != null) {
 				DAOAerolinea da = FactoriaIntegracion.getInstance().crearDAOAerolinea();
@@ -205,7 +205,7 @@ public class SAContratoImp implements SAContrato {
 
 			if (aerolinea != null) {
 				DAOContrato dc = FactoriaIntegracion.getInstance().crearDAOContrato();
-				contratos = dc.leerContratosPorAerolinea(id_aerolinea);
+				contratos = dc.consultarContratosPorAerolinea(id_aerolinea);
 			}
 		}
 

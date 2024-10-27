@@ -18,7 +18,7 @@ public class DAOContratoImp implements DAOContrato {
 		try {
 			Transaction t = TransactionManager.getInstance().getTransaccion();
 			Connection con = (Connection) t.getResource();
-			PreparedStatement ps = con.prepareStatement(Querys.alta_contrato, PreparedStatement.RETURN_GENERATED_KEYS);
+			PreparedStatement ps = con.prepareStatement(Querys.altaContrato, PreparedStatement.RETURN_GENERATED_KEYS);
 			ps.setDouble(1, tContrato.getPrecio());
 			ps.setInt(2, tContrato.getIdAerolinea());
 			
@@ -37,11 +37,11 @@ public class DAOContratoImp implements DAOContrato {
 		}
 	}
 
-	public TContrato leerContratoPorId(int id) {
+	public TContrato consultarContratoPorId(int id) {
 		
 		try {
 			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
-			PreparedStatement ps = con.prepareStatement(Querys.leerContratoPorId);
+			PreparedStatement ps = con.prepareStatement(Querys.consultarContratoPorId);
 			ps.setInt(1, id);
 			
 			ResultSet rs = ps.executeQuery();
@@ -57,11 +57,11 @@ public class DAOContratoImp implements DAOContrato {
 		}
 	}
 
-	public List<TContrato> leerTodosContratos() {
+	public List<TContrato> consultarTodosContratos() {
 		try{
 			Transaction t = TransactionManager.getInstance().getTransaccion();
 			Connection con = (Connection) t.getResource();
-			PreparedStatement ps = con.prepareStatement(Querys.leerTodosContratos);
+			PreparedStatement ps = con.prepareStatement(Querys.consultarTodosContratos);
 			
 			ResultSet rs = ps.executeQuery();
 			List<TContrato> lista = new ArrayList<>();
@@ -80,11 +80,11 @@ public class DAOContratoImp implements DAOContrato {
 		}
 	}
 
-	public List<TContrato> leerContratosPorAerolinea(int id_aerolinea) {
+	public List<TContrato> consultarContratosPorAerolinea(int id_aerolinea) {
 		try{
 			Transaction t = TransactionManager.getInstance().getTransaccion();
 			Connection con = (Connection) t.getResource();
-			PreparedStatement ps = con.prepareStatement(Querys.leerContratosPorAerolinea);
+			PreparedStatement ps = con.prepareStatement(Querys.consultarContratosPorAerolinea);
 			ps.setInt(1, id_aerolinea);			
 			
 			ResultSet rs = ps.executeQuery();

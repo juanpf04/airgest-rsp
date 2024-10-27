@@ -30,7 +30,7 @@ public class DAOContratoImpTest {
 		Transaction t = TransactionManager.getInstance().nuevaTransaccion();
 		t.start();
 		DAOContrato dc = FactoriaIntegracion.getInstance().crearDAOContrato();
-		TContrato tc = dc.leerContratoPorId(1);
+		TContrato tc = dc.consultarContratoPorId(1);
 		t.commit();
 		assertNotNull("No existe contrato", tc);
 		System.out.println(tc);
@@ -41,7 +41,7 @@ public class DAOContratoImpTest {
 		Transaction t = TransactionManager.getInstance().nuevaTransaccion();
 		t.start();
 		DAOContrato dc = FactoriaIntegracion.getInstance().crearDAOContrato();
-		List<TContrato> lista = dc.leerTodosContratos();
+		List<TContrato> lista = dc.consultarTodosContratos();
 		t.commit();
 		assertEquals("No coincide el tamaño", 4, lista.size());
 		System.out.println(lista);
@@ -52,7 +52,7 @@ public class DAOContratoImpTest {
 		Transaction t = TransactionManager.getInstance().nuevaTransaccion();
 		t.start();
 		DAOContrato dc = FactoriaIntegracion.getInstance().crearDAOContrato();
-		List<TContrato> lista = dc.leerContratosPorAerolinea(1);
+		List<TContrato> lista = dc.consultarContratosPorAerolinea(1);
 		t.commit();
 		assertEquals("No coincide el tamaño", 3, lista.size());
 		System.out.println(lista);

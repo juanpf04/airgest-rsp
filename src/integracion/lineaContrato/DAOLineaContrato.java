@@ -9,10 +9,10 @@ public interface DAOLineaContrato {
 
 	public boolean modificarLineaContrato(TLineaContrato tLineaContrato);
 
-	public List<TLineaContrato> leerLineasPorContrato(int id_contrato);
+	public List<TLineaContrato> consultarLineasPorContrato(int id_contrato);
 
-	public List<TLineaContrato> leerLineasPorHangar(int id_hangar);
+	public List<TLineaContrato> consultarLineasPorHangar(int id_hangar);
 
-	public boolean leerLineaContrato(int id_contrato, int id_hangar);
+	public TLineaContrato consultarLineaContrato(int id_contrato, int id_hangar);
 
 }

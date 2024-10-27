@@ -6,14 +6,17 @@ public class Querys {
 	//AVION
 	
 	//CONTRATO
-	public static String alta_contrato = "INSERT INTO contrato (Precio , Id_Aerolinea) VALUES(?,?)";
-	public static String leerContratoPorId = "SELECT * FROM Contrato WHERE Id=? FOR UPDATE";
+	public static String altaContrato = "INSERT INTO contrato (Precio , Id_Aerolinea) VALUES(?,?)";
+	public static String consultarContratoPorId = "SELECT * FROM Contrato WHERE Id=? FOR UPDATE";
 	public static String modificarContrato = "UPDATE Contrato SET Precio = ?, Id_Aerolinea = ? WHERE Id = ?";
-	public static String leerTodosContratos = "SELECT * FROM Contrato FOR UPDATE";
-	public static String leerContratosPorAerolinea = "SELECT * FROM Contrato WHERE Id_Aerolinea = ?";	
+	public static String consultarTodosContratos = "SELECT * FROM Contrato FOR UPDATE";
+	public static String consultarContratosPorAerolinea = "SELECT * FROM Contrato WHERE Id_Aerolinea = ?";	
 	
 	//LINEA DE CONTRATO
-	public static String alta_linea_contrato = "INSERT INTO linea_contrato (Id_Hangar, Id_Contrato, Fecha_Ini, Fecha_Fin, Coste_Por_Dia) VALUES(?,?,?,?,?)";
+	public static String altaLineaContrato = "INSERT INTO linea_contrato (Id_Hangar, Id_Contrato, Fecha_Ini, Fecha_Fin, Coste_Por_Dia) VALUES(?,?,?,?,?)";
+	public static String modificarLineaContrato = "UPDATE linea_contrato SET Fecha_Ini = ?, Fecha_fin = ?, Coste_Por_Dia = ? WHERE Id_Hangar = ? AND Id_Contrato = ?";
+	public static String consultarLineasPorContrato = "SELECT * FROM linea_contrato WHERE Id_Contrato = ? FOR UPDATE";
+	public static String consultarLineasPorHangar = "SELECT * FROM linea_contrato WHERE Id_Hangar = ? FOR UPDATE";
 	
 	//HANGAR
 	public static String alta_hangar = "INSERT INTO HANGAR (Stock, direccion , espacio_almacenaje, coste_dia, activo) VALUES (?, ?, ?, ?, true)";
