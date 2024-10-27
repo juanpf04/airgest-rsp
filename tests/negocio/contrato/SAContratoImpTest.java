@@ -3,12 +3,16 @@ package negocio.contrato;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
 import integracion.UtilidadesI;
+import negocio.factoria.FactoriaNegocio;
 import negocio.lineaContrato.TLineaContrato;
 
 public class SAContratoImpTest {
@@ -20,31 +24,41 @@ public class SAContratoImpTest {
 		SAContrato sc = new SAContratoImp();
 
 		// Prueba exitosa
-		TContrato contrato = new TContrato(1, 6, 346.7);
+		TContrato contrato = new TContrato(1, 5, 346.7);
 		assertTrue("debería modificarse contrato", sc.modificarContrato(contrato));
+		
+		// Prueba contrato no existente
+		contrato = new TContrato(10, 5, 346.7);
+		assertFalse("El contrato si que existe", sc.modificarContrato(contrato));
 
 		// Prueba aerolinea no existente
 		contrato = new TContrato(1, 9, 346.7);
 		assertFalse("no existe la aerolinea 9", sc.modificarContrato(contrato));
 
 		// Prueba aerolinea no activa
-		contrato = new TContrato(1, 5, 456.3);
-		assertFalse("la aerolinea 5 no está activa", sc.modificarContrato(contrato));
+		contrato = new TContrato(1, 4, 456.3);
+		assertFalse("la aerolinea 4 no está activa", sc.modificarContrato(contrato));
 	}
 
 	@Test
 	public void consultar_contrato_por_id_test() {
-		UtilidadesI.esTest();
 
 		SAContrato sc = new SAContratoImp();
 
 		// Prueba exitosa
 		TInfoContrato info = sc.consultarContratoPorId(1);
-		assertEquals("el toa deberia tener 4 hangares", 4, info.getHangares().size());
+		assertEquals("el toa deberia tener 2 hangares", 2, info.getHangares().size());
+		System.out.println(info);
 
 		// Prueba contrato no existente
-		info = sc.consultarContratoPorId(4);
-		assertNull("no existe el contrato 4", info);
+		info = sc.consultarContratoPorId(5);
+		assertNull("no existe el contrato 5", info);
+	}
+	
+	@Test
+	public void consultar_todos_contratos_test(){
+		SAContrato sc = new SAContratoImp();
+		assertEquals("debería haber 4 contratos", 4, sc.consultarTodosContratos().size());
 	}
 
 	@Test
@@ -54,8 +68,8 @@ public class SAContratoImpTest {
 		SAContrato sc = new SAContratoImp();
 
 		// Prueba exitosa
-		List<TContrato> contratos = sc.consultarContratosPorAerolinea(6);
-		assertEquals("debería tener solo un contrato", 1, contratos.size());
+		List<TContrato> contratos = sc.consultarContratosPorAerolinea(1);
+		assertEquals("debería tener solo 3 contratos", 3, contratos.size());
 
 		// Prueba no existe aerolinea
 		contratos = sc.consultarContratosPorAerolinea(9);
@@ -174,8 +188,8 @@ public class SAContratoImpTest {
 		SAContrato sc = new SAContratoImp();
 
 		// Prueba exitosa
-		LocalDate fecha_ini = LocalDate.of(2024, 3, 10);
-		LocalDate fecha_fin = LocalDate.of(2024, 3, 14);
+		String fecha_ini = "27-10-2024";
+		String fecha_fin = "30-10-2024";
 
 		TLineaContrato linea = new TLineaContrato(1, 1, fecha_ini, fecha_fin, 0);
 		assertTrue("deberia modificarse linea", sc.modificarLineaContrato(linea));
@@ -185,14 +199,46 @@ public class SAContratoImpTest {
 		assertFalse("no existe el hangar 12", sc.modificarLineaContrato(linea));
 
 		// Hangar no activo
-		linea = new TLineaContrato(1, 6, fecha_ini, fecha_fin, 0);
-		assertFalse("el hangar 6 esta inactivo", sc.modificarLineaContrato(linea));
+		linea = new TLineaContrato(1, 1, fecha_ini, fecha_fin, 0);
+		assertTrue("el hangar 1 esta inactivo", sc.modificarLineaContrato(linea));
 
 		// Fechas ocupadas
-		fecha_ini = LocalDate.of(2024, 3, 11);
-		fecha_fin = LocalDate.of(2024, 3, 13);
+		fecha_ini = "20-01-2003";
+		fecha_fin = "25-01-2003";
 		linea = new TLineaContrato(1, 1, fecha_ini, fecha_fin, 0);
 		assertFalse("rango de fechas no valido", sc.modificarLineaContrato(linea));
+		
+		// Linea contrato no existente
+		linea = new TLineaContrato(10, 10, fecha_ini, fecha_fin, 0);
+		assertFalse("no existe la linea de contrato", sc.modificarLineaContrato(linea));
 
+		
+		// fecha de fin antes que la de inicio
+		fecha_ini = "20-01-2003";
+		fecha_fin = "18-01-2003";
+		linea = new TLineaContrato(1, 1, fecha_ini, fecha_fin, 0);
+		assertFalse("la fecha de fin va antes que la de inicio", sc.modificarLineaContrato(linea));
+	}
+	
+	@Test
+	public void diferencia_fecha_test(){
+		String f1 = "08-11-2024";
+		String f2 = "09-11-2024";
+		
+		assertEquals("Diferencia mal calculada", 1, SAContratoImp.diferencia_fechas(f1, f2));
+	}
+	
+	@Test
+	public void is_between_test(){
+		String fecha = "11-03-2024";
+		String inicio = "11-03-2024";
+		String fin = "15-03-2024";
+		
+		DateTimeFormatter d = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+		LocalDate lFecha = LocalDate.parse(fecha, d);
+		LocalDate lInicio = LocalDate.parse(inicio, d);
+		LocalDate lFin = LocalDate.parse(fin, d);
+		
+		assertTrue("La fecha no está entre medias de las dos", SAContratoImp.isBetween(lFecha, lInicio, lFin));
 	}
 }
