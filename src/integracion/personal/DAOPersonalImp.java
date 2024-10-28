@@ -25,66 +25,101 @@ import java.util.List;
 
 public class DAOPersonalImp implements DAOPersonal {
 
-	private TPersonal leerFichero(File file) {
-		TPersonal transfer;
-		try {
-			JSONObject data = new JSONObject(new JSONTokener(new FileReader(file)));
-
-			if (data.has("rol")) {
-				transfer = new TPLimpieza(data.getInt("id"), data.getString("dni"), data.getString("areaAsignada"),
-						data.getBoolean("activo"), data.getString("rol"));
-			} else {
-				transfer = new TPSeguridad(data.getInt("id"), data.getString("dni"), data.getString("areaAsignada"),
-						data.getBoolean("activo"), data.getInt("numPlaca"));
-			}
-
-		} catch (FileNotFoundException e) {
-			transfer = null;
-		}
-		return transfer;
-	}
-
-	private boolean escribirFichero(TPersonal tPersonal) {
-		boolean exito = true;
-
-		try {
-			FileWriter archivo = new FileWriter(
-					UtilidadesI.ruta("personal") + String.format("%05d", tPersonal.getId()) + ".json");
-
-			JSONObject data = new JSONObject();
-
-			data.put("id", tPersonal.getId());
-			data.put("dni", tPersonal.getDni());
-			data.put("areaAsignada", tPersonal.getAreaAsignada());
-			data.put("activo", tPersonal.getActivo());
-
-			if (tPersonal instanceof TPSeguridad)
-				data.put("numPlaca", ((TPSeguridad) tPersonal).getNumPlaca());
-			else
-				data.put("rol", ((TPLimpieza) tPersonal).getRol());
-
-			archivo.write(data.toString());
-			archivo.close();
-
-		} catch (IOException e) {
-			exito = false;
-		}
-
-		return exito;
-	}
+//	private TPersonal leerFichero(File file) {
+//		TPersonal transfer;
+//		try {
+//			JSONObject data = new JSONObject(new JSONTokener(new FileReader(file)));
+//
+//			if (data.has("rol")) {
+//				transfer = new TPLimpieza(data.getInt("id"), data.getString("dni"), data.getString("areaAsignada"),
+//						data.getBoolean("activo"), data.getString("rol"));
+//			} else {
+//				transfer = new TPSeguridad(data.getInt("id"), data.getString("dni"), data.getString("areaAsignada"),
+//						data.getBoolean("activo"), data.getInt("numPlaca"));
+//			}
+//
+//		} catch (FileNotFoundException e) {
+//			transfer = null;
+//		}
+//		return transfer;
+//	}
+//
+//	private boolean escribirFichero(TPersonal tPersonal) {
+//		boolean exito = true;
+//
+//		try {
+//			FileWriter archivo = new FileWriter(
+//					UtilidadesI.ruta("personal") + String.format("%05d", tPersonal.getId()) + ".json");
+//
+//			JSONObject data = new JSONObject();
+//
+//			data.put("id", tPersonal.getId());
+//			data.put("dni", tPersonal.getDni());
+//			data.put("areaAsignada", tPersonal.getAreaAsignada());
+//			data.put("activo", tPersonal.getActivo());
+//
+//			if (tPersonal instanceof TPSeguridad)
+//				data.put("numPlaca", ((TPSeguridad) tPersonal).getNumPlaca());
+//			else
+//				data.put("rol", ((TPLimpieza) tPersonal).getRol());
+//
+//			archivo.write(data.toString());
+//			archivo.close();
+//
+//		} catch (IOException e) {
+//			exito = false;
+//		}
+//
+//		return exito;
+//	}
 
 	@Override
 	public int altaPersonal(TPersonal tPersonal) {
-		File carpeta = new File(UtilidadesI.ruta("personal"));
-		File[] lista = carpeta.listFiles();
-		int id = lista.length + 1;
+		String datoEspecializado, queryEspecializada;
+		int id = -1;
 
-		tPersonal.setId(id);
+		if (tPersonal instanceof TPLimpieza) {
+			datoEspecializado = ((TPLimpieza) tPersonal).getRol();
+			queryEspecializada = Querys.altaLimpieza;
+		}
+		else {
+			datoEspecializado = Integer.toString(((TPSeguridad) tPersonal).getNumPlaca()); 
+			queryEspecializada = Querys.altaSeguridad;
+		}
+		
+		try{
+			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
+			PreparedStatement ps = con.prepareStatement(Querys.altaPersonal, PreparedStatement.RETURN_GENERATED_KEYS);
+			ps.setString(1, tPersonal.getDni());
+			ps.setString(2, tPersonal.getAreaAsignada());
+			
+			int filasNuevas = ps.executeUpdate();			
+			ResultSet gk = ps.getGeneratedKeys();
+			
+			
+			if (filasNuevas == 1 && gk.next()) {
+				id = gk.getInt(1);
+				
+				PreparedStatement ps2 = con.prepareStatement(queryEspecializada);
+				
+				ps2.setInt(1, id);
+				ps2.setString(2, datoEspecializado);
+				
+				filasNuevas = ps2.executeUpdate();
+				
+				if (filasNuevas != 1) id = -1;
+				
+				ps2.close();
+			}
+			
+			gk.close();
+			ps.close();
 
-		if (!this.escribirFichero(tPersonal))
-			id = -1;
-
-		return id;
+			return id;
+			
+		}catch(Exception e){
+			return id;
+		}
 	}
 
 	@Override
@@ -111,27 +146,27 @@ public class DAOPersonalImp implements DAOPersonal {
 	}
 
 	@Override
-	public TPersonal consultarPersonalPorId(int id) {
-		return this.leerFichero(new File(UtilidadesI.ruta("personal") + String.format("%05d", id) + ".json"));
+	public TPersonal consultarPersonalPorDni(String dni) {
+		TPersonal ret = null;
+		try{
+			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
+			PreparedStatement ps = con.prepareStatement(Querys.consultarPersonalPorDni);
+			ps.setString(1, dni);
+			ResultSet res = ps.executeQuery();
+			
+			if (res.next()) 
+				ret = new TPersonal(res.getInt("id"), dni, res.getString("area_asignada"), res.getBoolean("activo))
+			
+			res.close();
+			ps.close();
+
+			return ret;
+			
+		}catch(Exception e){
+			return ret;
+		}
 	}
-
-//	@Override seria consultar por dni no? sino no tiene sentido
-//	public TPersonal consultarPersonalPorIdEmpleado(int idEmpleado) {
-//		File carpeta = new File(UtilidadesI.ruta("personal"));
-//		File[] lista = carpeta.listFiles();
-//
-//		int i = 0;
-//		TPersonal transfer = null;
-//		while (i < lista.length && transfer == null) {
-//			transfer = leerFichero(lista[i]);
-//			if (transfer.getIdEmpleado() != idEmpleado)
-//				transfer = null;
-//			i++;
-//		}
-//
-//		return transfer;
-//	}
-
+	
 	@Override
 	public List<TPersonal> consultarPersonalExistente() {
 		try{
@@ -175,5 +210,11 @@ public class DAOPersonalImp implements DAOPersonal {
 		}catch(Exception e){
 			return new ArrayList<TPersonal>();
 		}
+	}
+
+	@Override
+	public TPersonal consultarPersonalPorId(int id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

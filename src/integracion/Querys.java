@@ -1,5 +1,7 @@
 package integracion;
 
+import negocio.personal.TPSeguridad;
+
 public class Querys {
 	//AEROLINEA
 	
@@ -51,7 +53,11 @@ public class Querys {
 	//MODELO
 	
 	//PERSONAL
+	public static String altaPersonal = "INSERT INTO PERSONAL(dni, area, activo) VALUES (?, ?, true)";
+	public static String altaLimpieza = "INSERT INTO PERSONAL_SEGURIDAD(id_personal, rol) VALUES (?, ?)";
+	public static String altaSeguridad = "INSERT INTO PERSONAL_SEGURIDAD(id_personal, placa) VALUES (?, ?)";
 	public static String bajaPersonal = "UPDATE PERSONAL SET activo = false WHERE id = ?";
+	public static String consultarPersonalPorDni = "SELECT * FROM PERSONAL WHERE dni = ?";
 	public static String consultarPersonalExistente = "SELECT * FROM PERSONAL FOR UPDATE";
 	public static String consultarPersonalPorHangar = "SELECT * FROM PERSONAL p JOIN personal_hangar ph ON p.Id = ph.Id_personal WHERE ph.Id_Hangar = ? FOR UPDATE";
 }
