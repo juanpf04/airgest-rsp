@@ -155,7 +155,7 @@ public class DAOPersonalImp implements DAOPersonal {
 			ResultSet res = ps.executeQuery();
 			
 			if (res.next()) 
-				ret = new TPersonal(res.getInt("id"), dni, res.getString("area_asignada"), res.getBoolean("activo))
+				ret = new TPersonal(res.getInt("id"), res.getBoolean("activo"), dni, res.getString("area_asignada"));
 			
 			res.close();
 			ps.close();
