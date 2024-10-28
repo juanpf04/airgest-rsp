@@ -154,7 +154,7 @@ public class DAOPersonalImp implements DAOPersonal {
 	}
 
 	@Override
-	public List<TPersonal> consultarPersonalPorHangar(int id_hangar) {//hay q poner tamb el rol del personal?
+	public List<TPersonal> consultarPersonalPorHangar(int id_hangar) {//hay q poner tamb el rol del personal? si
 		try{
 			Transaction t = TransactionManager.getInstance().getTransaccion();
 			Connection con = (Connection) t.getResource();

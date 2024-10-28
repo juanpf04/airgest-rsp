@@ -157,7 +157,7 @@ public class SAPersonalImp implements SAPersonal {
 			
 			THangar leido = dh.leerHangarPorId(id_hangar);
 			
-			if(leido.getId() != -1 && leido.getActivo()){
+			if(leido != null && leido.getActivo()){
 				lista = dp.consultarPersonalPorHangar(id_hangar);
 			}
 			
