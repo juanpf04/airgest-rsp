@@ -1,6 +1,5 @@
 package integracion.personal;
 
-import negocio.hangar.THangar;
 import negocio.personal.TPLimpieza;
 import negocio.personal.TPSeguridad;
 import negocio.personal.TPersonal;
@@ -18,6 +17,7 @@ import org.json.JSONTokener;
 
 import integracion.Querys;
 import integracion.UtilidadesI;
+import integracion.transacciones.Transaction;
 import integracion.transacciones.TransactionManager;
 
 import java.util.ArrayList;
@@ -148,6 +148,30 @@ public class DAOPersonalImp implements DAOPersonal {
 
 			return t;		
 			
+		}catch(Exception e){
+			return new ArrayList<TPersonal>();
+		}
+	}
+
+	@Override
+	public List<TPersonal> consultarPersonalPorHangar(int id_hangar) {
+		try{
+			Transaction t = TransactionManager.getInstance().getTransaccion();
+			Connection con = (Connection) t.getResource();
+			PreparedStatement ps = con.prepareStatement(Querys.consultarPersonalPorHangar);
+			ps.setInt(1, id_hangar);
+			
+			ResultSet rs = ps.executeQuery();
+			List<TPersonal> lista = new ArrayList<>();
+			
+			while (rs.next()){
+				lista.add(new TPersonal(rs.getInt(1), rs.getBoolean(2), rs.getInt(3), rs.getString(4)));
+			}
+			
+			rs.close();
+			ps.close();
+			
+			return lista;
 		}catch(Exception e){
 			return new ArrayList<TPersonal>();
 		}

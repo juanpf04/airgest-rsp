@@ -5,6 +5,7 @@ import negocio.hangar.THangar;
 import negocio.personalHangar.TPersonalHangar;
 import negocio.personalHangar.ValidadorPersonalHangar;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import integracion.factoria.FactoriaIntegracion;
@@ -146,7 +147,23 @@ public class SAPersonalImp implements SAPersonal {
 
 	@Override
 	public List<TPersonal> consultarPersonalPorHangar(int id_hangar) {
-		// TODO Auto-generated method stub
-		return null;
+		List<TPersonal> lista = new ArrayList<>();
+		if(UtilidadesN.comprobarId(id_hangar)){
+			Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+			t.start();
+			
+			DAOPersonal dp = FactoriaIntegracion.getInstance().crearDAOPersonal();
+			DAOHangar dh = FactoriaIntegracion.getInstance().crearDAOHangar();
+			
+			THangar leido = dh.leerHangarPorId(id_hangar);
+			
+			if(leido.getId() != -1 && leido.getActivo()){
+				lista = dp.consultarPersonalPorHangar(id_hangar);
+			}
+			
+			t.commit();
+			
+		}
+		return lista;
 	}
 }

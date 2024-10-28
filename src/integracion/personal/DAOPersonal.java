@@ -16,5 +16,7 @@ public interface DAOPersonal {
 	public TPersonal consultarPersonalPorIdEmpleado(int idEmpleado);
 
 	public List<TPersonal> consultarPersonalExistente();
+	
+	public List<TPersonal> consultarPersonalPorHangar(int id_hangar);
 
 }
