@@ -103,7 +103,7 @@ public class DAOAvionImpTest {
     }
 
     @Test
-    public void consultarAvionesPorHangar_test() {
+    public void consultar_aviones_por_hangar_test() {
         UtilidadesI.esTest();
         Transaction t = TransactionManager.getInstance().nuevaTransaccion();
         t.start();
@@ -116,7 +116,7 @@ public class DAOAvionImpTest {
     }
 
     @Test
-    public void consultarAvionesActivosPorAerolinea_test() {
+    public void consultar_aviones_activos_por_aerolinea_test() {
         UtilidadesI.esTest();
         Transaction t = TransactionManager.getInstance().nuevaTransaccion();
         t.start();
@@ -132,7 +132,7 @@ public class DAOAvionImpTest {
     }
 
     @Test
-    public void consultarAvionesActivosPorHangar_test() {
+    public void consultar_aviones_activos_por_hangar_test() {
         UtilidadesI.esTest();
         Transaction t = TransactionManager.getInstance().nuevaTransaccion();
         t.start();
@@ -145,7 +145,7 @@ public class DAOAvionImpTest {
     }
     
     @Test
-    public void altaAvion_test() {
+    public void alta_avion_test() {
         UtilidadesI.esTest();
         Transaction t = TransactionManager.getInstance().nuevaTransaccion();
         t.start();
@@ -167,7 +167,7 @@ public class DAOAvionImpTest {
     }
     
     @Test
-    public void modificarAvion_test() {
+    public void modificar_avion_test() {
         UtilidadesI.esTest();
         Transaction t = TransactionManager.getInstance().nuevaTransaccion();
         t.start();
@@ -185,7 +185,7 @@ public class DAOAvionImpTest {
     }
     
     @Test
-    public void bajaAvion_test() {
+    public void baja_avion_test() {
         UtilidadesI.esTest();
         Transaction t = TransactionManager.getInstance().nuevaTransaccion();
         t.start();
