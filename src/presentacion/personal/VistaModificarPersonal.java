@@ -102,6 +102,17 @@ public class VistaModificarPersonal extends JFrame implements Observador {
 			JPanel panelTexto = new JPanel();
 			panelTexto.setLayout(new BoxLayout(panelTexto, BoxLayout.PAGE_AXIS));
 
+			JLabel etiquetaIdEmpleado = new JLabel("DNI: ");
+			etiquetaIdEmpleado.setFont(new Font("Tahoma", Font.BOLD, 25));
+			JTextField textoIdEmpleado = new JTextField();
+			textoIdEmpleado.setMaximumSize(new Dimension(200, 30));
+			textoIdEmpleado.setMinimumSize(new Dimension(200, 30));
+			textoIdEmpleado.setPreferredSize(new Dimension(200, 30));
+			textoIdEmpleado.setFont(new Font("Tahoma", Font.BOLD, 18));
+			textoIdEmpleado.setToolTipText("numero natural sin el 0");
+			panelEtiquetas.add(etiquetaIdEmpleado);
+			panelTexto.add(textoIdEmpleado);
+			
 			JLabel etiquetaAreaAsignada = new JLabel("Área asignada:    ");
 			etiquetaAreaAsignada.setFont(new Font("Tahoma", Font.BOLD, 25));
 			JTextField textoAreaAsignada = new JTextField();
@@ -162,15 +173,16 @@ public class VistaModificarPersonal extends JFrame implements Observador {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					try {
+						String DNI = String.valueOf(textoIdEmpleado.getText());
 						String areaAsignada = textoAreaAsignada.getText();
 
 						TPersonal transfer;
 						if (datos == "SEGURIDAD") {
 							int numPlaca = Integer.valueOf(textoNumPlaca.getText());
-							transfer = new TPSeguridad(tp.getId(), tp.getId(), areaAsignada, true, numPlaca);
+							transfer = new TPSeguridad(tp.getId(), DNI, areaAsignada, true, numPlaca);
 						} else {
 							String rol = textoRol.getText();
-							transfer = new TPLimpieza(tp.getId(), tp.getId(), areaAsignada, true, rol);
+							transfer = new TPLimpieza(tp.getId(), DNI, areaAsignada, true, rol);
 						}
 						ctrl.accion(new Contexto(Evento.MODIFICAR_PERSONAL, transfer));
 					} catch (Exception ex) {

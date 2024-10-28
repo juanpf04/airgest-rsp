@@ -105,7 +105,7 @@ public class VistaAltaPersonal extends JFrame implements Observador {
 			JPanel panelTexto = new JPanel();
 			panelTexto.setLayout(new BoxLayout(panelTexto, BoxLayout.PAGE_AXIS));
 
-			JLabel etiquetaIdEmpleado = new JLabel("Id de empleado: ");
+			JLabel etiquetaIdEmpleado = new JLabel("DNI: ");
 			etiquetaIdEmpleado.setFont(new Font("Tahoma", Font.BOLD, 25));
 			JTextField textoIdEmpleado = new JTextField();
 			textoIdEmpleado.setMaximumSize(new Dimension(200, 30));
@@ -159,16 +159,16 @@ public class VistaAltaPersonal extends JFrame implements Observador {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					try {
-						int idEmpleado = Integer.valueOf(textoIdEmpleado.getText());
+						String DNI = String.valueOf(textoIdEmpleado.getText());
 						String areaAsignada = textoAreaAsignada.getText();
 
 						TPersonal transfer;
 						if (datos == "SEGURIDAD") {
 							int numPlaca = Integer.valueOf(textoNumPlaca.getText());
-							transfer = new TPSeguridad(0, idEmpleado, areaAsignada, true, numPlaca);
+							transfer = new TPSeguridad(0, DNI, areaAsignada, true, numPlaca);
 						} else {
 							String rol = textoRol.getText();
-							transfer = new TPLimpieza(0, idEmpleado, areaAsignada, true, rol);
+							transfer = new TPLimpieza(0, DNI, areaAsignada, true, rol);
 						}
 						ctrl.accion(new Contexto(Evento.ALTA_PERSONAL, transfer));
 					} catch (Exception ex) {
