@@ -12,8 +12,8 @@ public class TPLimpieza extends TPersonal {
 		this.rol = rol;
 	}
 
-	public TPLimpieza(int id, int idEmpleado, String areaAsignada, boolean activo, String rol) {
-		super(id, activo, idEmpleado, areaAsignada);
+	public TPLimpieza(int id, String dni, String areaAsignada, boolean activo, String rol) {
+		super(id, activo, dni, areaAsignada);
 
 		this.rol = rol;
 	}

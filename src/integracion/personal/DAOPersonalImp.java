@@ -31,10 +31,10 @@ public class DAOPersonalImp implements DAOPersonal {
 			JSONObject data = new JSONObject(new JSONTokener(new FileReader(file)));
 
 			if (data.has("rol")) {
-				transfer = new TPLimpieza(data.getInt("id"), data.getInt("idEmpleado"), data.getString("areaAsignada"),
+				transfer = new TPLimpieza(data.getInt("id"), data.getString("dni"), data.getString("areaAsignada"),
 						data.getBoolean("activo"), data.getString("rol"));
 			} else {
-				transfer = new TPSeguridad(data.getInt("id"), data.getInt("idEmpleado"), data.getString("areaAsignada"),
+				transfer = new TPSeguridad(data.getInt("id"), data.getString("dni"), data.getString("areaAsignada"),
 						data.getBoolean("activo"), data.getInt("numPlaca"));
 			}
 
@@ -54,7 +54,7 @@ public class DAOPersonalImp implements DAOPersonal {
 			JSONObject data = new JSONObject();
 
 			data.put("id", tPersonal.getId());
-			data.put("idEmpleado", tPersonal.getIdEmpleado());
+			data.put("dni", tPersonal.getDni());
 			data.put("areaAsignada", tPersonal.getAreaAsignada());
 			data.put("activo", tPersonal.getActivo());
 
@@ -115,22 +115,22 @@ public class DAOPersonalImp implements DAOPersonal {
 		return this.leerFichero(new File(UtilidadesI.ruta("personal") + String.format("%05d", id) + ".json"));
 	}
 
-	@Override
-	public TPersonal consultarPersonalPorIdEmpleado(int idEmpleado) {
-		File carpeta = new File(UtilidadesI.ruta("personal"));
-		File[] lista = carpeta.listFiles();
-
-		int i = 0;
-		TPersonal transfer = null;
-		while (i < lista.length && transfer == null) {
-			transfer = leerFichero(lista[i]);
-			if (transfer.getIdEmpleado() != idEmpleado)
-				transfer = null;
-			i++;
-		}
-
-		return transfer;
-	}
+//	@Override seria consultar por dni no? sino no tiene sentido
+//	public TPersonal consultarPersonalPorIdEmpleado(int idEmpleado) {
+//		File carpeta = new File(UtilidadesI.ruta("personal"));
+//		File[] lista = carpeta.listFiles();
+//
+//		int i = 0;
+//		TPersonal transfer = null;
+//		while (i < lista.length && transfer == null) {
+//			transfer = leerFichero(lista[i]);
+//			if (transfer.getIdEmpleado() != idEmpleado)
+//				transfer = null;
+//			i++;
+//		}
+//
+//		return transfer;
+//	}
 
 	@Override
 	public List<TPersonal> consultarPersonalExistente() {
@@ -141,7 +141,7 @@ public class DAOPersonalImp implements DAOPersonal {
 			ResultSet res = ps.executeQuery();
 			List<TPersonal> t = new ArrayList<>();
 			while(res.next())
-				t.add(new TPersonal(res.getInt("id"), res.getBoolean("activo"), res.getInt("dni"), res.getString("area_Asignada")));
+				t.add(new TPersonal(res.getInt("id"), res.getBoolean("activo"), res.getString("dni"), res.getString("area_Asignada")));
 			
 			res.close();
 			ps.close();
@@ -154,7 +154,7 @@ public class DAOPersonalImp implements DAOPersonal {
 	}
 
 	@Override
-	public List<TPersonal> consultarPersonalPorHangar(int id_hangar) {
+	public List<TPersonal> consultarPersonalPorHangar(int id_hangar) {//hay q poner tamb el rol del personal?
 		try{
 			Transaction t = TransactionManager.getInstance().getTransaccion();
 			Connection con = (Connection) t.getResource();
@@ -165,7 +165,7 @@ public class DAOPersonalImp implements DAOPersonal {
 			List<TPersonal> lista = new ArrayList<>();
 			
 			while (rs.next()){
-				lista.add(new TPersonal(rs.getInt(1), rs.getBoolean(2), rs.getInt(3), rs.getString(4)));
+				lista.add(new TPersonal(rs.getInt(1), rs.getBoolean(2), rs.getString(3), rs.getString(4)));
 			}
 			
 			rs.close();

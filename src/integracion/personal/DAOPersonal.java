@@ -13,7 +13,7 @@ public interface DAOPersonal {
 
 	public TPersonal consultarPersonalPorId(int id);
 
-	public TPersonal consultarPersonalPorIdEmpleado(int idEmpleado);
+//	public TPersonal consultarPersonalPorIdEmpleado(int idEmpleado); hace falta? no tiene sentido --> por dni sería no?
 
 	public List<TPersonal> consultarPersonalExistente();
 	

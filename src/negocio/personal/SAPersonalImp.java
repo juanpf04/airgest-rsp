@@ -21,7 +21,7 @@ public class SAPersonalImp implements SAPersonal {
 	public int altaPersonal(TPersonal tPersonal) {
 		if (ValidadorPersonal.comprobarDatos(tPersonal)) {
 			DAOPersonal dp = FactoriaIntegracion.getInstance().crearDAOPersonal();
-			TPersonal leido = dp.consultarPersonalPorIdEmpleado(tPersonal.getIdEmpleado());
+			TPersonal leido = dp.consultarPersonalPorId(tPersonal.getId());
 			if (leido == null)
 				return dp.altaPersonal(tPersonal);
 			else if (!leido.getActivo()) {
@@ -114,16 +114,16 @@ public class SAPersonalImp implements SAPersonal {
 		if (UtilidadesN.comprobarId(tPersonal.getId()) && ValidadorPersonal.comprobarDatos(tPersonal)) {
 			DAOPersonal dp = FactoriaIntegracion.getInstance().crearDAOPersonal();
 			int id = tPersonal.getId();
-			int idEmpleado = tPersonal.getIdEmpleado();
+			String dni = tPersonal.getDni();
 
 			TPersonal leido = dp.consultarPersonalPorId(id);
 
-			if (leido != null) {
-				if (leido.getActivo() && (leido.getIdEmpleado() == idEmpleado
-						|| dp.consultarPersonalPorIdEmpleado(idEmpleado) == null)) {
-					return dp.modificarPersonal(tPersonal);
-				}
-			}
+//			if (leido != null) {
+//				if (leido.getActivo() && (leido.getDni() == dni
+//						|| dp.consultarPersonalPorIdEmpleado(dni) == null)) {
+//					return dp.modificarPersonal(tPersonal);
+//				}
+//			}
 		}
 		return false;
 	}
