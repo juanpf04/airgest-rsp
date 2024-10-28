@@ -19,19 +19,27 @@ public class SAPersonalImp implements SAPersonal {
 
 	@Override
 	public int altaPersonal(TPersonal tPersonal) {
+		int id = -1;
 		if (ValidadorPersonal.comprobarDatos(tPersonal)) {
+			Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+			t.start();
+			
 			DAOPersonal dp = FactoriaIntegracion.getInstance().crearDAOPersonal();
 			TPersonal leido = dp.consultarPersonalPorId(tPersonal.getId());
-			if (leido == null)
-				return dp.altaPersonal(tPersonal);
+			
+			if (leido == null) 
+				id = dp.altaPersonal(tPersonal);
 			else if (!leido.getActivo()) {
 				tPersonal.setId(leido.getId());
-				if (dp.modificarPersonal(tPersonal))
-					return tPersonal.getId();
+				
+				if (dp.modificarPersonal(tPersonal)) id = tPersonal.getId();
 			}
+			
+			if (id == -1) t.rollback();
+			else t.commit();
 		}
 
-		return -1;
+		return id;
 	}
 
 	@Override
@@ -60,8 +68,11 @@ public class SAPersonalImp implements SAPersonal {
 	public boolean vincularPersonal(TPersonalHangar tPersonalHangar) {
 		int idPersonal = tPersonalHangar.getIdPersonal();
 		int idHangar = tPersonalHangar.getIdHangar();
-
+		boolean vinculado = false;
+		
 		if (ValidadorPersonalHangar.comprobarDatos(tPersonalHangar)) {
+			Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+			t.start();
 			DAOPersonal dp = FactoriaIntegracion.getInstance().crearDAOPersonal();
 			DAOHangar dh = FactoriaIntegracion.getInstance().crearDAOHangar();
 
@@ -72,12 +83,15 @@ public class SAPersonalImp implements SAPersonal {
 				DAOPersonalHangar dph = FactoriaIntegracion.getInstance().crearDAOPersonalHangar();
 
 				if (!dph.comprobarVinculacion(idPersonal, idHangar)) {
-					return dph.vincular(idPersonal, idHangar);
+					vinculado =  dph.vincular(idPersonal, idHangar);
 				}
 			}
+			
+			if (vinculado) t.commit();
+			else t.rollback();
 		}
 
-		return false;
+		return vinculado;
 	}
 
 	@Override
@@ -130,13 +144,17 @@ public class SAPersonalImp implements SAPersonal {
 
 	@Override
 	public TPersonal consultarPersonalPorId(int id) {
+		TPersonal ret = null;
 		if (UtilidadesN.comprobarId(id)) {
+			Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+			t.start();
 			DAOPersonal dp = FactoriaIntegracion.getInstance().crearDAOPersonal();
 
-			return dp.consultarPersonalPorId(id);
+			ret = dp.consultarPersonalPorId(id);
+			t.commit();
 		}
 
-		return null;
+		return ret;
 	}
 
 	@Override
