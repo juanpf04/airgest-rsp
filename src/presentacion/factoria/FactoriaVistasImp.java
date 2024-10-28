@@ -347,6 +347,9 @@ public class FactoriaVistasImp extends FactoriaVistas {
 		case VISTA_MODIFICAR_PERSONAL:
 			vista = new VistaModificarPersonal();
 			break;
+		case VISTA_MODIFICAR_PERSONAL_ID:
+			vista = new VistaModificarIdPersonal();
+			break;
 		case VISTA_EXITO_MODIFICAR_PERSONAL:
 			vista = new VistaExitoModificarPersonal();
 			break;

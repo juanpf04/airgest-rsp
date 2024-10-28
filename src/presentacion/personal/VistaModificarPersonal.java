@@ -30,6 +30,7 @@ public class VistaModificarPersonal extends JFrame implements Observador {
 	private static final long serialVersionUID = 1L;
 
 	public void actualizar(Object datos) {
+		TPersonal tp = (TPersonal) datos;
 		UtilidadesP.setAirGestRSP(this);
 		this.setSize(450, 270);
 
@@ -69,7 +70,7 @@ public class VistaModificarPersonal extends JFrame implements Observador {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					dispose();
-					ctrl.accion(new Contexto(Evento.VISTA_MODIFICAR_PERSONAL, "SEGURIDAD"));
+					ctrl.accion(new Contexto(Evento.VISTA_MODIFICAR_PERSONAL_ID, "SEGURIDAD"));
 				}
 			});
 
@@ -83,7 +84,7 @@ public class VistaModificarPersonal extends JFrame implements Observador {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					dispose();
-					ctrl.accion(new Contexto(Evento.VISTA_MODIFICAR_PERSONAL, "LIMPIEZA"));
+					ctrl.accion(new Contexto(Evento.VISTA_MODIFICAR_PERSONAL_ID, "LIMPIEZA"));
 				}
 			});
 
@@ -114,18 +115,18 @@ public class VistaModificarPersonal extends JFrame implements Observador {
 			centro.add(panelEtiquetas);
 			centro.add(panelTexto);
 
-			JLabel etiquetaIdEmpleado = new JLabel("Id de empleado: ");
-			etiquetaIdEmpleado.setFont(new Font("Tahoma", Font.BOLD, 25));
-			JTextField textoIdEmpleado = new JTextField();
-			textoIdEmpleado.setMaximumSize(new Dimension(200, 30));
-			textoIdEmpleado.setMinimumSize(new Dimension(200, 30));
-			textoIdEmpleado.setPreferredSize(new Dimension(200, 30));
-			textoIdEmpleado.setFont(new Font("Tahoma", Font.BOLD, 18));
-			textoIdEmpleado.setToolTipText("numero natural sin el 0");
-			panelEtiquetas.add(etiquetaIdEmpleado);
-			panelTexto.add(textoIdEmpleado);
-			centro.add(panelEtiquetas);
-			centro.add(panelTexto);
+//			JLabel etiquetaIdEmpleado = new JLabel("Id de empleado: ");
+//			etiquetaIdEmpleado.setFont(new Font("Tahoma", Font.BOLD, 25));
+//			JTextField textoIdEmpleado = new JTextField();
+//			textoIdEmpleado.setMaximumSize(new Dimension(200, 30));
+//			textoIdEmpleado.setMinimumSize(new Dimension(200, 30));
+//			textoIdEmpleado.setPreferredSize(new Dimension(200, 30));
+//			textoIdEmpleado.setFont(new Font("Tahoma", Font.BOLD, 18));
+//			textoIdEmpleado.setToolTipText("numero natural sin el 0");
+//			panelEtiquetas.add(etiquetaIdEmpleado);
+//			panelTexto.add(textoIdEmpleado);
+//			centro.add(panelEtiquetas);
+//			centro.add(panelTexto);
 
 			JLabel etiquetaAreaAsignada = new JLabel("Área asignada:    ");
 			etiquetaAreaAsignada.setFont(new Font("Tahoma", Font.BOLD, 25));
@@ -169,16 +170,16 @@ public class VistaModificarPersonal extends JFrame implements Observador {
 				public void actionPerformed(ActionEvent e) {
 					try {
 						int id = Integer.valueOf(textoId.getText());
-						int idEmpleado = Integer.valueOf(textoIdEmpleado.getText());
+//						int idEmpleado = Integer.valueOf(textoIdEmpleado.getText());
 						String areaAsignada = textoAreaAsignada.getText();
 
 						TPersonal transfer;
 						if (datos == "SEGURIDAD") {
 							int numPlaca = Integer.valueOf(textoNumPlaca.getText());
-							transfer = new TPSeguridad(id, idEmpleado, areaAsignada, true, numPlaca);
+							transfer = new TPSeguridad(id, tp.getId(), areaAsignada, true, numPlaca);
 						} else {
 							String rol = textoRol.getText();
-							transfer = new TPLimpieza(id, idEmpleado, areaAsignada, true, rol);
+							transfer = new TPLimpieza(id, tp.getId(), areaAsignada, true, rol);
 						}
 						ctrl.accion(new Contexto(Evento.MODIFICAR_PERSONAL, transfer));
 					} catch (Exception ex) {
