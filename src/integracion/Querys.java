@@ -53,5 +53,5 @@ public class Querys {
 	//PERSONAL
 	public static String bajaPersonal = "UPDATE PERSONAL SET activo = false WHERE id = ?";
 	public static String consultarPersonalExistente = "SELECT * FROM PERSONAL FOR UPDATE";
-	public static String consultarPersonalPorHangar = "SELECT * FROM PERSONAL p JOIN personal_hangar ph ON p.Id = ph.Id_personal WHERE am.Id_Hangar = ? FOR UPDATE";
+	public static String consultarPersonalPorHangar = "SELECT * FROM PERSONAL p JOIN personal_hangar ph ON p.Id = ph.Id_personal WHERE ph.Id_Hangar = ? FOR UPDATE";
 }

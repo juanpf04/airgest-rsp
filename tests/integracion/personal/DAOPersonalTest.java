@@ -8,12 +8,15 @@ import java.util.List;
 import org.junit.Test;
 
 import integracion.UtilidadesI;
+import integracion.aerolinea.DAOAerolinea;
+import integracion.factoria.FactoriaIntegracion;
 import integracion.factoria.FactoriaIntegracionImp;
 import integracion.hangar.DAOHangar;
 import integracion.transacciones.Transaction;
 import integracion.transacciones.TransactionManager;
 import negocio.personal.TPSeguridad;
 import negocio.personal.TPersonal;
+import negocio.aerolinea.TAerolinea;
 import negocio.hangar.THangar;
 import negocio.personal.TPLimpieza;
 
@@ -29,11 +32,10 @@ public class DAOPersonalTest {
 
 		File carpeta = new File(UtilidadesI.ruta("personal"));
 		File[] lista = carpeta.listFiles();
-
-		personal = new TPSeguridad(0, 12345, "Seguridad", true, 56789);
+		personal = new TPSeguridad(0, "12345678P", "Seguridad", true, 56789);
 		assertEquals("No ha devuelto el id correcto", lista.length + 1, daoPersonal.altaPersonal(personal));
 		
-		personal = new TPLimpieza(0, 67890, "Limpieza", true, "Supervisor");
+		personal = new TPLimpieza(0, "12345678P", "Limpieza", true, "Supervisor");
 		assertEquals("No ha devuelto el id correcto", lista.length + 2, daoPersonal.altaPersonal(personal));
 	}
 
@@ -57,7 +59,7 @@ public class DAOPersonalTest {
 
 		DAOPersonal daoPersonal = new DAOPersonalImp();
 
-		TPSeguridad personal = new TPSeguridad(1, 12345, "Seguridad", true, 56789);
+		TPSeguridad personal = new TPSeguridad(1, "12345678P", "Seguridad", true, 56789);
 
 		assertTrue("Ha leído mal el fichero", daoPersonal.modificarPersonal(personal));
 	}
@@ -69,7 +71,7 @@ public class DAOPersonalTest {
 		DAOPersonal daoPersonal = new DAOPersonalImp();
 
 		assertEquals("El personal con id 3 debe tener el idEmpleado 67890", 67890,
-				daoPersonal.consultarPersonalPorId(3).getIdEmpleado());
+				daoPersonal.consultarPersonalPorId(3).getDni());
 	}
 
 	@Test
@@ -86,4 +88,15 @@ public class DAOPersonalTest {
 		System.out.println(id);
 	}
 
+	@Test
+	public void consultarPersonalPorHangarTest(){
+		Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+		t.start();
+		DAOPersonal dp = FactoriaIntegracion.getInstance().crearDAOPersonal();
+		List<TPersonal> lista = dp.consultarPersonalPorHangar(1);
+		t.commit();
+		assertEquals("No coincide el tamaño", 1, lista.size());
+		System.out.println(lista);
+	}
+	
 }

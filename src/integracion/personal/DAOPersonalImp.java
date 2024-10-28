@@ -165,7 +165,7 @@ public class DAOPersonalImp implements DAOPersonal {
 			List<TPersonal> lista = new ArrayList<>();
 			
 			while (rs.next()){
-				lista.add(new TPersonal(rs.getInt(1), rs.getBoolean(2), rs.getString(3), rs.getString(4)));
+				lista.add(new TPersonal(rs.getInt("id"), rs.getBoolean("activo"), rs.getString("dni"), rs.getString("area_asignada")));
 			}
 			
 			rs.close();
