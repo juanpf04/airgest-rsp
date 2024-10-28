@@ -58,11 +58,18 @@ public class SAModeloImp implements SAModelo {
 			DAOModelo dm = FactoriaIntegracion.getInstance().crearDAOModelo();
 
 			TModelo leido = dm.leerModeloPorId(id);
+			
 			boolean ok = false;
 			if (leido != null && leido.getActivo()) {
-				ok = dm.bajaModelo(id);
-				if(ok) t.commit();
-				else t.rollback();
+				
+				DAOAerolinea da = FactoriaIntegracion.getInstance().crearDAOAerolinea();
+				List<TAerolinea> lista = da.consultarAerolineasPorModelo(id);
+				
+				if(lista.size() == 0){
+					ok = dm.bajaModelo(id);
+					if(ok) t.commit();
+					else t.rollback();
+				}else t.rollback();
 			}else t.rollback();
 			
 			return ok;

@@ -68,7 +68,10 @@ public class SAModeloImpTest {
 		assertFalse("no existe un modelo con id20", sm.bajaModelo(20));
 		
 		//Prueba modelo ya inactivo
-				assertFalse("el modelo ya estaba inactivo", sm.bajaModelo(4));
+		assertFalse("el modelo ya estaba inactivo", sm.bajaModelo(4));
+		
+		//Prueba aerolineas activas
+		assertFalse("No se puede dar de baja modelo con aerolineas activas", sm.bajaModelo(3));
 		
 		// Prueba avion activo			//TODO Falta este
 		assertFalse("No se puede dar de baja modelo con aviones activos", sm.bajaModelo(1));
@@ -86,7 +89,10 @@ public class SAModeloImpTest {
 		assertTrue("No se han podido vincular", sm.vincularModelo(tma));
 		
 		// prueba ya vinculados
-		assertFalse("ya estaban vinulados", sm.vincularModelo(tma));
+		assertFalse("ya estaban vinculados", sm.vincularModelo(tma));
+		
+		//uno de los dos esta inactivo
+		assertFalse("no se debe poder vincular", sm.vincularModelo(tma));
 		
 		sm.desvincularModelo(tma); // desvinculamos 
 	}
