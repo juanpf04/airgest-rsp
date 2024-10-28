@@ -12,7 +12,7 @@ public class ValidadorModelo {
 	public static boolean comprobarModelo(TModelo tModelo) {
 		// begin-user-code
 		// TODO Auto-generated method stub
-		return false;
+		return comprobarNombre(tModelo.getNombre()) && comprobarMotor(tModelo.getMotor()) && tModelo.getId() != -1;
 		// end-user-code
 	}
 

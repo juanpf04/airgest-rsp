@@ -28,6 +28,9 @@ public class FactoriaComandosImp extends FactoriaComandos {
 		case CONSULTAR_TODOS_MODELOS:
 			comando = new ConsultarTodosModelos();
 			break;
+		case MODIFICAR_MODELO_ID:
+			comando = new ModificarModeloId();
+			break;
 		case MODIFICAR_MODELO:
 			comando = new ModificarModelo();
 			break;
