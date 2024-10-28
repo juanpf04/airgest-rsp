@@ -102,32 +102,6 @@ public class VistaModificarPersonal extends JFrame implements Observador {
 			JPanel panelTexto = new JPanel();
 			panelTexto.setLayout(new BoxLayout(panelTexto, BoxLayout.PAGE_AXIS));
 
-			JLabel etiquetaId = new JLabel("Id: ");
-			etiquetaId.setFont(new Font("Tahoma", Font.BOLD, 25));
-			JTextField textoId = new JTextField();
-			textoId.setMaximumSize(new Dimension(200, 30));
-			textoId.setMinimumSize(new Dimension(200, 30));
-			textoId.setPreferredSize(new Dimension(200, 30));
-			textoId.setFont(new Font("Tahoma", Font.BOLD, 18));
-			textoId.setToolTipText("numero natural sin el 0");
-			panelEtiquetas.add(etiquetaId);
-			panelTexto.add(textoId);
-			centro.add(panelEtiquetas);
-			centro.add(panelTexto);
-
-//			JLabel etiquetaIdEmpleado = new JLabel("Id de empleado: ");
-//			etiquetaIdEmpleado.setFont(new Font("Tahoma", Font.BOLD, 25));
-//			JTextField textoIdEmpleado = new JTextField();
-//			textoIdEmpleado.setMaximumSize(new Dimension(200, 30));
-//			textoIdEmpleado.setMinimumSize(new Dimension(200, 30));
-//			textoIdEmpleado.setPreferredSize(new Dimension(200, 30));
-//			textoIdEmpleado.setFont(new Font("Tahoma", Font.BOLD, 18));
-//			textoIdEmpleado.setToolTipText("numero natural sin el 0");
-//			panelEtiquetas.add(etiquetaIdEmpleado);
-//			panelTexto.add(textoIdEmpleado);
-//			centro.add(panelEtiquetas);
-//			centro.add(panelTexto);
-
 			JLabel etiquetaAreaAsignada = new JLabel("Área asignada:    ");
 			etiquetaAreaAsignada.setFont(new Font("Tahoma", Font.BOLD, 25));
 			JTextField textoAreaAsignada = new JTextField();
@@ -153,6 +127,8 @@ public class VistaModificarPersonal extends JFrame implements Observador {
 			textoNumPlaca.setMinimumSize(new Dimension(200, 30));
 			textoNumPlaca.setPreferredSize(new Dimension(200, 30));
 			textoNumPlaca.setFont(new Font("Tahoma", Font.BOLD, 18));
+			centro.add(panelEtiquetas);
+			centro.add(panelTexto);
 
 			if ("LIMPIEZA" == datos) {
 				panelEtiquetas.add(etiquetaRol);
@@ -163,23 +139,38 @@ public class VistaModificarPersonal extends JFrame implements Observador {
 				panelTexto.add(textoNumPlaca);
 			}
 
+			JButton atras = new JButton("ATRAS"); // boton para volver a la ventana
+			// principal
+			atras.setToolTipText("Esto vuelve a la ventana anterior");
+			atras.addActionListener(new ActionListener() {
+			
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					dispose();
+					if (datos == null)
+							ctrl.accion(new Contexto(Evento.VISTA_PERSONAL, null));
+					else
+							ctrl.accion(new Contexto(Evento.VISTA_MODIFICAR_PERSONAL, null));
+				}
+			
+			});
+			panelBotones.add(atras);
+			
 			JButton aceptar = new JButton("ACEPTAR");
 			aceptar.addActionListener(new ActionListener() {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					try {
-						int id = Integer.valueOf(textoId.getText());
-//						int idEmpleado = Integer.valueOf(textoIdEmpleado.getText());
 						String areaAsignada = textoAreaAsignada.getText();
 
 						TPersonal transfer;
 						if (datos == "SEGURIDAD") {
 							int numPlaca = Integer.valueOf(textoNumPlaca.getText());
-							transfer = new TPSeguridad(id, tp.getId(), areaAsignada, true, numPlaca);
+							transfer = new TPSeguridad(tp.getId(), tp.getId(), areaAsignada, true, numPlaca);
 						} else {
 							String rol = textoRol.getText();
-							transfer = new TPLimpieza(id, tp.getId(), areaAsignada, true, rol);
+							transfer = new TPLimpieza(tp.getId(), tp.getId(), areaAsignada, true, rol);
 						}
 						ctrl.accion(new Contexto(Evento.MODIFICAR_PERSONAL, transfer));
 					} catch (Exception ex) {
@@ -192,23 +183,6 @@ public class VistaModificarPersonal extends JFrame implements Observador {
 			panelBotones.add(aceptar);
 
 		}
-
-		JButton atras = new JButton("ATRAS"); // boton para volver a la ventana
-												// principal
-		atras.setToolTipText("Esto vuelve a la ventana anterior");
-		atras.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-				if (datos == null)
-					ctrl.accion(new Contexto(Evento.VISTA_PERSONAL, null));
-				else
-					ctrl.accion(new Contexto(Evento.VISTA_MODIFICAR_PERSONAL, null));
-			}
-
-		});
-		panelBotones.add(atras);
 
 		this.setContentPane(principal);
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
