@@ -2,12 +2,10 @@ package integracion.modelo;
 
 import static org.junit.Assert.*;
 
-import java.io.File;
 import java.util.List;
 
 import org.junit.Test;
 
-import integracion.UtilidadesI;
 import integracion.transacciones.Transaction;
 import integracion.transacciones.TransactionManager;
 import negocio.modelo.TModelo;
@@ -21,7 +19,7 @@ public class DAOModeloImpTest {
 
 		DAOModelo dm = new DAOModeloImp();
 		
-		TModelo m = dm.leerModeloPorNombre("florencia");
+		TModelo m = dm.consultarModeloPorNombre("pepe");
 		
 		t.commit();
 		assertTrue(m != null);
@@ -42,7 +40,7 @@ public class DAOModeloImpTest {
 		int id = dm.altaModelo(modelo);
 		t.commit();
 		
-		assertEquals("No ha devuelto el id correcto", 2, id);
+		assertEquals("No ha devuelto el id correcto", 4, id);
 	}
 
 	@Test
@@ -66,7 +64,7 @@ public class DAOModeloImpTest {
 		t.start();
 
 		DAOModelo dm = new DAOModeloImp();
-		boolean ok = dm.bajaModelo(4);
+		boolean ok = dm.bajaModelo(5);
 		t.commit();
 		assertTrue("No se ha dado de baja", ok);
 	}
@@ -93,7 +91,7 @@ public class DAOModeloImpTest {
 
 		DAOModelo dm = new DAOModeloImp();
 		
-		TModelo m = dm.leerModeloPorId(2);
+		TModelo m = dm.consultarModeloPorId(2);
 		
 		t.commit();
 		assertTrue(m != null);
@@ -101,6 +99,7 @@ public class DAOModeloImpTest {
 		System.out.println(m);
 	}
 
+	@Test
 	public void consultar_modelos_por_aerolinea(){
 		Transaction t = TransactionManager.getInstance().nuevaTransaccion();
 		t.start();

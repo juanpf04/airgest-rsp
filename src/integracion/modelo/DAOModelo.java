@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface DAOModelo {
 
-	public TModelo leerModeloPorNombre(String nombre);
+	public TModelo consultarModeloPorNombre(String nombre);
 
 	public int altaModelo(TModelo tModelo);
 
@@ -15,7 +15,7 @@ public interface DAOModelo {
 
 	public List<TModelo> consultarTodosModelos();
 
-	public TModelo leerModeloPorId(int id);
+	public TModelo consultarModeloPorId(int id);
 	
 	public List<TModelo> consultarModelosPorAerolinea(int idAerolinea);
 

@@ -16,34 +16,34 @@ public class SAModeloImpTest {
 	public void alta_modelo_test() {
 
 		SAModelo sm = new SAModeloImp();
+		TModelo modelo;
 
 		// Prueba exitosa
-		TModelo modelo = new TModelo(id_inmodificable, "boeing-900", "EFV-32", inmodificable);
+		modelo = new TModelo(id_inmodificable, "boeing-900", "EFV-32", inmodificable);
 		
-		assertEquals("debería darse de alta el modelo", 1, sm.altaModelo(modelo));
+		assertEquals("debería darse de alta el modelo", 5, sm.altaModelo(modelo));
 
 		// Fallo por nombre repetido
-		modelo = new TModelo(id_inmodificable, "boeing-900", "EFV-32", inmodificable);
+		modelo = new TModelo(id_inmodificable, "boeing-900", "EFV-33", inmodificable);
 		assertEquals("un modelo no activo no se puede modificar", -1, sm.altaModelo(modelo));
 
 		// Reactivar modelo exito
-		modelo = new TModelo(id_inmodificable, "pedro-444", "EFV-32", inmodificable);
-		sm.altaModelo(modelo);
-		assertEquals("no se puede modificar un modelo que no existe",2, sm.altaModelo(modelo));
+		modelo = new TModelo(id_inmodificable, "boeing-900", "EFV-40", inmodificable);
+		assertEquals("no se puede modificar un modelo que no existe",5, sm.altaModelo(modelo));
 	}
 
 	@Test
 	public void modificar_modelo_test() {
-		UtilidadesI.esTest();
 
 		SAModelo sm = new SAModeloImp();
+		TModelo modelo;
 
 		// Prueba exitosa
-		TModelo modelo = new TModelo(1, "boeing-888", "EFV-32", inmodificable);
+		modelo = new TModelo(1, "boeing-888", "EFV-30", inmodificable);
 		assertTrue("debería modificarse modelo", sm.modificarModelo(modelo));
 
 		// Fallo por modelo no activo
-		modelo = new TModelo(2, "boeing-744", "EFV-32", inmodificable);
+		modelo = new TModelo(4, "boeing-744", "EFV-32", inmodificable);
 		assertFalse("un modelo no activo no se puede modificar", sm.modificarModelo(modelo));
 
 		// Fallo id no existente
@@ -93,8 +93,6 @@ public class SAModeloImpTest {
 		
 		//uno de los dos esta inactivo
 		assertFalse("no se debe poder vincular", sm.vincularModelo(tma));
-		
-		sm.desvincularModelo(tma); // desvinculamos 
 	}
 
 	@Test

@@ -14,11 +14,11 @@ import integracion.transacciones.TransactionManager;
 
 public class DAOModeloImp implements DAOModelo {
 
-	public TModelo leerModeloPorNombre(String nombre) {
+	public TModelo consultarModeloPorNombre(String nombre) {
 		try{
 		Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
 		
-		PreparedStatement ps = con.prepareStatement(Querys.leer_modelo_por_nombre);
+		PreparedStatement ps = con.prepareStatement(Querys.consultar_modelo_por_nombre);
 		ps.setString(1, nombre);
 		
 		ResultSet res = ps.executeQuery();
@@ -125,11 +125,11 @@ public class DAOModeloImp implements DAOModelo {
 			}
 	}
 
-	public TModelo leerModeloPorId(int id) {
+	public TModelo consultarModeloPorId(int id) {
 		try{
 			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
 			
-			PreparedStatement ps = con.prepareStatement(Querys.leer_modelo_por_id);
+			PreparedStatement ps = con.prepareStatement(Querys.consultar_modelo_por_id);
 			ps.setInt(1, id);
 			
 			ResultSet res = ps.executeQuery();
@@ -152,7 +152,7 @@ public class DAOModeloImp implements DAOModelo {
 		try{
 		Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
 		
-		PreparedStatement ps = con.prepareStatement(Querys.leer_modelo_por_aerolinea);
+		PreparedStatement ps = con.prepareStatement(Querys.consultar_modelo_por_aerolinea);
 		ps.setInt(1, idAerolinea);
 		
 		ResultSet res = ps.executeQuery();

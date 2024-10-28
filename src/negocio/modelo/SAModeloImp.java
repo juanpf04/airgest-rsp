@@ -26,7 +26,7 @@ public class SAModeloImp implements SAModelo {
 			t.start();
 			
 			DAOModelo dm = FactoriaIntegracion.getInstance().crearDAOModelo();
-			TModelo leido = dm.leerModeloPorNombre(tModelo.getNombre());
+			TModelo leido = dm.consultarModeloPorNombre(tModelo.getNombre());
 
 			if (leido == null){
 				id = dm.altaModelo(tModelo);
@@ -57,7 +57,7 @@ public class SAModeloImp implements SAModelo {
 			
 			DAOModelo dm = FactoriaIntegracion.getInstance().crearDAOModelo();
 
-			TModelo leido = dm.leerModeloPorId(id);
+			TModelo leido = dm.consultarModeloPorId(id);
 			
 			boolean ok = false;
 			if (leido != null && leido.getActivo()) {
@@ -92,7 +92,7 @@ public class SAModeloImp implements SAModelo {
 			
 			DAOModelo dm = FactoriaIntegracion.getInstance().crearDAOModelo();
 			
-			tm = dm.leerModeloPorId(id);
+			tm = dm.consultarModeloPorId(id);
 			t.commit();
 		}
 
@@ -122,11 +122,11 @@ public class SAModeloImp implements SAModelo {
 			int id = tModelo.getId();
 			String nombre = tModelo.getNombre();
 
-			TModelo leido = dm.leerModeloPorId(id);
+			TModelo leido = dm.consultarModeloPorId(id);
 
 			if (leido != null) {
 				if (leido.getActivo()
-						&& (leido.getNombre().equals(nombre) || dm.leerModeloPorNombre(nombre) == null)) {
+						&& (leido.getNombre().equals(nombre) || dm.consultarModeloPorNombre(nombre) == null)) {
 					ok = dm.modificarModelo(tModelo);
 				}
 			}
@@ -151,7 +151,7 @@ public class SAModeloImp implements SAModelo {
 			DAOModelo dm = FactoriaIntegracion.getInstance().crearDAOModelo();
 			DAOAerolinea da = FactoriaIntegracion.getInstance().crearDAOAerolinea();
 
-			TModelo mLeido = dm.leerModeloPorId(idModelo);
+			TModelo mLeido = dm.consultarModeloPorId(idModelo);
 			TAerolinea aLeida = da.leerAerolineaPorId(idAerolinea);
 
 			if (mLeido != null && mLeido.getActivo() && aLeida != null && aLeida.getActivo()) {
@@ -182,7 +182,7 @@ public class SAModeloImp implements SAModelo {
 			DAOModelo dm = FactoriaIntegracion.getInstance().crearDAOModelo();
 			DAOAerolinea da = FactoriaIntegracion.getInstance().crearDAOAerolinea();
 
-			TModelo mLeido = dm.leerModeloPorId(idModelo);
+			TModelo mLeido = dm.consultarModeloPorId(idModelo);
 			TAerolinea aLeida = da.leerAerolineaPorId(idAerolinea);
 
 			if (mLeido != null && mLeido.getActivo() && aLeida != null && aLeida.getActivo()) {
