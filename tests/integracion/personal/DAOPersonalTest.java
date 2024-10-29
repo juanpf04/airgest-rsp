@@ -23,21 +23,19 @@ import negocio.personal.TPLimpieza;
 public class DAOPersonalTest {
 
 	@Test
-	public void altaPersonalTest() {
-		UtilidadesI.esTest();
+    public void altaPersonalTest() {//peerfe
+        Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+        t.start();
+        
+        DAOPersonal daoPersonal = new DAOPersonalImp();
 
-		DAOPersonal daoPersonal = new DAOPersonalImp();
+        TPersonal personal;
 
-		TPersonal personal;
-
-		File carpeta = new File(UtilidadesI.ruta("personal"));
-		File[] lista = carpeta.listFiles();
-		personal = new TPSeguridad(0, "12345678P", "Seguridad", true, 56789);
-		assertEquals("No ha devuelto el id correcto", lista.length + 1, daoPersonal.altaPersonal(personal));
-		
-		personal = new TPLimpieza(0, "12345678P", "Limpieza", true, "Supervisor");
-		assertEquals("No ha devuelto el id correcto", lista.length + 2, daoPersonal.altaPersonal(personal));
-	}
+//        personal = new TPSeguridad(1, "12345678P", "Seguridad", true, 56789);
+        personal = new TPLimpieza(1, "12345678P", "Limpieza", true, "56789");
+        assertTrue("No se ha dado de alta", daoPersonal.altaPersonal(personal) >= 1);
+        t.commit();
+    }
 
 	@Test
 	public void bajaPersonalTest() {//peerfe
@@ -54,14 +52,18 @@ public class DAOPersonalTest {
 	}
 
 	@Test
-	public void modificarPersonalTest() {
-		UtilidadesI.esTest();
+	public void modificarPersonalTest() {//perfee
+		Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+		t.start();
 
-		DAOPersonal daoPersonal = new DAOPersonalImp();
+		DAOPersonal dp = FactoriaIntegracionImp.getInstance().crearDAOPersonal();
 
-		TPSeguridad personal = new TPSeguridad(1, "12345678P", "Seguridad", true, 56789);
+		TPLimpieza personal = new TPLimpieza(14, "12345678P", "Limpieza", true, "1");
+		assertTrue("no se ha modificado bien", dp.modificarPersonal(personal));
 
-		assertTrue("Ha leído mal el fichero", daoPersonal.modificarPersonal(personal));
+//		personal = new TPLimpieza(id, "12345699P", "Limpieza", true, "1");
+
+		t.commit();
 	}
 
 	@Test
@@ -73,6 +75,22 @@ public class DAOPersonalTest {
 		assertEquals("El personal con id 3 debe tener el idEmpleado 67890", 67890,
 				daoPersonal.consultarPersonalPorId(3).getDni());
 	}
+	
+	@Test
+    public void consultarPersonalPorDni() {//perfee
+        Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+        t.start();
+
+        DAOPersonal dp = FactoriaIntegracionImp.getInstance().crearDAOPersonal();
+        
+        
+        int id = dp.altaPersonal(new TPSeguridad(0, "11111111A", "Seguridad", true, 167));
+        
+        TPersonal p = dp.consultarPersonalPorDni("11111111A");    
+    
+        assertEquals("No ha devuelto la fila correcta", p.getId(), id);
+        t.commit();
+    }
 
 	@Test
 	public void consultarTodosPersonalTest() {//perfee
@@ -89,7 +107,7 @@ public class DAOPersonalTest {
 	}
 
 	@Test
-	public void consultarPersonalPorHangarTest(){
+	public void consultarPersonalPorHangarTest(){//perfee
 		Transaction t = TransactionManager.getInstance().nuevaTransaccion();
 		t.start();
 		DAOPersonal dp = FactoriaIntegracion.getInstance().crearDAOPersonal();

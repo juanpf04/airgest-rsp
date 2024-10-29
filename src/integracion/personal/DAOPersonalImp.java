@@ -25,54 +25,6 @@ import java.util.List;
 
 public class DAOPersonalImp implements DAOPersonal {
 
-//	private TPersonal leerFichero(File file) {
-//		TPersonal transfer;
-//		try {
-//			JSONObject data = new JSONObject(new JSONTokener(new FileReader(file)));
-//
-//			if (data.has("rol")) {
-//				transfer = new TPLimpieza(data.getInt("id"), data.getString("dni"), data.getString("areaAsignada"),
-//						data.getBoolean("activo"), data.getString("rol"));
-//			} else {
-//				transfer = new TPSeguridad(data.getInt("id"), data.getString("dni"), data.getString("areaAsignada"),
-//						data.getBoolean("activo"), data.getInt("numPlaca"));
-//			}
-//
-//		} catch (FileNotFoundException e) {
-//			transfer = null;
-//		}
-//		return transfer;
-//	}
-//
-//	private boolean escribirFichero(TPersonal tPersonal) {
-//		boolean exito = true;
-//
-//		try {
-//			FileWriter archivo = new FileWriter(
-//					UtilidadesI.ruta("personal") + String.format("%05d", tPersonal.getId()) + ".json");
-//
-//			JSONObject data = new JSONObject();
-//
-//			data.put("id", tPersonal.getId());
-//			data.put("dni", tPersonal.getDni());
-//			data.put("areaAsignada", tPersonal.getAreaAsignada());
-//			data.put("activo", tPersonal.getActivo());
-//
-//			if (tPersonal instanceof TPSeguridad)
-//				data.put("numPlaca", ((TPSeguridad) tPersonal).getNumPlaca());
-//			else
-//				data.put("rol", ((TPLimpieza) tPersonal).getRol());
-//
-//			archivo.write(data.toString());
-//			archivo.close();
-//
-//		} catch (IOException e) {
-//			exito = false;
-//		}
-//
-//		return exito;
-//	}
-
 	@Override
 	public int altaPersonal(TPersonal tPersonal) {
 
@@ -206,7 +158,7 @@ public class DAOPersonalImp implements DAOPersonal {
 	                    modificado = eliminarSeguridad(tPersonal.getId());
 	                    modificado = altaLimpieza((TPLimpieza) tPersonal);
 	                }
-	            } else {
+	            } else if(modificado){
 	                boolean seguridadModificado = modificarSeguridad((TPSeguridad) tPersonal);
 	                if (!seguridadModificado) {
 	                    modificado = eliminarLimpieza(tPersonal.getId());
