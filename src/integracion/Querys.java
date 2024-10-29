@@ -54,9 +54,15 @@ public class Querys {
 	
 	//PERSONAL
 	public static String altaPersonal = "INSERT INTO PERSONAL(dni, area, activo) VALUES (?, ?, true)";
-	public static String altaLimpieza = "INSERT INTO PERSONAL_SEGURIDAD(id_personal, rol) VALUES (?, ?)";
+	public static String altaLimpieza = "INSERT INTO PERSONAL_LIMPIEZA(id_personal, rol) VALUES (?, ?)";
 	public static String altaSeguridad = "INSERT INTO PERSONAL_SEGURIDAD(id_personal, placa) VALUES (?, ?)";
 	public static String bajaPersonal = "UPDATE PERSONAL SET activo = false WHERE id = ?";
+	public static String modificarPersonal= "UPDATE PERSONAL SET Area_Asignada = ?, DNI = ?, Activo = ? WHERE Id = ?";
+	public static String modificarLimpieza= "UPDATE PERSONAL SET rol = ? WHERE Id = ?";
+	public static String modificarSeguridad= "UPDATE PERSONAL SET Placa = ? WHERE Id = ?";
+	public static String eliminarLimpieza = "DELETE FROM PERSONAL_LIMPIEZA WHERE Id_personal = ?";
+    public static String eliminarSeguridad = "DELETE FROM PERSONAL_SEGURIDAD WHERE Id_personal = ?";
+    
 	public static String consultarPersonalPorDni = "SELECT * FROM PERSONAL WHERE dni = ?";
 	public static String consultarPersonalExistente = "SELECT * FROM PERSONAL FOR UPDATE";
 	public static String consultarPersonalPorHangar = "SELECT * FROM PERSONAL p JOIN personal_hangar ph ON p.Id = ph.Id_personal WHERE ph.Id_Hangar = ? FOR UPDATE";

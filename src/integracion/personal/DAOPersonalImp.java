@@ -75,17 +75,8 @@ public class DAOPersonalImp implements DAOPersonal {
 
 	@Override
 	public int altaPersonal(TPersonal tPersonal) {
-		String datoEspecializado, queryEspecializada;
-		int id = -1;
 
-		if (tPersonal instanceof TPLimpieza) {
-			datoEspecializado = ((TPLimpieza) tPersonal).getRol();
-			queryEspecializada = Querys.altaLimpieza;
-		}
-		else {
-			datoEspecializado = Integer.toString(((TPSeguridad) tPersonal).getNumPlaca()); 
-			queryEspecializada = Querys.altaSeguridad;
-		}
+		int id = -1;
 		
 		try{
 			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
@@ -94,25 +85,20 @@ public class DAOPersonalImp implements DAOPersonal {
 			ps.setString(2, tPersonal.getAreaAsignada());
 			
 			int filasNuevas = ps.executeUpdate();			
-			ResultSet gk = ps.getGeneratedKeys();
+			ResultSet rs = ps.getGeneratedKeys();
 			
-			
-			if (filasNuevas == 1 && gk.next()) {
-				id = gk.getInt(1);
-				
-				PreparedStatement ps2 = con.prepareStatement(queryEspecializada);
-				
-				ps2.setInt(1, id);
-				ps2.setString(2, datoEspecializado);
-				
-				filasNuevas = ps2.executeUpdate();
-				
-				if (filasNuevas != 1) id = -1;
-				
-				ps2.close();
-			}
-			
-			gk.close();
+			id = filasNuevas == 1 && rs.next() ? rs.getInt(1) : -1;
+            tPersonal.setId(id);
+            boolean ok = false;
+            if (id != -1 && tPersonal instanceof TPLimpieza)
+                ok = altaLimpieza((TPLimpieza) tPersonal);
+            else
+                ok = altaSeguridad((TPSeguridad) tPersonal);
+
+            if (!ok)
+                id = -1;
+            
+			rs.close();
 			ps.close();
 
 			return id;
@@ -122,6 +108,64 @@ public class DAOPersonalImp implements DAOPersonal {
 		}
 	}
 
+	private Boolean altaLimpieza(TPLimpieza personal) {
+        try {
+            Transaction t = TransactionManager.getInstance().getTransaccion();
+            Connection con = (Connection) t.getResource();
+            PreparedStatement ps = con.prepareStatement(Querys.altaLimpieza);
+            ps.setInt(1, personal.getId());
+            ps.setString(2, personal.getRol());
+            int filas = ps.executeUpdate();
+            ps.close();
+            return filas == 1;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    private Boolean altaSeguridad(TPSeguridad personal) {
+        try {
+            Transaction t = TransactionManager.getInstance().getTransaccion();
+            Connection con = (Connection) t.getResource();
+            PreparedStatement ps = con.prepareStatement(Querys.altaSeguridad);
+            ps.setInt(1, personal.getId());
+            ps.setInt(2, personal.getNumPlaca());
+            int filas = ps.executeUpdate();
+            ps.close();
+            return filas == 1;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+	
+    private boolean eliminarLimpieza(int id) {
+        try {
+            Transaction t = TransactionManager.getInstance().getTransaccion();
+            Connection con = (Connection) t.getResource();
+            PreparedStatement ps = con.prepareStatement(Querys.eliminarLimpieza);
+            ps.setInt(1, id);
+            int filas = ps.executeUpdate();
+            ps.close();
+            return filas == 1;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    private boolean eliminarSeguridad(int id) {
+        try {
+            Transaction t = TransactionManager.getInstance().getTransaccion();
+            Connection con = (Connection) t.getResource();
+            PreparedStatement ps = con.prepareStatement(Querys.eliminarSeguridad);
+            ps.setInt(1, id);
+            int filas = ps.executeUpdate();
+            ps.close();
+            return filas == 1;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+    
 	@Override
 	public boolean bajaPersonal(int id) {//perfe
 		try{
@@ -142,9 +186,74 @@ public class DAOPersonalImp implements DAOPersonal {
 
 	@Override
 	public boolean modificarPersonal(TPersonal tPersonal) {
-		return escribirFichero(tPersonal);
+		
+		try{
+			Transaction t = TransactionManager.getInstance().getTransaccion();
+			Connection con = (Connection) t.getResource();
+			PreparedStatement ps = con.prepareStatement(Querys.modificarPersonal);
+			ps.setString(1, tPersonal.getAreaAsignada());
+			ps.setString(2, tPersonal.getDni());
+			ps.setBoolean(3, tPersonal.getActivo());
+			ps.setInt(4, tPersonal.getId());
+			
+			
+			int filas = ps.executeUpdate();
+			boolean modificado = filas == 1;
+			
+			 if (modificado && tPersonal instanceof TPLimpieza) {
+	                boolean limpiezaModificado = modificarLimpieza((TPLimpieza) tPersonal);
+	                if (!limpiezaModificado) {
+	                    modificado = eliminarSeguridad(tPersonal.getId());
+	                    modificado = altaLimpieza((TPLimpieza) tPersonal);
+	                }
+	            } else {
+	                boolean seguridadModificado = modificarSeguridad((TPSeguridad) tPersonal);
+	                if (!seguridadModificado) {
+	                    modificado = eliminarLimpieza(tPersonal.getId());
+	                    modificado = altaSeguridad((TPSeguridad) tPersonal);
+	                }
+	            }
+			
+			ps.close();
+			
+			return modificado;
+		} catch(Exception e){
+			return false;
+		}
 	}
 
+	private boolean modificarLimpieza(TPLimpieza personal) {
+        try {
+            Transaction t = TransactionManager.getInstance().getTransaccion();
+            Connection con = (Connection) t.getResource();
+            PreparedStatement ps = con.prepareStatement(Querys.modificarLimpieza);
+            ps.setString(1, personal.getRol());
+            ps.setInt(2, personal.getId());
+            int filas = ps.executeUpdate();
+            ps.close();
+            return filas == 1;
+
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    private boolean modificarSeguridad(TPSeguridad personal) {
+        try {
+            Transaction t = TransactionManager.getInstance().getTransaccion();
+            Connection con = (Connection) t.getResource();
+            PreparedStatement ps = con.prepareStatement(Querys.modificarSeguridad);
+            ps.setInt(1, personal.getNumPlaca());
+            ps.setInt(2, personal.getId());
+            int filas = ps.executeUpdate();
+            ps.close();
+            return filas == 1;
+
+        } catch (Exception e) {
+            return false;
+        }
+    }
+    
 	@Override
 	public TPersonal consultarPersonalPorDni(String dni) {
 		TPersonal ret = null;
