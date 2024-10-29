@@ -22,45 +22,44 @@ public class SAAvionImpTest {
 	public void alta_avion_test() {
 
 		SAAvion sa = new SAAvionImp();
+		TAvion avion;
 
 		// Prueba exitosa comercial
-		TAvion avion = new TAComercial(id_inmodificable, 5, "06-12-2004", "nombrePrueba", "EC-1", inmodificable, 8, 1,
-				1, "Valeria");
+		avion = new TAComercial(id_inmodificable, 5, "06-12-2004", "nombrePrueba", "EC-1", inmodificable, 1, 1,
+				2, "Valeria");
 		int id = sa.altaAvion(avion);
 
-		assertEquals("debería darse de alta el avion comercial", 1, id);
+		assertEquals("debería darse de alta el avion comercial", 3, id);
 
 		// Prueba exitosa privada
-		avion = new TAPrivado(id_inmodificable, 5, "06-12-2004", "nombrePrueba2", "EC-2", inmodificable, 8, 1, 1,
-				"Patricio", 7);
+		avion = new TAPrivado(id_inmodificable, 5, "06-12-2004", "nombrePrueba2", "EC-234", inmodificable, 1, 1, 2,
+				"Patricio", 8);
 		assertEquals("debería darse de alta el avion privado", 2, sa.altaAvion(avion));
 
 		// Fallo por matricula repetida y avion activo
-		avion = new TAPrivado(id_inmodificable, 5, "06-12-2004", "nombrePrueba2", "EC-2", inmodificable, 8, 1, 1,
-				"Patricio", 7);
+		avion = new TAPrivado(id_inmodificable, 5, "06-12-2004", "nombrePrueba2", "EC-1", inmodificable, 8, 1, 1,
+				"Patricio", 9);
 		assertEquals("un avion activo no se puede modificar", -1, sa.altaAvion(avion));
 
 		// Reactivar avion exito
-		avion = new TAComercial(id_inmodificable, 5, "06-12-2004", "pruebaReactivar", "EC-3", inmodificable, 1, 1, 1,
+		avion = new TAComercial(id_inmodificable, 5, "06-12-2004", "pruebaReactivar", "EC-2Cambio", inmodificable, 1, 1, 2,
 				"Amazon");
-		// assertEquals("deberia reactivarse el avion ", 2,
-		// sa.altaAvion(avion));
+		assertEquals("deberia reactivarse el avion ", 2, sa.altaAvion(avion));
 
 	}
 
 	@Test
 	public void modificar_avion_test() {
-		UtilidadesI.esTest();
-
 		SAAvion sa = new SAAvionImp();
+		TAvion avion;
 
 		// Prueba comercial exitosa
-		TAvion avion = new TAComercial(3, 10, "28-01-2001", "nombreModificar1", "EC-1", inmodificable, 1, 1, 1,
+		avion = new TAComercial(3, 10, "28-01-2001", "nombreModificar1", "EC-4", inmodificable, 1, 1, 2,
 				"NuevaEmpresa");
 		assertTrue("Debería modificarse el avion comercial", sa.modificarAvion(avion));
 
-		// Prueba comercial exitosa
-		avion = new TAPrivado(4, 5, "02-02-2002", "nombreModificar2", "EC-2", inmodificable, 2, 2, 2, "Pepe", 12);
+		// Prueba privado exitosa
+		avion = new TAPrivado(3, 5, "02-02-2002", "nombreModificar2", "EC-4", inmodificable, 1, 1, 2, "Pepe", 12);
 		assertTrue("Debería modificarse el avion privado", sa.modificarAvion(avion));
 
 		// Fallo por avion inactivo
@@ -78,18 +77,16 @@ public class SAAvionImpTest {
 
 	@Test
 	public void baja_avion_test() {
-		UtilidadesI.esTest();
-
 		SAAvion sa = new SAAvionImp();
 
 		// Prueba comercial exitosa
-		assertTrue("Deberia darse de baja el avion comercial", sa.bajaAvion(3));
+		assertTrue("Deberia darse de baja el avion comercial", sa.bajaAvion(1));
 
 		// Prueba privado exitosa
-		assertTrue("Deberia darse de baja el avion privado", sa.bajaAvion(4));
+		assertTrue("Deberia darse de baja el avion privado", sa.bajaAvion(11));
 
 		// Prueba baja avion inactivo fallo
-		assertFalse("El avion ya estaba inactivo", sa.bajaAvion(3));
+		assertFalse("El avion ya estaba inactivo", sa.bajaAvion(1));
 
 	}
 

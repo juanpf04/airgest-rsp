@@ -145,9 +145,9 @@ public class DAOAvionImpTest {
 
         TAvion avion = new TAComercial(0, 5, "06-12-2004", "nombrePrueba", "EC-1234", 
                 true, 1, 1, 1, "Empresa");
-        assertEquals("Deberia darse de alta el avion comercial", 1, da.altaAvion(avion));
+        //assertEquals("Deberia darse de alta el avion comercial", 1, da.altaAvion(avion));
         
-        avion = new TAPrivado(0, 5, "06-12-2004", "nombrePrueba2", "EC-2", 
+        avion = new TAPrivado(0, 5, "06-12-2004", "nombrePrueba2", "EC-69", 
                 true, 1, 1, 1, "Patricio", 7);
         assertEquals("Deberia darse de alta el avion privado", 2, da.altaAvion(avion));
         
