@@ -18,7 +18,7 @@ public class ModificarAvion implements Comando {
 		if (exito)
 			evento = Evento.VISTA_EXITO_MODIFICAR_AVION;
 		else
-			evento = Evento.VISTA_EXITO_MODIFICAR_AVION;
+			evento = Evento.VISTA_FALLO_MODIFICAR_AVION;
 
 		return new Contexto(evento, null);
 	}

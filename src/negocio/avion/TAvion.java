@@ -1,6 +1,4 @@
-
 package negocio.avion;
-
 
 public class TAvion {
 

@@ -127,7 +127,7 @@ public class VistaAvion extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				ctrl.accion(new Contexto(Evento.VISTA_MODIFICAR_AVION, null));
+				ctrl.accion(new Contexto(Evento.VISTA_MODIFICAR_AVION_ID, null));
 			}
 		});
 

@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 import javax.swing.BoxLayout;
@@ -221,7 +222,7 @@ public class VistaAltaAvion extends JFrame implements Observador {
 			panelEtiquetas.add(etiquetaHangar);
 			panelTexto.add(textoHangar);
 
-			JLabel etiquetaTrabajadores = new JLabel("Número de trabajadores:    ");
+			JLabel etiquetaTrabajadores = new JLabel("Empresa:    ");
 			etiquetaTrabajadores.setFont(new Font("Tahoma", Font.BOLD, 25));
 			JTextField textoTrabajadores = new JTextField();
 			textoTrabajadores.setMaximumSize(new Dimension(200, 30));
@@ -277,16 +278,19 @@ public class VistaAltaAvion extends JFrame implements Observador {
 																											// a
 																											// localDate
 						LocalDate fecha = zonedDateTime.toLocalDate();
+						// Formatear la fecha como dd-MM-yyyy
+				        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+				        String fechaFormateada = fecha.format(formatter);
 
 						TAvion transfer;
 						if (datos == "COMERCIAL") {
-							int trabajadores = Integer.valueOf(textoTrabajadores.getText());
-							transfer = new TAComercial(0, numAsientos, fecha, nombre, matricula, true, idAerolinea,
-									idModelo, idHangar, trabajadores);
+							String empresa = textoTrabajadores.getText();
+							transfer = new TAComercial(0, numAsientos, fechaFormateada, nombre, matricula, true, idAerolinea,
+									idModelo, idHangar, empresa);
 						} else {
 							String nombre_duenyo = textoDuenyo.getText();
 							int idCarnet = Integer.valueOf(textoCarnet.getText());
-							transfer = new TAPrivado(0, numAsientos, fecha, nombre, matricula, true, idAerolinea,
+							transfer = new TAPrivado(0, numAsientos, fechaFormateada, nombre, matricula, true, idAerolinea,
 									idModelo, idHangar, nombre_duenyo, idCarnet);
 						}
 						ctrl.accion(new Contexto(Evento.ALTA_AVION, transfer));

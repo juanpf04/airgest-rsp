@@ -3,8 +3,6 @@ package negocio.avion;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.time.LocalDate;
-
 import org.junit.Test;
 
 import integracion.UtilidadesI;
@@ -18,69 +16,69 @@ public class ValidadorAvionTest {
 		UtilidadesI.esTest();
 
 		assertTrue("Avion comercial correcto", ValidadorAvion.comprobarDatos(
-				new TAComercial(0, 80, LocalDate.of(2000, 6, 22), "avionComercial", "EC-123", noImporta, 1, 1, 1, 10)));
+				new TAComercial(0, 80, "06-12-2004", "avionComercial", "EC-123", noImporta, 1, 1, 1, "Rock")));
 
-		assertTrue("Avion privado correcto", ValidadorAvion.comprobarDatos(new TAPrivado(0, 8,
-				LocalDate.of(2000, 6, 22), "avionPrivado", "EC-12", noImporta, 1, 1, 1, "charlie", 23423)));
+		assertTrue("Avion privado correcto", ValidadorAvion.comprobarDatos(
+				new TAPrivado(0, 8, "06-12-2004", "avionPrivado", "EC-12", noImporta, 1, 1, 1, "charlie", 23423)));
 	}
 
 	@Test
-	public void comprobarComercial_test() {
+	public void comprobar_comercial_test() {
 		UtilidadesI.esTest();
 
 		assertTrue("Avion comercial correcto", ValidadorAvion.comprobarComercial(
-				new TAComercial(0, 80, LocalDate.of(2000, 6, 22), "avionComercial", "EC-123", noImporta, 1, 1, 1, 10)));
+				new TAComercial(0, 80, "06-12-2004", "avionComercial", "EC-123", noImporta, 1, 1, 1, "Trap")));
 	}
 
 	@Test
-	public void comprobarPrivado_test() {
+	public void comprobar_privado_test() {
 		UtilidadesI.esTest();
 
-		assertTrue("Avion privado correcto", ValidadorAvion.comprobarPrivado(new TAPrivado(0, 8,
-				LocalDate.of(2000, 6, 22), "avionPrivado", "EC-12", noImporta, 1, 1, 1, "charlie", 23423)));
+		assertTrue("Avion privado correcto", ValidadorAvion.comprobarPrivado(
+				new TAPrivado(0, 8, "06-12-2004", "avionPrivado", "EC-12", noImporta, 1, 1, 1, "charlie", 23423)));
 	}
 
 	@Test
-	public void comprobarInfo_test() {
+	public void comprobar_info_test() {
 		UtilidadesI.esTest();
-		/*assertTrue("Avion correcto", ValidadorAvion.comprobarInfo(
-				new TAvion(0, 8, LocalDate.of(2000, 6, 22), "avionPrivado", "EC-12", noImporta, 1, 1, 1)));*/
+		assertTrue("Avion correcto", ValidadorAvion
+				.comprobarInfo(new TAvion(0, 8, "06-12-2004", "avionPrivado", "EC-12", noImporta, 1, 1, 1)));
 	}
 
 	@Test
-	public void comprobarCarnet_test() {
+	public void comprobar_carnet_test() {
 		UtilidadesI.esTest();
 		// Carnet valido
-		assertTrue("Id carnet correcto", ValidadorAvion.comprobarCarnet(new TAPrivado(0, 8, LocalDate.of(2000, 6, 22),
-				"avionPrivado", "EC-12", noImporta, 1, 1, 1, "charlie", 23423)));
+		assertTrue("Id carnet correcto", ValidadorAvion.comprobarCarnet(
+				new TAPrivado(0, 8, "06-12-2004", "avionPrivado", "EC-12", noImporta, 1, 1, 1, "charlie", 23423)));
 
 		// Carnet no puede ser negativo
-		assertFalse("Id carnet correcto", ValidadorAvion.comprobarCarnet(new TAPrivado(0, 8, LocalDate.of(2000, 6, 22),
-				"avionPrivado", "EC-12", noImporta, 1, 1, 1, "charlie", -7)));
+		assertFalse("Id carnet correcto", ValidadorAvion.comprobarCarnet(
+				new TAPrivado(0, 8, "06-12-2004", "avionPrivado", "EC-12", noImporta, 1, 1, 1, "charlie", -7)));
 
 		// Carnet no puede ser 0
-		assertFalse("Id carnet correcto", ValidadorAvion.comprobarCarnet(new TAPrivado(0, 8, LocalDate.of(2000, 6, 22),
-				"avionPrivado", "EC-12", noImporta, 1, 1, 1, "charlie", 0)));
+		assertFalse("Id carnet correcto", ValidadorAvion.comprobarCarnet(
+				new TAPrivado(0, 8, "06-12-2004", "avionPrivado", "EC-12", noImporta, 1, 1, 1, "charlie", 0)));
 	}
 
 	@Test
-	public void comprobarTrabajadores_test() {
+	public void comprobar_empresa_test() {
 		UtilidadesI.esTest();
 		// Trabajadores valido
-		assertTrue("numTrabajadores", ValidadorAvion.comprobarTrabajadores(
-				new TAComercial(0, 80, LocalDate.of(2000, 6, 22), "avionComercial", "EC-123", noImporta, 1, 1, 1, 10)));
+		assertTrue("numTrabajadores", ValidadorAvion.comprobarEmpresa(
+				new TAComercial(0, 80, "06-12-2004", "avionComercial", "EC-123", noImporta, 1, 1, 1, "Windows")));
 
 		// Trabajadores no puede ser negativo
-		assertFalse("numTrabajadores", ValidadorAvion.comprobarTrabajadores(
-				new TAComercial(0, 80, LocalDate.of(2000, 6, 22), "avionComercial", "EC-123", noImporta, 1, 1, 1, -7)));
+		assertFalse("numTrabajadores", ValidadorAvion.comprobarEmpresa(
+				new TAComercial(0, 80, "06-12-2004", "avionComercial", "EC-123", noImporta, 1, 1, 1, "!Google")));
 
 		// Trabajadores no puede ser 0
-		assertFalse("numTrabajadores", ValidadorAvion.comprobarTrabajadores(
-				new TAComercial(0, 80, LocalDate.of(2000, 6, 22), "avionComercial", "EC-123", noImporta, 1, 1, 1, 0)));
+		assertFalse("numTrabajadores", ValidadorAvion.comprobarEmpresa(
+				new TAComercial(0, 80, "06-12-2004", "avionComercial", "EC-123", noImporta, 1, 1, 1, "23-Amazon")));
 	}
 
 	@Test
-	public void comprobarAsientos_test() {
+	public void comprobar_asientos_test() {
 		UtilidadesI.esTest();
 
 		// numAsientos valido
@@ -92,7 +90,7 @@ public class ValidadorAvionTest {
 	}
 
 	@Test
-	public void comprobarMatricula_test() {
+	public void comprobar_matricula_test() {
 		UtilidadesI.esTest();
 
 		// matricula valido
