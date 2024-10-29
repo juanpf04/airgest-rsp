@@ -70,4 +70,15 @@ public class DAOLineaContratoImpTest {
 		assertNotNull("No se ha encontrado linea contrato", tlc);
 		System.out.println(tlc);
 	}
+	
+	@Test
+	public void consultar_contratos_aerolinea_precio_duracion(){
+		Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+		t.start();
+		DAOLineaContrato dlc = FactoriaIntegracion.getInstance().crearDAOLineaContrato();
+		List<TLineaContrato> list = dlc.consultarContratoPorAerolinea(1, 205, 4);
+		t.commit();
+		assertEquals("Deberia haber 2 lineas contrato", 2, list.size());
+		System.out.println(list);
+	}
 }

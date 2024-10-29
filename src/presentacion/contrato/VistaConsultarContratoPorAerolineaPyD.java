@@ -123,9 +123,9 @@ public class VistaConsultarContratoPorAerolineaPyD extends JFrame implements Obs
 				try 
 				{
 					ArrayList<Object> parameters = new ArrayList<>();
-					int idAero = Integer.valueOf(textoA.getText());
-					Double precioMin = Double.valueOf(textoP.getText());
-					int durMin = Integer.valueOf(textoA.getText());
+					Integer idAero = Integer.valueOf(textoA.getText());
+					Integer precioMin = Integer.valueOf(textoP.getText());
+					Integer durMin = Integer.valueOf(textoD.getText());
 					
 					parameters.add(idAero);
 					parameters.add(precioMin);

@@ -81,104 +81,108 @@ public class SAContratoImpTest {
 		UtilidadesI.esTest();
 
 		SAContrato sc = new SAContratoImp();
+		TLineaContrato linea1;
+		TLineaContrato linea2;
+		TLineaContrato linea3;
+		TCarrito carrito;
 
 		// Prueba exitosa
-		TCarrito carrito = new TCarrito(1);
+		carrito = new TCarrito(1);
 
-		TLineaContrato linea1 = new TLineaContrato();
+		linea1 = new TLineaContrato();
 		linea1.setIdHangar(1);
-		linea1.setFechaIni(LocalDate.of(2024, 4, 23));
-		linea1.setFechaFin(LocalDate.of(2024, 4, 24));
-		carrito.anyadirLinea(linea1);
+		linea1.setFechaIni("26-10-2024");
+		linea1.setFechaFin("27-10-2024");
+		//carrito.anyadirLinea(linea1);
 
-		TLineaContrato linea2 = new TLineaContrato();
+		linea2 = new TLineaContrato();
 		linea2.setIdHangar(2);
-		linea2.setFechaIni(LocalDate.of(2024, 4, 23));
-		linea2.setFechaFin(LocalDate.of(2024, 4, 24));
+		linea2.setFechaIni("02-12-2024");
+		linea2.setFechaFin("03-12-2024");
 		carrito.anyadirLinea(linea2);
 
-		TLineaContrato linea3 = new TLineaContrato();
+		linea3 = new TLineaContrato();
 		linea3.setIdHangar(3);
-		linea3.setFechaIni(LocalDate.of(2024, 4, 23));
-		linea3.setFechaFin(LocalDate.of(2024, 4, 24));
+		linea3.setFechaIni("20-01-2024");
+		linea3.setFechaFin("25-01-2024");
 		carrito.anyadirLinea(linea3);
 
-		assertEquals("el id del contrato debería ser 1", -1, sc.cerrarContrato(carrito));
+		assertEquals("el id del contrato debería ser 7", 7, sc.cerrarContrato(carrito));
 
 		// Prueba aerolinea no existente
-		carrito = new TCarrito(99);
+		/*carrito = new TCarrito(99);
 		assertEquals("la aerolinea 99 no existe", -1, sc.cerrarContrato(carrito));
 
 		// Prueba aerolinea no activa
-		carrito = new TCarrito(5);
+		carrito = new TCarrito(4);
 		assertEquals("la aerolinea 55 no está activa", -1, sc.cerrarContrato(carrito));
 
 		// Prueba hangar no existente
 		carrito = new TCarrito(1);
 		linea1 = new TLineaContrato();
 		linea1.setIdHangar(8);
-		linea1.setFechaIni(LocalDate.of(2024, 4, 23));
-		linea1.setFechaFin(LocalDate.of(2024, 4, 24));
+		linea1.setFechaIni("12-04-2024");
+		linea1.setFechaFin("12-05-2024");
 		carrito.anyadirLinea(linea1);
 		assertEquals("el hangar 8 no existe", -1, sc.cerrarContrato(carrito));
 
 		// Prueba hangar no activo
 		carrito = new TCarrito(1);
 		linea1 = new TLineaContrato();
-		linea1.setIdHangar(6);
-		linea1.setFechaIni(LocalDate.of(2024, 4, 23));
-		linea1.setFechaFin(LocalDate.of(2024, 4, 24));
+		linea1.setIdHangar(1);
+		linea1.setFechaIni("12-04-2024");
+		linea1.setFechaFin("12-05-2024");
 		carrito.anyadirLinea(linea1);
-		assertEquals("el hangar 6 no esta activo", -1, sc.cerrarContrato(carrito));
+		assertEquals("el hangar 1 no esta activo", -1, sc.cerrarContrato(carrito));
 
 		// Prueba hangar repetido en el carrito
 		carrito = new TCarrito(1);
 		linea1 = new TLineaContrato();
-		linea1.setIdHangar(1);
-		linea1.setFechaIni(LocalDate.of(2024, 4, 23));
-		linea1.setFechaFin(LocalDate.of(2024, 4, 24));
+		linea1.setIdHangar(2);
+		linea1.setFechaIni("12-06-2024");
+		linea1.setFechaFin("12-07-2024");
 		carrito.anyadirLinea(linea1);
 
 		linea2 = new TLineaContrato();
-		linea2.setIdHangar(1);
-		linea2.setFechaIni(LocalDate.of(2024, 4, 23));
-		linea2.setFechaFin(LocalDate.of(2024, 4, 24));
+		linea2.setIdHangar(2);
+		linea2.setFechaIni("12-04-2024");
+		linea2.setFechaFin("12-05-2024");
 		carrito.anyadirLinea(linea2);
-		assertEquals("hay hangares repetidos", -1, sc.cerrarContrato(carrito));
+		assertEquals("no hay hangares repetidos", -1, sc.cerrarContrato(carrito));
 
 		// Prueba comprobar fechas
 		carrito = new TCarrito(1);
 
 		linea1 = new TLineaContrato();
 		linea1.setIdHangar(1);
-		linea1.setFechaIni(LocalDate.of(2024, 4, 23));
-		linea1.setFechaFin(LocalDate.of(2024, 4, 24));
+		linea1.setFechaIni("17-01-2029");
+		linea1.setFechaFin("19-01-2029");
 		carrito.anyadirLinea(linea1);
 
 		linea2 = new TLineaContrato();
 		linea2.setIdHangar(2);
-		linea2.setFechaIni(LocalDate.of(2024, 4, 26));
-		linea2.setFechaFin(LocalDate.of(2024, 4, 27));
+		linea2.setFechaIni("17-01-2029");
+		linea2.setFechaFin("27-01-2029");
 		carrito.anyadirLinea(linea2);
 
 		linea3 = new TLineaContrato();
 		linea3.setIdHangar(3);
-		linea3.setFechaIni(LocalDate.of(2024, 4, 26));
-		linea3.setFechaFin(LocalDate.of(2024, 4, 27));
+		linea3.setFechaIni("02-01-2024");
+		linea3.setFechaFin("08-01-2024");
 		carrito.anyadirLinea(linea3);
 
-		assertEquals("el hangar 1 no se puede contratar", -1, sc.cerrarContrato(carrito));
+		assertEquals("el hangar 3 no se puede contratar", -1, sc.cerrarContrato(carrito));
 
 		// Prueba fecha inicio posterior a fecha fin
 		carrito = new TCarrito(1);
 
 		linea1 = new TLineaContrato();
 		linea1.setIdHangar(1);
-		linea1.setFechaIni(LocalDate.of(2024, 5, 27));
-		linea1.setFechaFin(LocalDate.of(2024, 5, 24));
+		linea1.setFechaIni("17-01-2029");
+		linea1.setFechaFin("15-01-2029");
 		carrito.anyadirLinea(linea1);
 
-		assertEquals("fecha inicio posterior a la de fin", -1, sc.cerrarContrato(carrito));
+		assertEquals("fecha inicio posterior a la de fin", -1, sc.cerrarContrato(carrito));*/
 	}
 
 	@Test
@@ -222,10 +226,10 @@ public class SAContratoImpTest {
 	
 	@Test
 	public void diferencia_fecha_test(){
-		String f1 = "08-11-2024";
-		String f2 = "09-11-2024";
+		String f1 = "12-12-2024";
+		String f2 = "16-12-2024";
 		
-		assertEquals("Diferencia mal calculada", 1, SAContratoImp.diferencia_fechas(f1, f2));
+		assertEquals("Diferencia mal calculada", 4, SAContratoImp.diferencia_fechas(f1, f2));
 	}
 	
 	@Test

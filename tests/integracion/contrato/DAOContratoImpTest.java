@@ -18,11 +18,11 @@ public class DAOContratoImpTest {
 	public void alta_contrato_test() {
 		Transaction t = TransactionManager.getInstance().nuevaTransaccion();
 		t.start();
-		TContrato tc = new TContrato(2, 1, 100.4);
+		TContrato tc = new TContrato(1);
 		DAOContrato dc = FactoriaIntegracion.getInstance().crearDAOContrato();
 		int id = dc.altaContrato(tc);
 		t.commit();
-		assertEquals("No ha devuelto el id correcto", 2, id);
+		assertEquals("No ha devuelto el id correcto", 5, id);
 	}
 	
 	@Test
@@ -69,4 +69,5 @@ public class DAOContratoImpTest {
 		assertTrue("No se ha modificado contrato", b);
 		System.out.println(tc);
 	}
+	
 }

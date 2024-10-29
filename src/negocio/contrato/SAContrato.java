@@ -20,6 +20,6 @@ public interface SAContrato {
 
 	public List<TContrato> consultarContratosPorAerolinea(int id_aerolinea);
 	
-	public List<TInfoContrato> consultarContratoPorAerolinea(int id_aerolinea, double precio, int dias);
+	public List<TLineaContrato> consultarContratoPorAerolinea(int id_aerolinea, double precio, int dias);
 
 }

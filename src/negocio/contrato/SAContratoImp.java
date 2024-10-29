@@ -54,64 +54,56 @@ public class SAContratoImp implements SAContrato {
 			}
 			
 			// Dar de alta el contrato con precio 0
+			DAOContrato dc = FactoriaIntegracion.getInstance().crearDAOContrato();
+			int id_contrato = dc.altaContrato(tCarrito.getContrato());
+			double precio_total = 0;
+			
 			// Recorrer las lineas de contrato del carrito e ir comprobando existencia, disponibilidad, etc (en el mismo bucle).
-			// Si alguna no es correcta, rollback
-			// Si todas son correctas, se van dando de alta y calculando el precio del contrato.
-			// Modificar contrato.
-			// Commit.
-			
-			
-			
-			
-			
-
 			DAOHangar dh = FactoriaIntegracion.getInstance().crearDAOHangar();
-			// Bucle para comprobar que los hangares existan y que la fecha de
-			// inicio sea anterior a la de fin
-			for (TLineaContrato linea : tCarrito.getLineasContrato()) {
+			DAOLineaContrato dl = FactoriaIntegracion.getInstance().crearDAOLineaContrato();
+			
+			for (TLineaContrato linea : tCarrito.getLineasContrato()){
 				THangar hangar = dh.leerHangarPorId(linea.getIdHangar());
-				if (hangar == null || !hangar.getActivo() || linea.getFechaIni().isAfter(linea.getFechaFin())) {
+				
+				// Comprobamos que el hangar exista, esté activo y que la fecha de inicio sea anterior a la de fin
+				if (hangar == null || !hangar.getActivo() || toLocalDate(linea.getFechaIni()).isAfter(toLocalDate(linea.getFechaFin()))) {
+					t.rollback();
 					return -1;
 				}
-			}
-
-			DAOLineaContrato dl = FactoriaIntegracion.getInstance().crearDAOLineaContrato();
-			// Bucle para comprobar disponibilidad
-			for (TLineaContrato linea : tCarrito.getLineasContrato()) {
-				List<TLineaContrato> lineasPorHangar = dl.leerLineasPorHangar(linea.getIdHangar());
+				
+				// Bucle para comprobar disponibilidad
+				List<TLineaContrato> lineasPorHangar = dl.consultarLineasPorHangar(linea.getIdHangar());
 
 				for (TLineaContrato l : lineasPorHangar) {
-					if (isBetween(linea.getFechaIni(), l.getFechaIni(), l.getFechaFin())
-							|| isBetween(linea.getFechaFin(), l.getFechaIni(), l.getFechaFin())
-							|| isBetween(l.getFechaIni(), linea.getFechaIni(), linea.getFechaFin())
-							|| isBetween(l.getFechaFin(), linea.getFechaIni(), linea.getFechaFin())) {
+					if (isBetween(toLocalDate(linea.getFechaIni()), toLocalDate(l.getFechaIni()), toLocalDate(l.getFechaFin()))
+							|| isBetween(toLocalDate(linea.getFechaFin()), toLocalDate(l.getFechaIni()), toLocalDate(l.getFechaFin()))
+							|| isBetween(toLocalDate(l.getFechaIni()), toLocalDate(linea.getFechaIni()), toLocalDate(linea.getFechaFin()))
+							|| isBetween(toLocalDate(l.getFechaFin()), toLocalDate(linea.getFechaIni()), toLocalDate(linea.getFechaFin()))) {
+						t.rollback();
 						return -1;
 					}
 				}
-			}
-
-			double precioContrato = 0;
-
-			for (TLineaContrato linea : tCarrito.getLineasContrato()) {
-				long diasDiferencia = ChronoUnit.DAYS.between(linea.getFechaIni(), linea.getFechaFin()) + 1;
-				THangar hangar = dh.leerHangarPorId(linea.getIdHangar());
-				precioContrato += diasDiferencia * hangar.getCosteDia();
-			}
-
-			DAOContrato dc = FactoriaIntegracion.getInstance().crearDAOContrato();
-			TContrato contrato = tCarrito.getContrato();
-			contrato.setPrecio(precioContrato);
-			int id = dc.altaContrato(contrato);
-
-			for (TLineaContrato linea : tCarrito.getLineasContrato()) {
-				long diasDiferencia = ChronoUnit.DAYS.between(linea.getFechaIni(), linea.getFechaFin()) + 1;
-				THangar hangar = dh.leerHangarPorId(linea.getIdHangar());
-				linea.setPrecio(diasDiferencia * hangar.getCosteDia());
-				linea.setIdContrato(id);
+				
+				long dias_diferencia = diferencia_fechas(linea.getFechaIni(), linea.getFechaFin());
+				linea.setPrecio(dias_diferencia * hangar.getCosteDia());
+				linea.setIdContrato(id_contrato);
+				precio_total += dias_diferencia * hangar.getCosteDia();
 				dl.altaLineaContrato(linea);
+				// Revisar calculo precio total
 			}
-
-			return id;
+			
+			TContrato contrato = tCarrito.getContrato();
+			contrato.setPrecio(precio_total);
+			contrato.setId(id_contrato);
+			boolean ok = dc.modificarContrato(contrato);
+			
+			if (ok){
+				t.commit();
+				return id_contrato;
+			} else{
+				t.rollback();
+				return -1;
+			}
 		}
 
 		return -1;
@@ -307,8 +299,25 @@ public class SAContratoImp implements SAContrato {
 	}
 
 	@Override
-	public List<TInfoContrato> consultarContratoPorAerolinea(int id_aerolinea, double precio, int dias) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<TLineaContrato> consultarContratoPorAerolinea(int id_aerolinea, double precio, int dias) {
+		List<TLineaContrato> contratos = new ArrayList<>();
+		if (ValidadorLineaContrato.comprobarQuery(id_aerolinea, precio, dias)) {
+			Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+			t.start();
+			
+			DAOAerolinea da = FactoriaIntegracion.getInstance().crearDAOAerolinea();
+
+			TAerolinea aerolinea = da.leerAerolineaPorId(id_aerolinea);
+
+			if (aerolinea != null) {
+				DAOLineaContrato dlc = FactoriaIntegracion.getInstance().crearDAOLineaContrato();
+				contratos = dlc.consultarContratoPorAerolinea(id_aerolinea, precio, dias);
+				t.commit();
+			} else{
+				t.rollback();
+			}
+		}
+
+		return contratos;
 	}
 }

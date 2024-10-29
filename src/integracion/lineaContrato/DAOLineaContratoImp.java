@@ -115,7 +115,7 @@ public class DAOLineaContratoImp implements DAOLineaContrato {
 	public TLineaContrato consultarLineaContrato(int id_contrato, int id_hangar) {
 		try {
 			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
-			PreparedStatement ps = con.prepareStatement("SELECT * FROM linea_contrato WHERE Id_Contrato = ? AND Id_Hangar = ?");
+			PreparedStatement ps = con.prepareStatement(Querys.consultarLineaContrato);
 			ps.setInt(1, id_contrato);
 			ps.setInt(2, id_hangar);
 			
@@ -129,6 +129,33 @@ public class DAOLineaContratoImp implements DAOLineaContrato {
 			
 		} catch(Exception e){
 			return null;
+		}
+	}
+
+	@Override
+	public List<TLineaContrato> consultarContratoPorAerolinea(int id_aerolinea, double precio, int dias) {
+		try{
+			Transaction t = TransactionManager.getInstance().getTransaccion();
+			Connection con = (Connection) t.getResource();
+			PreparedStatement ps = con.prepareStatement(Querys.consultarContratoPorAerolineaPrecioDuracion);
+			ps.setInt(1, id_aerolinea);			
+			ps.setDouble(2, precio);			
+			ps.setInt(3, dias);			
+			
+			ResultSet rs = ps.executeQuery();
+			List<TLineaContrato> lista = new ArrayList<>();
+			
+			while (rs.next()){
+				lista.add(new TLineaContrato(rs.getInt(2), rs.getInt(1), rs.getString(3), rs.getString(4), rs.getDouble(5)));
+			}
+			
+			rs.close();
+			ps.close();
+			
+			return lista;
+			
+		} catch(Exception e){
+			return new ArrayList<TLineaContrato>();
 		}
 	}
 }

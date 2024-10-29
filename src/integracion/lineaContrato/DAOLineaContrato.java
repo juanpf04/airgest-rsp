@@ -14,5 +14,7 @@ public interface DAOLineaContrato {
 	public List<TLineaContrato> consultarLineasPorHangar(int id_hangar);
 
 	public TLineaContrato consultarLineaContrato(int id_contrato, int id_hangar);
+	
+	public List<TLineaContrato> consultarContratoPorAerolinea(int id_aerolinea, double precio, int dias);
 
 }
