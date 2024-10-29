@@ -16,7 +16,6 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
-import negocio.contrato.TCarrito;
 import negocio.contrato.TContrato;
 import presentacion.Observador;
 import presentacion.UtilidadesP;

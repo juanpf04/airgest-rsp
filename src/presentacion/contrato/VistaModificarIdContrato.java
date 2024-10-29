@@ -68,8 +68,10 @@ public class VistaModificarIdContrato extends JFrame implements Observador {
 				try {
 					int id = Integer.parseInt(textoId.getText());
 					controlador.accion(new Contexto(Evento.MODIFICAR_CONTRATO_ID, id));
+					dispose();
 				} catch (NumberFormatException n) {
 					controlador.accion(new Contexto(Evento.MODIFICAR_CONTRATO_ID, 0));
+					dispose();
 				}
 			}
 		});

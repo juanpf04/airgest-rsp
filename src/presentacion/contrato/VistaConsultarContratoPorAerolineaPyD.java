@@ -132,7 +132,7 @@ public class VistaConsultarContratoPorAerolineaPyD extends JFrame implements Obs
 					parameters.add(durMin);
 					
 					ctrl.accion(new Contexto(Evento.CONSULTAR_CONTRATOS_POR_AEROLINEA_PRECIO_Y_DURACION, parameters));
-
+					dispose();
 				} catch (Exception ex) 
 				{
 					ArrayList<Object> parameters = new ArrayList<>();
@@ -141,6 +141,7 @@ public class VistaConsultarContratoPorAerolineaPyD extends JFrame implements Obs
 					parameters.add(0);
 					
 					ctrl.accion(new Contexto(Evento.CONSULTAR_CONTRATOS_POR_AEROLINEA_PRECIO_Y_DURACION, 0));
+					dispose();
 				}
 			}
 		});
