@@ -232,6 +232,9 @@ public class FactoriaVistasImp extends FactoriaVistas {
 		case VISTA_MODIFICAR_CONTRATO:
 			vista = new VistaModificarContrato();
 			break;
+		case VISTA_MODIFICAR_CONTRATO_ID:
+			vista = new VistaModificarIdContrato();
+			break;
 		case VISTA_EXITO_MODIFICAR_CONTRATO:
 			vista = new VistaExitoModificarContrato();
 			break;

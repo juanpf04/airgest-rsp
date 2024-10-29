@@ -21,19 +21,19 @@ import presentacion.controlador.Contexto;
 import presentacion.controlador.Controlador;
 import presentacion.controlador.Evento;
 
-public class VistaConsultarContratosPorAerolinea extends JFrame implements Observador {
+public class VistaModificarIdContrato extends JFrame implements Observador {
 
 	private static final long serialVersionUID = 1L;
 
 	public void actualizar(Object datos) {
 		UtilidadesP.setAirGestRSP(this);
-		this.setSize(530, 170);
+		this.setSize(400, 160);
 
 		JPanel principal = new JPanel();
 		principal.setLayout(new BoxLayout(principal, BoxLayout.PAGE_AXIS));
 
 		JPanel panel_titulo = new JPanel();
-		JLabel titulo = new JLabel("Consultar contratos por Aerolinea");
+		JLabel titulo = new JLabel("Modificar contrato");
 		titulo.setFont(new Font("Tahoma", Font.BOLD, 30));
 		titulo.setBorder(new LineBorder(Color.BLACK, 2));
 		titulo.setHorizontalAlignment(SwingConstants.CENTER);
@@ -45,7 +45,7 @@ public class VistaConsultarContratosPorAerolinea extends JFrame implements Obser
 
 		JPanel id = new JPanel();
 		id.setLayout(new BoxLayout(id, BoxLayout.LINE_AXIS));
-		JLabel etiquetaId = new JLabel("id aerolinea: ");
+		JLabel etiquetaId = new JLabel("id: ");
 		etiquetaId.setFont(new Font("Tahoma", Font.BOLD, 25));
 		JTextField textoId = new JTextField();
 		textoId.setMaximumSize(new Dimension(200, 30));
@@ -67,18 +67,16 @@ public class VistaConsultarContratosPorAerolinea extends JFrame implements Obser
 			public void actionPerformed(ActionEvent e) {
 				try {
 					int id = Integer.parseInt(textoId.getText());
-					controlador.accion(new Contexto(Evento.CONSULTAR_CONTRATOS_POR_AEROLINEA, id));
-					dispose();
+					controlador.accion(new Contexto(Evento.MODIFICAR_CONTRATO_ID, id));
 				} catch (NumberFormatException n) {
-
+					controlador.accion(new Contexto(Evento.MODIFICAR_CONTRATO_ID, 0));
 				}
 			}
-
 		});
 
 		aceptar.setMaximumSize(new Dimension(100, 30));
 		aceptar.setPreferredSize(new Dimension(100, 30));
-		
+
 		JButton atras = new JButton("ATRAS"); // boton para volver a la ventana
 												// principal
 		atras.setToolTipText("Esto vuelve a la ventana anterior");

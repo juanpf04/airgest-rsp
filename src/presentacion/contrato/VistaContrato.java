@@ -109,7 +109,7 @@ public class VistaContrato extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				ctrl.accion(new Contexto(Evento.VISTA_MODIFICAR_CONTRATO, null));
+				ctrl.accion(new Contexto(Evento.VISTA_MODIFICAR_CONTRATO_ID, null));
 			}
 		});
 

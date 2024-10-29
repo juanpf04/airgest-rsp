@@ -103,6 +103,9 @@ public class FactoriaComandosImp extends FactoriaComandos {
 		case MODIFICAR_CONTRATO:
 			comando = new ModificarContrato();
 			break;
+		case MODIFICAR_CONTRATO_ID:
+			comando = new ModificarContratoId();
+			break;
 		case MODIFICAR_LINEA_CONTRATO:
 			comando = new ModificarLineaContrato();
 			break;

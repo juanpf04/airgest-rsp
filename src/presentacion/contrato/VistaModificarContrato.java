@@ -33,7 +33,7 @@ public class VistaModificarContrato extends JFrame implements Observador {
 		this.setSize(420, 250);
 
 		Controlador controlador = Controlador.getInstance();
-		TCarrito carrito = (TCarrito) datos;
+		TContrato contrato = (TContrato) datos;
 
 		JPanel principal = new JPanel();
 		principal.setLayout(new BoxLayout(principal, BoxLayout.PAGE_AXIS));
@@ -58,26 +58,16 @@ public class VistaModificarContrato extends JFrame implements Observador {
 		JPanel panel_textfield = new JPanel();
 		panel_textfield.setLayout(new BoxLayout(panel_textfield, BoxLayout.PAGE_AXIS));
 
-		JLabel etiquetaId = new JLabel("id contrato: ");
-		etiquetaId.setFont(new Font("Tahoma", Font.BOLD, 23));
-		JTextField textoId = new JTextField();
-		textoId.setMaximumSize(new Dimension(200, 30));
-		textoId.setMinimumSize(new Dimension(200, 30));
-		textoId.setPreferredSize(new Dimension(200, 30));
-		textoId.setFont(new Font("Tahoma", Font.BOLD, 18));
-		panel_etiquetas.add(etiquetaId);
-		panel_textfield.add(textoId);
-
 		centro.add(panel_etiquetas);
 		centro.add(panel_textfield);
 
 		JLabel etiquetaAerolinea = new JLabel("id aerolinea: ");
 		etiquetaAerolinea.setFont(new Font("Tahoma", Font.BOLD, 23));
-		JTextField textoAerolinea = new JTextField();
+		JTextField textoAerolinea = new JTextField(""+contrato.getIdAerolinea());
 		textoAerolinea.setMaximumSize(new Dimension(200, 30));
 		textoAerolinea.setMinimumSize(new Dimension(200, 30));
 		textoAerolinea.setPreferredSize(new Dimension(200, 30));
-		textoId.setFont(new Font("Tahoma", Font.BOLD, 18));
+		textoAerolinea.setFont(new Font("Tahoma", Font.BOLD, 18));
 		panel_etiquetas.add(etiquetaAerolinea);
 		panel_textfield.add(textoAerolinea);
 
@@ -88,11 +78,11 @@ public class VistaModificarContrato extends JFrame implements Observador {
 		precio.setLayout(new BoxLayout(precio, BoxLayout.LINE_AXIS));
 		JLabel etiquetaPrecio = new JLabel("precio: ");
 		etiquetaPrecio.setFont(new Font("Tahoma", Font.BOLD, 23));
-		JTextField textoPrecio = new JTextField();
+		JTextField textoPrecio = new JTextField(""+contrato.getPrecio());
 		textoPrecio.setMaximumSize(new Dimension(200, 30));
 		textoPrecio.setMinimumSize(new Dimension(200, 30));
 		textoPrecio.setPreferredSize(new Dimension(200, 30));
-		textoId.setFont(new Font("Tahoma", Font.BOLD, 18));
+		textoPrecio.setFont(new Font("Tahoma", Font.BOLD, 18));
 		panel_etiquetas.add(etiquetaPrecio);
 		panel_textfield.add(textoPrecio);
 
@@ -109,13 +99,12 @@ public class VistaModificarContrato extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					int id_contrato = Integer.parseInt(textoId.getText());
 					int id_aerolinea = Integer.parseInt(textoAerolinea.getText());
 					double precio = Double.parseDouble(textoPrecio.getText());
-					TContrato c = new TContrato(id_contrato, id_aerolinea, precio);
+					TContrato c = new TContrato(contrato.getId(), id_aerolinea, precio);
 					controlador.accion(new Contexto(Evento.MODIFICAR_CONTRATO, c));
 				} catch (NumberFormatException n) {
-
+					controlador.accion(new Contexto(Evento.MODIFICAR_CONTRATO, new TContrato()));
 				}
 			}
 
@@ -132,7 +121,7 @@ public class VistaModificarContrato extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				controlador.accion(new Contexto(Evento.VISTA_CONTRATO, carrito));
+				controlador.accion(new Contexto(Evento.VISTA_CONTRATO, null));
 			}
 
 		});
