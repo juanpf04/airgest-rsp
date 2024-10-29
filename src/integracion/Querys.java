@@ -34,7 +34,7 @@ public class Querys {
 	public static String consultarAvionesActivosPorAerolinea = "SELECT * FROM avion av WHERE av.Id_Aerolinea = ? AND av.Activo = true FOR UPDATE";
 	public static String consultarAvionesPorHangar = "SELECT * FROM avion av WHERE av.Id_Hangar = ? FOR UPDATE";
 	public static String consultarAvionesActivosPorHangar = "SELECT * FROM avion av WHERE av.Id_Hangar = ? AND av.Activo = true FOR UPDATE";
-	public static String consultarAvionesDeAerolineaPorHangar = "SELECT * FROM Avion WHERE id_aerolinea = ? AND id_hangar = ? AND activo = true";
+	public static String consultarAvionesDeAerolineaPorHangar = "SELECT * FROM Avion WHERE id_aerolinea = ? AND id_hangar = ? AND activo = true FOR UPDATE";
 	
 	
 	//CONTRATO
