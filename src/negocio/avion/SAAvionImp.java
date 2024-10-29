@@ -2,12 +2,18 @@ package negocio.avion;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import integracion.aerolinea.DAOAerolinea;
 import integracion.avion.DAOAvion;
 import integracion.factoria.FactoriaIntegracion;
 import integracion.hangar.DAOHangar;
+import integracion.modelo.DAOModelo;
 import integracion.transacciones.Transaction;
 import integracion.transacciones.TransactionManager;
 import negocio.UtilidadesN;
+import negocio.aerolinea.TAerolinea;
+import negocio.hangar.THangar;
+import negocio.modelo.TModelo;
 
 public class SAAvionImp implements SAAvion {
 
@@ -20,22 +26,32 @@ public class SAAvionImp implements SAAvion {
 			DAOAvion da = FactoriaIntegracion.getInstance().crearDAOAvion();
 			TAvion leido = da.consultarAvionPorMatricula(tAvion.getMatricula());
 			DAOHangar dh = FactoriaIntegracion.getInstance().crearDAOHangar();
-			int nuevo_stock = dh.leerHangarPorId(tAvion.getIdHangar()).getStock() - 1;
+			THangar h = dh.leerHangarPorId(tAvion.getIdHangar());
+			DAOAerolinea dar = FactoriaIntegracion.getInstance().crearDAOAerolinea();
+			TAerolinea a = dar.consultarAerolineaPorId(tAvion.getIdAerolinea());
+			DAOModelo dm = FactoriaIntegracion.getInstance().crearDAOModelo();
+			TModelo m = dm.leerModeloPorId(tAvion.getIdModelo());
 
-			if (leido == null && nuevo_stock >= 0) {
-				dh.actualizarStock(tAvion.getIdHangar(), nuevo_stock);
-				id = da.altaAvion(tAvion);
-				if (id != -1)
-					t.commit();
-				else
-					t.rollback();
-			} else if (!leido.getActivo() && nuevo_stock >= 0) {
-				dh.actualizarStock(tAvion.getIdHangar(), nuevo_stock);
-				tAvion.setId(leido.getId());
-				boolean ok = da.modificarAvion(tAvion);
-				if (ok) {
-					id = tAvion.getId();
-					t.commit();
+			if (h != null && h.getActivo() && a != null && a.getActivo() && m != null && m.getActivo()) {
+				int nuevo_stock = dh.leerHangarPorId(tAvion.getIdHangar()).getStock() - 1;
+
+				if (leido == null && nuevo_stock >= 0) {
+					dh.actualizarStock(tAvion.getIdHangar(), nuevo_stock);
+					id = da.altaAvion(tAvion);
+					if (id != -1)
+						t.commit();
+					else
+						t.rollback();
+				} else if (!leido.getActivo() && nuevo_stock >= 0) {
+					dh.actualizarStock(tAvion.getIdHangar(), nuevo_stock);
+					tAvion.setId(leido.getId());
+					boolean ok = da.modificarAvion(tAvion);
+					if (ok) {
+						id = tAvion.getId();
+						t.commit();
+					} else {
+						t.rollback();
+					}
 				} else {
 					t.rollback();
 				}
@@ -101,17 +117,25 @@ public class SAAvionImp implements SAAvion {
 
 			DAOAvion da = FactoriaIntegracion.getInstance().crearDAOAvion();
 			DAOHangar dh = FactoriaIntegracion.getInstance().crearDAOHangar();
+			THangar h = dh.leerHangarPorId(tAvion.getIdHangar());
+			DAOAerolinea dar = FactoriaIntegracion.getInstance().crearDAOAerolinea();
+			TAerolinea a = dar.consultarAerolineaPorId(tAvion.getIdAerolinea());
+			DAOModelo dm = FactoriaIntegracion.getInstance().crearDAOModelo();
+			TModelo m = dm.leerModeloPorId(tAvion.getIdModelo());
+
 			TAvion leido = da.consultarAvionPorId(tAvion.getId());
-			int nuevo_stock = dh.leerHangarPorId(tAvion.getIdHangar()).getStock();
+			if (h != null && h.getActivo() && a != null && a.getActivo() && m != null && m.getActivo()) {
+				int nuevo_stock = dh.leerHangarPorId(tAvion.getIdHangar()).getStock();
 
-			if (leido != null && leido.getIdHangar() != tAvion.getIdHangar())
-				nuevo_stock--;
+				if (leido != null && leido.getIdHangar() != tAvion.getIdHangar())
+					nuevo_stock--;
 
-			if (leido != null && leido.getActivo() && (leido.getMatricula().equals(tAvion.getMatricula())
-					|| da.consultarAvionPorMatricula(tAvion.getMatricula()) == null) && nuevo_stock >= 0) {
-				dh.actualizarStock(leido.getIdHangar(), dh.leerHangarPorId(leido.getIdHangar()).getStock() + 1);
-				dh.actualizarStock(tAvion.getIdHangar(), nuevo_stock);
-				ok = da.modificarAvion(tAvion);
+				if (leido != null && leido.getActivo() && (leido.getMatricula().equals(tAvion.getMatricula())
+						|| da.consultarAvionPorMatricula(tAvion.getMatricula()) == null) && nuevo_stock >= 0) {
+					dh.actualizarStock(leido.getIdHangar(), dh.leerHangarPorId(leido.getIdHangar()).getStock() + 1);
+					dh.actualizarStock(tAvion.getIdHangar(), nuevo_stock);
+					ok = da.modificarAvion(tAvion);
+				}
 			}
 
 			if (ok)
