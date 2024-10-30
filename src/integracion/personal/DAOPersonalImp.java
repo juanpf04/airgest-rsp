@@ -17,7 +17,7 @@ import java.util.List;
 public class DAOPersonalImp implements DAOPersonal {
 
 	@Override
-	public int altaPersonal(TPersonal tPersonal) {
+	public int altaPersonal(TPersonal tPersonal) {//perfe
 
 		int id = -1;
 		
@@ -51,7 +51,7 @@ public class DAOPersonalImp implements DAOPersonal {
 		}
 	}
 
-	private Boolean altaLimpieza(TPLimpieza personal) {
+	private Boolean altaLimpieza(TPLimpieza personal) {//perfe
         try {
             Transaction t = TransactionManager.getInstance().getTransaccion();
             Connection con = (Connection) t.getResource();
@@ -66,7 +66,7 @@ public class DAOPersonalImp implements DAOPersonal {
         }
     }
 
-    private Boolean altaSeguridad(TPSeguridad personal) {
+    private Boolean altaSeguridad(TPSeguridad personal) {//perfe
         try {
             Transaction t = TransactionManager.getInstance().getTransaccion();
             Connection con = (Connection) t.getResource();
@@ -81,7 +81,7 @@ public class DAOPersonalImp implements DAOPersonal {
         }
     }
 	
-    private boolean eliminarLimpieza(int id) {
+    private boolean eliminarLimpieza(int id) {//perfe
         try {
             Transaction t = TransactionManager.getInstance().getTransaccion();
             Connection con = (Connection) t.getResource();
@@ -95,7 +95,7 @@ public class DAOPersonalImp implements DAOPersonal {
         }
     }
 
-    private boolean eliminarSeguridad(int id) {
+    private boolean eliminarSeguridad(int id) {//perfe
         try {
             Transaction t = TransactionManager.getInstance().getTransaccion();
             Connection con = (Connection) t.getResource();
@@ -128,7 +128,7 @@ public class DAOPersonalImp implements DAOPersonal {
 	}
 
 	@Override
-	public boolean modificarPersonal(TPersonal tPersonal) {
+	public boolean modificarPersonal(TPersonal tPersonal) {//perfe
 		
 		try{
 			Transaction t = TransactionManager.getInstance().getTransaccion();
@@ -165,7 +165,7 @@ public class DAOPersonalImp implements DAOPersonal {
 		}
 	}
 
-	private boolean modificarLimpieza(TPLimpieza personal) {
+	private boolean modificarLimpieza(TPLimpieza personal) {//perfe
         try {
             Transaction t = TransactionManager.getInstance().getTransaccion();
             Connection con = (Connection) t.getResource();
@@ -181,7 +181,7 @@ public class DAOPersonalImp implements DAOPersonal {
         }
     }
 
-    private boolean modificarSeguridad(TPSeguridad personal) {
+    private boolean modificarSeguridad(TPSeguridad personal) {//perfe
         try {
             Transaction t = TransactionManager.getInstance().getTransaccion();
             Connection con = (Connection) t.getResource();
@@ -198,7 +198,7 @@ public class DAOPersonalImp implements DAOPersonal {
     }
     
 	@Override
-	public TPersonal consultarPersonalPorDni(String dni) {
+	public TPersonal consultarPersonalPorDni(String dni) {//perfe
 		TPersonal ret = null;
 		try{
 			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
@@ -220,16 +220,24 @@ public class DAOPersonalImp implements DAOPersonal {
 	}
 	
 	@Override
-	public List<TPersonal> consultarPersonalExistente() {
+	public List<TPersonal> consultarPersonalExistente() {//perfe
 		try{
 			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
 			PreparedStatement ps = con.prepareStatement(Querys.consultarPersonalExistente);
 			
 			ResultSet res = ps.executeQuery();
 			List<TPersonal> t = new ArrayList<>();
-			while(res.next())
-				t.add(new TPersonal(res.getInt("id"), res.getBoolean("activo"), res.getString("dni"), res.getString("area_Asignada")));
-			
+			while(res.next()){
+				TPersonal tp = new TPersonal(res.getInt("id"), res.getBoolean("activo"), res.getString("dni"), res.getString("area_Asignada"));
+				TPLimpieza limpieza = consultarLimpiezaPorId(tp.getId(), tp);
+				TPSeguridad seguridad = null;
+				if(limpieza != null) t.add(limpieza);
+				else{
+					seguridad = consultarSeguridadPorId(tp.getId(), tp);
+					if(seguridad != null) t.add(seguridad);
+				}
+				
+			}
 			res.close();
 			ps.close();
 
@@ -241,7 +249,7 @@ public class DAOPersonalImp implements DAOPersonal {
 	}
 
 	@Override
-	public List<TPersonal> consultarPersonalPorHangar(int id_hangar) {//hay q poner tamb el rol del personal? si
+	public List<TPersonal> consultarPersonalPorHangar(int id_hangar) {//perfe
 		try{
 			Transaction t = TransactionManager.getInstance().getTransaccion();
 			Connection con = (Connection) t.getResource();
@@ -252,7 +260,14 @@ public class DAOPersonalImp implements DAOPersonal {
 			List<TPersonal> lista = new ArrayList<>();
 			
 			while (rs.next()){
-				lista.add(new TPersonal(rs.getInt("id"), rs.getBoolean("activo"), rs.getString("dni"), rs.getString("area_asignada")));
+				TPersonal tp = new TPersonal(rs.getInt("id"), rs.getBoolean("activo"), rs.getString("dni"), rs.getString("area_Asignada"));
+				TPLimpieza limpieza = consultarLimpiezaPorId(tp.getId(), tp);
+				TPSeguridad seguridad = null;
+				if(limpieza != null) lista.add(limpieza);
+				else{
+					seguridad = consultarSeguridadPorId(tp.getId(), tp);
+					if(seguridad != null) lista.add(seguridad);
+				}
 			}
 			
 			rs.close();
