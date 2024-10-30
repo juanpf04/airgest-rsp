@@ -147,63 +147,108 @@ public class SAAvionImp implements SAAvion {
 	}
 
 	public List<TAvion> consultarAvionesPorModelo(int idModelo) {
-		List<TAvion> list = null;
 		if (UtilidadesN.comprobarId(idModelo)) {
 			Transaction t = TransactionManager.getInstance().nuevaTransaccion();
 			t.start();
+			
+			DAOModelo dm = FactoriaIntegracion.getInstance().crearDAOModelo();
+			TModelo modelo = dm.consultarModeloPorId(idModelo);
 
 			DAOAvion da = FactoriaIntegracion.getInstance().crearDAOAvion();
-			list = da.consultarAvionesPorModelo(idModelo);
-			t.commit();
+			List<TAvion> list;
+			
+			if (modelo != null){
+				list = da.consultarAvionesPorModelo(idModelo);
+				t.commit();
+			} else{
+				list = new ArrayList<TAvion>();
+				t.rollback();
+			}
+			
+			return list;
 		}
-		return list;
+		return new ArrayList<TAvion>();
 	}
 
 	public List<TAvion> consultarAvionesPorAerolinea(int idAerolinea) {
-		List<TAvion> list = null;
+		
 		if (UtilidadesN.comprobarId(idAerolinea)) {
 			Transaction t = TransactionManager.getInstance().nuevaTransaccion();
 			t.start();
-
-			DAOAvion da = FactoriaIntegracion.getInstance().crearDAOAvion();
-			list = da.consultarAvionesPorAerolinea(idAerolinea);
-			t.commit();
+			
+			DAOAerolinea da = FactoriaIntegracion.getInstance().crearDAOAerolinea();
+			TAerolinea aerolinea = da.consultarAerolineaPorId(idAerolinea);
+			
+			List<TAvion> list;
+			DAOAvion dav = FactoriaIntegracion.getInstance().crearDAOAvion();
+			
+			if (aerolinea != null){
+				list = dav.consultarAvionesPorAerolinea(idAerolinea);
+				t.commit();
+			} else{
+				list = new ArrayList<TAvion>();
+				t.rollback();
+			}
+			
+			return list;
+			
 		}
 
-		return list;
+		return new ArrayList<TAvion>();
 	}
 
 	public List<TAvion> consultarAvionesPorHangar(int idHangar) {
-		List<TAvion> list = null;
+		
 		if (UtilidadesN.comprobarId(idHangar)) {
 			Transaction t = TransactionManager.getInstance().nuevaTransaccion();
 			t.start();
+			
+			DAOHangar dh = FactoriaIntegracion.getInstance().crearDAOHangar();
+			THangar hangar = dh.leerHangarPorId(idHangar);
+			
+			List<TAvion> list;
 
 			DAOAvion da = FactoriaIntegracion.getInstance().crearDAOAvion();
-			list = da.consultarAvionesPorHangar(idHangar);
-			t.commit();
+			
+			if (hangar != null){
+				list = da.consultarAvionesPorHangar(idHangar);
+				t.commit();
+			} else{
+				list = new ArrayList<TAvion>();
+			}
+			
+			return list;
 		}
 
-		return list;
+		return new ArrayList<TAvion>();
 	}
 
 	@Override
 	public List<TAvion> consultarAvionesDeAerolineaPorHangar(int id_aerolinea, int id_hangar) {
-		List<TAvion> listaAviones = new ArrayList<>();
+		
 		if (UtilidadesN.comprobarId(id_aerolinea) && UtilidadesN.comprobarId(id_hangar)) {
 			Transaction t = TransactionManager.getInstance().nuevaTransaccion();
 			t.start();
+			
+			DAOAerolinea da = FactoriaIntegracion.getInstance().crearDAOAerolinea();
+			TAerolinea aerolinea = da.consultarAerolineaPorId(id_aerolinea);
+			DAOHangar dh = FactoriaIntegracion.getInstance().crearDAOHangar();
+			THangar hangar = dh.leerHangarPorId(id_hangar);
 
-			DAOAvion da = FactoriaIntegracion.getInstance().crearDAOAvion();
-			listaAviones = da.consultarAvionesDeAerolineaPorHangar(id_aerolinea, id_hangar);
-
-			if (listaAviones != null) {
+			DAOAvion dav = FactoriaIntegracion.getInstance().crearDAOAvion();
+			
+			List<TAvion> list;
+			
+			if (aerolinea != null && hangar != null){
+				list = dav.consultarAvionesDeAerolineaPorHangar(id_aerolinea, id_hangar);
 				t.commit();
-			} else {
-				t.rollback();
+			} else{
+				list = new ArrayList<TAvion>();
 			}
+			
+			return list;
 		}
-		return listaAviones;
+		return new ArrayList<TAvion>();
 	}
 
 }

@@ -215,7 +215,7 @@ public class SAModeloImp implements SAModelo {
 			
 			List<TModelo> lista;
 			
-			if(tAerolinea != null && tAerolinea.getActivo()){
+			if(tAerolinea != null){
 				 lista = dm.consultarModelosPorAerolinea(id_aerolinea);
 				 t.commit();
 			}else{

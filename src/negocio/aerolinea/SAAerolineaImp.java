@@ -1,15 +1,18 @@
 package negocio.aerolinea;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import integracion.aerolinea.DAOAerolinea;
 import integracion.avion.DAOAvion;
 import integracion.contrato.DAOContrato;
 import integracion.factoria.FactoriaIntegracion;
+import integracion.modelo.DAOModelo;
 import integracion.modeloAerolinea.DAOModeloAerolinea;
 import integracion.transacciones.Transaction;
 import integracion.transacciones.TransactionManager;
 import negocio.UtilidadesN;
+import negocio.modelo.TModelo;
 
 public class SAAerolineaImp implements SAAerolinea {
 
@@ -144,16 +147,29 @@ public class SAAerolineaImp implements SAAerolinea {
 
 	@Override
 	public List<TAerolinea> consultarAerolineasPorModelo(int id_modelo) {
-		Transaction t = TransactionManager.getInstance().nuevaTransaccion();
-		t.start();
+		if (UtilidadesN.comprobarId(id_modelo)){
+			Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+			t.start();
+			
+			DAOModelo dm = FactoriaIntegracion.getInstance().crearDAOModelo();
+			TModelo modelo = dm.consultarModeloPorId(id_modelo);
+			
+			DAOAerolinea da = FactoriaIntegracion.getInstance().crearDAOAerolinea();
+			List<TAerolinea> list;
+			
+			if (modelo != null){
+				list = da.consultarAerolineasPorModelo(id_modelo);
+				t.commit();
+			} else{
+				list = new ArrayList<TAerolinea>();
+				t.rollback();
+			}
+			
+			return list;
+		}
 		
-		// TODO falta comprobar que el modelo exista y este activo
+		return new ArrayList<TAerolinea>();
 		
-		DAOAerolinea da = FactoriaIntegracion.getInstance().crearDAOAerolinea();
-		List<TAerolinea> list = da.consultarAerolineasPorModelo(id_modelo);
-		t.commit();
-		
-		return list;
 	}
 
 }
