@@ -1,23 +1,13 @@
 package integracion.personal;
 
-import negocio.aerolinea.TAerolinea;
 import negocio.personal.TPLimpieza;
 import negocio.personal.TPSeguridad;
 import negocio.personal.TPersonal;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import org.json.JSONObject;
-import org.json.JSONTokener;
-
 import integracion.Querys;
-import integracion.UtilidadesI;
 import integracion.transacciones.Transaction;
 import integracion.transacciones.TransactionManager;
 
@@ -275,7 +265,7 @@ public class DAOPersonalImp implements DAOPersonal {
 	}
 
 	@Override
-	public TPersonal consultarPersonalPorId(int idPersonal) {//HAY QUE REVISAR
+	public TPersonal consultarPersonalPorId(int idPersonal) {//corregido
 		try {
 			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
 			PreparedStatement ps = con.prepareStatement(Querys.consultarPersonalPorId);
@@ -287,6 +277,14 @@ public class DAOPersonalImp implements DAOPersonal {
 			if (rs.next())
 				tp = new TPersonal(rs.getInt(1), rs.getBoolean(2), rs.getString(3), rs.getString(4)); 
 			
+			TPLimpieza limpieza = consultarLimpiezaPorId(idPersonal, tp);
+			TPSeguridad seguridad = null;
+			if(limpieza != null) tp = limpieza;
+			else{
+				seguridad = consultarSeguridadPorId(idPersonal, tp);
+				if(seguridad != null) tp = seguridad;
+			}
+			
 			rs.close();
 			ps.close();
 			
@@ -296,5 +294,49 @@ public class DAOPersonalImp implements DAOPersonal {
 			return null;
 		}
 		
+	}
+	
+	private TPLimpieza consultarLimpiezaPorId(int id, TPersonal tp) {
+		try {
+			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
+			PreparedStatement ps = con.prepareStatement(Querys.consultarLimpiezaPorId);
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			String rol = null;
+			TPLimpieza limpieza = null;
+			if (rs.next()) {
+				rol = rs.getString("rol");
+				limpieza = new TPLimpieza(id, tp.getDni(), tp.getAreaAsignada(), tp.getActivo(), rol);
+			}
+			rs.close();
+			ps.close();
+			return limpieza;
+
+		} catch (Exception e) {
+			return null;
+		}
+
+	}
+
+	private TPSeguridad consultarSeguridadPorId(int id, TPersonal tp) {
+		try {
+			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
+			PreparedStatement ps = con.prepareStatement(Querys.consultarSeguridadPorId);
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			int numPlaca;
+			TPSeguridad seguridad = null;
+			if (rs.next()) {
+				numPlaca = rs.getInt("numPlaca");
+				seguridad = new TPSeguridad(id, tp.getDni(), tp.getAreaAsignada(), tp.getActivo(), numPlaca);
+			}
+			rs.close();
+			ps.close();
+			return seguridad;
+
+		} catch (Exception e) {
+			return null;
+		}
+
 	}
 }
