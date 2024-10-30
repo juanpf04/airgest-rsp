@@ -12,7 +12,7 @@ public class Querys {
 	public static String consultarTodosContratos = "SELECT * FROM Contrato FOR UPDATE";
 	public static String consultarContratosPorAerolinea = "SELECT * FROM Contrato WHERE Id_Aerolinea = ?";	
 	
-	//LINEA DE CONTRATO
+	//LINEA DE CONTRATO 
 	public static String altaLineaContrato = "INSERT INTO linea_contrato (Id_Hangar, Id_Contrato, Fecha_Ini, Fecha_Fin, precio) VALUES(?,?,?,?,?)";
 	public static String modificarLineaContrato = "UPDATE linea_contrato SET Fecha_Ini = ?, Fecha_fin = ?, precio = ? WHERE Id_Hangar = ? AND Id_Contrato = ?";
 	public static String consultarLineasPorContrato = "SELECT * FROM linea_contrato WHERE Id_Contrato = ? FOR UPDATE";
