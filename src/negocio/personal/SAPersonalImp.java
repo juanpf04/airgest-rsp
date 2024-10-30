@@ -162,7 +162,7 @@ public class SAPersonalImp implements SAPersonal {
 	}
 
 	@Override
-	public TPersonal consultarPersonalPorId(int id) {
+	public TPersonal consultarPersonalPorId(int id) {//perfe
 		TPersonal ret = null;
 		if (UtilidadesN.comprobarId(id)) {
 			Transaction t = TransactionManager.getInstance().nuevaTransaccion();
