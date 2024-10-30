@@ -13,13 +13,13 @@ public class Querys {
 	public static String consultarContratosPorAerolinea = "SELECT * FROM Contrato WHERE Id_Aerolinea = ?";	
 	
 	//LINEA DE CONTRATO
-	public static String altaLineaContrato = "INSERT INTO linea_contrato (Id_Hangar, Id_Contrato, Fecha_Ini, Fecha_Fin, Coste_Por_Dia) VALUES(?,?,?,?,?)";
-	public static String modificarLineaContrato = "UPDATE linea_contrato SET Fecha_Ini = ?, Fecha_fin = ?, Coste_Por_Dia = ? WHERE Id_Hangar = ? AND Id_Contrato = ?";
+	public static String altaLineaContrato = "INSERT INTO linea_contrato (Id_Hangar, Id_Contrato, Fecha_Ini, Fecha_Fin, precio) VALUES(?,?,?,?,?)";
+	public static String modificarLineaContrato = "UPDATE linea_contrato SET Fecha_Ini = ?, Fecha_fin = ?, precio = ? WHERE Id_Hangar = ? AND Id_Contrato = ?";
 	public static String consultarLineasPorContrato = "SELECT * FROM linea_contrato WHERE Id_Contrato = ? FOR UPDATE";
 	public static String consultarLineasPorHangar = "SELECT * FROM linea_contrato WHERE Id_Hangar = ? FOR UPDATE";
 	public static String consultarLineaContrato = "SELECT * FROM linea_contrato WHERE Id_Contrato = ? AND Id_Hangar = ?";
-	public static String consultarContratoPorAerolineaPrecioDuracion = "SELECT lc.Id_Hangar,  lc.Id_Contrato,  lc.Fecha_Ini,  lc.Fecha_Fin,  lc.Coste_Por_Dia FROM Linea_Contrato lc "
-			+ "JOIN Contrato c ON lc.Id_Contrato = c.Id JOIN Aerolinea a ON c.Id_Aerolinea = a.Id WHERE a.Id = ?  AND lc.Coste_Por_Dia > ? AND "
+	public static String consultarContratoPorAerolineaPrecioDuracion = "SELECT lc.Id_Hangar,  lc.Id_Contrato,  lc.Fecha_Ini,  lc.Fecha_Fin,  lc.precio FROM Linea_Contrato lc "
+			+ "JOIN Contrato c ON lc.Id_Contrato = c.Id JOIN Aerolinea a ON c.Id_Aerolinea = a.Id WHERE a.Id = ?  AND lc.precio > ? AND "
 			+ "DATEDIFF( STR_TO_DATE(lc.Fecha_Fin, '%d-%m-%Y'),  STR_TO_DATE(lc.Fecha_Ini, '%d-%m-%Y') ) > ?;";
 	
 	//HANGAR
