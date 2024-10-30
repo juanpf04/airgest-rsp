@@ -52,9 +52,10 @@ public class SAPersonalImp implements SAPersonal {
 			DAOPersonal dp = FactoriaIntegracion.getInstance().crearDAOPersonal();
 
 			TPersonal leido = dp.consultarPersonalPorId(id);
-
 			if (leido != null && leido.getActivo()) {
-				ok = dp.bajaPersonal(id);
+				DAOHangar dh = FactoriaIntegracion.getInstance().crearDAOHangar();
+				List<THangar> lista = dh.consultarHangarPorPersonal(id);
+				if(lista.isEmpty())	ok = dp.bajaPersonal(id);
 			}
 			
 			if(ok) t.commit();
