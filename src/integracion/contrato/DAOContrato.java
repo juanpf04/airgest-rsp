@@ -7,11 +7,11 @@ public interface DAOContrato {
 
 	public int altaContrato(TContrato tContrato);
 
-	public TContrato leerContratoPorId(int id);
+	public TContrato consultarContratoPorId(int id);
 
-	public List<TContrato> leerTodosContratos();
+	public List<TContrato> consultarTodosContratos();
 
-	public List<TContrato> leerContratosPorAerolinea(int id_aerolinea);
+	public List<TContrato> consultarContratosPorAerolinea(int id_aerolinea);
 
 	public boolean modificarContrato(TContrato tContrato);
 

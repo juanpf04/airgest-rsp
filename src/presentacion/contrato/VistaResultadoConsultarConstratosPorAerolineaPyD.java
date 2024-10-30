@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-import negocio.contrato.TContrato;
+import negocio.lineaContrato.TLineaContrato;
 import presentacion.Observador;
 import presentacion.UtilidadesP;
 import presentacion.controlador.Contexto;
@@ -33,11 +33,11 @@ public class VistaResultadoConsultarConstratosPorAerolineaPyD extends JFrame imp
 		principal.setLayout(new BorderLayout());
 
 		@SuppressWarnings("unchecked")
-		List<TContrato> contratos = (List<TContrato>) datos;
+		List<TLineaContrato> contratos = (List<TLineaContrato>) datos;
 
 		String s = "";
-		for (TContrato c : contratos)
-			s += c.toString() + "\n";
+		for (TLineaContrato c : contratos)
+			s += c.toString() + "\n\n";
 
 		JTextArea exito = new JTextArea(s);
 		exito.setFont(new Font("Tahoma", Font.PLAIN, 20));

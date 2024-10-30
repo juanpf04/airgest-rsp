@@ -2,113 +2,128 @@ package integracion.contrato;
 
 import negocio.contrato.TContrato;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-import org.json.JSONObject;
-import org.json.JSONTokener;
 
-import integracion.UtilidadesI;
+import integracion.Querys;
+import integracion.transacciones.Transaction;
+import integracion.transacciones.TransactionManager;
 
 public class DAOContratoImp implements DAOContrato {
 
 	public int altaContrato(TContrato tContrato) {
-		File carpeta = new File(UtilidadesI.ruta("contrato"));
-		File[] lista = carpeta.listFiles();
-
 		try {
-			int id = lista.length + 1;
-
-			tContrato.setId(id);
-
-			FileWriter archivo = new FileWriter(UtilidadesI.ruta("contrato") + String.format("%05d", id) + ".json");
-
-			archivo.write(toJSON(tContrato).toString());
-			archivo.close();
-
+			Transaction t = TransactionManager.getInstance().getTransaccion();
+			Connection con = (Connection) t.getResource();
+			PreparedStatement ps = con.prepareStatement(Querys.altaContrato, PreparedStatement.RETURN_GENERATED_KEYS);
+			ps.setDouble(1, tContrato.getPrecio());
+			ps.setInt(2, tContrato.getIdAerolinea());
+			
+			int filas = ps.executeUpdate();
+			ResultSet rs = ps.getGeneratedKeys();
+			
+			int id = filas == 1 && rs.next() ? rs.getInt(1) : -1;
+			
+			rs.close();
+			ps.close();
+			
 			return id;
-
-		} catch (IOException e) {
+			
+		} catch (Exception e) {
+			return -1;
 		}
-		return -1;
 	}
 
-	public TContrato leerContratoPorId(int id) {
+	public TContrato consultarContratoPorId(int id) {
+		
 		try {
-			JSONObject data = new JSONObject(new JSONTokener(
-					new FileReader(UtilidadesI.ruta("contrato") + String.format("%05d", id) + ".json")));
-			return new TContrato(data.getInt("id"), data.getInt("id_aerolinea"), data.getDouble("precio"));
-		} catch (FileNotFoundException e) {
+			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
+			PreparedStatement ps = con.prepareStatement(Querys.consultarContratoPorId);
+			ps.setInt(1, id);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			TContrato tc = null;
+			if (rs.next())
+				tc = new TContrato(rs.getInt(1), rs.getInt(3), rs.getDouble(2)); 
+			
+			return tc;
+			
+		} catch(Exception e){
 			return null;
 		}
 	}
 
-	public List<TContrato> leerTodosContratos() {
-		File carpeta = new File(UtilidadesI.ruta("contrato"));
-		File[] lista = carpeta.listFiles();
-
-		List<TContrato> contratos = new ArrayList<>();
-
-		for (File f : lista) {
-			try {
-				JSONObject data = new JSONObject(new JSONTokener(new FileReader(f)));
-				contratos.add(new TContrato(data.getInt("id"), data.getInt("id_aerolinea"), data.getDouble("precio")));
-			} catch (FileNotFoundException e) {
+	public List<TContrato> consultarTodosContratos() {
+		try{
+			Transaction t = TransactionManager.getInstance().getTransaccion();
+			Connection con = (Connection) t.getResource();
+			PreparedStatement ps = con.prepareStatement(Querys.consultarTodosContratos);
+			
+			ResultSet rs = ps.executeQuery();
+			List<TContrato> lista = new ArrayList<>();
+			
+			while (rs.next()){
+				lista.add(new TContrato(rs.getInt(1), rs.getInt(3), rs.getDouble(2)));
 			}
+			
+			rs.close();
+			ps.close();
+			
+			return lista;
+			
+		} catch(Exception e){
+			return new ArrayList<TContrato>();
 		}
-
-		return contratos;
 	}
 
-	public List<TContrato> leerContratosPorAerolinea(int id_aerolinea) {
-		File carpeta = new File(UtilidadesI.ruta("contrato"));
-		File[] lista = carpeta.listFiles();
-
-		List<TContrato> contratos = new ArrayList<>();
-
-		int i = 0;
-		while (i < lista.length) {
-			JSONObject data = new JSONObject();
-			try {
-				data = new JSONObject(new JSONTokener(new FileReader(lista[i])));
-			} catch (FileNotFoundException e) {
+	public List<TContrato> consultarContratosPorAerolinea(int id_aerolinea) {
+		try{
+			Transaction t = TransactionManager.getInstance().getTransaccion();
+			Connection con = (Connection) t.getResource();
+			PreparedStatement ps = con.prepareStatement(Querys.consultarContratosPorAerolinea);
+			ps.setInt(1, id_aerolinea);			
+			
+			ResultSet rs = ps.executeQuery();
+			List<TContrato> lista = new ArrayList<>();
+			
+			while (rs.next()){
+				lista.add(new TContrato(rs.getInt(1), rs.getInt(3), rs.getDouble(2)));
 			}
-
-			if (data.getInt("id_aerolinea") == id_aerolinea) {
-				contratos.add(new TContrato(data.getInt("id"), data.getInt("id_aerolinea"), data.getDouble("precio")));
-			}
-
-			i++;
+			
+			rs.close();
+			ps.close();
+			
+			return lista;
+			
+		} catch(Exception e){
+			return new ArrayList<TContrato>();
 		}
-
-		return contratos;
 	}
 
 	public boolean modificarContrato(TContrato tContrato) {
+		
 		try {
-			FileWriter archivo = new FileWriter(
-					UtilidadesI.ruta("contrato") + String.format("%05d", tContrato.getId()) + ".json");
-			archivo.write(toJSON(tContrato).toString());
-			archivo.close();
-
-			return true;
-		} catch (IOException e) {
+			Transaction t = TransactionManager.getInstance().getTransaccion();
+			Connection con = (Connection) t.getResource();
+			PreparedStatement ps = con.prepareStatement(Querys.modificarContrato);
+			ps.setDouble(1, tContrato.getPrecio());
+			ps.setInt(2, tContrato.getIdAerolinea());
+			ps.setInt(3, tContrato.getId());
+			
+			int filas = ps.executeUpdate();
+			boolean modificado = filas == 1;
+			
+			ps.close();
+			
+			return modificado;
+		} catch(Exception e){
+			return false;
 		}
-		return false;
 	}
 
-	private JSONObject toJSON(TContrato tContrato) {
-		JSONObject jo = new JSONObject();
-
-		jo.put("id", tContrato.getId());
-		jo.put("id_aerolinea", tContrato.getIdAerolinea());
-		jo.put("precio", tContrato.getPrecio());
-
-		return jo;
-	}
 
 }

@@ -1,18 +1,14 @@
 package integracion.lineaContrato;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.time.LocalDate;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.json.JSONObject;
-import org.json.JSONTokener;
-
-import integracion.UtilidadesI;
+import integracion.Querys;
+import integracion.transacciones.Transaction;
+import integracion.transacciones.TransactionManager;
 import negocio.lineaContrato.TLineaContrato;
 
 public class DAOLineaContratoImp implements DAOLineaContrato {
@@ -20,128 +16,146 @@ public class DAOLineaContratoImp implements DAOLineaContrato {
 	@Override
 	public boolean altaLineaContrato(TLineaContrato tLineaContrato) {
 		try {
-			FileWriter archivo = new FileWriter(
-					UtilidadesI.ruta("lineaContrato") + String.format("%05d", tLineaContrato.getIdContrato()) + "_"
-							+ String.format("%05d", tLineaContrato.getIdHangar()) + ".json");
-			archivo.write(toJSON(tLineaContrato).toString());
-			archivo.close();
-			return true;
-		} catch (IOException e) {
-
+			Transaction t = TransactionManager.getInstance().getTransaccion();
+			Connection con = (Connection) t.getResource();
+			PreparedStatement ps = con.prepareStatement(Querys.altaLineaContrato, PreparedStatement.RETURN_GENERATED_KEYS);
+			ps.setInt(1, tLineaContrato.getIdHangar());
+			ps.setInt(2, tLineaContrato.getIdContrato());
+			ps.setString(3, tLineaContrato.getFechaIni());
+			ps.setString(4,  tLineaContrato.getFechaFin());
+			ps.setDouble(5,  tLineaContrato.getPrecio());
+			
+			int filas = ps.executeUpdate();
+			
+			boolean ok = filas == 1;
+			
+			ps.close();
+			
+			return ok;
+			
+		} catch (Exception e) {
+			return false;
 		}
-
-		return false;
 	}
 
 	@Override
 	public boolean modificarLineaContrato(TLineaContrato tLineaContrato) {
 		try {
-			FileWriter archivo = new FileWriter(
-					UtilidadesI.ruta("lineaContrato") + String.format("%05d", tLineaContrato.getIdContrato()) + "_"
-							+ String.format("%05d", tLineaContrato.getIdHangar()) + ".json");
-			archivo.write(toJSON(tLineaContrato).toString());
-			archivo.close();
-
-			return true;
-		} catch (IOException e) {
+			Transaction t = TransactionManager.getInstance().getTransaccion();
+			Connection con = (Connection) t.getResource();
+			PreparedStatement ps = con.prepareStatement(Querys.modificarLineaContrato);
+			ps.setString(1, tLineaContrato.getFechaIni());
+			ps.setString(2, tLineaContrato.getFechaFin());
+			ps.setDouble(3, tLineaContrato.getPrecio());
+			ps.setInt(4, tLineaContrato.getIdHangar());
+			ps.setInt(5, tLineaContrato.getIdContrato());
+			
+			int filas = ps.executeUpdate();
+			boolean modificado = filas == 1;
+			
+			ps.close();
+			
+			return modificado;
+		} catch(Exception e){
+			return false;
 		}
-		return false;
 	}
 
 	@Override
-	public List<TLineaContrato> leerLineasPorContrato(int id_contrato) {
-		File carpeta = new File(UtilidadesI.ruta("lineaContrato"));
-		File[] lista = carpeta.listFiles();
-
-		List<TLineaContrato> lineas = new ArrayList<>();
-
-		int i = 0;
-		while (i < lista.length) {
-			JSONObject data = new JSONObject();
-			try {
-				data = new JSONObject(new JSONTokener(new FileReader(lista[i])));
-			} catch (FileNotFoundException e) {
+	public List<TLineaContrato> consultarLineasPorContrato(int id_contrato) {
+		try{
+			Transaction t = TransactionManager.getInstance().getTransaccion();
+			Connection con = (Connection) t.getResource();
+			PreparedStatement ps = con.prepareStatement(Querys.consultarLineasPorContrato);
+			ps.setInt(1, id_contrato);			
+			
+			ResultSet rs = ps.executeQuery();
+			List<TLineaContrato> lista = new ArrayList<>();
+			
+			while (rs.next()){
+				lista.add(new TLineaContrato(rs.getInt(2), rs.getInt(1), rs.getString(3), rs.getString(4), rs.getDouble(5)));
 			}
-
-			if (data.getInt("id_contrato") == id_contrato) {
-				JSONObject fi = data.getJSONObject("fecha_ini");
-				LocalDate fecha_ini = LocalDate.of(fi.getInt("anyo"), fi.getInt("mes"), fi.getInt("dia"));
-
-				JSONObject ff = data.getJSONObject("fecha_fin");
-				LocalDate fecha_fin = LocalDate.of(ff.getInt("anyo"), ff.getInt("mes"), ff.getInt("dia"));
-
-				lineas.add(new TLineaContrato(data.getInt("id_contrato"), data.getInt("id_hangar"), fecha_ini,
-						fecha_fin, data.getDouble("precio")));
-			}
-
-			i++;
+			
+			rs.close();
+			ps.close();
+			
+			return lista;
+			
+		} catch(Exception e){
+			return new ArrayList<TLineaContrato>();
 		}
-
-		return lineas;
 	}
 
 	@Override
-	public List<TLineaContrato> leerLineasPorHangar(int id_hangar) {
-		File carpeta = new File(UtilidadesI.ruta("lineaContrato"));
-		File[] lista = carpeta.listFiles();
-
-		List<TLineaContrato> lineas = new ArrayList<>();
-
-		int i = 0;
-		while (i < lista.length) {
-			JSONObject data = new JSONObject();
-			try {
-				data = new JSONObject(new JSONTokener(new FileReader(lista[i])));
-			} catch (FileNotFoundException e) {
+	public List<TLineaContrato> consultarLineasPorHangar(int id_hangar) {
+		try{
+			Transaction t = TransactionManager.getInstance().getTransaccion();
+			Connection con = (Connection) t.getResource();
+			PreparedStatement ps = con.prepareStatement(Querys.consultarLineasPorHangar);
+			ps.setInt(1, id_hangar);			
+			
+			ResultSet rs = ps.executeQuery();
+			List<TLineaContrato> lista = new ArrayList<>();
+			
+			while (rs.next()){
+				lista.add(new TLineaContrato(rs.getInt(2), rs.getInt(1), rs.getString(3), rs.getString(4), rs.getDouble(5)));
 			}
-
-			if (data.getInt("id_hangar") == id_hangar) {
-				JSONObject fi = data.getJSONObject("fecha_ini");
-				LocalDate fecha_ini = LocalDate.of(fi.getInt("anyo"), fi.getInt("mes"), fi.getInt("dia"));
-
-				JSONObject ff = data.getJSONObject("fecha_fin");
-				LocalDate fecha_fin = LocalDate.of(ff.getInt("anyo"), ff.getInt("mes"), ff.getInt("dia"));
-
-				lineas.add(new TLineaContrato(data.getInt("id_contrato"), data.getInt("id_hangar"), fecha_ini,
-						fecha_fin, data.getDouble("precio")));
-			}
-
-			i++;
+			
+			rs.close();
+			ps.close();
+			
+			return lista;
+			
+		} catch(Exception e){
+			return new ArrayList<TLineaContrato>();
 		}
-
-		return lineas;
 	}
 
 	@Override
-	public boolean leerLineaContrato(int id_contrato, int id_hangar) {
-		File f = new File(UtilidadesI.ruta("lineaContrato") + String.format("%05d", id_contrato) + "_"
-				+ String.format("%05d", id_hangar) + ".json");
-
-		return f.exists();
+	public TLineaContrato consultarLineaContrato(int id_contrato, int id_hangar) {
+		try {
+			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
+			PreparedStatement ps = con.prepareStatement(Querys.consultarLineaContrato);
+			ps.setInt(1, id_contrato);
+			ps.setInt(2, id_hangar);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			TLineaContrato tcl = null;
+			if (rs.next())
+				tcl = new TLineaContrato(rs.getInt(2), rs.getInt(1), rs.getString(3), rs.getString(4), rs.getDouble(5)); 
+			
+			return tcl;
+			
+		} catch(Exception e){
+			return null;
+		}
 	}
 
-	private JSONObject toJSON(TLineaContrato linea) {
-		JSONObject jo = new JSONObject();
-
-		jo.put("id_contrato", linea.getIdContrato());
-		jo.put("id_hangar", linea.getIdHangar());
-
-		JSONObject fecha_ini = new JSONObject();
-		fecha_ini.put("dia", linea.getFechaIni().getDayOfMonth());
-		fecha_ini.put("mes", linea.getFechaIni().getMonthValue());
-		fecha_ini.put("anyo", linea.getFechaIni().getYear());
-		jo.put("fecha_ini", fecha_ini);
-
-		JSONObject fecha_fin = new JSONObject();
-		fecha_fin.put("dia", linea.getFechaFin().getDayOfMonth());
-		fecha_fin.put("mes", linea.getFechaFin().getMonthValue());
-		fecha_fin.put("anyo", linea.getFechaFin().getYear());
-		jo.put("fecha_fin", fecha_fin);
-
-		jo.put("precio", linea.getPrecio());
-
-		return jo;
-
+	@Override
+	public List<TLineaContrato> consultarContratoPorAerolinea(int id_aerolinea, double precio, int dias) {
+		try{
+			Transaction t = TransactionManager.getInstance().getTransaccion();
+			Connection con = (Connection) t.getResource();
+			PreparedStatement ps = con.prepareStatement(Querys.consultarContratoPorAerolineaPrecioDuracion);
+			ps.setInt(1, id_aerolinea);			
+			ps.setDouble(2, precio);			
+			ps.setInt(3, dias);			
+			
+			ResultSet rs = ps.executeQuery();
+			List<TLineaContrato> lista = new ArrayList<>();
+			
+			while (rs.next()){
+				lista.add(new TLineaContrato(rs.getInt(2), rs.getInt(1), rs.getString(3), rs.getString(4), rs.getDouble(5)));
+			}
+			
+			rs.close();
+			ps.close();
+			
+			return lista;
+			
+		} catch(Exception e){
+			return new ArrayList<TLineaContrato>();
+		}
 	}
-
 }
