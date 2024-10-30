@@ -1,5 +1,6 @@
 package integracion.personal;
 
+import negocio.aerolinea.TAerolinea;
 import negocio.personal.TPLimpieza;
 import negocio.personal.TPSeguridad;
 import negocio.personal.TPersonal;
@@ -274,8 +275,26 @@ public class DAOPersonalImp implements DAOPersonal {
 	}
 
 	@Override
-	public TPersonal consultarPersonalPorId(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	public TPersonal consultarPersonalPorId(int idPersonal) {//HAY QUE REVISAR
+		try {
+			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
+			PreparedStatement ps = con.prepareStatement(Querys.consultarPersonalPorId);
+			ps.setInt(1, idPersonal);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			TPersonal tp = null;
+			if (rs.next())
+				tp = new TPersonal(rs.getInt(1), rs.getBoolean(2), rs.getString(3), rs.getString(4)); 
+			
+			rs.close();
+			ps.close();
+			
+			return tp;
+			
+		} catch(Exception e){
+			return null;
+		}
+		
 	}
 }

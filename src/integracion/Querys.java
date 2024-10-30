@@ -62,6 +62,7 @@ public class Querys {
 	public static String modificarSeguridad= "UPDATE PERSONAL_SEGURIDAD SET Placa = ? WHERE Id_personal = ?";
 	public static String eliminarLimpieza = "DELETE FROM PERSONAL_LIMPIEZA WHERE Id_personal = ?";
     public static String eliminarSeguridad = "DELETE FROM PERSONAL_SEGURIDAD WHERE Id_personal = ?";
+    public static String consultarPersonalPorId = "SELECT * FROM Personal WHERE Id=? FOR UPDATE ";
     
 	public static String consultarPersonalPorDni = "SELECT * FROM PERSONAL WHERE dni = ?";
 	public static String consultarPersonalExistente = "SELECT * FROM PERSONAL FOR UPDATE";
