@@ -125,21 +125,40 @@ public class SAPersonalImp implements SAPersonal {
 
 	@Override
 	public boolean modificarPersonal(TPersonal tPersonal) {
-		if (UtilidadesN.comprobarId(tPersonal.getId()) && ValidadorPersonal.comprobarDatos(tPersonal)) {
-			DAOPersonal dp = FactoriaIntegracion.getInstance().crearDAOPersonal();
-			int id = tPersonal.getId();
-			String dni = tPersonal.getDni();
+		boolean ok = false;
+       /* if (UtilidadesN.comprobarId(tAvion.getId()) && ValidadorAvion.comprobarDatos(tAvion)) {
+            Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+            t.start();
 
-			TPersonal leido = dp.consultarPersonalPorId(id);
+            DAOAvion da = FactoriaIntegracion.getInstance().crearDAOAvion();
+            DAOHangar dh = FactoriaIntegracion.getInstance().crearDAOHangar();
+            THangar h = dh.leerHangarPorId(tAvion.getIdHangar());
+            DAOAerolinea dar = FactoriaIntegracion.getInstance().crearDAOAerolinea();
+            TAerolinea a = dar.consultarAerolineaPorId(tAvion.getIdAerolinea());
+            DAOModelo dm = FactoriaIntegracion.getInstance().crearDAOModelo();
+            TModelo m = dm.leerModeloPorId(tAvion.getIdModelo());
 
-//			if (leido != null) {
-//				if (leido.getActivo() && (leido.getDni() == dni
-//						|| dp.consultarPersonalPorIdEmpleado(dni) == null)) {
-//					return dp.modificarPersonal(tPersonal);
-//				}
-//			}
-		}
-		return false;
+            TAvion leido = da.consultarAvionPorId(tAvion.getId());
+            if (h != null && h.getActivo() && a != null && a.getActivo() && m != null && m.getActivo()) {
+                int nuevo_stock = dh.leerHangarPorId(tAvion.getIdHangar()).getStock();
+
+                if (leido != null && leido.getIdHangar() != tAvion.getIdHangar())
+                    nuevo_stock--;
+
+                if (leido != null && leido.getActivo() && (leido.getMatricula().equals(tAvion.getMatricula())
+                        || da.consultarAvionPorMatricula(tAvion.getMatricula()) == null) && nuevo_stock >= 0) {
+                    dh.actualizarStock(leido.getIdHangar(), dh.leerHangarPorId(leido.getIdHangar()).getStock() + 1);
+                    dh.actualizarStock(tAvion.getIdHangar(), nuevo_stock);
+                    ok = da.modificarAvion(tAvion);
+                }
+            }
+
+            if (ok)
+                t.commit();
+            else
+                t.rollback();
+        }*/
+        return ok;
 	}
 
 	@Override
@@ -158,9 +177,15 @@ public class SAPersonalImp implements SAPersonal {
 	}
 
 	@Override
-	public List<TPersonal> consultarPersonalExistente() {
-		DAOPersonal dp = FactoriaIntegracion.getInstance().crearDAOPersonal();
-		return dp.consultarPersonalExistente();
+	public List<TPersonal> consultarPersonalExistente() {//revisar
+		  Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+	        t.start();
+
+	        DAOPersonal dp = FactoriaIntegracion.getInstance().crearDAOPersonal();
+	        List<TPersonal> list = dp.consultarPersonalExistente();
+	        t.commit();
+
+	        return list;
 	}
 
 	@Override
