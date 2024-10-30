@@ -17,9 +17,6 @@ public class ConsultarContratosPorAerolineaPrecioYDuracion implements Comando {
 		FactoriaNegocio fn = FactoriaNegocio.getInstance();
 		SAContrato sc = fn.crearSAContrato();
 		ArrayList<Integer> info = (ArrayList<Integer>) datos;
-		System.out.println((int)info.get(0));
-		System.out.println((double)info.get(1));
-		System.out.println((int)info.get(2));
 		List<TLineaContrato> contratos = sc.consultarContratoPorAerolinea((int)info.get(0), (double)info.get(1), (int)info.get(2));
 		return new Contexto(Evento.VISTA_RESULTADO_CONSULTAR_CONTRATOS_POR_AEROLINEA_PRECIO_Y_DURACION, contratos);
 	}
