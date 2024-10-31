@@ -12,7 +12,6 @@ import integracion.transacciones.Transaction;
 import integracion.transacciones.TransactionManager;
 import negocio.UtilidadesN;
 import negocio.aerolinea.TAerolinea;
-import negocio.aerolinea.ValidadorAerolinea;
 import negocio.modeloAerolinea.TModeloAerolinea;
 import negocio.modeloAerolinea.ValidadorModeloAerolinea;
 
@@ -66,19 +65,16 @@ public class SAModeloImp implements SAModelo {
 				List<TAerolinea> lista = da.consultarAerolineasPorModelo(id);
 				
 				if(lista.size() == 0){
-					ok = dm.bajaModelo(id);
+					DAOAvion dao = FactoriaIntegracion.getInstance().crearDAOAvion();
+					if (dao.consultarAvionesActivosPorModelo(id).isEmpty()) {
+						ok = dm.bajaModelo(id);
+					}
 					if(ok) t.commit();
 					else t.rollback();
 				}else t.rollback();
 			}else t.rollback();
 			
 			return ok;
-				/*DAOAvion da = FactoriaIntegracion.getInstance().crearDAOAvion();
-
-				if (da.consultarAvionesActivosPorModelo(id).isEmpty()) {
-					return dm.bajaModelo(id);
-				}*/
-			 //TODO meter lo de avion y aerolinea
 		}
 
 		return false;

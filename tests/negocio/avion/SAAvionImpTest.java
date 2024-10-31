@@ -6,7 +6,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import integracion.UtilidadesI;
 import negocio.avion.SAAvion;
 import negocio.avion.SAAvionImp;
 import negocio.avion.TAvion;

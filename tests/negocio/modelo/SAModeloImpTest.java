@@ -73,8 +73,8 @@ public class SAModeloImpTest {
 		//Prueba aerolineas activas
 		assertFalse("No se puede dar de baja modelo con aerolineas activas", sm.bajaModelo(3));
 		
-		// Prueba avion activo			//TODO Falta este
-		assertFalse("No se puede dar de baja modelo con aviones activos", sm.bajaModelo(1));
+		// Prueba avion activo			
+		assertFalse("No se puede dar de baja modelo con aviones activos", sm.bajaModelo(3));
 	}
 
 	@Test
