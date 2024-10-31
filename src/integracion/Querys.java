@@ -1,6 +1,5 @@
 package integracion;
 
-import negocio.personal.TPSeguridad;
 
 public class Querys {
 	//AEROLINEA
@@ -63,7 +62,8 @@ public class Querys {
 	public static String eliminarLimpieza = "DELETE FROM PERSONAL_LIMPIEZA WHERE Id_personal = ?";
     public static String eliminarSeguridad = "DELETE FROM PERSONAL_SEGURIDAD WHERE Id_personal = ?";
     public static String consultarPersonalPorId = "SELECT * FROM Personal WHERE Id=? FOR UPDATE ";
-    
+    public static String consultarLimpiezaPorId = "SELECT * FROM PERSONAL_LIMPIEZA WHERE Id_personal=? FOR UPDATE ";
+    public static String consultarSeguridadPorId = "SELECT * FROM PERSONAL_SEGURIDAD WHERE Id_personal=? FOR UPDATE ";
 	public static String consultarPersonalPorDni = "SELECT * FROM PERSONAL WHERE dni = ?";
 	public static String consultarPersonalExistente = "SELECT * FROM PERSONAL FOR UPDATE";
 	public static String consultarPersonalPorHangar = "SELECT * FROM PERSONAL p JOIN personal_hangar ph ON p.Id = ph.Id_personal WHERE ph.Id_Hangar = ? FOR UPDATE";

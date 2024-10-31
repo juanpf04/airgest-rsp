@@ -18,14 +18,14 @@ import integracion.transacciones.TransactionManager;
 public class SAPersonalImp implements SAPersonal {
 
 	@Override
-	public int altaPersonal(TPersonal tPersonal) {
+	public int altaPersonal(TPersonal tPersonal) {//perfe
 		int id = -1;
 		if (ValidadorPersonal.comprobarDatos(tPersonal)) {
 			Transaction t = TransactionManager.getInstance().nuevaTransaccion();
 			t.start();
 			
 			DAOPersonal dp = FactoriaIntegracion.getInstance().crearDAOPersonal();
-			TPersonal leido = dp.consultarPersonalPorId(tPersonal.getId());
+			TPersonal leido = dp.consultarPersonalPorDni(tPersonal.getDni());
 			
 			if (leido == null) 
 				id = dp.altaPersonal(tPersonal);
@@ -52,9 +52,10 @@ public class SAPersonalImp implements SAPersonal {
 			DAOPersonal dp = FactoriaIntegracion.getInstance().crearDAOPersonal();
 
 			TPersonal leido = dp.consultarPersonalPorId(id);
-
 			if (leido != null && leido.getActivo()) {
-				ok = dp.bajaPersonal(id);
+				DAOHangar dh = FactoriaIntegracion.getInstance().crearDAOHangar();
+				List<THangar> lista = dh.consultarHangarPorPersonal(id);
+				if(lista.isEmpty())	ok = dp.bajaPersonal(id);
 			}
 			
 			if(ok) t.commit();
@@ -70,7 +71,7 @@ public class SAPersonalImp implements SAPersonal {
 		int idHangar = tPersonalHangar.getIdHangar();
 		boolean vinculado = false;
 		
-		if (ValidadorPersonalHangar.comprobarDatos(tPersonalHangar)) {
+		if (ValidadorPersonalHangar.comprobarDatos(tPersonalHangar)) {//perfe
 			Transaction t = TransactionManager.getInstance().nuevaTransaccion();
 			t.start();
 			DAOPersonal dp = FactoriaIntegracion.getInstance().crearDAOPersonal();
@@ -146,7 +147,7 @@ public class SAPersonalImp implements SAPersonal {
 	}
 
 	@Override
-	public TPersonal consultarPersonalPorId(int id) {
+	public TPersonal consultarPersonalPorId(int id) {//perfe
 		TPersonal ret = null;
 		if (UtilidadesN.comprobarId(id)) {
 			Transaction t = TransactionManager.getInstance().nuevaTransaccion();
@@ -161,19 +162,19 @@ public class SAPersonalImp implements SAPersonal {
 	}
 
 	@Override
-	public List<TPersonal> consultarPersonalExistente() {//revisar
-		  Transaction t = TransactionManager.getInstance().nuevaTransaccion();
-	        t.start();
+	public List<TPersonal> consultarPersonalExistente() {//perfe
+	  	Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+        t.start();
 
-	        DAOPersonal dp = FactoriaIntegracion.getInstance().crearDAOPersonal();
-	        List<TPersonal> list = dp.consultarPersonalExistente();
-	        t.commit();
+        DAOPersonal dp = FactoriaIntegracion.getInstance().crearDAOPersonal();
+        List<TPersonal> list = dp.consultarPersonalExistente();
+        t.commit();
 
-	        return list;
+        return list;
 	}
 
 	@Override
-	public List<TPersonal> consultarPersonalPorHangar(int id_hangar) {
+	public List<TPersonal> consultarPersonalPorHangar(int id_hangar) {//perfe
 		List<TPersonal> lista = new ArrayList<>();
 		if(UtilidadesN.comprobarId(id_hangar)){
 			Transaction t = TransactionManager.getInstance().nuevaTransaccion();
