@@ -63,7 +63,7 @@ public class SAAerolineaImpTest {
 		SAAerolinea sa = new SAAerolineaImp();
 
 		// Prueba exitosa
-		assertTrue("se deberia poder dar de baja", sa.bajaAerolinea(4));
+		assertTrue("se deberia poder dar de baja", sa.bajaAerolinea(7));
 		
 		// Prueba id inexistente
 		assertFalse("no existe una aerolinea con id20", sa.bajaAerolinea(20));
@@ -72,13 +72,13 @@ public class SAAerolineaImpTest {
 		assertFalse("la aerolinea ya estaba inactivo", sa.bajaAerolinea(4));
 		
 		// Prueba aerolinea tiene modelos vinculados
-		assertFalse("la aerolinea no tiene modelos vinculados", sa.bajaAerolinea(3));
+		assertFalse("la aerolinea no tiene modelos vinculados", sa.bajaAerolinea(1));
 		
 		// Prueba avion activo
 		assertFalse("No se puede dar de baja aerolinea con aviones activos", sa.bajaAerolinea(1));
 
 		// Prueba contrato activo
-		assertFalse("No se puede dar de baja aerolinea con contratos activos", sa.bajaAerolinea(2));
+		assertFalse("No se puede dar de baja aerolinea con contratos activos", sa.bajaAerolinea(5));
 	}
 	
 	@Test
