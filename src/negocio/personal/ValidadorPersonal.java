@@ -3,7 +3,7 @@ package negocio.personal;
 public class ValidadorPersonal {
 
 	public static boolean comprobarDatos(TPersonal tPersonal) {
-		boolean valido = tPersonal.getId() > 0 && tPersonal.getAreaAsignada() != null
+		boolean valido = tPersonal.getAreaAsignada() != null
 				&& !tPersonal.getAreaAsignada().isEmpty() && comprobarDNI(tPersonal.getDni());
 
 		if (tPersonal instanceof TPLimpieza)
