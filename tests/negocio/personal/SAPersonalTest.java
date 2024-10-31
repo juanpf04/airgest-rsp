@@ -110,4 +110,14 @@ public class SAPersonalTest {
 		List<TPersonal> list = sp.consultarPersonalPorHangar(1);
 		assertEquals("Fallo terrible", 2, list.size());
 	}
+	
+	@Test
+	public void consultarPersonalExistenteTest() {//perfee
+		
+		SAPersonal sp = new SAPersonalImp();
+		
+		List<TPersonal> list = sp.consultarPersonalExistente();
+		assertEquals("Fallo terrible", 1, list.size());
+		System.out.println(list);
+	}
 }

@@ -342,7 +342,7 @@ public class DAOPersonalImp implements DAOPersonal {
 			int numPlaca;
 			TPSeguridad seguridad = null;
 			if (rs.next()) {
-				numPlaca = rs.getInt("numPlaca");
+				numPlaca = rs.getInt("Placa");
 				seguridad = new TPSeguridad(id, tp.getDni(), tp.getAreaAsignada(), tp.getActivo(), numPlaca);
 			}
 			rs.close();
