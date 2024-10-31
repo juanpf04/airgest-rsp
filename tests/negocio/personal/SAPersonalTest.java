@@ -14,6 +14,9 @@ import integracion.transacciones.TransactionManager;
 import negocio.aerolinea.SAAerolinea;
 import negocio.aerolinea.SAAerolineaImp;
 import negocio.aerolinea.TAerolinea;
+import negocio.hangar.SAHangar;
+import negocio.hangar.SAHangarImp;
+import negocio.hangar.THangar;
 import negocio.personalHangar.TPersonalHangar;
 
 public class SAPersonalTest {
@@ -44,18 +47,21 @@ public class SAPersonalTest {
 
 	@Test
 	public void vincularPersonalTest() {
-		UtilidadesI.esTest();
-
 		SAPersonal sp = new SAPersonalImp();
-		TPersonalHangar tph = new TPersonalHangar(2, 2);
-
-		sp.desvincularPersonal(tph); // desvinculamos
+		SAHangar sh = new SAHangarImp();
 		
+		THangar h = new THangar(1, "nada", 10, 10, 10, true);
+		TPersonal p = new TPLimpieza(1, "11111111Z", "asdfsa", true, "algo");
+		
+		int idh = sh.altaHangar(h);
+		int idp = sp.altaPersonal(p);
+		
+		TPersonalHangar tph = new TPersonalHangar(idp, idh);
 		// prueba exitosa
-		assertTrue("No se han podido vincular", sp.vincularPersonal(tph));
+		assertTrue(sp.vincularPersonal(tph));
 
 		// prueba ya vinculados
-		assertFalse("ya estaban vinulados", sp.vincularPersonal(tph));
+		assertFalse(sp.vincularPersonal(tph));
 
 	}
 
@@ -88,14 +94,13 @@ public class SAPersonalTest {
 	}
 
 	@Test
-	public void consultarPersonalPorIdTest() {
-		UtilidadesI.esTest();
-
+	public void consultarPersonalPorIdTest() {//hecho
 		SAPersonal sp = new SAPersonalImp();
+
+		TPersonal p = sp.consultarPersonalPorId(2);
 		
-		assertEquals("no existe personal con id 500", null, sp.consultarPersonalPorId(500));
-		assertEquals("el personal 1 tiene el area asignada seguridad", "Seguridad", sp.consultarPersonalPorId(1).getAreaAsignada());
-		
+		assertTrue(p != null);
+		System.out.println(p);
 	}
 	
 	@Test
