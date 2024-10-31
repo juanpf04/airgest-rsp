@@ -130,7 +130,7 @@ public class SAPersonalImp implements SAPersonal {
 		if (UtilidadesN.comprobarId(tPersonal.getId()) && ValidadorPersonal.comprobarDatos(tPersonal)) {
             Transaction t = TransactionManager.getInstance().nuevaTransaccion();
             t.start();
-
+ 
             DAOPersonal dp = FactoriaIntegracion.getInstance().crearDAOPersonal();
 
             TPersonal leido = dp.consultarPersonalPorDni(tPersonal.getDni());
