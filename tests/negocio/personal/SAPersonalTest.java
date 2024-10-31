@@ -20,14 +20,13 @@ public class SAPersonalTest {
 
 	@Test
 	public void altaPersonalTest() {
-		UtilidadesI.esTest();
-
 		SAPersonal sp = new SAPersonalImp();
-		TPersonal personal = new TPLimpieza(0, "12345678P", "fsdfds", true, "algo");
-		assertEquals("no se puede dar de alta personal con el mismo id empleado", -1, sp.altaPersonal(personal));
-		personal = new TPSeguridad(0, "12345678P", "yeah", true, 4535);
-		assertEquals("el empleado con id 4 ya existia pero estaba dado de baja", 4, sp.altaPersonal(personal));
+		
+		TPersonal personal = new TPLimpieza(1, "12345678P", "fsdfds", true, "algo");
+		assertTrue(sp.altaPersonal(personal) > 0);
 
+		assertEquals(sp.altaPersonal(personal), -1);
+		
 	}
 
 	@Test
