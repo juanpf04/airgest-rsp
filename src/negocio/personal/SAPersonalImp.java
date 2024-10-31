@@ -126,39 +126,23 @@ public class SAPersonalImp implements SAPersonal {
 	@Override
 	public boolean modificarPersonal(TPersonal tPersonal) {
 		boolean ok = false;
-       /* if (UtilidadesN.comprobarId(tAvion.getId()) && ValidadorAvion.comprobarDatos(tAvion)) {
+		if (UtilidadesN.comprobarId(tPersonal.getId()) && ValidadorPersonal.comprobarDatos(tPersonal)) {
             Transaction t = TransactionManager.getInstance().nuevaTransaccion();
             t.start();
 
-            DAOAvion da = FactoriaIntegracion.getInstance().crearDAOAvion();
-            DAOHangar dh = FactoriaIntegracion.getInstance().crearDAOHangar();
-            THangar h = dh.leerHangarPorId(tAvion.getIdHangar());
-            DAOAerolinea dar = FactoriaIntegracion.getInstance().crearDAOAerolinea();
-            TAerolinea a = dar.consultarAerolineaPorId(tAvion.getIdAerolinea());
-            DAOModelo dm = FactoriaIntegracion.getInstance().crearDAOModelo();
-            TModelo m = dm.leerModeloPorId(tAvion.getIdModelo());
+            DAOPersonal dp = FactoriaIntegracion.getInstance().crearDAOPersonal();
 
-            TAvion leido = da.consultarAvionPorId(tAvion.getId());
-            if (h != null && h.getActivo() && a != null && a.getActivo() && m != null && m.getActivo()) {
-                int nuevo_stock = dh.leerHangarPorId(tAvion.getIdHangar()).getStock();
-
-                if (leido != null && leido.getIdHangar() != tAvion.getIdHangar())
-                    nuevo_stock--;
-
-                if (leido != null && leido.getActivo() && (leido.getMatricula().equals(tAvion.getMatricula())
-                        || da.consultarAvionPorMatricula(tAvion.getMatricula()) == null) && nuevo_stock >= 0) {
-                    dh.actualizarStock(leido.getIdHangar(), dh.leerHangarPorId(leido.getIdHangar()).getStock() + 1);
-                    dh.actualizarStock(tAvion.getIdHangar(), nuevo_stock);
-                    ok = da.modificarAvion(tAvion);
-                }
+            TPersonal leido = dp.consultarPersonalPorDni(tPersonal.getDni());
+            if (leido != null && leido.getActivo()){
+            	ok = dp.modificarPersonal(tPersonal);
             }
 
             if (ok)
                 t.commit();
             else
                 t.rollback();
-        }*/
-        return ok;
+        }
+		return ok;
 	}
 
 	@Override
