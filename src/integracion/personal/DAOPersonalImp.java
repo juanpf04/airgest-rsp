@@ -290,7 +290,7 @@ public class DAOPersonalImp implements DAOPersonal {
 			
 			TPersonal tp = null;
 			if (rs.next())
-				tp = new TPersonal(rs.getInt(1), rs.getBoolean(2), rs.getString(3), rs.getString(4)); 
+				tp = new TPersonal(rs.getInt("id"), rs.getBoolean("activo"), rs.getString("dni"), rs.getString("area_asignada")); 
 			
 			TPLimpieza limpieza = consultarLimpiezaPorId(idPersonal, tp);
 			TPSeguridad seguridad = null;

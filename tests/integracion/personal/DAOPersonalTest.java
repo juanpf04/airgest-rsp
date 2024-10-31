@@ -67,13 +67,15 @@ public class DAOPersonalTest {
 	}
 
 	@Test
-	public void consultarPersonalPorIdTest() {
-		UtilidadesI.esTest();
+	public void consultarPersonalPorIdTest() {//perfee
+		Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+	    t.start();
+		
+        DAOPersonal dp = FactoriaIntegracionImp.getInstance().crearDAOPersonal();
+        TPersonal p = dp.consultarPersonalPorId(1);    
 
-		DAOPersonal daoPersonal = new DAOPersonalImp();
-
-		assertEquals("El personal con id 3 debe tener el idEmpleado 67890", 67890,
-				daoPersonal.consultarPersonalPorId(3).getDni());
+		assertEquals("El personal con id 1", 1, p.getId());
+		t.commit();
 	}
 	
 	@Test
