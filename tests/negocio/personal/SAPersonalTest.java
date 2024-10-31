@@ -79,17 +79,13 @@ public class SAPersonalTest {
 	}
 
 	@Test
-	public void modificarPersonalTest() {
+	public void modificarPersonalTest() {//terminado
 
 		SAPersonal sp = new SAPersonalImp();
 		TPersonal personal = new TPSeguridad(1, "44444444A", "AAAA", true, 7);
 		
 		assertTrue("deberia modificarse", sp.modificarPersonal(personal));
-//		personal.setId(1);
-//		assertFalse("no se puede modificar un personal con el id de otro activo", sp.modificarPersonal(personal));
-//		
-//		personal = new TPSeguridad(6, "12345678P", "ggs", true, 7686);
-//		assertFalse("no se puede modificar personal no activo", sp.modificarPersonal(personal));
+
 	}
 
 	@Test
