@@ -85,7 +85,7 @@ public class VistaModificarIdPersonal extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				controlador.accion(new Contexto(Evento.VISTA_HANGAR, null));
+				controlador.accion(new Contexto(Evento.VISTA_MODIFICAR_PERSONAL, null));
 			}
 		});
 

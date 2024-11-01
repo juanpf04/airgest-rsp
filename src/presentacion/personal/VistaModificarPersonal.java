@@ -149,23 +149,6 @@ public class VistaModificarPersonal extends JFrame implements Observador {
 				panelEtiquetas.add(etiquetaNumPlaca);
 				panelTexto.add(textoNumPlaca);
 			}
-
-			JButton atras = new JButton("ATRAS"); // boton para volver a la ventana
-			// principal
-			atras.setToolTipText("Esto vuelve a la ventana anterior");
-			atras.addActionListener(new ActionListener() {
-			
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					dispose();
-					if (datos == null)
-							ctrl.accion(new Contexto(Evento.VISTA_PERSONAL, null));
-					else
-							ctrl.accion(new Contexto(Evento.VISTA_MODIFICAR_PERSONAL, null));
-				}
-			
-			});
-			panelBotones.add(atras);
 			
 			JButton aceptar = new JButton("ACEPTAR");
 			aceptar.addActionListener(new ActionListener() {
@@ -195,6 +178,23 @@ public class VistaModificarPersonal extends JFrame implements Observador {
 			panelBotones.add(aceptar);
 
 		}
+		
+		JButton atras = new JButton("ATRAS"); // boton para volver a la ventana
+		// principal
+		atras.setToolTipText("Esto vuelve a la ventana anterior");
+		atras.addActionListener(new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			dispose();
+			if (datos == null)
+				ctrl.accion(new Contexto(Evento.VISTA_PERSONAL, null));
+			else
+				ctrl.accion(new Contexto(Evento.VISTA_MODIFICAR_PERSONAL, null));
+		}
+
+		});
+		panelBotones.add(atras);
 
 		this.setContentPane(principal);
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
