@@ -57,7 +57,7 @@ public class VistaResultadoConsultarHangarPorPersonal extends JFrame implements 
 			}
 		});
 
-		principal.add(atras, BorderLayout.PAGE_END);
+		principal.add(atras, BorderLayout.SOUTH);
 
 		this.setContentPane(principal);
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);

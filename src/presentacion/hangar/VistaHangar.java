@@ -93,6 +93,7 @@ public class VistaHangar extends JFrame implements Observador {
 				ctrl.accion(new Contexto(Evento.VISTA_CONSULTAR_HANGAR_POR_ID, null));
 			}
 		});
+		consultarID.setToolTipText("Aqui consultas un hangar por id maquina");
 		botones.add(consultarID);
 
 		// -------------------------------------------
@@ -104,7 +105,7 @@ public class VistaHangar extends JFrame implements Observador {
 				ctrl.accion(new Contexto(Evento.CONSULTAR_TODOS_HANGARES, null));
 			}
 		});
-
+		consultarTodos.setToolTipText("Aqui consultas todos los hangares maquina");
 		botones.add(consultarTodos);
 
 		// -------------------------------------------
@@ -114,10 +115,11 @@ public class VistaHangar extends JFrame implements Observador {
 		consultarHangarPersonal.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				dispose();
 				ctrl.accion(new Contexto(Evento.VISTA_CONSULTAR_HANGARES_POR_PERSONAL, null));
 			}
 		});
-
+		consultarHangarPersonal.setToolTipText("Aqui consultas un hangar por personal maquina");
 		botones.add(consultarHangarPersonal);
 
 		// -------------------------------------------
@@ -127,10 +129,10 @@ public class VistaHangar extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				ctrl.accion(new Contexto(Evento.VISTA_MODIFICAR_HANGAR, null));
+				ctrl.accion(new Contexto(Evento.VISTA_MODIFICAR_ID_HANGAR, null));
 			}
 		});
-
+		modificar.setToolTipText("Aqui modificas un hangar maquina");
 		botones.add(modificar);
 
 		// -------------------------------------------

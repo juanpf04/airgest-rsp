@@ -23,7 +23,7 @@ public class VistaFalloBajaHangar extends JFrame implements Observador {
 		JPanel principal = new JPanel();
 		principal.setLayout(new BorderLayout());
 
-		JLabel exito = new JLabel("Baja de Modelo fallida! :(");
+		JLabel exito = new JLabel("Baja de Hangar fallida! :(");
 		exito.setFont(new Font("Tahoma", Font.PLAIN, 29));
 		exito.setHorizontalAlignment(SwingConstants.CENTER);
 		principal.add(exito, BorderLayout.PAGE_START);

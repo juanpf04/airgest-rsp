@@ -1,5 +1,6 @@
 package integracion;
 
+
 public class Querys {
 	//AEROLINEA
 	
@@ -83,6 +84,19 @@ public class Querys {
 	
 	
 	//PERSONAL
-		
-		
+	public static String altaPersonal = "INSERT INTO PERSONAL(dni, area_asignada, activo) VALUES (?, ?, true)";
+	public static String altaLimpieza = "INSERT INTO PERSONAL_LIMPIEZA(id_personal, rol) VALUES (?, ?)";
+	public static String altaSeguridad = "INSERT INTO PERSONAL_SEGURIDAD(id_personal, placa) VALUES (?, ?)";
+	public static String bajaPersonal = "UPDATE PERSONAL SET activo = false WHERE id = ?";
+	public static String modificarPersonal= "UPDATE PERSONAL SET Area_Asignada = ?, DNI = ?, Activo = ? WHERE Id = ?";
+	public static String modificarLimpieza= "UPDATE PERSONAL_LIMPIEZA SET rol = ? WHERE Id_personal = ?";
+	public static String modificarSeguridad= "UPDATE PERSONAL_SEGURIDAD SET Placa = ? WHERE Id_personal = ?";
+	public static String eliminarLimpieza = "DELETE FROM PERSONAL_LIMPIEZA WHERE Id_personal = ?";
+    public static String eliminarSeguridad = "DELETE FROM PERSONAL_SEGURIDAD WHERE Id_personal = ?";
+    public static String consultarPersonalPorId = "SELECT * FROM Personal WHERE Id=? FOR UPDATE ";
+    public static String consultarLimpiezaPorId = "SELECT * FROM PERSONAL_LIMPIEZA WHERE Id_personal=? FOR UPDATE ";
+    public static String consultarSeguridadPorId = "SELECT * FROM PERSONAL_SEGURIDAD WHERE Id_personal=? FOR UPDATE ";
+	public static String consultarPersonalPorDni = "SELECT * FROM PERSONAL WHERE dni = ?";
+	public static String consultarPersonalExistente = "SELECT * FROM PERSONAL FOR UPDATE";
+	public static String consultarPersonalPorHangar = "SELECT * FROM PERSONAL p JOIN personal_hangar ph ON p.Id = ph.Id_personal WHERE ph.Id_Hangar = ? FOR UPDATE";
 }

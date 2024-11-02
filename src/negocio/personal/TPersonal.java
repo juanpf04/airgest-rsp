@@ -4,7 +4,7 @@ public class TPersonal {
 
 	private int id;
 
-	private int idEmpleado;
+	private String dni;
 
 	private String areaAsignada;
 
@@ -13,9 +13,9 @@ public class TPersonal {
 	public TPersonal() {
 	}
 
-	public TPersonal(int id, boolean activo, int idEmpleado, String areaAsignada) {
+	public TPersonal(int id, boolean activo, String dni, String areaAsignada) {
 		this.id = id;
-		this.idEmpleado = idEmpleado;
+		this.dni = dni;
 		this.areaAsignada = areaAsignada;
 		this.activo = activo;
 	}
@@ -28,8 +28,8 @@ public class TPersonal {
 		return this.activo;
 	}
 
-	public int getIdEmpleado() {
-		return this.idEmpleado;
+	public String getDni() {
+		return this.dni;
 	}
 
 	public String getAreaAsignada() {
@@ -40,8 +40,8 @@ public class TPersonal {
 		this.id = id;
 	}
 
-	public void setIdEmpleado(int idEmpleado) {
-		this.idEmpleado = idEmpleado;
+	public void setDni(String dni) {
+		this.dni = dni;
 	}
 
 	public void setAreaAsignada(String areaAsignada) {
@@ -54,7 +54,7 @@ public class TPersonal {
 
 	@Override
 	public String toString() {
-		return " id: " + id + "\n idEmpleado: " + idEmpleado + "\n Área asignada: " + areaAsignada + "\n activo: "
+		return " id: " + id + "\n DNI: " + dni + "\n Área asignada: " + areaAsignada + "\n activo: "
 				+ activo + "\n";
 	}
 }

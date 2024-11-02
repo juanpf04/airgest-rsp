@@ -3,8 +3,8 @@ package negocio.personal;
 public class ValidadorPersonal {
 
 	public static boolean comprobarDatos(TPersonal tPersonal) {
-		boolean valido = tPersonal.getIdEmpleado() > 0 && tPersonal.getAreaAsignada() != null
-				&& !tPersonal.getAreaAsignada().isEmpty();
+		boolean valido = tPersonal.getAreaAsignada() != null
+				&& !tPersonal.getAreaAsignada().isEmpty() && comprobarDNI(tPersonal.getDni());
 
 		if (tPersonal instanceof TPLimpieza)
 			valido = valido && ((TPLimpieza) tPersonal).getRol() != null
@@ -13,6 +13,10 @@ public class ValidadorPersonal {
 			valido = valido && ((TPSeguridad) tPersonal).getNumPlaca() > 0;
 
 		return valido;
+	}
+	
+	public static boolean comprobarDNI(String dni) {//CAMBIAR ESTO
+		return dni.matches("[a-zA-Z0-9 ]+");
 	}
 
 	/** 

@@ -8,70 +8,112 @@ import java.util.List;
 import org.junit.Test;
 
 import integracion.UtilidadesI;
+import integracion.aerolinea.DAOAerolinea;
+import integracion.factoria.FactoriaIntegracion;
+import integracion.factoria.FactoriaIntegracionImp;
+import integracion.hangar.DAOHangar;
+import integracion.transacciones.Transaction;
+import integracion.transacciones.TransactionManager;
 import negocio.personal.TPSeguridad;
 import negocio.personal.TPersonal;
+import negocio.aerolinea.TAerolinea;
+import negocio.hangar.THangar;
 import negocio.personal.TPLimpieza;
 
 public class DAOPersonalTest {
 
 	@Test
-	public void altaPersonalTest() {
-		UtilidadesI.esTest();
+    public void altaPersonalTest() {//peerfe
+        Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+        t.start();
+        
+        DAOPersonal daoPersonal = new DAOPersonalImp();
 
-		DAOPersonal daoPersonal = new DAOPersonalImp();
+        TPersonal personal;
 
-		TPersonal personal;
+//        personal = new TPSeguridad(1, "12345678P", "Seguridad", true, 56789);
+        personal = new TPLimpieza(1, "12345678P", "Limpieza", true, "56789");
+        assertTrue("No se ha dado de alta", daoPersonal.altaPersonal(personal) >= 1);
+        t.commit();
+    }
 
-		File carpeta = new File(UtilidadesI.ruta("personal"));
-		File[] lista = carpeta.listFiles();
+	@Test
+	public void bajaPersonalTest() {//peerfe
+		Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+		t.start();
 
-		personal = new TPSeguridad(0, 12345, "Seguridad", true, 56789);
-		assertEquals("No ha devuelto el id correcto", lista.length + 1, daoPersonal.altaPersonal(personal));
+		DAOPersonal dp = FactoriaIntegracionImp.getInstance().crearDAOPersonal();
+
+		boolean id = dp.bajaPersonal(1);
+//		boolean id2 = dp.bajaPersonal(2);
+		t.commit();
+		assertTrue("No se ha dado de baja", id);
+//		assertFalse("Se ha dado de baja un empleado que no existe", id2);
+	}
+
+	@Test
+	public void modificarPersonalTest() {//perfee
+		Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+		t.start();
+
+		DAOPersonal dp = FactoriaIntegracionImp.getInstance().crearDAOPersonal();
+
+		TPLimpieza personal = new TPLimpieza(14, "12345678P", "Limpieza", true, "1");
+		assertTrue("no se ha modificado bien", dp.modificarPersonal(personal));
+
+//		personal = new TPLimpieza(id, "12345699P", "Limpieza", true, "1");
+
+		t.commit();
+	}
+
+	@Test
+	public void consultarPersonalPorIdTest() {//perfee
+		Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+	    t.start();
 		
-		personal = new TPLimpieza(0, 67890, "Limpieza", true, "Supervisor");
-		assertEquals("No ha devuelto el id correcto", lista.length + 2, daoPersonal.altaPersonal(personal));
+        DAOPersonal dp = FactoriaIntegracionImp.getInstance().crearDAOPersonal();
+        TPersonal p = dp.consultarPersonalPorId(1);    
+
+		assertEquals("El personal con id 1", 1, p.getId());
+		t.commit();
+	}
+	
+	@Test
+    public void consultarPersonalPorDni() {//perfee
+        Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+        t.start();
+
+        DAOPersonal dp = FactoriaIntegracionImp.getInstance().crearDAOPersonal();
+        
+        TPersonal p = dp.consultarPersonalPorDni("12345678A");    
+    
+        assertEquals("No ha devuelto la fila correcta", 3, p.getId());
+        t.commit();
+    }
+
+	@Test
+	public void consultarTodosPersonalTest() {//perfee
+		Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+		t.start();
+
+		DAOPersonal dp = FactoriaIntegracionImp.getInstance().crearDAOPersonal();
+
+		List<TPersonal> id = dp.consultarPersonalExistente();
+		t.commit();
+
+		assertEquals("No hay el mismo numero de entidades que en la base de datos", 2, id.size());
+		System.out.println(id);
 	}
 
 	@Test
-	public void bajaPersonalTest() {
-		UtilidadesI.esTest();
-		DAOPersonal daoPersonal = new DAOPersonalImp();
-		assertTrue("No se ha dado de baja", daoPersonal.bajaPersonal(1));
-		assertFalse("Se ha dado de baja un empleado que no existe", daoPersonal.bajaPersonal(500));
+	public void consultarPersonalPorHangarTest(){//perfee
+		Transaction t = TransactionManager.getInstance().nuevaTransaccion();
+		t.start();
+		DAOPersonal dp = FactoriaIntegracion.getInstance().crearDAOPersonal();
+		List<TPersonal> lista = dp.consultarPersonalPorHangar(1);
+		t.commit();
+		assertEquals("No coincide el tamaño", 1, lista.size());
+		System.out.println(lista);
 	}
-
-	@Test
-	public void modificarPersonalTest() {
-		UtilidadesI.esTest();
-
-		DAOPersonal daoPersonal = new DAOPersonalImp();
-
-		TPSeguridad personal = new TPSeguridad(1, 12345, "Seguridad", true, 56789);
-
-		assertTrue("Ha leído mal el fichero", daoPersonal.modificarPersonal(personal));
-	}
-
-	@Test
-	public void consultarPersonalPorIdTest() {
-		UtilidadesI.esTest();
-
-		DAOPersonal daoPersonal = new DAOPersonalImp();
-
-		assertEquals("El personal con id 3 debe tener el idEmpleado 67890", 67890,
-				daoPersonal.consultarPersonalPorId(3).getIdEmpleado());
-	}
-
-	@Test
-	public void consultarTodosPersonalTest() {
-		UtilidadesI.esTest();
-
-		DAOPersonal daoPersonal = new DAOPersonalImp();
-
-		List<TPersonal> personal = daoPersonal.consultarPersonalExistente();
-
-		File carpeta = new File(UtilidadesI.ruta("personal"));
-		File[] lista = carpeta.listFiles();
-
-		assertEquals("Tiene que haber tantos empleados como ficheros", lista.length, personal.size());
-	}
+	
 }

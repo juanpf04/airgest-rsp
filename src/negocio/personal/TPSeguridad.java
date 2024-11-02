@@ -12,14 +12,14 @@ public class TPSeguridad extends TPersonal {
 		this.numPlaca = numPlacas;
 	}
 
-	public TPSeguridad(int id, int idEmpleado, String areaAsignada, boolean activo, int numPlaca) {
-		super(id, activo, idEmpleado, areaAsignada);
+	public TPSeguridad(int id, String dni, String areaAsignada, boolean activo, int numPlaca) {
+		super(id, activo, dni, areaAsignada);
 
 		this.numPlaca = numPlaca;
 	}
 
 	@Override
 	public String toString() {
-		return super.toString() + "\n número de placa: " + numPlaca;
+		return super.toString() + "número de placa: " + numPlaca + "\n";
 	}
 }

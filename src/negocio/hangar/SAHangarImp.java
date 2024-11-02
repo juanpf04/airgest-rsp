@@ -44,26 +44,24 @@ public class SAHangarImp implements SAHangar {
 		return id;
 	}
 
-	public boolean bajaHangar(int id) {//comprobar q el hangar no tenga personal vinculado ademas de aviones activos
+	public boolean bajaHangar(int id) {
 		boolean ok = false;
 		if (UtilidadesN.comprobarId(id)) {
 			Transaction t = TransactionManager.getInstance().nuevaTransaccion();
 			t.start();
 			
 			DAOHangar dh = FactoriaIntegracion.getInstance().crearDAOHangar();
-
 			THangar leido = dh.leerHangarPorId(id);
 			
-			if (leido != null) {
-				if (leido.getActivo()) {
+			if (leido != null && leido.getActivo()) {
 					
-					DAOAvion da = FactoriaIntegracion.getInstance().crearDAOAvion();
-					
-					List<TAvion> lista = da.consultarAvionesActivosPorHangar(id);
-					
-					if(lista.isEmpty())
-						ok = dh.bajaHangar(id);
-				}
+				DAOAvion da = FactoriaIntegracion.getInstance().crearDAOAvion();
+				List<TAvion> listaa = da.consultarAvionesActivosPorHangar(id);
+				DAOPersonal dp = FactoriaIntegracion.getInstance().crearDAOPersonal();
+				List<TPersonal> listap = dp.consultarPersonalPorHangar(id);
+				if(listaa.isEmpty() && listap.isEmpty())
+					ok = dh.bajaHangar(id);
+				
 			}
 			
 			if(ok) t.commit();
@@ -140,14 +138,12 @@ public class SAHangarImp implements SAHangar {
 			
 			TPersonal leido = dp.consultarPersonalPorId(id_personal);
 			
-			if(leido != null){
+			if(leido != null && leido.getActivo())
 				lista = dh.consultarHangarPorPersonal(id_personal);
-				t.commit();
-				
-			}else t.rollback();
+			
+			t.commit();
 		}
 		
 		return lista;
 	}
-
 }
