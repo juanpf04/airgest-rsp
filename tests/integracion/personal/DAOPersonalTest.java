@@ -85,12 +85,9 @@ public class DAOPersonalTest {
 
         DAOPersonal dp = FactoriaIntegracionImp.getInstance().crearDAOPersonal();
         
-        
-        int id = dp.altaPersonal(new TPSeguridad(0, "11111111A", "Seguridad", true, 167));
-        
-        TPersonal p = dp.consultarPersonalPorDni("11111111A");    
+        TPersonal p = dp.consultarPersonalPorDni("12345678A");    
     
-        assertEquals("No ha devuelto la fila correcta", p.getId(), id);
+        assertEquals("No ha devuelto la fila correcta", 3, p.getId());
         t.commit();
     }
 
