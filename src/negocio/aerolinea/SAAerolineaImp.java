@@ -63,29 +63,21 @@ public class SAAerolineaImp implements SAAerolinea {
 			
 			if (leido != null && leido.getActivo()){
 				DAOModeloAerolinea dam = FactoriaIntegracion.getInstance().crearDAOModeloAerolinea();
+				DAOAvion dav = FactoriaIntegracion.getInstance().crearDAOAvion();
+				DAOContrato dc = FactoriaIntegracion.getInstance().crearDAOContrato();
 				
-				if (!dam.comprobarVinculacionAerolinea(id)){
+				
+				if (!dam.comprobarVinculacionAerolinea(id) && dav.consultarAvionesActivosPorAerolinea(id).isEmpty()
+						&& dc.consultarContratosPorAerolinea(id).isEmpty()){
 					ok = da.bajaAerolinea(id);
 				}
 			}
 			
-			if (ok){
+			if (ok) {
 				t.commit();
 			} else{
 				t.rollback();
 			}
-			
-			// TODO Comprobar con contrato y avion
-
-			/*if (leido != null && leido.getActivo()) {
-				DAOAvion dav = FactoriaIntegracion.getInstance().crearDAOAvion();
-				DAOContrato dc = FactoriaIntegracion.getInstance().crearDAOContrato();
-
-				if (dav.consultarAvionesActivosPorAerolinea(id).isEmpty()
-						&& dc.leerContratosPorAerolinea(id).isEmpty()) {
-					return da.bajaAerolinea(id);
-				}
-			}*/
 		}
 		return ok;
 	}
