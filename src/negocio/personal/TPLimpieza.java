@@ -20,6 +20,6 @@ public class TPLimpieza extends TPersonal {
 
 	@Override
 	public String toString() {
-		return super.toString() + "\n rol: " + rol;
+		return super.toString() + "rol: " + rol + "\n";
 	}
 }
