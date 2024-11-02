@@ -133,9 +133,13 @@ public class SAPersonalImp implements SAPersonal {
  
             DAOPersonal dp = FactoriaIntegracion.getInstance().crearDAOPersonal();
 
-            TPersonal leido = dp.consultarPersonalPorDni(tPersonal.getDni());
-            if (leido != null && leido.getActivo()){
-            	ok = dp.modificarPersonal(tPersonal);
+            TPersonal leido = dp.consultarPersonalPorId(tPersonal.getId());
+            
+            if (leido != null) {
+                if (leido.getActivo()
+                        && (leido.getDni().equals(tPersonal.getDni()) || dp.consultarPersonalPorDni(tPersonal.getDni()) == null)) {
+                    ok = dp.modificarPersonal(tPersonal);
+                }
             }
 
             if (ok)

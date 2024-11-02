@@ -95,6 +95,23 @@ public class VistaModificarPersonal extends JFrame implements Observador {
 			limpieza.setAlignmentX(CENTER_ALIGNMENT);
 			botones.add(limpieza);
 			botones.add(panelBotones);
+			
+			JButton atras = new JButton("ATRAS"); // boton para volver a la ventana
+			// principal
+			atras.setToolTipText("Esto vuelve a la ventana anterior");
+			atras.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				if (listaInfo.get(1) == null)
+					ctrl.accion(new Contexto(Evento.VISTA_MODIFICAR_PERSONAL_ID, null));
+				else
+					ctrl.accion(new Contexto(Evento.VISTA_MODIFICAR_PERSONAL_ID, listaInfo));
+			}
+
+			});
+			panelBotones.add(atras);
 
 			principal.add(botones);
 
@@ -189,9 +206,11 @@ public class VistaModificarPersonal extends JFrame implements Observador {
 							String rol = textoRol.getText();
 							transfer = new TPLimpieza(aux.getId(), DNI, areaAsignada, true, rol);
 						}
+						dispose();
 						ctrl.accion(new Contexto(Evento.MODIFICAR_PERSONAL, transfer));
 					} catch (Exception ex) {
-
+						dispose();
+						ctrl.accion(new Contexto(Evento.VISTA_FALLO_MODIFICAR_PERSONAL, null));
 					}
 				}
 
