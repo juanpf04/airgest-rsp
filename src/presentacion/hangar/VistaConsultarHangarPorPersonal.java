@@ -60,7 +60,7 @@ public class VistaConsultarHangarPorPersonal extends JFrame implements Observado
 		panelBotones.setAlignmentX(CENTER_ALIGNMENT);
 
 		JButton atras = new JButton("ATRAS"); // boton para volver a la ventana
-												// principal
+		// principal
 		atras.setToolTipText("Esto vuelve a la ventana anterior");
 		atras.addActionListener(new ActionListener() {
 

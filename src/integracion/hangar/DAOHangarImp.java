@@ -163,7 +163,7 @@ public class DAOHangarImp implements DAOHangar {
 		}
 	}
 	
-	public List<THangar> consultarHangarPorPersonal(int id_personal) {
+	public List<THangar> consultarHangarPorPersonal(int id_personal) {//perfe
 		try{
 			Transaction t = TransactionManager.getInstance().getTransaccion();
 			Connection con = (Connection) t.getResource();

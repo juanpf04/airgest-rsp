@@ -31,7 +31,6 @@ public class VistaModificarPersonal extends JFrame implements Observador {
 	private static final long serialVersionUID = 1L;
 
 	public void actualizar(Object datos) {
-//		TPersonal tp = (TPersonal) datos;
 		UtilidadesP.setAirGestRSP(this);
 		this.setSize(450, 270);
 

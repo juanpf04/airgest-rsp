@@ -90,6 +90,7 @@ public class VistaPersonal extends JFrame implements Observador {
 				ctrl.accion(new Contexto(Evento.VISTA_CONSULTAR_PERSONAL_POR_ID, null));
 			}
 		});
+		consultarID.setToolTipText("Aqui consultas un personal por id maquina");
 		botones.add(consultarID);
 
 		// -------------------------------------------
@@ -101,7 +102,7 @@ public class VistaPersonal extends JFrame implements Observador {
 				ctrl.accion(new Contexto(Evento.CONSULTAR_PERSONAL_EXISTENTE, null));
 			}
 		});
-
+		consultarTodos.setToolTipText("Aqui consultas todo el personal maquina");
 		botones.add(consultarTodos);
 
 		// -------------------------------------------
@@ -115,7 +116,7 @@ public class VistaPersonal extends JFrame implements Observador {
 				ctrl.accion(new Contexto(Evento.VISTA_CONSULTAR_PERSONAL_POR_HANGAR, null));
 			}
 		});
-
+		consultarPorHangar.setToolTipText("Aqui consultas un personal por hangar maquina");
 		botones.add(consultarPorHangar);
 
 		// -------------------------------------------
@@ -128,7 +129,7 @@ public class VistaPersonal extends JFrame implements Observador {
 				ctrl.accion(new Contexto(Evento.VISTA_MODIFICAR_PERSONAL_ID, null));
 			}
 		});
-
+		modificar.setToolTipText("Aqui modificas un personal maquina");
 		botones.add(modificar);
 
 		// -------------------------------------------
@@ -141,7 +142,7 @@ public class VistaPersonal extends JFrame implements Observador {
 				ctrl.accion(new Contexto(Evento.VISTA_VINCULAR_PERSONAL, null));
 			}
 		});
-
+		vincular.setToolTipText("Aqui vinculas un personal con un hangar maquina");
 		botones.add(vincular);
 
 		// -------------------------------------------
@@ -154,7 +155,7 @@ public class VistaPersonal extends JFrame implements Observador {
 				ctrl.accion(new Contexto(Evento.VISTA_DESVINCULAR_PERSONAL, null));
 			}
 		});
-
+		desvincular.setToolTipText("Aqui desvinculas un personal con un hangar maquina");
 		botones.add(desvincular);
 
 		principal.add(botones, BorderLayout.CENTER);

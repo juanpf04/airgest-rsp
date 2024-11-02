@@ -140,17 +140,10 @@ public class SAHangarImp implements SAHangar {
 			
 			TPersonal leido = dp.consultarPersonalPorId(id_personal);
 			
-			if(leido.getId() != -1){
-			
+			if(leido != null && leido.getActivo())
 				lista = dh.consultarHangarPorPersonal(id_personal);
-				
-				if(lista.size() == 0){
-					t.rollback();
-				}else{
-					t.commit();
-				}
-				
-			}else t.rollback();
+			
+			t.commit();
 		}
 		
 		return lista;
