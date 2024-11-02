@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -30,10 +31,12 @@ public class VistaModificarPersonal extends JFrame implements Observador {
 	private static final long serialVersionUID = 1L;
 
 	public void actualizar(Object datos) {
-		TPersonal tp = (TPersonal) datos;
+//		TPersonal tp = (TPersonal) datos;
 		UtilidadesP.setAirGestRSP(this);
 		this.setSize(450, 270);
 
+		@SuppressWarnings("unchecked")
+		ArrayList<Object> listaInfo = (ArrayList<Object>) datos;
 		Controlador ctrl = Controlador.getInstance();
 
 		JPanel principal = new JPanel();
@@ -59,7 +62,7 @@ public class VistaModificarPersonal extends JFrame implements Observador {
 		JPanel panelBotones = new JPanel();
 		principal.add(panelBotones);
 
-		if (datos == null) {
+		if (listaInfo.get(1) == null) {
 			JPanel botones = new JPanel();
 			botones.setLayout(new GridLayout(0, 1, 8, 8));
 
@@ -69,8 +72,9 @@ public class VistaModificarPersonal extends JFrame implements Observador {
 			seguridad.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					listaInfo.add(1, "SEGURIDAD");
 					dispose();
-					ctrl.accion(new Contexto(Evento.VISTA_MODIFICAR_PERSONAL_ID, "SEGURIDAD"));
+					ctrl.accion(new Contexto(Evento.VISTA_MODIFICAR_PERSONAL, listaInfo));
 				}
 			});
 
@@ -83,8 +87,9 @@ public class VistaModificarPersonal extends JFrame implements Observador {
 			limpieza.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					listaInfo.add(1, "LIMPIEZA");
 					dispose();
-					ctrl.accion(new Contexto(Evento.VISTA_MODIFICAR_PERSONAL_ID, "LIMPIEZA"));
+					ctrl.accion(new Contexto(Evento.VISTA_MODIFICAR_PERSONAL, listaInfo));
 				}
 			});
 
@@ -96,6 +101,7 @@ public class VistaModificarPersonal extends JFrame implements Observador {
 
 			// -----------------------------------------------------
 		} else {
+			TPersonal aux = (TPersonal) listaInfo.get(0);
 			JPanel panelEtiquetas = new JPanel();
 			panelEtiquetas.setLayout(new BoxLayout(panelEtiquetas, BoxLayout.PAGE_AXIS));
 
@@ -141,7 +147,7 @@ public class VistaModificarPersonal extends JFrame implements Observador {
 			centro.add(panelEtiquetas);
 			centro.add(panelTexto);
 
-			if ("LIMPIEZA" == datos) {
+			if ("LIMPIEZA" == listaInfo.get(1)) {
 				panelEtiquetas.add(etiquetaRol);
 				panelTexto.add(textoRol);
 			} else {
@@ -149,6 +155,23 @@ public class VistaModificarPersonal extends JFrame implements Observador {
 				panelEtiquetas.add(etiquetaNumPlaca);
 				panelTexto.add(textoNumPlaca);
 			}
+			
+			JButton atras = new JButton("ATRAS"); // boton para volver a la ventana
+			// principal
+			atras.setToolTipText("Esto vuelve a la ventana anterior");
+			atras.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				if (listaInfo.get(1) == null)
+					ctrl.accion(new Contexto(Evento.VISTA_PERSONAL, null));
+				else
+					ctrl.accion(new Contexto(Evento.VISTA_PERSONAL, listaInfo));
+			}
+
+			});
+			panelBotones.add(atras);
 			
 			JButton aceptar = new JButton("ACEPTAR");
 			aceptar.addActionListener(new ActionListener() {
@@ -160,12 +183,12 @@ public class VistaModificarPersonal extends JFrame implements Observador {
 						String areaAsignada = textoAreaAsignada.getText();
 
 						TPersonal transfer;
-						if (datos == "SEGURIDAD") {
+						if (listaInfo.get(1) == "SEGURIDAD") {
 							int numPlaca = Integer.valueOf(textoNumPlaca.getText());
-							transfer = new TPSeguridad(tp.getId(), DNI, areaAsignada, true, numPlaca);
+							transfer = new TPSeguridad(aux.getId(), DNI, areaAsignada, true, numPlaca);
 						} else {
 							String rol = textoRol.getText();
-							transfer = new TPLimpieza(tp.getId(), DNI, areaAsignada, true, rol);
+							transfer = new TPLimpieza(aux.getId(), DNI, areaAsignada, true, rol);
 						}
 						ctrl.accion(new Contexto(Evento.MODIFICAR_PERSONAL, transfer));
 					} catch (Exception ex) {
@@ -178,23 +201,6 @@ public class VistaModificarPersonal extends JFrame implements Observador {
 			panelBotones.add(aceptar);
 
 		}
-		
-		JButton atras = new JButton("ATRAS"); // boton para volver a la ventana
-		// principal
-		atras.setToolTipText("Esto vuelve a la ventana anterior");
-		atras.addActionListener(new ActionListener() {
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			dispose();
-			if (datos == null)
-				ctrl.accion(new Contexto(Evento.VISTA_PERSONAL, null));
-			else
-				ctrl.accion(new Contexto(Evento.VISTA_MODIFICAR_PERSONAL, null));
-		}
-
-		});
-		panelBotones.add(atras);
 
 		this.setContentPane(principal);
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
