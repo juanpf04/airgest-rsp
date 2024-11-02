@@ -87,7 +87,7 @@ public class DAOHangarImp implements DAOHangar {
 			PreparedStatement ps = con.prepareStatement(Querys.baja_hangar);
 			ps.setInt(1, id);
 			int filasNuevas = ps.executeUpdate();
-			boolean eliminado = filasNuevas == 1 ? true : false;
+			boolean eliminado = filasNuevas == 1;
 			
 			ps.close();
 
