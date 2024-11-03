@@ -8,12 +8,8 @@ import java.util.List;
 
 import org.junit.Test;
 
-import integracion.UtilidadesI;
 import integracion.transacciones.Transaction;
 import integracion.transacciones.TransactionManager;
-import negocio.aerolinea.SAAerolinea;
-import negocio.aerolinea.SAAerolineaImp;
-import negocio.aerolinea.TAerolinea;
 import negocio.hangar.SAHangar;
 import negocio.hangar.SAHangarImp;
 import negocio.hangar.THangar;

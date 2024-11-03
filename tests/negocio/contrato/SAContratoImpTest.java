@@ -3,8 +3,6 @@ package negocio.contrato;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -12,7 +10,6 @@ import java.util.List;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import integracion.UtilidadesI;
-import negocio.factoria.FactoriaNegocio;
 import negocio.lineaContrato.TLineaContrato;
 
 public class SAContratoImpTest {

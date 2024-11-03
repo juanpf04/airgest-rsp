@@ -2,12 +2,9 @@ package negocio.aerolinea;
 
 import static org.junit.Assert.*;
 
-import java.io.File;
 import java.util.List;
 
 import org.junit.Test;
-
-import integracion.UtilidadesI;
 
 public class SAAerolineaImpTest {
 

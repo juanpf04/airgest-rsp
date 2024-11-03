@@ -2,22 +2,16 @@ package integracion.personal;
 
 import static org.junit.Assert.*;
 
-import java.io.File;
 import java.util.List;
 
 import org.junit.Test;
 
-import integracion.UtilidadesI;
-import integracion.aerolinea.DAOAerolinea;
 import integracion.factoria.FactoriaIntegracion;
 import integracion.factoria.FactoriaIntegracionImp;
-import integracion.hangar.DAOHangar;
 import integracion.transacciones.Transaction;
 import integracion.transacciones.TransactionManager;
 import negocio.personal.TPSeguridad;
 import negocio.personal.TPersonal;
-import negocio.aerolinea.TAerolinea;
-import negocio.hangar.THangar;
 import negocio.personal.TPLimpieza;
 
 public class DAOPersonalTest {
@@ -58,7 +52,7 @@ public class DAOPersonalTest {
 
 		DAOPersonal dp = FactoriaIntegracionImp.getInstance().crearDAOPersonal();
 
-		TPLimpieza personal = new TPLimpieza(14, "12345678P", "Limpieza", true, "1");
+		TPSeguridad personal = new TPSeguridad(14, "12345678P", "Limpieza", true, 1);
 		assertTrue("no se ha modificado bien", dp.modificarPersonal(personal));
 
 //		personal = new TPLimpieza(id, "12345699P", "Limpieza", true, "1");

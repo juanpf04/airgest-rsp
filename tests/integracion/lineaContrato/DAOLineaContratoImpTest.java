@@ -2,17 +2,13 @@ package integracion.lineaContrato;
 
 import static org.junit.Assert.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.junit.Test;
 
-import integracion.UtilidadesI;
-import integracion.contrato.DAOContrato;
 import integracion.factoria.FactoriaIntegracion;
 import integracion.transacciones.Transaction;
 import integracion.transacciones.TransactionManager;
-import negocio.contrato.TContrato;
 import negocio.lineaContrato.TLineaContrato;
 
 public class DAOLineaContratoImpTest {
