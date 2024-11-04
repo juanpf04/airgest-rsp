@@ -127,6 +127,7 @@ public class VistaAltaPersonal extends JFrame implements Observador {
 			textoAreaAsignada.setFont(new Font("Tahoma", Font.BOLD, 18));
 			panelEtiquetas.add(etiquetaAreaAsignada);
 			panelTexto.add(textoAreaAsignada);
+			textoAreaAsignada.setToolTipText("string de la zona asignada");
 
 			JLabel etiquetaRol = new JLabel("Rol:    ");
 			etiquetaRol.setFont(new Font("Tahoma", Font.BOLD, 25));
@@ -135,6 +136,7 @@ public class VistaAltaPersonal extends JFrame implements Observador {
 			textoRol.setMinimumSize(new Dimension(200, 30));
 			textoRol.setPreferredSize(new Dimension(200, 30));
 			textoRol.setFont(new Font("Tahoma", Font.BOLD, 18));
+			textoRol.setToolTipText("string del rol");
 
 			JLabel etiquetaNumPlaca = new JLabel("Número de placa:    ");
 			etiquetaNumPlaca.setFont(new Font("Tahoma", Font.BOLD, 25));
@@ -143,6 +145,7 @@ public class VistaAltaPersonal extends JFrame implements Observador {
 			textoNumPlaca.setMinimumSize(new Dimension(200, 30));
 			textoNumPlaca.setPreferredSize(new Dimension(200, 30));
 			textoNumPlaca.setFont(new Font("Tahoma", Font.BOLD, 18));
+			textoNumPlaca.setToolTipText("numero mayor que 0");
 
 			if ("LIMPIEZA" == datos) {
 				panelEtiquetas.add(etiquetaRol);

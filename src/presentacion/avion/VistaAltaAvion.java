@@ -238,6 +238,7 @@ public class VistaAltaAvion extends JFrame implements Observador {
 			textoDuenyo.setMinimumSize(new Dimension(200, 30));
 			textoDuenyo.setPreferredSize(new Dimension(200, 30));
 			textoDuenyo.setFont(new Font("Tahoma", Font.BOLD, 18));
+			textoDuenyo.setToolTipText("nombre del dueño");
 
 			JLabel etiquetaCarnet = new JLabel("Id carnet:    ");
 			etiquetaCarnet.setFont(new Font("Tahoma", Font.BOLD, 25));

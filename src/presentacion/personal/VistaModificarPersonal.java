@@ -121,13 +121,10 @@ public class VistaModificarPersonal extends JFrame implements Observador {
 			String placa = "";
 			String rol = "";
 			if(aux instanceof TPSeguridad)
-			{
 				placa = "" + ((TPSeguridad) aux).getNumPlaca();
-			}
 			else
-			{
 				rol = "" + ((TPLimpieza) aux).getRol();
-			}
+			
 			JPanel panelEtiquetas = new JPanel();
 			panelEtiquetas.setLayout(new BoxLayout(panelEtiquetas, BoxLayout.PAGE_AXIS));
 
@@ -152,6 +149,7 @@ public class VistaModificarPersonal extends JFrame implements Observador {
 			textoAreaAsignada.setMinimumSize(new Dimension(200, 30));
 			textoAreaAsignada.setPreferredSize(new Dimension(200, 30));
 			textoAreaAsignada.setFont(new Font("Tahoma", Font.BOLD, 18));
+			textoAreaAsignada.setToolTipText("string de la zona asignada");
 			panelEtiquetas.add(etiquetaAreaAsignada);
 			panelTexto.add(textoAreaAsignada);
 
@@ -162,6 +160,8 @@ public class VistaModificarPersonal extends JFrame implements Observador {
 			textoRol.setMinimumSize(new Dimension(200, 30));
 			textoRol.setPreferredSize(new Dimension(200, 30));
 			textoRol.setFont(new Font("Tahoma", Font.BOLD, 18));
+			textoRol.setToolTipText("string del rol");
+
 
 			JLabel etiquetaNumPlaca = new JLabel("Número de placa:    ");
 			etiquetaNumPlaca.setFont(new Font("Tahoma", Font.BOLD, 25));
@@ -170,6 +170,7 @@ public class VistaModificarPersonal extends JFrame implements Observador {
 			textoNumPlaca.setMinimumSize(new Dimension(200, 30));
 			textoNumPlaca.setPreferredSize(new Dimension(200, 30));
 			textoNumPlaca.setFont(new Font("Tahoma", Font.BOLD, 18));
+			textoNumPlaca.setToolTipText("numero mayor que 0");
 			centro.add(panelEtiquetas);
 			centro.add(panelTexto);
 
