@@ -73,7 +73,7 @@ public class DAOLineaContratoImp implements DAOLineaContrato {
 			List<TLineaContrato> lista = new ArrayList<>();
 			
 			while (rs.next()){
-				lista.add(new TLineaContrato(rs.getInt(2), rs.getInt(1), rs.getString(3), rs.getString(4), rs.getDouble(5)));
+				lista.add(new TLineaContrato(rs.getInt("id_contrato"), rs.getInt("id_hangar"), rs.getString("fecha_ini"), rs.getString("fecha_fin"), rs.getDouble("precio")));
 			}
 			
 			rs.close();
@@ -98,7 +98,7 @@ public class DAOLineaContratoImp implements DAOLineaContrato {
 			List<TLineaContrato> lista = new ArrayList<>();
 			
 			while (rs.next()){
-				lista.add(new TLineaContrato(rs.getInt(2), rs.getInt(1), rs.getString(3), rs.getString(4), rs.getDouble(5)));
+				lista.add(new TLineaContrato(rs.getInt("id_contrato"), rs.getInt("id_hangar"), rs.getString("fecha_ini"), rs.getString("fecha_fin"), rs.getDouble("precio")));
 			}
 			
 			rs.close();
@@ -123,7 +123,7 @@ public class DAOLineaContratoImp implements DAOLineaContrato {
 			
 			TLineaContrato tcl = null;
 			if (rs.next())
-				tcl = new TLineaContrato(rs.getInt(2), rs.getInt(1), rs.getString(3), rs.getString(4), rs.getDouble(5)); 
+				tcl = new TLineaContrato(rs.getInt("id_contrato"), rs.getInt("id_hangar"), rs.getString("fecha_ini"), rs.getString("fecha_fin"), rs.getDouble("precio")); 
 			
 			return tcl;
 			
@@ -146,7 +146,7 @@ public class DAOLineaContratoImp implements DAOLineaContrato {
 			List<TLineaContrato> lista = new ArrayList<>();
 			
 			while (rs.next()){
-				lista.add(new TLineaContrato(rs.getInt(2), rs.getInt(1), rs.getString(3), rs.getString(4), rs.getDouble(5)));
+				lista.add(new TLineaContrato(rs.getInt("id_contrato"), rs.getInt("id_hangar"), rs.getString("fecha_ini"), rs.getString("fecha_fin"), rs.getDouble("precio")));
 			}
 			
 			rs.close();

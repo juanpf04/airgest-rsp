@@ -90,7 +90,7 @@ public class DAOAerolineaImp implements DAOAerolinea {
 			
 			TAerolinea ta = null;
 			if (rs.next())
-				ta = new TAerolinea(rs.getInt(1), rs.getString(2), rs.getBoolean(3)); 
+				ta = new TAerolinea(rs.getInt("id"), rs.getString("nombre"), rs.getBoolean("activo")); 
 			
 			rs.close();
 			ps.close();
@@ -113,7 +113,7 @@ public class DAOAerolineaImp implements DAOAerolinea {
 			
 			TAerolinea ta = null;
 			if (rs.next())
-				ta = new TAerolinea(rs.getInt(1), rs.getString(2), rs.getBoolean(3)); 
+				ta = new TAerolinea(rs.getInt("id"), rs.getString("nombre"), rs.getBoolean("activo")); 
 			
 			rs.close();
 			ps.close();
@@ -135,7 +135,7 @@ public class DAOAerolineaImp implements DAOAerolinea {
 			List<TAerolinea> lista = new ArrayList<>();
 			
 			while (rs.next()){
-				lista.add(new TAerolinea(rs.getInt(1), rs.getString(2), rs.getBoolean(3)));
+				lista.add(new TAerolinea(rs.getInt("id"), rs.getString("nombre"), rs.getBoolean("activo")));
 			}
 			
 			rs.close();
@@ -160,7 +160,7 @@ public class DAOAerolineaImp implements DAOAerolinea {
 			List<TAerolinea> lista = new ArrayList<>();
 			
 			while (rs.next()){
-				lista.add(new TAerolinea(rs.getInt(1), rs.getString(2), rs.getBoolean(3)));
+				lista.add(new TAerolinea(rs.getInt("id"), rs.getString("nombre"), rs.getBoolean("activo")));
 			}
 			
 			rs.close();

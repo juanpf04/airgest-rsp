@@ -47,7 +47,7 @@ public class DAOContratoImp implements DAOContrato {
 			
 			TContrato tc = null;
 			if (rs.next())
-				tc = new TContrato(rs.getInt(1), rs.getInt(3), rs.getDouble(2)); 
+				tc = new TContrato(rs.getInt("id"), rs.getInt("id_aerolinea"), rs.getDouble("precio")); 
 			
 			rs.close();
 			ps.close();
@@ -69,7 +69,7 @@ public class DAOContratoImp implements DAOContrato {
 			List<TContrato> lista = new ArrayList<>();
 			
 			while (rs.next()){
-				lista.add(new TContrato(rs.getInt(1), rs.getInt(3), rs.getDouble(2)));
+				lista.add(new TContrato(rs.getInt("id"), rs.getInt("id_aerolinea"), rs.getDouble("precio")));
 			}
 			
 			rs.close();
@@ -93,7 +93,7 @@ public class DAOContratoImp implements DAOContrato {
 			List<TContrato> lista = new ArrayList<>();
 			
 			while (rs.next()){
-				lista.add(new TContrato(rs.getInt(1), rs.getInt(3), rs.getDouble(2)));
+				lista.add(new TContrato(rs.getInt("id"), rs.getInt("id_aerolinea"), rs.getDouble("precio")));
 			}
 			
 			rs.close();

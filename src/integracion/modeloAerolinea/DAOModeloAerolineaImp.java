@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import integracion.Queries;
 import integracion.transacciones.Transaction;
 import integracion.transacciones.TransactionManager;
 
@@ -13,7 +14,7 @@ public class DAOModeloAerolineaImp implements DAOModeloAerolinea {
 		try{
 			Transaction t = TransactionManager.getInstance().getTransaccion();
 			Connection con = (Connection) t.getResource();
-			PreparedStatement ps = con.prepareStatement("INSERT INTO aerolinea_modelo (Id_Aerolinea, Id_Modelo) VALUES (?, ?);");
+			PreparedStatement ps = con.prepareStatement(Queries.vincularModeloAerolinea);
 			ps.setInt(1, idAerolinea);
 			ps.setInt(2, idModelo);
 			
@@ -33,7 +34,7 @@ public class DAOModeloAerolineaImp implements DAOModeloAerolinea {
 		try{
 			Transaction t = TransactionManager.getInstance().getTransaccion();
 			Connection con = (Connection) t.getResource();
-			PreparedStatement ps = con.prepareStatement("DELETE FROM aerolinea_modelo WHERE Id_Aerolinea = ? AND Id_Modelo = ?;");
+			PreparedStatement ps = con.prepareStatement(Queries.desvincularModeloAerolinea);
 			ps.setInt(1, idAerolinea);
 			ps.setInt(2, idModelo);
 			
@@ -53,7 +54,7 @@ public class DAOModeloAerolineaImp implements DAOModeloAerolinea {
 		try{
 			Transaction t = TransactionManager.getInstance().getTransaccion();
 			Connection con = (Connection) t.getResource();
-			PreparedStatement ps = con.prepareStatement("SELECT * FROM aerolinea_modelo WHERE Id_Aerolinea = ? AND Id_Modelo = ? FOR UPDATE;");
+			PreparedStatement ps = con.prepareStatement(Queries.comprobarvinculacion);
 			ps.setInt(1, idAerolinea);
 			ps.setInt(2, idModelo);
 			
@@ -73,7 +74,7 @@ public class DAOModeloAerolineaImp implements DAOModeloAerolinea {
 		try{
 			Transaction t = TransactionManager.getInstance().getTransaccion();
 			Connection con = (Connection) t.getResource();
-			PreparedStatement ps = con.prepareStatement("SELECT * FROM aerolinea_modelo WHERE Id_Aerolinea = ? FOR UPDATE;");
+			PreparedStatement ps = con.prepareStatement(Queries.comprobarvinculacionAerolinea);
 			ps.setInt(1, id);
 			
 			ResultSet rs = ps.executeQuery();
@@ -92,7 +93,7 @@ public class DAOModeloAerolineaImp implements DAOModeloAerolinea {
 		try{
 			Transaction t = TransactionManager.getInstance().getTransaccion();
 			Connection con = (Connection) t.getResource();
-			PreparedStatement ps = con.prepareStatement("SELECT * FROM aerolinea_modelo WHERE Id_Modelo = ? FOR UPDATE;");
+			PreparedStatement ps = con.prepareStatement(Queries.comprobarvinculacionModelo);
 			ps.setInt(1, id);
 			
 			ResultSet rs = ps.executeQuery();

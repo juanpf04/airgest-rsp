@@ -65,12 +65,21 @@ public class Queries {
 	public static String actualizaStock = "UPDATE HANGAR SET Stock = ? WHERE id = ?";
 	public static String consultarHangarPorPersonal = "SELECT * FROM hangar h JOIN personal_hangar ph ON h.Id = ph.Id_Hangar WHERE ph.Id_Personal = ? FOR UPDATE;";
 	
+	
+	//PERSONAL HANGAR
 	public static String vincularPersonalHangar = "INSERT INTO PERSONAL_HANGAR (Id_personal, Id_hangar) VALUES (?, ?)";
 	public static String desvincularPersonalHangar = "DELETE FROM PERSONAL_HANGAR WHERE Id_personal = ? AND Id_hangar = ?";
 	public static String comprobarvinculacionPersonalHangar = "SELECT COUNT(*) AS NUM FROM PERSONAL_HANGAR WHERE Id_personal = ? AND Id_hangar = ? FOR UPDATE";
 	
 
-
+	//MODELO AEROLINEA
+	public static String vincularModeloAerolinea = "INSERT INTO aerolinea_modelo (Id_Aerolinea, Id_Modelo) VALUES (?, ?)";
+	public static String desvincularModeloAerolinea = "DELETE FROM aerolinea_modelo WHERE Id_Aerolinea = ? AND Id_Modelo = ?";
+	public static String comprobarvinculacion = "SELECT * FROM aerolinea_modelo WHERE Id_Aerolinea = ? AND Id_Modelo = ? FOR UPDATE";
+	public static String comprobarvinculacionAerolinea = "SELECT * FROM aerolinea_modelo WHERE Id_Aerolinea = ? FOR UPDATE;";
+	public static String comprobarvinculacionModelo = "SELECT * FROM aerolinea_modelo WHERE Id_Modelo = ? FOR UPDATE";
+	
+	
 	
 	//MODELO
 	
