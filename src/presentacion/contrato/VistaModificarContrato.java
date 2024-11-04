@@ -102,7 +102,9 @@ public class VistaModificarContrato extends JFrame implements Observador {
 					double precio = Double.parseDouble(textoPrecio.getText());
 					TContrato c = new TContrato(contrato.getId(), id_aerolinea, precio);
 					controlador.accion(new Contexto(Evento.MODIFICAR_CONTRATO, c));
+					dispose();
 				} catch (NumberFormatException n) {
+					dispose();
 					controlador.accion(new Contexto(Evento.MODIFICAR_CONTRATO, new TContrato()));
 				}
 			}
