@@ -112,7 +112,7 @@ public class VistaAltaPersonal extends JFrame implements Observador {
 			textoIdEmpleado.setMinimumSize(new Dimension(200, 30));
 			textoIdEmpleado.setPreferredSize(new Dimension(200, 30));
 			textoIdEmpleado.setFont(new Font("Tahoma", Font.BOLD, 18));
-			textoIdEmpleado.setToolTipText("numero natural sin el 0");
+			textoIdEmpleado.setToolTipText("8 dígitos y una letra mayúscula");
 			panelEtiquetas.add(etiquetaIdEmpleado);
 			panelTexto.add(textoIdEmpleado);
 			centro.add(panelEtiquetas);

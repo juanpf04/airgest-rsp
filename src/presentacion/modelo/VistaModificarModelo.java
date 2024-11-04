@@ -96,7 +96,9 @@ public class VistaModificarModelo extends JFrame implements Observador {
 					String motorLeido = textoMotor.getText();
 					TModelo transfer = new TModelo(tm.getId(), nombreLeido, motorLeido, true);
 					controlador.accion(new Contexto(Evento.MODIFICAR_MODELO, transfer));
+					dispose();
 				} catch (NumberFormatException n) {
+					dispose();
 					controlador.accion(new Contexto(Evento.MODIFICAR_MODELO, new TModelo()));
 				}
 

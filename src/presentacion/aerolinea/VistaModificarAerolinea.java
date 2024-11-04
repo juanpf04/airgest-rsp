@@ -83,7 +83,9 @@ public class VistaModificarAerolinea extends JFrame implements Observador {
 					String nombreLeido = textoNombre.getText();
 					TAerolinea transfer = new TAerolinea(ta.getId(), nombreLeido, true);
 					controlador.accion(new Contexto(Evento.MODIFICAR_AEROLINEA, transfer));
+					dispose();
 				} catch (NumberFormatException n) {
+					dispose();
 					controlador.accion(new Contexto(Evento.MODIFICAR_AEROLINEA, new TAerolinea()));
 				}
 

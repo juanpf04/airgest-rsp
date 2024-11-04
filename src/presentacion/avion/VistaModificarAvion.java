@@ -107,6 +107,19 @@ public class VistaModificarAvion extends JFrame implements Observador {
 			// -----------------------------------------------------
 		} else { // TODO
 			TAvion aux = (TAvion)listaInfo.get(0);
+			String empresaAux = "";
+			String duenyoAux = "";
+			String carnetAux = "";
+			if(aux instanceof TAComercial)
+			{
+				empresaAux = ((TAComercial)aux).getEmpresa();				
+			}
+			else
+			{
+				duenyoAux = ((TAPrivado)aux).getNombreDuenyo();
+				carnetAux =  "" + ((TAPrivado)aux).getIdCarnet();
+			}
+				
 			JPanel panelEtiquetas = new JPanel();
 			panelEtiquetas.setLayout(new BoxLayout(panelEtiquetas, BoxLayout.PAGE_AXIS));
 
@@ -206,16 +219,16 @@ public class VistaModificarAvion extends JFrame implements Observador {
 
 			JLabel etiquetaTrabajadores = new JLabel("Empresa:    ");
 			etiquetaTrabajadores.setFont(new Font("Tahoma", Font.BOLD, 25));
-			JTextField textoTrabajadores = new JTextField();
+			JTextField textoTrabajadores = new JTextField(empresaAux);
 			textoTrabajadores.setMaximumSize(new Dimension(200, 30));
 			textoTrabajadores.setMinimumSize(new Dimension(200, 30));
 			textoTrabajadores.setPreferredSize(new Dimension(200, 30));
 			textoTrabajadores.setFont(new Font("Tahoma", Font.BOLD, 18));
-			textoTrabajadores.setToolTipText("numero natural sin 0");
+			textoTrabajadores.setToolTipText("nombre de la empresa sin numeros");
 
 			JLabel etiquetaDuenyo = new JLabel("Dueño:    ");
 			etiquetaDuenyo.setFont(new Font("Tahoma", Font.BOLD, 25));
-			JTextField textoDuenyo = new JTextField();
+			JTextField textoDuenyo = new JTextField(duenyoAux);
 			textoDuenyo.setMaximumSize(new Dimension(200, 30));
 			textoDuenyo.setMinimumSize(new Dimension(200, 30));
 			textoDuenyo.setPreferredSize(new Dimension(200, 30));
@@ -223,7 +236,7 @@ public class VistaModificarAvion extends JFrame implements Observador {
 
 			JLabel etiquetaCarnet = new JLabel("Id carnet:    ");
 			etiquetaCarnet.setFont(new Font("Tahoma", Font.BOLD, 25));
-			JTextField textoCarnet = new JTextField();
+			JTextField textoCarnet = new JTextField(carnetAux);
 			textoCarnet.setMaximumSize(new Dimension(200, 30));
 			textoCarnet.setMinimumSize(new Dimension(200, 30));
 			textoCarnet.setPreferredSize(new Dimension(200, 30));
@@ -277,9 +290,11 @@ public class VistaModificarAvion extends JFrame implements Observador {
 							transfer = new TAPrivado(idLeido, numAsientos, fechaFormateada, nombre, matricula, true, idAerolinea,
 									idModelo, idHangar, nombre_duenyo, idCarnet);
 						}
+						dispose();
 						ctrl.accion(new Contexto(Evento.MODIFICAR_AVION, transfer));
 					} catch (Exception ex) {
-
+						dispose();
+						ctrl.accion(new Contexto(Evento.VISTA_FALLO_MODIFICAR_AVION, null));
 					}
 				}
 

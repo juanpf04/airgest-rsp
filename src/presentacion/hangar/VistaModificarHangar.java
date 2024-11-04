@@ -59,7 +59,7 @@ public class VistaModificarHangar extends JFrame implements Observador {
 
 		JLabel etiquetaDir = new JLabel("direccion: ");
 		etiquetaDir.setFont(new Font("Tahoma", Font.BOLD, 23));
-		JTextField textoDir = new JTextField();
+		JTextField textoDir = new JTextField(th.getDireccion());
 		textoDir.setMaximumSize(new Dimension(200, 30));
 		textoDir.setMinimumSize(new Dimension(200, 30));
 		textoDir.setPreferredSize(new Dimension(200, 30));
@@ -74,7 +74,7 @@ public class VistaModificarHangar extends JFrame implements Observador {
 
 		JLabel etiquetaStock = new JLabel("stock:    ");
 		etiquetaStock.setFont(new Font("Tahoma", Font.BOLD, 23));
-		JTextField textoStock = new JTextField();
+		JTextField textoStock = new JTextField("" + th.getStock());
 		textoStock.setMaximumSize(new Dimension(200, 30));
 		textoStock.setMinimumSize(new Dimension(200, 30));
 		textoStock.setPreferredSize(new Dimension(200, 30));
@@ -89,7 +89,7 @@ public class VistaModificarHangar extends JFrame implements Observador {
 
 		JLabel etiquetacosteDia = new JLabel("costeDia:    ");
 		etiquetacosteDia.setFont(new Font("Tahoma", Font.BOLD, 23));
-		JTextField textocosteDia = new JTextField();
+		JTextField textocosteDia = new JTextField("" + th.getCosteDia());
 		textocosteDia.setMaximumSize(new Dimension(200, 30));
 		textocosteDia.setMinimumSize(new Dimension(200, 30));
 		textocosteDia.setPreferredSize(new Dimension(200, 30));
@@ -104,7 +104,7 @@ public class VistaModificarHangar extends JFrame implements Observador {
 
 		JLabel etiquetaespacioAlmacenaje = new JLabel("espacioAlmacenaje:    ");
 		etiquetaespacioAlmacenaje.setFont(new Font("Tahoma", Font.BOLD, 23));
-		JTextField textoespacioAlmacenaje = new JTextField();
+		JTextField textoespacioAlmacenaje = new JTextField("" + th.getEspacioAlmacenaje());
 		textoespacioAlmacenaje.setMaximumSize(new Dimension(200, 30));
 		textoespacioAlmacenaje.setMinimumSize(new Dimension(200, 30));
 		textoespacioAlmacenaje.setPreferredSize(new Dimension(200, 30));
@@ -135,7 +135,9 @@ public class VistaModificarHangar extends JFrame implements Observador {
 					int espacioLeido = Integer.parseInt(textoespacioAlmacenaje.getText());
 					THangar transfer = new THangar(th.getId(), dirLeido, stockLeido, costeLeido, espacioLeido, true);
 					controlador.accion(new Contexto(Evento.MODIFICAR_HANGAR, transfer));
+					dispose();
 				} catch (NumberFormatException n) {
+					dispose();
 					controlador.accion(new Contexto(Evento.MODIFICAR_HANGAR, new THangar()));
 				}
 

@@ -229,7 +229,7 @@ public class VistaAltaAvion extends JFrame implements Observador {
 			textoTrabajadores.setMinimumSize(new Dimension(200, 30));
 			textoTrabajadores.setPreferredSize(new Dimension(200, 30));
 			textoTrabajadores.setFont(new Font("Tahoma", Font.BOLD, 18));
-			textoTrabajadores.setToolTipText("numero natural sin 0");
+			textoTrabajadores.setToolTipText("nombre de la empresa sin numeros");
 
 			JLabel etiquetaDuenyo = new JLabel("Dueño:    ");
 			etiquetaDuenyo.setFont(new Font("Tahoma", Font.BOLD, 25));

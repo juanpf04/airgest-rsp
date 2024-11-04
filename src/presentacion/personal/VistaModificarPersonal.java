@@ -118,6 +118,16 @@ public class VistaModificarPersonal extends JFrame implements Observador {
 			// -----------------------------------------------------
 		} else {
 			TPersonal aux = (TPersonal) listaInfo.get(0);
+			String placa = "";
+			String rol = "";
+			if(aux instanceof TPSeguridad)
+			{
+				placa = "" + ((TPSeguridad) aux).getNumPlaca();
+			}
+			else
+			{
+				rol = "" + ((TPLimpieza) aux).getRol();
+			}
 			JPanel panelEtiquetas = new JPanel();
 			panelEtiquetas.setLayout(new BoxLayout(panelEtiquetas, BoxLayout.PAGE_AXIS));
 
@@ -126,7 +136,7 @@ public class VistaModificarPersonal extends JFrame implements Observador {
 
 			JLabel etiquetaIdEmpleado = new JLabel("DNI: ");
 			etiquetaIdEmpleado.setFont(new Font("Tahoma", Font.BOLD, 25));
-			JTextField textoIdEmpleado = new JTextField();
+			JTextField textoIdEmpleado = new JTextField(aux.getDni());
 			textoIdEmpleado.setMaximumSize(new Dimension(200, 30));
 			textoIdEmpleado.setMinimumSize(new Dimension(200, 30));
 			textoIdEmpleado.setPreferredSize(new Dimension(200, 30));
@@ -137,7 +147,7 @@ public class VistaModificarPersonal extends JFrame implements Observador {
 			
 			JLabel etiquetaAreaAsignada = new JLabel("Área asignada:    ");
 			etiquetaAreaAsignada.setFont(new Font("Tahoma", Font.BOLD, 25));
-			JTextField textoAreaAsignada = new JTextField();
+			JTextField textoAreaAsignada = new JTextField(aux.getAreaAsignada());
 			textoAreaAsignada.setMaximumSize(new Dimension(200, 30));
 			textoAreaAsignada.setMinimumSize(new Dimension(200, 30));
 			textoAreaAsignada.setPreferredSize(new Dimension(200, 30));
@@ -147,7 +157,7 @@ public class VistaModificarPersonal extends JFrame implements Observador {
 
 			JLabel etiquetaRol = new JLabel("Rol:    ");
 			etiquetaRol.setFont(new Font("Tahoma", Font.BOLD, 25));
-			JTextField textoRol = new JTextField();
+			JTextField textoRol = new JTextField(rol);
 			textoRol.setMaximumSize(new Dimension(200, 30));
 			textoRol.setMinimumSize(new Dimension(200, 30));
 			textoRol.setPreferredSize(new Dimension(200, 30));
@@ -155,7 +165,7 @@ public class VistaModificarPersonal extends JFrame implements Observador {
 
 			JLabel etiquetaNumPlaca = new JLabel("Número de placa:    ");
 			etiquetaNumPlaca.setFont(new Font("Tahoma", Font.BOLD, 25));
-			JTextField textoNumPlaca = new JTextField();
+			JTextField textoNumPlaca = new JTextField(placa);
 			textoNumPlaca.setMaximumSize(new Dimension(200, 30));
 			textoNumPlaca.setMinimumSize(new Dimension(200, 30));
 			textoNumPlaca.setPreferredSize(new Dimension(200, 30));
