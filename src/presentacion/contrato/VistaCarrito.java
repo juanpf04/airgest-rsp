@@ -56,7 +56,7 @@ public class VistaCarrito extends JFrame implements Observador {
 
 		Controlador ctrl = Controlador.getInstance();
 
-		JButton anyadir = new JButton("A�ADIR HANGAR");
+		JButton anyadir = new JButton("ANYADIR HANGAR");
 		anyadir.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
