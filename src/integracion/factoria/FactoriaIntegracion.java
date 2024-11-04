@@ -1,14 +1,14 @@
 package integracion.factoria;
 
-import integracion.modelo.DAOModelo;
-import integracion.modeloAerolinea.DAOModeloAerolinea;
-import integracion.personal.DAOPersonal;
-import integracion.personalHangar.DAOPersonalHangar;
+import integracion.aerolinea.DAOAerolinea;
 import integracion.avion.DAOAvion;
 import integracion.contrato.DAOContrato;
 import integracion.hangar.DAOHangar;
 import integracion.lineaContrato.DAOLineaContrato;
-import integracion.aerolinea.DAOAerolinea;
+import integracion.modelo.DAOModelo;
+import integracion.modeloAerolinea.DAOModeloAerolinea;
+import integracion.personal.DAOPersonal;
+import integracion.personalHangar.DAOPersonalHangar;
 
 public abstract class FactoriaIntegracion {
 

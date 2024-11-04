@@ -3,7 +3,11 @@ package presentacion.modelo;
 import java.awt.BorderLayout;
 import java.awt.Font;
 
-import javax.swing.*;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import presentacion.Observador;
 import presentacion.UtilidadesP;

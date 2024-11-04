@@ -18,7 +18,6 @@ import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
 
-import presentacion.Observador;
 import presentacion.controlador.Contexto;
 import presentacion.controlador.Controlador;
 import presentacion.controlador.Evento;

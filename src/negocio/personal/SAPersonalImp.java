@@ -1,10 +1,5 @@
 package negocio.personal;
 
-import negocio.UtilidadesN;
-import negocio.hangar.THangar;
-import negocio.personalHangar.TPersonalHangar;
-import negocio.personalHangar.ValidadorPersonalHangar;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +9,10 @@ import integracion.personal.DAOPersonal;
 import integracion.personalHangar.DAOPersonalHangar;
 import integracion.transacciones.Transaction;
 import integracion.transacciones.TransactionManager;
+import negocio.UtilidadesN;
+import negocio.hangar.THangar;
+import negocio.personalHangar.TPersonalHangar;
+import negocio.personalHangar.ValidadorPersonalHangar;
 
 public class SAPersonalImp implements SAPersonal {
 

@@ -1,7 +1,5 @@
 package integracion.contrato;
 
-import negocio.contrato.TContrato;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,6 +9,7 @@ import java.util.List;
 import integracion.Queries;
 import integracion.transacciones.Transaction;
 import integracion.transacciones.TransactionManager;
+import negocio.contrato.TContrato;
 
 public class DAOContratoImp implements DAOContrato {
 

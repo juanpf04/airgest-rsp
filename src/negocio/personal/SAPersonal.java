@@ -1,7 +1,8 @@
 package negocio.personal;
 
-import negocio.personalHangar.TPersonalHangar;
 import java.util.List;
+
+import negocio.personalHangar.TPersonalHangar;
 
 public interface SAPersonal {
 

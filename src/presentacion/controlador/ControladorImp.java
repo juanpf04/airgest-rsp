@@ -1,9 +1,9 @@
 package presentacion.controlador;
 
-import presentacion.factoria.FactoriaComandos;
-import presentacion.factoria.FactoriaVistas;
 import presentacion.Observador;
 import presentacion.comandos.Comando;
+import presentacion.factoria.FactoriaComandos;
+import presentacion.factoria.FactoriaVistas;
 
 public class ControladorImp extends Controlador {
 

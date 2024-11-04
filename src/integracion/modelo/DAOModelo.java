@@ -1,7 +1,8 @@
 package integracion.modelo;
 
-import negocio.modelo.TModelo;
 import java.util.List;
+
+import negocio.modelo.TModelo;
 
 public interface DAOModelo {
 

@@ -1,14 +1,14 @@
 
 package negocio.factoria;
 
-import negocio.hangar.SAHangar;
-import negocio.hangar.SAHangarImp;
 import negocio.aerolinea.SAAerolinea;
 import negocio.aerolinea.SAAerolineaImp;
 import negocio.avion.SAAvion;
 import negocio.avion.SAAvionImp;
 import negocio.contrato.SAContrato;
 import negocio.contrato.SAContratoImp;
+import negocio.hangar.SAHangar;
+import negocio.hangar.SAHangarImp;
 import negocio.modelo.SAModelo;
 import negocio.modelo.SAModeloImp;
 import negocio.personal.SAPersonal;

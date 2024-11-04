@@ -1,18 +1,17 @@
 package integracion.personal;
 
-import negocio.personal.TPLimpieza;
-import negocio.personal.TPSeguridad;
-import negocio.personal.TPersonal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import integracion.Queries;
 import integracion.transacciones.Transaction;
 import integracion.transacciones.TransactionManager;
-
-import java.util.ArrayList;
-import java.util.List;
+import negocio.personal.TPLimpieza;
+import negocio.personal.TPSeguridad;
+import negocio.personal.TPersonal;
 
 public class DAOPersonalImp implements DAOPersonal {
 

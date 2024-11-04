@@ -1,7 +1,8 @@
 package integracion.aerolinea;
 
-import negocio.aerolinea.TAerolinea;
 import java.util.List;
+
+import negocio.aerolinea.TAerolinea;
 
 public interface DAOAerolinea {
 

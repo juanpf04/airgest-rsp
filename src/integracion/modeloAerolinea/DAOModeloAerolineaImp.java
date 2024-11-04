@@ -3,6 +3,7 @@ package integracion.modeloAerolinea;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+
 import integracion.transacciones.Transaction;
 import integracion.transacciones.TransactionManager;
 

@@ -5,8 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-import integracion.Queries;
 
+import integracion.Queries;
 import integracion.transacciones.Transaction;
 import integracion.transacciones.TransactionManager;
 import negocio.avion.TAComercial;

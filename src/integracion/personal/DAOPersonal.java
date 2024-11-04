@@ -1,7 +1,8 @@
 package integracion.personal;
 
-import negocio.personal.TPersonal;
 import java.util.List;
+
+import negocio.personal.TPersonal;
 
 public interface DAOPersonal {
 

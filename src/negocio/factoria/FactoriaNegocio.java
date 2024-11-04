@@ -1,10 +1,10 @@
 
 package negocio.factoria;
 
-import negocio.hangar.SAHangar;
 import negocio.aerolinea.SAAerolinea;
 import negocio.avion.SAAvion;
 import negocio.contrato.SAContrato;
+import negocio.hangar.SAHangar;
 import negocio.modelo.SAModelo;
 import negocio.personal.SAPersonal;
 

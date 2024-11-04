@@ -1,7 +1,8 @@
 package integracion.lineaContrato;
 
-import negocio.lineaContrato.TLineaContrato;
 import java.util.List;
+
+import negocio.lineaContrato.TLineaContrato;
 
 public interface DAOLineaContrato {
 

@@ -1,7 +1,8 @@
 package integracion.contrato;
 
-import negocio.contrato.TContrato;
 import java.util.List;
+
+import negocio.contrato.TContrato;
 
 public interface DAOContrato {
 

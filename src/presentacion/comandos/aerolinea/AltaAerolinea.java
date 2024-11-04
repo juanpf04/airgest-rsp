@@ -1,7 +1,8 @@
 package presentacion.comandos.aerolinea;
 
+import negocio.aerolinea.SAAerolinea;
+import negocio.aerolinea.TAerolinea;
 import negocio.factoria.FactoriaNegocio;
-import negocio.aerolinea.*;
 import presentacion.comandos.Comando;
 import presentacion.controlador.Contexto;
 import presentacion.controlador.Evento;

@@ -1,7 +1,5 @@
 package integracion.modelo;
 
-import negocio.modelo.TModelo;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,6 +9,7 @@ import java.util.List;
 
 import integracion.Queries;
 import integracion.transacciones.TransactionManager;
+import negocio.modelo.TModelo;
 
 public class DAOModeloImp implements DAOModelo {
 

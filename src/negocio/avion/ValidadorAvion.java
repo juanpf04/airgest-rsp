@@ -1,8 +1,6 @@
 package negocio.avion;
 
 import negocio.UtilidadesN;
-import negocio.avion.TAComercial;
-import negocio.avion.TAPrivado;
 
 public class ValidadorAvion {
 
