@@ -7,7 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import integracion.Querys;
+import integracion.Queries;
 import integracion.transacciones.Transaction;
 import integracion.transacciones.TransactionManager;
 
@@ -23,7 +23,7 @@ public class DAOPersonalImp implements DAOPersonal {
 		
 		try{
 			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
-			PreparedStatement ps = con.prepareStatement(Querys.altaPersonal, PreparedStatement.RETURN_GENERATED_KEYS);
+			PreparedStatement ps = con.prepareStatement(Queries.altaPersonal, PreparedStatement.RETURN_GENERATED_KEYS);
 			ps.setString(1, tPersonal.getDni());
 			ps.setString(2, tPersonal.getAreaAsignada());
 			
@@ -55,7 +55,7 @@ public class DAOPersonalImp implements DAOPersonal {
         try {
             Transaction t = TransactionManager.getInstance().getTransaccion();
             Connection con = (Connection) t.getResource();
-            PreparedStatement ps = con.prepareStatement(Querys.altaLimpieza);
+            PreparedStatement ps = con.prepareStatement(Queries.altaLimpieza);
             ps.setInt(1, personal.getId());
             ps.setString(2, personal.getRol());
             int filas = ps.executeUpdate();
@@ -70,7 +70,7 @@ public class DAOPersonalImp implements DAOPersonal {
         try {
             Transaction t = TransactionManager.getInstance().getTransaccion();
             Connection con = (Connection) t.getResource();
-            PreparedStatement ps = con.prepareStatement(Querys.altaSeguridad);
+            PreparedStatement ps = con.prepareStatement(Queries.altaSeguridad);
             ps.setInt(1, personal.getId());
             ps.setInt(2, personal.getNumPlaca());
             int filas = ps.executeUpdate();
@@ -85,7 +85,7 @@ public class DAOPersonalImp implements DAOPersonal {
         try {
             Transaction t = TransactionManager.getInstance().getTransaccion();
             Connection con = (Connection) t.getResource();
-            PreparedStatement ps = con.prepareStatement(Querys.eliminarLimpieza);
+            PreparedStatement ps = con.prepareStatement(Queries.eliminarLimpieza);
             ps.setInt(1, id);
             int filas = ps.executeUpdate();
             ps.close();
@@ -99,7 +99,7 @@ public class DAOPersonalImp implements DAOPersonal {
         try {
             Transaction t = TransactionManager.getInstance().getTransaccion();
             Connection con = (Connection) t.getResource();
-            PreparedStatement ps = con.prepareStatement(Querys.eliminarSeguridad);
+            PreparedStatement ps = con.prepareStatement(Queries.eliminarSeguridad);
             ps.setInt(1, id);
             int filas = ps.executeUpdate();
             ps.close();
@@ -113,7 +113,7 @@ public class DAOPersonalImp implements DAOPersonal {
 	public boolean bajaPersonal(int id) {//perfe
 		try{
 			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
-			PreparedStatement ps = con.prepareStatement(Querys.bajaPersonal);
+			PreparedStatement ps = con.prepareStatement(Queries.bajaPersonal);
 			ps.setInt(1, id);
 			int filasNuevas = ps.executeUpdate();
 			boolean eliminado = filasNuevas == 1 ? true : false;
@@ -133,7 +133,7 @@ public class DAOPersonalImp implements DAOPersonal {
 		try{
 			Transaction t = TransactionManager.getInstance().getTransaccion();
 			Connection con = (Connection) t.getResource();
-			PreparedStatement ps = con.prepareStatement(Querys.modificarPersonal);
+			PreparedStatement ps = con.prepareStatement(Queries.modificarPersonal);
 			ps.setString(1, tPersonal.getAreaAsignada());
 			ps.setString(2, tPersonal.getDni());
 			ps.setBoolean(3, tPersonal.getActivo());
@@ -169,7 +169,7 @@ public class DAOPersonalImp implements DAOPersonal {
         try {
             Transaction t = TransactionManager.getInstance().getTransaccion();
             Connection con = (Connection) t.getResource();
-            PreparedStatement ps = con.prepareStatement(Querys.modificarLimpieza);
+            PreparedStatement ps = con.prepareStatement(Queries.modificarLimpieza);
             ps.setString(1, personal.getRol());
             ps.setInt(2, personal.getId());
             int filas = ps.executeUpdate();
@@ -185,7 +185,7 @@ public class DAOPersonalImp implements DAOPersonal {
         try {
             Transaction t = TransactionManager.getInstance().getTransaccion();
             Connection con = (Connection) t.getResource();
-            PreparedStatement ps = con.prepareStatement(Querys.modificarSeguridad);
+            PreparedStatement ps = con.prepareStatement(Queries.modificarSeguridad);
             ps.setInt(1, personal.getNumPlaca());
             ps.setInt(2, personal.getId());
             int filas = ps.executeUpdate();
@@ -202,7 +202,7 @@ public class DAOPersonalImp implements DAOPersonal {
 		TPersonal ret = null;
 		try{
 			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
-			PreparedStatement ps = con.prepareStatement(Querys.consultarPersonalPorDni);
+			PreparedStatement ps = con.prepareStatement(Queries.consultarPersonalPorDni);
 			ps.setString(1, dni);
 			ResultSet res = ps.executeQuery();
 			
@@ -223,7 +223,7 @@ public class DAOPersonalImp implements DAOPersonal {
 	public List<TPersonal> consultarPersonalExistente() {//perfe
 		try{
 			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
-			PreparedStatement ps = con.prepareStatement(Querys.consultarPersonalExistente);
+			PreparedStatement ps = con.prepareStatement(Queries.consultarPersonalExistente);
 			
 			ResultSet res = ps.executeQuery();
 			List<TPersonal> t = new ArrayList<>();
@@ -253,7 +253,7 @@ public class DAOPersonalImp implements DAOPersonal {
 		try{
 			Transaction t = TransactionManager.getInstance().getTransaccion();
 			Connection con = (Connection) t.getResource();
-			PreparedStatement ps = con.prepareStatement(Querys.consultarPersonalPorHangar);
+			PreparedStatement ps = con.prepareStatement(Queries.consultarPersonalPorHangar);
 			ps.setInt(1, id_hangar);
 			
 			ResultSet rs = ps.executeQuery();
@@ -283,7 +283,7 @@ public class DAOPersonalImp implements DAOPersonal {
 	public TPersonal consultarPersonalPorId(int idPersonal) {//corregido
 		try {
 			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
-			PreparedStatement ps = con.prepareStatement(Querys.consultarPersonalPorId);
+			PreparedStatement ps = con.prepareStatement(Queries.consultarPersonalPorId);
 			ps.setInt(1, idPersonal);
 			
 			ResultSet rs = ps.executeQuery();
@@ -314,7 +314,7 @@ public class DAOPersonalImp implements DAOPersonal {
 	private TPLimpieza consultarLimpiezaPorId(int id, TPersonal tp) {
 		try {
 			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
-			PreparedStatement ps = con.prepareStatement(Querys.consultarLimpiezaPorId);
+			PreparedStatement ps = con.prepareStatement(Queries.consultarLimpiezaPorId);
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 			String rol = null;
@@ -336,7 +336,7 @@ public class DAOPersonalImp implements DAOPersonal {
 	private TPSeguridad consultarSeguridadPorId(int id, TPersonal tp) {
 		try {
 			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
-			PreparedStatement ps = con.prepareStatement(Querys.consultarSeguridadPorId);
+			PreparedStatement ps = con.prepareStatement(Queries.consultarSeguridadPorId);
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 			int numPlaca;

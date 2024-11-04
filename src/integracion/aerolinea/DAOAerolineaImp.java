@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import integracion.transacciones.Transaction;
 import integracion.transacciones.TransactionManager;
-import integracion.Querys;
+import integracion.Queries;
 import negocio.aerolinea.TAerolinea;
 
 public class DAOAerolineaImp implements DAOAerolinea {
@@ -18,7 +18,7 @@ public class DAOAerolineaImp implements DAOAerolinea {
 		try {
 			Transaction t = TransactionManager.getInstance().getTransaccion();
 			Connection con = (Connection) t.getResource();
-			PreparedStatement ps = con.prepareStatement(Querys.altaAerolinea, PreparedStatement.RETURN_GENERATED_KEYS);
+			PreparedStatement ps = con.prepareStatement(Queries.altaAerolinea, PreparedStatement.RETURN_GENERATED_KEYS);
 			ps.setString(1, tAerolinea.getNombre());
 			ps.setBoolean(2, true);
 			
@@ -41,7 +41,7 @@ public class DAOAerolineaImp implements DAOAerolinea {
 		try{
 			Transaction t = TransactionManager.getInstance().getTransaccion();
 			Connection con = (Connection) t.getResource();
-			PreparedStatement ps = con.prepareStatement(Querys.bajaAerolinea);
+			PreparedStatement ps = con.prepareStatement(Queries.bajaAerolinea);
 			ps.setBoolean(1, false);
 			ps.setInt(2, id);
 			
@@ -60,7 +60,7 @@ public class DAOAerolineaImp implements DAOAerolinea {
 		try{
 			Transaction t = TransactionManager.getInstance().getTransaccion();
 			Connection con = (Connection) t.getResource();
-			PreparedStatement ps = con.prepareStatement(Querys.modificarAerolinea);
+			PreparedStatement ps = con.prepareStatement(Queries.modificarAerolinea);
 			ps.setString(1, tAerolinea.getNombre());
 			ps.setBoolean(2, tAerolinea.getActivo());
 			ps.setInt(3, tAerolinea.getId());
@@ -82,7 +82,7 @@ public class DAOAerolineaImp implements DAOAerolinea {
 		
 		try {
 			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
-			PreparedStatement ps = con.prepareStatement(Querys.consultarAerolineaPorId);
+			PreparedStatement ps = con.prepareStatement(Queries.consultarAerolineaPorId);
 			ps.setInt(1, idAerolinea);
 			
 			ResultSet rs = ps.executeQuery();
@@ -105,7 +105,7 @@ public class DAOAerolineaImp implements DAOAerolinea {
 	public TAerolinea consultarAerolineaPorNombre(String nombre) {
 		try {
 			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
-			PreparedStatement ps = con.prepareStatement(Querys.consultarAerolineaPorNombre);
+			PreparedStatement ps = con.prepareStatement(Queries.consultarAerolineaPorNombre);
 			ps.setString(1, nombre);
 			
 			ResultSet rs = ps.executeQuery();
@@ -128,7 +128,7 @@ public class DAOAerolineaImp implements DAOAerolinea {
 		try{
 			Transaction t = TransactionManager.getInstance().getTransaccion();
 			Connection con = (Connection) t.getResource();
-			PreparedStatement ps = con.prepareStatement(Querys.consultarTodasAerolineas);
+			PreparedStatement ps = con.prepareStatement(Queries.consultarTodasAerolineas);
 			
 			ResultSet rs = ps.executeQuery();
 			List<TAerolinea> lista = new ArrayList<>();
@@ -152,7 +152,7 @@ public class DAOAerolineaImp implements DAOAerolinea {
 		try{
 			Transaction t = TransactionManager.getInstance().getTransaccion();
 			Connection con = (Connection) t.getResource();
-			PreparedStatement ps = con.prepareStatement(Querys.consultarAerolineasPorModelo);
+			PreparedStatement ps = con.prepareStatement(Queries.consultarAerolineasPorModelo);
 			ps.setInt(1, id_modelo);
 			
 			ResultSet rs = ps.executeQuery();

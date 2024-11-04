@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import integracion.Querys;
+import integracion.Queries;
 import integracion.transacciones.TransactionManager;
 
 public class DAOPersonalHangarImp implements DAOPersonalHangar {
@@ -14,7 +14,7 @@ public class DAOPersonalHangarImp implements DAOPersonalHangar {
 	public boolean vincular(int idPersonal, int idHangar) {
 		try {
 			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
-			PreparedStatement ps = con.prepareStatement(Querys.vincularPersonalHangar);
+			PreparedStatement ps = con.prepareStatement(Queries.vincularPersonalHangar);
 			ps.setInt(1, idPersonal);
 			ps.setInt(2, idHangar);
 			
@@ -33,7 +33,7 @@ public class DAOPersonalHangarImp implements DAOPersonalHangar {
 	public boolean desvincular(int idPersonal, int idHangar) {
 		try {
 			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
-			PreparedStatement ps = con.prepareStatement(Querys.desvincularPersonalHangar);
+			PreparedStatement ps = con.prepareStatement(Queries.desvincularPersonalHangar);
 			ps.setInt(1, idPersonal);
 			ps.setInt(2, idHangar);
 			
@@ -52,7 +52,7 @@ public class DAOPersonalHangarImp implements DAOPersonalHangar {
 	public boolean comprobarVinculacion(int idPersonal, int idHangar) {
 		try {
 			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
-			PreparedStatement ps = con.prepareStatement(Querys.comprobarvinculacionPersonalHangar);
+			PreparedStatement ps = con.prepareStatement(Queries.comprobarvinculacionPersonalHangar);
 			ps.setInt(1, idPersonal);
 			ps.setInt(2, idHangar);
 			

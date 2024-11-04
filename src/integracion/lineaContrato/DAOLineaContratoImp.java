@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import integracion.Querys;
+import integracion.Queries;
 import integracion.transacciones.Transaction;
 import integracion.transacciones.TransactionManager;
 import negocio.lineaContrato.TLineaContrato;
@@ -18,7 +18,7 @@ public class DAOLineaContratoImp implements DAOLineaContrato {
 		try {
 			Transaction t = TransactionManager.getInstance().getTransaccion();
 			Connection con = (Connection) t.getResource();
-			PreparedStatement ps = con.prepareStatement(Querys.altaLineaContrato, PreparedStatement.RETURN_GENERATED_KEYS);
+			PreparedStatement ps = con.prepareStatement(Queries.altaLineaContrato, PreparedStatement.RETURN_GENERATED_KEYS);
 			ps.setInt(1, tLineaContrato.getIdHangar());
 			ps.setInt(2, tLineaContrato.getIdContrato());
 			ps.setString(3, tLineaContrato.getFechaIni());
@@ -43,7 +43,7 @@ public class DAOLineaContratoImp implements DAOLineaContrato {
 		try {
 			Transaction t = TransactionManager.getInstance().getTransaccion();
 			Connection con = (Connection) t.getResource();
-			PreparedStatement ps = con.prepareStatement(Querys.modificarLineaContrato);
+			PreparedStatement ps = con.prepareStatement(Queries.modificarLineaContrato);
 			ps.setString(1, tLineaContrato.getFechaIni());
 			ps.setString(2, tLineaContrato.getFechaFin());
 			ps.setDouble(3, tLineaContrato.getPrecio());
@@ -66,7 +66,7 @@ public class DAOLineaContratoImp implements DAOLineaContrato {
 		try{
 			Transaction t = TransactionManager.getInstance().getTransaccion();
 			Connection con = (Connection) t.getResource();
-			PreparedStatement ps = con.prepareStatement(Querys.consultarLineasPorContrato);
+			PreparedStatement ps = con.prepareStatement(Queries.consultarLineasPorContrato);
 			ps.setInt(1, id_contrato);			
 			
 			ResultSet rs = ps.executeQuery();
@@ -91,7 +91,7 @@ public class DAOLineaContratoImp implements DAOLineaContrato {
 		try{
 			Transaction t = TransactionManager.getInstance().getTransaccion();
 			Connection con = (Connection) t.getResource();
-			PreparedStatement ps = con.prepareStatement(Querys.consultarLineasPorHangar);
+			PreparedStatement ps = con.prepareStatement(Queries.consultarLineasPorHangar);
 			ps.setInt(1, id_hangar);			
 			
 			ResultSet rs = ps.executeQuery();
@@ -115,7 +115,7 @@ public class DAOLineaContratoImp implements DAOLineaContrato {
 	public TLineaContrato consultarLineaContrato(int id_contrato, int id_hangar) {
 		try {
 			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
-			PreparedStatement ps = con.prepareStatement(Querys.consultarLineaContrato);
+			PreparedStatement ps = con.prepareStatement(Queries.consultarLineaContrato);
 			ps.setInt(1, id_contrato);
 			ps.setInt(2, id_hangar);
 			
@@ -137,7 +137,7 @@ public class DAOLineaContratoImp implements DAOLineaContrato {
 		try{
 			Transaction t = TransactionManager.getInstance().getTransaccion();
 			Connection con = (Connection) t.getResource();
-			PreparedStatement ps = con.prepareStatement(Querys.consultarContratoPorAerolineaPrecioDuracion);
+			PreparedStatement ps = con.prepareStatement(Queries.consultarContratoPorAerolineaPrecioDuracion);
 			ps.setInt(1, id_aerolinea);			
 			ps.setDouble(2, precio);			
 			ps.setInt(3, dias);			

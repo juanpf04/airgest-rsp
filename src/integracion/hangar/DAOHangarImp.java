@@ -9,7 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-import integracion.Querys;
+import integracion.Queries;
 import integracion.transacciones.Transaction;
 import integracion.transacciones.TransactionManager;
 
@@ -18,7 +18,7 @@ public class DAOHangarImp implements DAOHangar {
 	public THangar leerHangarPorId(int id) {
 		try{
 			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
-			PreparedStatement ps = con.prepareStatement(Querys.leerHangarPorId);
+			PreparedStatement ps = con.prepareStatement(Queries.leerHangarPorId);
 			ps.setInt(1, id);
 			
 			ResultSet res = ps.executeQuery();
@@ -41,7 +41,7 @@ public class DAOHangarImp implements DAOHangar {
 	public boolean actualizarStock(int id, int stock) {//revisar
 		try{
 			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
-			PreparedStatement ps = con.prepareStatement(Querys.actualizaStock);
+			PreparedStatement ps = con.prepareStatement(Queries.actualizaStock);
 			ps.setInt(1,  stock);
 			ps.setInt(2, id);
 			int filasNuevas = ps.executeUpdate();
@@ -59,7 +59,7 @@ public class DAOHangarImp implements DAOHangar {
 	public int altaHangar(THangar tHangar){
 		try{
 			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
-			PreparedStatement ps = con.prepareStatement(Querys.alta_hangar, PreparedStatement.RETURN_GENERATED_KEYS);
+			PreparedStatement ps = con.prepareStatement(Queries.alta_hangar, PreparedStatement.RETURN_GENERATED_KEYS);
 			
 			ps.setInt(1,  tHangar.getStock());
 			ps.setString(2, tHangar.getDireccion());
@@ -84,7 +84,7 @@ public class DAOHangarImp implements DAOHangar {
 	public boolean bajaHangar(int id) {
 		try{
 			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
-			PreparedStatement ps = con.prepareStatement(Querys.baja_hangar);
+			PreparedStatement ps = con.prepareStatement(Queries.baja_hangar);
 			ps.setInt(1, id);
 			int filasNuevas = ps.executeUpdate();
 			boolean eliminado = filasNuevas == 1;
@@ -101,7 +101,7 @@ public class DAOHangarImp implements DAOHangar {
 	public List<THangar> consultarTodosHangares() {
 		try{
 			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
-			PreparedStatement ps = con.prepareStatement(Querys.consultarTodosHangares);
+			PreparedStatement ps = con.prepareStatement(Queries.consultarTodosHangares);
 			
 			ResultSet res = ps.executeQuery();
 			List<THangar> t = new ArrayList<>();
@@ -121,7 +121,7 @@ public class DAOHangarImp implements DAOHangar {
 	public boolean modificarHangar(THangar tHangar) {
 		try{
 			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
-			PreparedStatement ps = con.prepareStatement(Querys.modificarHangar);
+			PreparedStatement ps = con.prepareStatement(Queries.modificarHangar);
 			ps.setInt(1,  tHangar.getStock());
 			ps.setString(2, tHangar.getDireccion());
 			ps.setInt(3, tHangar.getEspacioAlmacenaje());
@@ -143,7 +143,7 @@ public class DAOHangarImp implements DAOHangar {
 	public THangar leerHangarPorDireccion(String direccion) {
 		try{
 			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
-			PreparedStatement ps = con.prepareStatement(Querys.leerHangarPorDireccion);
+			PreparedStatement ps = con.prepareStatement(Queries.leerHangarPorDireccion);
 			ps.setString(1, direccion);
 			
 			ResultSet res = ps.executeQuery();
@@ -167,7 +167,7 @@ public class DAOHangarImp implements DAOHangar {
 		try{
 			Transaction t = TransactionManager.getInstance().getTransaccion();
 			Connection con = (Connection) t.getResource();
-			PreparedStatement ps = con.prepareStatement(Querys.consultarHangarPorPersonal);
+			PreparedStatement ps = con.prepareStatement(Queries.consultarHangarPorPersonal);
 			ps.setInt(1, id_personal);
 			
 			ResultSet res = ps.executeQuery();

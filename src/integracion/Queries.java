@@ -1,7 +1,7 @@
 package integracion;
 
 
-public class Querys {
+public class Queries {
 	//AEROLINEA
 	
 	public static String altaAerolinea = "INSERT INTO AEROLINEA (Nombre, Activo) VALUES(?,?)" ;

@@ -9,7 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import integracion.Querys;
+import integracion.Queries;
 import integracion.transacciones.TransactionManager;
 
 public class DAOModeloImp implements DAOModelo {
@@ -18,7 +18,7 @@ public class DAOModeloImp implements DAOModelo {
 		try{
 		Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
 		
-		PreparedStatement ps = con.prepareStatement(Querys.consultar_modelo_por_nombre);
+		PreparedStatement ps = con.prepareStatement(Queries.consultar_modelo_por_nombre);
 		ps.setString(1, nombre);
 		
 		ResultSet res = ps.executeQuery();
@@ -42,7 +42,7 @@ public class DAOModeloImp implements DAOModelo {
 		try {
 			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
 			
-			PreparedStatement ps = con.prepareStatement(Querys.alta_modelo, Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement ps = con.prepareStatement(Queries.alta_modelo, Statement.RETURN_GENERATED_KEYS);
 			ps.setString(1, tModelo.getNombre());
 			ps.setString(2, tModelo.getMotor());
 			
@@ -65,7 +65,7 @@ public class DAOModeloImp implements DAOModelo {
 		try {
 			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
 			
-			PreparedStatement ps = con.prepareStatement(Querys.modificar_modelo);
+			PreparedStatement ps = con.prepareStatement(Queries.modificar_modelo);
 			
 			ps.setString(1, tModelo.getNombre());
 			ps.setString(2, tModelo.getMotor());
@@ -89,7 +89,7 @@ public class DAOModeloImp implements DAOModelo {
 		try {
 			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
 			
-			PreparedStatement ps = con.prepareStatement(Querys.baja_modelo);
+			PreparedStatement ps = con.prepareStatement(Queries.baja_modelo);
 			
 			ps.setInt(1, id);
 			
@@ -109,7 +109,7 @@ public class DAOModeloImp implements DAOModelo {
 	public List<TModelo> consultarTodosModelos() {
 		try{
 			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
-			PreparedStatement ps = con.prepareStatement(Querys.consultar_todos_modelos);			
+			PreparedStatement ps = con.prepareStatement(Queries.consultar_todos_modelos);			
 			ResultSet res = ps.executeQuery();
 			
 			List<TModelo> t = new ArrayList<>();
@@ -129,7 +129,7 @@ public class DAOModeloImp implements DAOModelo {
 		try{
 			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
 			
-			PreparedStatement ps = con.prepareStatement(Querys.consultar_modelo_por_id);
+			PreparedStatement ps = con.prepareStatement(Queries.consultar_modelo_por_id);
 			ps.setInt(1, id);
 			
 			ResultSet res = ps.executeQuery();
@@ -152,7 +152,7 @@ public class DAOModeloImp implements DAOModelo {
 		try{
 		Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
 		
-		PreparedStatement ps = con.prepareStatement(Querys.consultar_modelo_por_aerolinea);
+		PreparedStatement ps = con.prepareStatement(Queries.consultar_modelo_por_aerolinea);
 		ps.setInt(1, idAerolinea);
 		
 		ResultSet res = ps.executeQuery();

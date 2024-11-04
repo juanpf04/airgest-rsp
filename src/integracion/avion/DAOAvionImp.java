@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-import integracion.Querys;
+import integracion.Queries;
 
 import integracion.transacciones.Transaction;
 import integracion.transacciones.TransactionManager;
@@ -20,7 +20,7 @@ public class DAOAvionImp implements DAOAvion {
 		try {
 			Transaction t = TransactionManager.getInstance().getTransaccion();
 			Connection con = (Connection) t.getResource();
-			PreparedStatement ps = con.prepareStatement(Querys.altaAvion, PreparedStatement.RETURN_GENERATED_KEYS);
+			PreparedStatement ps = con.prepareStatement(Queries.altaAvion, PreparedStatement.RETURN_GENERATED_KEYS);
 			ps.setString(1, tAvion.getNombre());
 			ps.setInt(2, tAvion.getNumAsientos());
 			ps.setString(3, tAvion.getMatricula());
@@ -57,7 +57,7 @@ public class DAOAvionImp implements DAOAvion {
 		try {
 			Transaction t = TransactionManager.getInstance().getTransaccion();
 			Connection con = (Connection) t.getResource();
-			PreparedStatement ps = con.prepareStatement(Querys.altaAvionComercial);
+			PreparedStatement ps = con.prepareStatement(Queries.altaAvionComercial);
 			ps.setInt(1, avion.getId());
 			ps.setString(2, avion.getEmpresa());
 			int filas = ps.executeUpdate();
@@ -72,7 +72,7 @@ public class DAOAvionImp implements DAOAvion {
 		try {
 			Transaction t = TransactionManager.getInstance().getTransaccion();
 			Connection con = (Connection) t.getResource();
-			PreparedStatement ps = con.prepareStatement(Querys.altaAvionPrivado);
+			PreparedStatement ps = con.prepareStatement(Queries.altaAvionPrivado);
 			ps.setInt(1, avion.getId());
 			ps.setString(2, avion.getNombreDuenyo());
 			ps.setInt(3, avion.getIdCarnet());
@@ -89,7 +89,7 @@ public class DAOAvionImp implements DAOAvion {
 		try {
 			Transaction t = TransactionManager.getInstance().getTransaccion();
 			Connection con = (Connection) t.getResource();
-			PreparedStatement ps = con.prepareStatement(Querys.bajaAvion);
+			PreparedStatement ps = con.prepareStatement(Queries.bajaAvion);
 			ps.setInt(1, id);
 
 			int filas = ps.executeUpdate();
@@ -108,7 +108,7 @@ public class DAOAvionImp implements DAOAvion {
 		try {
 			Transaction t = TransactionManager.getInstance().getTransaccion();
 			Connection con = (Connection) t.getResource();
-			PreparedStatement ps = con.prepareStatement(Querys.modificarAvion);
+			PreparedStatement ps = con.prepareStatement(Queries.modificarAvion);
 			ps.setString(1, tAvion.getNombre());
 			ps.setInt(2, tAvion.getNumAsientos());
 			ps.setString(3, tAvion.getMatricula());
@@ -148,7 +148,7 @@ public class DAOAvionImp implements DAOAvion {
 		try {
 			Transaction t = TransactionManager.getInstance().getTransaccion();
 			Connection con = (Connection) t.getResource();
-			PreparedStatement ps = con.prepareStatement(Querys.modificarComercial);
+			PreparedStatement ps = con.prepareStatement(Queries.modificarComercial);
 			ps.setString(1, avion.getEmpresa());
 			ps.setInt(2, avion.getId());
 			int filas = ps.executeUpdate();
@@ -164,7 +164,7 @@ public class DAOAvionImp implements DAOAvion {
 		try {
 			Transaction t = TransactionManager.getInstance().getTransaccion();
 			Connection con = (Connection) t.getResource();
-			PreparedStatement ps = con.prepareStatement(Querys.modificarPrivado);
+			PreparedStatement ps = con.prepareStatement(Queries.modificarPrivado);
 			ps.setString(1, avion.getNombreDuenyo());
 			ps.setInt(2, avion.getIdCarnet());
 			ps.setInt(3, avion.getId());
@@ -181,7 +181,7 @@ public class DAOAvionImp implements DAOAvion {
 		try {
 			Transaction t = TransactionManager.getInstance().getTransaccion();
 			Connection con = (Connection) t.getResource();
-			PreparedStatement ps = con.prepareStatement(Querys.eliminarComercial);
+			PreparedStatement ps = con.prepareStatement(Queries.eliminarComercial);
 			ps.setInt(1, id);
 			int filas = ps.executeUpdate();
 			ps.close();
@@ -195,7 +195,7 @@ public class DAOAvionImp implements DAOAvion {
 		try {
 			Transaction t = TransactionManager.getInstance().getTransaccion();
 			Connection con = (Connection) t.getResource();
-			PreparedStatement ps = con.prepareStatement(Querys.eliminarPrivado);
+			PreparedStatement ps = con.prepareStatement(Queries.eliminarPrivado);
 			ps.setInt(1, id);
 			int filas = ps.executeUpdate();
 			ps.close();
@@ -209,7 +209,7 @@ public class DAOAvionImp implements DAOAvion {
 	public TAvion consultarAvionPorId(int id) {
 		try {
 			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
-			PreparedStatement ps = con.prepareStatement(Querys.consultarAvionPorId);
+			PreparedStatement ps = con.prepareStatement(Queries.consultarAvionPorId);
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 
@@ -241,7 +241,7 @@ public class DAOAvionImp implements DAOAvion {
 	private TAComercial consultarComercialPorId(int id, TAvion tav) {
 		try {
 			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
-			PreparedStatement ps = con.prepareStatement(Querys.consultarComercialPorId);
+			PreparedStatement ps = con.prepareStatement(Queries.consultarComercialPorId);
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 			String empresa = null;
@@ -265,7 +265,7 @@ public class DAOAvionImp implements DAOAvion {
 	private TAPrivado consultarPrivadoPorId(int id, TAvion tav) {
 		try {
 			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
-			PreparedStatement ps = con.prepareStatement(Querys.consultarPrivadoPorId);
+			PreparedStatement ps = con.prepareStatement(Queries.consultarPrivadoPorId);
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 			String duenyo = null;
@@ -292,7 +292,7 @@ public class DAOAvionImp implements DAOAvion {
 	public TAvion consultarAvionPorMatricula(String matricula) {
 		try {
 			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
-			PreparedStatement ps = con.prepareStatement(Querys.consultarAvionPorMatricula);
+			PreparedStatement ps = con.prepareStatement(Queries.consultarAvionPorMatricula);
 			ps.setString(1, matricula);
 
 			ResultSet rs = ps.executeQuery();
@@ -319,7 +319,7 @@ public class DAOAvionImp implements DAOAvion {
 		try {
 			Transaction t = TransactionManager.getInstance().getTransaccion();
 			Connection con = (Connection) t.getResource();
-			PreparedStatement ps = con.prepareStatement(Querys.consultarTodosAviones);
+			PreparedStatement ps = con.prepareStatement(Queries.consultarTodosAviones);
 
 			ResultSet rs = ps.executeQuery();
 			List<TAvion> lista = new ArrayList<>();
@@ -354,7 +354,7 @@ public class DAOAvionImp implements DAOAvion {
 		try {
 			Transaction t = TransactionManager.getInstance().getTransaccion();
 			Connection con = (Connection) t.getResource();
-			PreparedStatement ps = con.prepareStatement(Querys.consultarAvionesPorModelo);
+			PreparedStatement ps = con.prepareStatement(Queries.consultarAvionesPorModelo);
 			ps.setInt(1, idModelo);
 
 			ResultSet rs = ps.executeQuery();
@@ -390,7 +390,7 @@ public class DAOAvionImp implements DAOAvion {
 		try {
 			Transaction t = TransactionManager.getInstance().getTransaccion();
 			Connection con = (Connection) t.getResource();
-			PreparedStatement ps = con.prepareStatement(Querys.consultarAvionesActivosPorModelo);
+			PreparedStatement ps = con.prepareStatement(Queries.consultarAvionesActivosPorModelo);
 			ps.setInt(1, idModelo);
 
 			ResultSet rs = ps.executeQuery();
@@ -427,7 +427,7 @@ public class DAOAvionImp implements DAOAvion {
 		try {
 			Transaction t = TransactionManager.getInstance().getTransaccion();
 			Connection con = (Connection) t.getResource();
-			PreparedStatement ps = con.prepareStatement(Querys.consultarAvionesPorAerolinea);
+			PreparedStatement ps = con.prepareStatement(Queries.consultarAvionesPorAerolinea);
 			ps.setInt(1, idAerolinea);
 
 			ResultSet rs = ps.executeQuery();
@@ -464,7 +464,7 @@ public class DAOAvionImp implements DAOAvion {
 		try {
 			Transaction t = TransactionManager.getInstance().getTransaccion();
 			Connection con = (Connection) t.getResource();
-			PreparedStatement ps = con.prepareStatement(Querys.consultarAvionesActivosPorAerolinea);
+			PreparedStatement ps = con.prepareStatement(Queries.consultarAvionesActivosPorAerolinea);
 			ps.setInt(1, idAerolinea);
 
 			ResultSet rs = ps.executeQuery();
@@ -501,7 +501,7 @@ public class DAOAvionImp implements DAOAvion {
 		try {
 			Transaction t = TransactionManager.getInstance().getTransaccion();
 			Connection con = (Connection) t.getResource();
-			PreparedStatement ps = con.prepareStatement(Querys.consultarAvionesPorHangar);
+			PreparedStatement ps = con.prepareStatement(Queries.consultarAvionesPorHangar);
 			ps.setInt(1, idHangar);
 
 			ResultSet rs = ps.executeQuery();
@@ -538,7 +538,7 @@ public class DAOAvionImp implements DAOAvion {
 		try {
 			Transaction t = TransactionManager.getInstance().getTransaccion();
 			Connection con = (Connection) t.getResource();
-			PreparedStatement ps = con.prepareStatement(Querys.consultarAvionesActivosPorHangar);
+			PreparedStatement ps = con.prepareStatement(Queries.consultarAvionesActivosPorHangar);
 			ps.setInt(1, idHangar);
 
 			ResultSet rs = ps.executeQuery();
@@ -575,7 +575,7 @@ public class DAOAvionImp implements DAOAvion {
 			Transaction t = TransactionManager.getInstance().getTransaccion();
 			Connection con = (Connection) t.getResource();
 
-			PreparedStatement ps = con.prepareStatement(Querys.consultarAvionesDeAerolineaPorHangar);
+			PreparedStatement ps = con.prepareStatement(Queries.consultarAvionesDeAerolineaPorHangar);
 			ps.setInt(1, id_aerolinea);
 			ps.setInt(2, id_hangar);
 

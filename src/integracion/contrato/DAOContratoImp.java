@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import integracion.Querys;
+import integracion.Queries;
 import integracion.transacciones.Transaction;
 import integracion.transacciones.TransactionManager;
 
@@ -18,7 +18,7 @@ public class DAOContratoImp implements DAOContrato {
 		try {
 			Transaction t = TransactionManager.getInstance().getTransaccion();
 			Connection con = (Connection) t.getResource();
-			PreparedStatement ps = con.prepareStatement(Querys.altaContrato, PreparedStatement.RETURN_GENERATED_KEYS);
+			PreparedStatement ps = con.prepareStatement(Queries.altaContrato, PreparedStatement.RETURN_GENERATED_KEYS);
 			ps.setDouble(1, tContrato.getPrecio());
 			ps.setInt(2, tContrato.getIdAerolinea());
 			
@@ -41,7 +41,7 @@ public class DAOContratoImp implements DAOContrato {
 		
 		try {
 			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
-			PreparedStatement ps = con.prepareStatement(Querys.consultarContratoPorId);
+			PreparedStatement ps = con.prepareStatement(Queries.consultarContratoPorId);
 			ps.setInt(1, id);
 			
 			ResultSet rs = ps.executeQuery();
@@ -64,7 +64,7 @@ public class DAOContratoImp implements DAOContrato {
 		try{
 			Transaction t = TransactionManager.getInstance().getTransaccion();
 			Connection con = (Connection) t.getResource();
-			PreparedStatement ps = con.prepareStatement(Querys.consultarTodosContratos);
+			PreparedStatement ps = con.prepareStatement(Queries.consultarTodosContratos);
 			
 			ResultSet rs = ps.executeQuery();
 			List<TContrato> lista = new ArrayList<>();
@@ -87,7 +87,7 @@ public class DAOContratoImp implements DAOContrato {
 		try{
 			Transaction t = TransactionManager.getInstance().getTransaccion();
 			Connection con = (Connection) t.getResource();
-			PreparedStatement ps = con.prepareStatement(Querys.consultarContratosPorAerolinea);
+			PreparedStatement ps = con.prepareStatement(Queries.consultarContratosPorAerolinea);
 			ps.setInt(1, id_aerolinea);			
 			
 			ResultSet rs = ps.executeQuery();
@@ -112,7 +112,7 @@ public class DAOContratoImp implements DAOContrato {
 		try {
 			Transaction t = TransactionManager.getInstance().getTransaccion();
 			Connection con = (Connection) t.getResource();
-			PreparedStatement ps = con.prepareStatement(Querys.modificarContrato);
+			PreparedStatement ps = con.prepareStatement(Queries.modificarContrato);
 			ps.setDouble(1, tContrato.getPrecio());
 			ps.setInt(2, tContrato.getIdAerolinea());
 			ps.setInt(3, tContrato.getId());
