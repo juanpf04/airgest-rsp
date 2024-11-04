@@ -5,15 +5,13 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import integracion.UtilidadesI;
-
 public class ValidadorAvionTest {
 
 	private boolean noImporta = true;
 
 	@Test
 	public void comprobar_datos_test() {
-		UtilidadesI.esTest();
+		
 
 		assertTrue("Avion comercial correcto", ValidadorAvion.comprobarDatos(
 				new TAComercial(0, 80, "06-12-2004", "avionComercial", "EC-123", noImporta, 1, 1, 1, "Rock")));
@@ -24,7 +22,7 @@ public class ValidadorAvionTest {
 
 	@Test
 	public void comprobar_comercial_test() {
-		UtilidadesI.esTest();
+		
 
 		assertTrue("Avion comercial correcto", ValidadorAvion.comprobarComercial(
 				new TAComercial(0, 80, "06-12-2004", "avionComercial", "EC-123", noImporta, 1, 1, 1, "Trap")));
@@ -32,7 +30,7 @@ public class ValidadorAvionTest {
 
 	@Test
 	public void comprobar_privado_test() {
-		UtilidadesI.esTest();
+		
 
 		assertTrue("Avion privado correcto", ValidadorAvion.comprobarPrivado(
 				new TAPrivado(0, 8, "06-12-2004", "avionPrivado", "EC-12", noImporta, 1, 1, 1, "charlie", 23423)));
@@ -40,14 +38,14 @@ public class ValidadorAvionTest {
 
 	@Test
 	public void comprobar_info_test() {
-		UtilidadesI.esTest();
+		
 		assertTrue("Avion correcto", ValidadorAvion
 				.comprobarInfo(new TAvion(0, 8, "06-12-2004", "avionPrivado", "EC-12", noImporta, 1, 1, 1)));
 	}
 
 	@Test
 	public void comprobar_carnet_test() {
-		UtilidadesI.esTest();
+		
 		// Carnet valido
 		assertTrue("Id carnet correcto", ValidadorAvion.comprobarCarnet(
 				new TAPrivado(0, 8, "06-12-2004", "avionPrivado", "EC-12", noImporta, 1, 1, 1, "charlie", 23423)));
@@ -63,7 +61,7 @@ public class ValidadorAvionTest {
 
 	@Test
 	public void comprobar_empresa_test() {
-		UtilidadesI.esTest();
+		
 		// Trabajadores valido
 		assertTrue("numTrabajadores", ValidadorAvion.comprobarEmpresa(
 				new TAComercial(0, 80, "06-12-2004", "avionComercial", "EC-123", noImporta, 1, 1, 1, "Windows")));
@@ -79,7 +77,7 @@ public class ValidadorAvionTest {
 
 	@Test
 	public void comprobar_asientos_test() {
-		UtilidadesI.esTest();
+		
 
 		// numAsientos valido
 		assertTrue(" numAsientos 1 deberia ser valido", ValidadorAvion.comprobarAsientos(1));
@@ -91,8 +89,7 @@ public class ValidadorAvionTest {
 
 	@Test
 	public void comprobar_matricula_test() {
-		UtilidadesI.esTest();
-
+		
 		// matricula valido
 		assertTrue("matrícula deberia ser valido", ValidadorAvion.comprobarMatricula("EC-1"));
 		// matricula valido

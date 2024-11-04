@@ -18,7 +18,7 @@ import integracion.transacciones.TransactionManager;
 public class SAPersonalImp implements SAPersonal {
 
 	@Override
-	public int altaPersonal(TPersonal tPersonal) {//perfe
+	public int altaPersonal(TPersonal tPersonal) {
 		int id = -1;
 		if (ValidadorPersonal.comprobarDatos(tPersonal)) {
 			Transaction t = TransactionManager.getInstance().nuevaTransaccion();
@@ -43,7 +43,7 @@ public class SAPersonalImp implements SAPersonal {
 	}
 
 	@Override
-	public boolean bajaPersonal(int id) {//perfe
+	public boolean bajaPersonal(int id) {
 		boolean ok = false;
 		if (UtilidadesN.comprobarId(id)) {
 			Transaction t = TransactionManager.getInstance().nuevaTransaccion();
@@ -71,7 +71,7 @@ public class SAPersonalImp implements SAPersonal {
 		int idHangar = tPersonalHangar.getIdHangar();
 		boolean vinculado = false;
 		
-		if (ValidadorPersonalHangar.comprobarDatos(tPersonalHangar)) {//perfe
+		if (ValidadorPersonalHangar.comprobarDatos(tPersonalHangar)) {
 			Transaction t = TransactionManager.getInstance().nuevaTransaccion();
 			t.start();
 			DAOPersonal dp = FactoriaIntegracion.getInstance().crearDAOPersonal();
@@ -96,7 +96,7 @@ public class SAPersonalImp implements SAPersonal {
 	}
 
 	@Override
-	public boolean desvincularPersonal(TPersonalHangar tPersonalHangar) {//perfe
+	public boolean desvincularPersonal(TPersonalHangar tPersonalHangar) {
 		int idPersonal = tPersonalHangar.getIdPersonal();
 		int idHangar = tPersonalHangar.getIdHangar();
 		boolean ok = false;
@@ -151,7 +151,7 @@ public class SAPersonalImp implements SAPersonal {
 	}
 
 	@Override
-	public TPersonal consultarPersonalPorId(int id) {//perfe
+	public TPersonal consultarPersonalPorId(int id) {
 		TPersonal ret = null;
 		if (UtilidadesN.comprobarId(id)) {
 			Transaction t = TransactionManager.getInstance().nuevaTransaccion();
@@ -166,7 +166,7 @@ public class SAPersonalImp implements SAPersonal {
 	}
 
 	@Override
-	public List<TPersonal> consultarPersonalExistente() {//perfe
+	public List<TPersonal> consultarPersonalExistente() {
 	  	Transaction t = TransactionManager.getInstance().nuevaTransaccion();
         t.start();
 
@@ -178,7 +178,7 @@ public class SAPersonalImp implements SAPersonal {
 	}
 
 	@Override
-	public List<TPersonal> consultarPersonalPorHangar(int id_hangar) {//perfe
+	public List<TPersonal> consultarPersonalPorHangar(int id_hangar) {
 		List<TPersonal> lista = new ArrayList<>();
 		if(UtilidadesN.comprobarId(id_hangar)){
 			Transaction t = TransactionManager.getInstance().nuevaTransaccion();

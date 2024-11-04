@@ -192,9 +192,9 @@ public class VistaModificarPersonal extends JFrame implements Observador {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 				if (listaInfo.get(1) == null)
-					ctrl.accion(new Contexto(Evento.VISTA_PERSONAL, null));
+					ctrl.accion(new Contexto(Evento.VISTA_MODIFICAR_PERSONAL_ID, null));
 				else
-					ctrl.accion(new Contexto(Evento.VISTA_PERSONAL, listaInfo));
+					ctrl.accion(new Contexto(Evento.VISTA_MODIFICAR_PERSONAL_ID, listaInfo));
 			}
 
 			});

@@ -1,10 +1,9 @@
 package negocio.aerolinea;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
-
-import integracion.UtilidadesI;
 
 public class ValidadorAerolineaTest {
 
@@ -12,7 +11,6 @@ public class ValidadorAerolineaTest {
 
 	@Test
 	public void comprobar_aerolinea_test() {
-		UtilidadesI.esTest();
 
 		TAerolinea aerolinea = new TAerolinea(1, "puerco", noImporta);
 
@@ -21,7 +19,6 @@ public class ValidadorAerolineaTest {
 
 	@Test
 	public void comprobar_nombre_test() {
-		UtilidadesI.esTest();
 
 		assertTrue("miguelito deberia valer", ValidadorAerolinea.comprobarNombre("miguelito"));
 		assertFalse("letras y numeros", ValidadorAerolinea.comprobarNombre("TAP AIR PORTUGAL 20"));

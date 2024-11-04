@@ -5,13 +5,11 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import integracion.UtilidadesI;
 
 public class ValidadorPersonalTest {
 
 	@Test
 	public void comprobarDatosTest() {
-		UtilidadesI.esTest();
 
 		TPersonal personal;
 

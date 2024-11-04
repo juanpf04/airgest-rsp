@@ -15,7 +15,7 @@ public class ValidadorPersonal {
 		return valido;
 	}
 	
-	public static boolean comprobarDNI(String dni) {//CAMBIAR ESTO
+	public static boolean comprobarDNI(String dni) {
 		return dni.matches("^[0-9]{8}+[A-Z]{1}+$");
 	}
 

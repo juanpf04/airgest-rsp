@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import integracion.UtilidadesI;
 import negocio.modeloAerolinea.TModeloAerolinea;
 
 public class SAModeloImpTest {
@@ -97,7 +96,6 @@ public class SAModeloImpTest {
 
 	@Test
 	public void desvincular_modelo_test() {
-		UtilidadesI.esTest();
 
 		SAModelo sm = new SAModeloImp();
 		TModeloAerolinea tma = new TModeloAerolinea();

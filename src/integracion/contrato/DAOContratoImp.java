@@ -50,6 +50,9 @@ public class DAOContratoImp implements DAOContrato {
 			if (rs.next())
 				tc = new TContrato(rs.getInt(1), rs.getInt(3), rs.getDouble(2)); 
 			
+			rs.close();
+			ps.close();
+			
 			return tc;
 			
 		} catch(Exception e){

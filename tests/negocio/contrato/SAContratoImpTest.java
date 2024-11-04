@@ -1,6 +1,8 @@
 package negocio.contrato;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDate;
@@ -8,15 +10,14 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.junit.Test;
-import static org.junit.Assert.*;
-import integracion.UtilidadesI;
+
 import negocio.lineaContrato.TLineaContrato;
 
 public class SAContratoImpTest {
 
 	@Test
 	public void modificar_contrato_test() {
-		UtilidadesI.esTest();
+		
 
 		SAContrato sc = new SAContratoImp();
 
@@ -60,7 +61,7 @@ public class SAContratoImpTest {
 
 	@Test
 	public void consultar_contratos_por_aerolinea_test() {
-		UtilidadesI.esTest();
+		
 
 		SAContrato sc = new SAContratoImp();
 
@@ -75,7 +76,7 @@ public class SAContratoImpTest {
 
 	@Test
 	public void cerrar_contrato_test() {
-		UtilidadesI.esTest();
+		
 
 		SAContrato sc = new SAContratoImp();
 		TLineaContrato linea1;
@@ -184,7 +185,6 @@ public class SAContratoImpTest {
 
 	@Test
 	public void modificar_linea_contrato_test() {
-		UtilidadesI.esTest();
 
 		SAContrato sc = new SAContratoImp();
 

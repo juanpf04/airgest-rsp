@@ -89,7 +89,6 @@ public class SAContratoImp implements SAContrato {
 				linea.setIdContrato(id_contrato);
 				precio_total += dias_diferencia * hangar.getCosteDia();
 				dl.altaLineaContrato(linea);
-				// Revisar calculo precio total
 			}
 			
 			TContrato contrato = tCarrito.getContrato();

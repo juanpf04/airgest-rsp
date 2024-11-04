@@ -32,7 +32,8 @@ public class SAAvionImp implements SAAvion {
 			DAOModelo dm = FactoriaIntegracion.getInstance().crearDAOModelo();
 			TModelo m = dm.consultarModeloPorId(tAvion.getIdModelo());
 
-			if (h != null && h.getActivo() && a != null && a.getActivo() && m != null && m.getActivo()) {
+			if (h != null && h.getActivo() && a != null && a.getActivo() && m != null && m.getActivo() && h.getStock() != 0) {
+				
 				int nuevo_stock = dh.leerHangarPorId(tAvion.getIdHangar()).getStock() - 1;
 
 				if (leido == null && nuevo_stock >= 0) {
@@ -215,6 +216,7 @@ public class SAAvionImp implements SAAvion {
 				t.commit();
 			} else{
 				list = new ArrayList<TAvion>();
+				t.rollback();
 			}
 			
 			return list;
@@ -244,6 +246,7 @@ public class SAAvionImp implements SAAvion {
 				t.commit();
 			} else{
 				list = new ArrayList<TAvion>();
+				t.rollback();
 			}
 			
 			return list;
