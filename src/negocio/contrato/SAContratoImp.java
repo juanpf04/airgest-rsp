@@ -63,7 +63,7 @@ public class SAContratoImp implements SAContrato {
 			DAOLineaContrato dl = FactoriaIntegracion.getInstance().crearDAOLineaContrato();
 			
 			for (TLineaContrato linea : tCarrito.getLineasContrato()){
-				THangar hangar = dh.leerHangarPorId(linea.getIdHangar());
+				THangar hangar = dh.consultarHangarPorId(linea.getIdHangar());
 				
 				// Comprobamos que el hangar exista, esté activo y que la fecha de inicio sea anterior a la de fin
 				if (hangar == null || !hangar.getActivo() || toLocalDate(linea.getFechaIni()).isAfter(toLocalDate(linea.getFechaFin()))) {
@@ -133,7 +133,7 @@ public class SAContratoImp implements SAContrato {
 				HashMap<Integer, THangar> hangares = new HashMap<>();
 
 				for (TLineaContrato linea : lineas) {
-					THangar hangar = dh.leerHangarPorId(linea.getIdHangar());
+					THangar hangar = dh.consultarHangarPorId(linea.getIdHangar());
 					hangares.put(hangar.getId(), hangar);
 				}
 
@@ -216,7 +216,7 @@ public class SAContratoImp implements SAContrato {
 					}
 					
 					DAOHangar dh = FactoriaIntegracion.getInstance().crearDAOHangar();
-					THangar hangar = dh.leerHangarPorId(linea.getIdHangar());
+					THangar hangar = dh.consultarHangarPorId(linea.getIdHangar());
 					
 					if (hangar != null){
 						if (!hangar.getActivo()){

@@ -47,7 +47,7 @@ public class DAOHangarImpTest {
 
 		DAOHangar dh = FactoriaIntegracionImp.getInstance().crearDAOHangar();
 
-		THangar id = dh.leerHangarPorId(3);
+		THangar id = dh.consultarHangarPorId(3);
 		t.commit();
 		assertTrue(id != null);
 		System.out.println(id);
@@ -60,7 +60,7 @@ public class DAOHangarImpTest {
 
 		DAOHangar dh = FactoriaIntegracionImp.getInstance().crearDAOHangar();
 
-		THangar id = dh.leerHangarPorDireccion("adiosss");
+		THangar id = dh.consultarHangarPorDireccion("adiosss");
 		t.commit();
 		assertTrue(id != null);
 		System.out.println(id);
@@ -117,7 +117,7 @@ public class DAOHangarImpTest {
 		t.start();
 
 		DAOHangar dh = FactoriaIntegracionImp.getInstance().crearDAOHangar();
-		List<THangar> list = dh.consultarHangarPorPersonal(1);
+		List<THangar> list = dh.consultarHangaresPorPersonal(1);
 		t.commit();
 		
 		assertEquals("Fallo terrible", 2, list.size());

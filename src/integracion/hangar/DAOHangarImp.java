@@ -13,7 +13,7 @@ import negocio.hangar.THangar;
 
 public class DAOHangarImp implements DAOHangar {
 
-	public THangar leerHangarPorId(int id) {
+	public THangar consultarHangarPorId(int id) {
 		try{
 			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
 			PreparedStatement ps = con.prepareStatement(Queries.leerHangarPorId);
@@ -138,7 +138,7 @@ public class DAOHangarImp implements DAOHangar {
 		}
 	}
 
-	public THangar leerHangarPorDireccion(String direccion) {
+	public THangar consultarHangarPorDireccion(String direccion) {
 		try{
 			Connection con = (Connection) TransactionManager.getInstance().getTransaccion().getResource();
 			PreparedStatement ps = con.prepareStatement(Queries.leerHangarPorDireccion);
@@ -161,7 +161,7 @@ public class DAOHangarImp implements DAOHangar {
 		}
 	}
 	
-	public List<THangar> consultarHangarPorPersonal(int id_personal) {//perfe
+	public List<THangar> consultarHangaresPorPersonal(int id_personal) {//perfe
 		try{
 			Transaction t = TransactionManager.getInstance().getTransaccion();
 			Connection con = (Connection) t.getResource();

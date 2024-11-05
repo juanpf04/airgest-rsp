@@ -53,7 +53,7 @@ public class SAPersonalImp implements SAPersonal {
 			TPersonal leido = dp.consultarPersonalPorId(id);
 			if (leido != null && leido.getActivo()) {
 				DAOHangar dh = FactoriaIntegracion.getInstance().crearDAOHangar();
-				List<THangar> lista = dh.consultarHangarPorPersonal(id);
+				List<THangar> lista = dh.consultarHangaresPorPersonal(id);
 				if(lista.isEmpty())	ok = dp.bajaPersonal(id);
 			}
 			
@@ -77,7 +77,7 @@ public class SAPersonalImp implements SAPersonal {
 			DAOHangar dh = FactoriaIntegracion.getInstance().crearDAOHangar();
 
 			TPersonal pLeido = dp.consultarPersonalPorId(idPersonal);
-			THangar hLeida = dh.leerHangarPorId(idHangar);
+			THangar hLeida = dh.consultarHangarPorId(idHangar);
 
 			if (pLeido != null && pLeido.getActivo() && hLeida != null && hLeida.getActivo()) {
 				DAOPersonalHangar dph = FactoriaIntegracion.getInstance().crearDAOPersonalHangar();
@@ -107,7 +107,7 @@ public class SAPersonalImp implements SAPersonal {
 			DAOHangar dh = FactoriaIntegracion.getInstance().crearDAOHangar();
 
 			TPersonal pLeido = dp.consultarPersonalPorId(idPersonal);
-			THangar hLeida = dh.leerHangarPorId(idHangar);
+			THangar hLeida = dh.consultarHangarPorId(idHangar);
 
 			if (pLeido != null && pLeido.getActivo() && hLeida != null && hLeida.getActivo()) {
 				DAOPersonalHangar dph = FactoriaIntegracion.getInstance().crearDAOPersonalHangar();
@@ -186,7 +186,7 @@ public class SAPersonalImp implements SAPersonal {
 			DAOPersonal dp = FactoriaIntegracion.getInstance().crearDAOPersonal();
 			DAOHangar dh = FactoriaIntegracion.getInstance().crearDAOHangar();
 			
-			THangar leido = dh.leerHangarPorId(id_hangar);
+			THangar leido = dh.consultarHangarPorId(id_hangar);
 			
 			if(leido != null && leido.getActivo()){
 				lista = dp.consultarPersonalPorHangar(id_hangar);

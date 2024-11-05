@@ -15,7 +15,7 @@ public class ConsultarHangaresPorPersonal implements Comando {
 	public Contexto ejecutar(Object datos) {
 		FactoriaNegocio fn = FactoriaNegocio.getInstance();
 		SAHangar sh = fn.crearSAHangar();
-		List<THangar> hangares = sh.consultarHangarPorPersonal((int) datos);
+		List<THangar> hangares = sh.consultarHangaresPorPersonal((int) datos);
 		Evento evento = Evento.VISTA_RESULTADO_CONSULTAR_HANGARES_POR_PERSONAL;
 		return new Contexto(evento, hangares);
 	}

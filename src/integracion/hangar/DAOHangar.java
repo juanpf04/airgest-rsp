@@ -6,7 +6,7 @@ import negocio.hangar.THangar;
 
 public interface DAOHangar {
 
-	public THangar leerHangarPorId(int id);
+	public THangar consultarHangarPorId(int id);
 
 	public boolean actualizarStock(int id, int stock);
 
@@ -18,8 +18,8 @@ public interface DAOHangar {
 
 	public boolean modificarHangar(THangar tHangar);
 
-	public THangar leerHangarPorDireccion(String direccion);
+	public THangar consultarHangarPorDireccion(String direccion);
 	
-	public List<THangar> consultarHangarPorPersonal(int id_personal);
+	public List<THangar> consultarHangaresPorPersonal(int id_personal);
 
 }

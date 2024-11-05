@@ -15,7 +15,6 @@ public interface DAOPersonal {
 	public TPersonal consultarPersonalPorId(int id);
 
 	public TPersonal consultarPersonalPorDni(String dni);
-//	public TPersonal consultarPersonalPorIdEmpleado(int idEmpleado); hace falta? no tiene sentido --> por dni ser�a no?
 
 	public List<TPersonal> consultarPersonalExistente();
 	

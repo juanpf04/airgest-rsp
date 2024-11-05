@@ -23,7 +23,7 @@ public class SAHangarImp implements SAHangar {
 			
 			DAOHangar dh = FactoriaIntegracion.getInstance().crearDAOHangar();
 			
-			THangar leido = dh.leerHangarPorDireccion(tHangar.getDireccion());
+			THangar leido = dh.consultarHangarPorDireccion(tHangar.getDireccion());
 			
 			if (leido == null){
 				id = dh.altaHangar(tHangar);
@@ -51,7 +51,7 @@ public class SAHangarImp implements SAHangar {
 			t.start();
 			
 			DAOHangar dh = FactoriaIntegracion.getInstance().crearDAOHangar();
-			THangar leido = dh.leerHangarPorId(id);
+			THangar leido = dh.consultarHangarPorId(id);
 			
 			if (leido != null && leido.getActivo()) {
 					
@@ -78,7 +78,7 @@ public class SAHangarImp implements SAHangar {
 			t.start();
 			DAOHangar dh = FactoriaIntegracion.getInstance().crearDAOHangar();
 			
-			th = dh.leerHangarPorId(id);
+			th = dh.consultarHangarPorId(id);
 			
 			t.commit();
 		}
@@ -108,12 +108,12 @@ public class SAHangarImp implements SAHangar {
 			int id = tHangar.getId();
 			String direccion = tHangar.getDireccion();
 
- 			THangar leido = dh.leerHangarPorId(id);
+ 			THangar leido = dh.consultarHangarPorId(id);
 
 			
 			if (leido != null) {
 				if (leido.getActivo()
-						&& (leido.getDireccion().equals(direccion) || dh.leerHangarPorDireccion(direccion) == null)) {
+						&& (leido.getDireccion().equals(direccion) || dh.consultarHangarPorDireccion(direccion) == null)) {
 					ok = dh.modificarHangar(tHangar);
 				}
 			}
@@ -125,7 +125,7 @@ public class SAHangarImp implements SAHangar {
 	}
 
 	@Override
-	public List<THangar> consultarHangarPorPersonal(int id_personal) {
+	public List<THangar> consultarHangaresPorPersonal(int id_personal) {
 		
 		List<THangar> lista =  new ArrayList<>();
 		
@@ -139,7 +139,7 @@ public class SAHangarImp implements SAHangar {
 			TPersonal leido = dp.consultarPersonalPorId(id_personal);
 			
 			if(leido != null && leido.getActivo())
-				lista = dh.consultarHangarPorPersonal(id_personal);
+				lista = dh.consultarHangaresPorPersonal(id_personal);
 			
 			t.commit();
 		}
