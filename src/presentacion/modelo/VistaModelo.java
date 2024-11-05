@@ -95,6 +95,8 @@ public class VistaModelo extends JFrame implements Observador {
 				ctrl.accion(new Contexto(Evento.VISTA_CONSULTAR_MODELO_POR_ID, null));
 			}
 		});
+		
+		consultarID.setToolTipText("Aqui consultas un modelo por id maquina");
 		botones.add(consultarID);
 
 		// -------------------------------------------
@@ -107,6 +109,7 @@ public class VistaModelo extends JFrame implements Observador {
 			}
 		});
 
+		consultarTodos.setToolTipText("Aqui consultas todos los modelos maquina");
 		botones.add(consultarTodos);
 
 		// -------------------------------------------
@@ -121,6 +124,7 @@ public class VistaModelo extends JFrame implements Observador {
 			}
 		});
 
+		consultarModPorAerolinea.setToolTipText("Aqui consultas un modelo por aerolinea maquina");
 		botones.add(consultarModPorAerolinea);
 
 		// -------------------------------------------
@@ -133,7 +137,8 @@ public class VistaModelo extends JFrame implements Observador {
 				ctrl.accion(new Contexto(Evento.VISTA_MODIFICAR_MODELO_ID, null));
 			}
 		});
-
+		
+		modificar.setToolTipText("Aqui modificas un modelo maquina");
 		botones.add(modificar);
 
 		// -------------------------------------------
@@ -147,6 +152,7 @@ public class VistaModelo extends JFrame implements Observador {
 			}
 		});
 
+		vincular.setToolTipText("Aqui vinculas un modelo con un avion maquina");
 		botones.add(vincular);
 
 		// -------------------------------------------
@@ -160,14 +166,13 @@ public class VistaModelo extends JFrame implements Observador {
 			}
 		});
 
+		desvincular.setToolTipText("Aqui desvinculas un modelo de un avion maquina");
 		botones.add(desvincular);
-
 		principal.add(botones, BorderLayout.CENTER);
 
 		// -----------------------------------------------------
 		JPanel panel_atras = new JPanel();
-		JButton atras = new JButton("ATRAS"); // boton para volver a la ventana
-												// principal
+		JButton atras = new JButton("ATRAS");
 		atras.setToolTipText("Esto vuelve a la ventana anterior");
 		atras.addActionListener(new ActionListener() {
 

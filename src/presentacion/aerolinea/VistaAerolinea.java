@@ -90,6 +90,8 @@ public class VistaAerolinea extends JFrame implements Observador {
 				ctrl.accion(new Contexto(Evento.VISTA_CONSULTAR_AEROLINEA_POR_ID, null));
 			}
 		});
+		
+		consultarID.setToolTipText("Aqui consultas una aerolinea por id crack");
 		botones.add(consultarID);
 
 		//-------------------------------------------
@@ -101,7 +103,8 @@ public class VistaAerolinea extends JFrame implements Observador {
 				ctrl.accion(new Contexto(Evento.CONSULTAR_TODAS_AEROLINEAS, null));
 			}
 		});
-
+		
+		consultarTodas.setToolTipText("Aqui consultas todas las aerolineas crack");
 		botones.add(consultarTodas);
 
 		//-------------------------------------------
@@ -115,7 +118,8 @@ public class VistaAerolinea extends JFrame implements Observador {
 					ctrl.accion(new Contexto(Evento.VISTA_CONSULTAR_AEROLINEAS_POR_MODELO, null));
 				}
 			});
-
+		
+		consultarPorModelo.setToolTipText("Aqui consultas una aerolinea por modelo crack");
 		botones.add(consultarPorModelo);
 
 		//-------------------------------------------
@@ -129,7 +133,8 @@ public class VistaAerolinea extends JFrame implements Observador {
 				ctrl.accion(new Contexto(Evento.VISTA_MODIFICAR_AEROLINEA_ID, null));
 			}
 		});
-
+		
+		modificar.setToolTipText("Aqui modificas una aerolinea crack");
 		botones.add(modificar);
 
 		principal.add(botones, BorderLayout.CENTER);

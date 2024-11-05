@@ -127,7 +127,8 @@ public class VistaPrincipal extends JFrame implements Observador {
 				ctrl.accion(new Contexto(Evento.VISTA_CONTRATO));
 			}
 		});
-		botones.setToolTipText("MODULO CONTRATO");
+		
+		contrato.setToolTipText("MODULO CONTRATO");
 		botones.add(contrato);
 
 		principal.add(botones, BorderLayout.CENTER);
