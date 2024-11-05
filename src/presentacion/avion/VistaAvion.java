@@ -92,6 +92,8 @@ public class VistaAvion extends JFrame implements Observador {
 				ctrl.accion(new Contexto(Evento.VISTA_CONSULTAR_AVION_POR_ID, null));
 			}
 		});
+		
+		consultarID.setToolTipText("Aqui consultas un avion por id maquina");
 		botones.add(consultarID);
 
 		// -------------------------------------------
@@ -103,7 +105,8 @@ public class VistaAvion extends JFrame implements Observador {
 				ctrl.accion(new Contexto(Evento.CONSULTAR_TODOS_AVIONES, null));
 			}
 		});
-
+		
+		consultarTodos.setToolTipText("Aqui consultas todos los aviones maquina");
 		botones.add(consultarTodos);
 
 		// -------------------------------------------
@@ -117,7 +120,8 @@ public class VistaAvion extends JFrame implements Observador {
 				ctrl.accion(new Contexto(Evento.VISTA_CONSULTAR_AVIONES_DE_AEROLINEA_POR_HANGAR, null));
 			}
 		});
-
+		
+		consultarPorAyH.setToolTipText("Aqui consultas avion por aerolinea y hangar maquina");
 		botones.add(consultarPorAyH);
 
 		// -------------------------------------------
@@ -130,7 +134,8 @@ public class VistaAvion extends JFrame implements Observador {
 				ctrl.accion(new Contexto(Evento.VISTA_MODIFICAR_AVION_ID, null));
 			}
 		});
-
+		
+		modificar.setToolTipText("Aqui modificas un avion maquina");
 		botones.add(modificar);
 
 		// -------------------------------------------
@@ -143,7 +148,8 @@ public class VistaAvion extends JFrame implements Observador {
 				ctrl.accion(new Contexto(Evento.VISTA_CONSULTAR_AVIONES_POR_MODELO, null));
 			}
 		});
-
+		
+		mostrarPorModelo.setToolTipText("Aqui consultas un avion por modelo maquina");
 		botones.add(mostrarPorModelo);
 
 		// -------------------------------------------
@@ -156,7 +162,8 @@ public class VistaAvion extends JFrame implements Observador {
 				ctrl.accion(new Contexto(Evento.VISTA_CONSULTAR_AVIONES_POR_HANGAR, null));
 			}
 		});
-
+		
+		mostrarPorHangar.setToolTipText("Aqui consultas un avion por hangar maquina");
 		botones.add(mostrarPorHangar);
 
 		// -------------------------------------------
@@ -169,7 +176,8 @@ public class VistaAvion extends JFrame implements Observador {
 				ctrl.accion(new Contexto(Evento.VISTA_CONSULTAR_AVIONES_POR_AEROLINEA, null));
 			}
 		});
-
+		
+		mostrarPorAerolinea.setToolTipText("Aqui consultas un avion por aerolinea maquina");
 		botones.add(mostrarPorAerolinea);
 
 		// -------------------------------------------
