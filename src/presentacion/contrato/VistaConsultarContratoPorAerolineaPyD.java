@@ -40,7 +40,7 @@ public class VistaConsultarContratoPorAerolineaPyD extends JFrame implements Obs
 		funcion.setLayout(new BoxLayout(funcion, BoxLayout.PAGE_AXIS));
 
 		JPanel panel_titulo = new JPanel();
-		JLabel titulo = new JLabel("Consultar Contrato por Aerolínea, precio y duración");
+		JLabel titulo = new JLabel("Consultar Contrato por Aerolï¿½nea, precio y duraciï¿½n");
 		titulo.setFont(new Font("Tahoma", Font.BOLD, 30));
 		titulo.setBorder(new LineBorder(Color.BLACK, 2));
 		titulo.setHorizontalAlignment(SwingConstants.CENTER);
@@ -81,9 +81,10 @@ public class VistaConsultarContratoPorAerolineaPyD extends JFrame implements Obs
 		panelTexto.setLayout(new BoxLayout(panelTexto, BoxLayout.PAGE_AXIS));
 		panelTexto.setAlignmentX(CENTER_ALIGNMENT);
 
-		JLabel etiquetaA = new JLabel("id Aerolínea: ");
+		JLabel etiquetaA = new JLabel("id Aerolï¿½nea: ");
 		etiquetaA.setFont(new Font("Tahoma", Font.BOLD, 25));
 		JTextField textoA = new JTextField();
+		textoA.setToolTipText("Aqui va el id de la aerolinea a la que pertenezca el contrato (Entero mayor que 0)");
 		textoA.setMaximumSize(new Dimension(200, 30));
 		textoA.setMinimumSize(new Dimension(200, 30));
 		textoA.setPreferredSize(new Dimension(200, 30));
@@ -91,9 +92,10 @@ public class VistaConsultarContratoPorAerolineaPyD extends JFrame implements Obs
 		panelEtiquetas.add(etiquetaA);
 		panelTexto.add(textoA);
 		
-		JLabel etiquetaP = new JLabel("precio mínimo: ");
+		JLabel etiquetaP = new JLabel("precio mï¿½nimo: ");
 		etiquetaP.setFont(new Font("Tahoma", Font.BOLD, 25));
 		JTextField textoP = new JTextField();
+		textoP.setToolTipText("Precio minimo a partir del cual filtrar (Double)");
 		textoP.setMaximumSize(new Dimension(200, 30));
 		textoP.setMinimumSize(new Dimension(200, 30));
 		textoP.setPreferredSize(new Dimension(200, 30));
@@ -101,9 +103,10 @@ public class VistaConsultarContratoPorAerolineaPyD extends JFrame implements Obs
 		panelEtiquetas.add(etiquetaP);
 		panelTexto.add(textoP);
 		
-		JLabel etiquetaD = new JLabel("duración mínima: ");
+		JLabel etiquetaD = new JLabel("duraciï¿½n mï¿½nima: ");
 		etiquetaD.setFont(new Font("Tahoma", Font.BOLD, 25));
 		JTextField textoD = new JTextField();
+		textoD.setToolTipText("Duracion minima a partir de la cual filtrar");
 		textoD.setMaximumSize(new Dimension(200, 30));
 		textoD.setMinimumSize(new Dimension(200, 30));
 		textoD.setPreferredSize(new Dimension(200, 30));

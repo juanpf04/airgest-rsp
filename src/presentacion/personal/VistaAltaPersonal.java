@@ -68,7 +68,7 @@ public class VistaAltaPersonal extends JFrame implements Observador {
 
 			// -------------------------------------------
 			JButton seguridad = new JButton("PERSONAL DE SEGURIDAD");
-
+			seguridad.setToolTipText("Aqui das de alta un personal de seguridad maquina");
 			seguridad.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -82,7 +82,7 @@ public class VistaAltaPersonal extends JFrame implements Observador {
 
 			// -------------------------------------------
 			JButton limpieza = new JButton("PERSONAL DE LIMPIEZA");
-
+			limpieza.setToolTipText("Aqui das de alta un personal de limpieza maquina");
 			limpieza.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -112,13 +112,13 @@ public class VistaAltaPersonal extends JFrame implements Observador {
 			textoIdEmpleado.setMinimumSize(new Dimension(200, 30));
 			textoIdEmpleado.setPreferredSize(new Dimension(200, 30));
 			textoIdEmpleado.setFont(new Font("Tahoma", Font.BOLD, 18));
-			textoIdEmpleado.setToolTipText("8 dígitos y una letra mayúscula");
+			textoIdEmpleado.setToolTipText("8 dï¿½gitos y una letra mayï¿½scula");
 			panelEtiquetas.add(etiquetaIdEmpleado);
 			panelTexto.add(textoIdEmpleado);
 			centro.add(panelEtiquetas);
 			centro.add(panelTexto);
 
-			JLabel etiquetaAreaAsignada = new JLabel("Área asignada:    ");
+			JLabel etiquetaAreaAsignada = new JLabel("ï¿½rea asignada:    ");
 			etiquetaAreaAsignada.setFont(new Font("Tahoma", Font.BOLD, 25));
 			JTextField textoAreaAsignada = new JTextField();
 			textoAreaAsignada.setMaximumSize(new Dimension(200, 30));
@@ -138,7 +138,7 @@ public class VistaAltaPersonal extends JFrame implements Observador {
 			textoRol.setFont(new Font("Tahoma", Font.BOLD, 18));
 			textoRol.setToolTipText("string del rol");
 
-			JLabel etiquetaNumPlaca = new JLabel("Número de placa:    ");
+			JLabel etiquetaNumPlaca = new JLabel("Nï¿½mero de placa:    ");
 			etiquetaNumPlaca.setFont(new Font("Tahoma", Font.BOLD, 25));
 			JTextField textoNumPlaca = new JTextField();
 			textoNumPlaca.setMaximumSize(new Dimension(200, 30));

@@ -58,6 +58,7 @@ public class VistaContrato extends JFrame implements Observador {
 		Controlador ctrl = Controlador.getInstance();
 
 		JButton abrir = new JButton("ABRIR CONTRATO");
+		abrir.setToolTipText("Aqui creas un contrato nuevo genio");
 		abrir.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -69,6 +70,7 @@ public class VistaContrato extends JFrame implements Observador {
 
 		//-------------------------------------------
 		JButton consultar = new JButton("CONSULTAR CONTRATO POR ID");
+		consultar.setToolTipText("Aqui puedes ver un contrato por su id makina");
 		consultar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -80,7 +82,7 @@ public class VistaContrato extends JFrame implements Observador {
 
 		//-------------------------------------------
 		JButton consultarTodos = new JButton("CONSULTAR CONTRATOS");
-
+		consultarTodos.setToolTipText("Aqui puedes ver todos los contratos");
 		consultarTodos.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -91,8 +93,8 @@ public class VistaContrato extends JFrame implements Observador {
 		botones.add(consultarTodos);
 
 		//-------------------------------------------
-		JButton consultarContratoPyD = new JButton("CONSULTAR CONTRATOS POR AEROLÍNEA, PRECIO Y DURACIÓN");
-
+		JButton consultarContratoPyD = new JButton("CONSULTAR CONTRATOS POR AEROLï¿½NEA, PRECIO Y DURACIï¿½N");
+		consultarContratoPyD.setToolTipText("Aqui puedes ver un contrato filtrando por su aerolinea y a partir de un precio y su duracion maquina");
 		consultarContratoPyD.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -104,7 +106,7 @@ public class VistaContrato extends JFrame implements Observador {
 
 		//-------------------------------------------
 		JButton modificarContrato = new JButton("MODIFICAR CONTRATO");
-
+		modificarContrato.setToolTipText("Aqui puedes modificar un contrato dado su id maquina");
 		modificarContrato.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -117,7 +119,7 @@ public class VistaContrato extends JFrame implements Observador {
 
 		//-------------------------------------------
 		JButton modificarLinea = new JButton("MODIFICAR LINEA CONTRATO");
-
+		modificarLinea.setToolTipText("Aqui puedes modificar los detalles de un contrato con un hangar");
 		modificarLinea.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -130,7 +132,7 @@ public class VistaContrato extends JFrame implements Observador {
 
 		//-------------------------------------------
 		JButton consultarPorAerolinea = new JButton("CONSULTAR CONTRATOS POR AEROLINEA");
-
+		consultarPorAerolinea.setToolTipText("Aqui puedes consultar los contratos de una aerolinea maquina");
 		consultarPorAerolinea.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

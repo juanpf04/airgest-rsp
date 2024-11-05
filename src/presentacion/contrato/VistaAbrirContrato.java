@@ -53,9 +53,10 @@ public class VistaAbrirContrato extends JFrame implements Observador {
 
 		JPanel id = new JPanel();
 		id.setLayout(new BoxLayout(id, BoxLayout.LINE_AXIS));
-		JLabel etiquetaId = new JLabel("id aerolínea: ");
+		JLabel etiquetaId = new JLabel("id aerolï¿½nea: ");
 		etiquetaId.setFont(new Font("Tahoma", Font.BOLD, 25));
 		JTextField textoId = new JTextField();
+		textoId.setToolTipText("Aqui va el id de la aerolinea a la que pertenezca el contrato (Entero mayor que 0)");
 		textoId.setMaximumSize(new Dimension(200, 30));
 		textoId.setMinimumSize(new Dimension(200, 30));
 		textoId.setPreferredSize(new Dimension(200, 30));
