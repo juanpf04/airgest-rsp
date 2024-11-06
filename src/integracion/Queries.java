@@ -35,8 +35,7 @@ public class Queries {
 	public static String consultarAvionesActivosPorAerolinea = "SELECT * FROM avion av WHERE av.Id_Aerolinea = ? AND av.Activo = true FOR UPDATE";
 	public static String consultarAvionesPorHangar = "SELECT * FROM avion av WHERE av.Id_Hangar = ? FOR UPDATE";
 	public static String consultarAvionesActivosPorHangar = "SELECT * FROM avion av WHERE av.Id_Hangar = ? AND av.Activo = true FOR UPDATE";
-	public static String consultarAvionesDeAerolineaPorHangar = "SELECT a.id, a.nombre, a.num_asientos, a.matricula, a.fecha_fabricacion, a.id_hangar, a.id_modelo, a.id_aerolinea, a.activo FROM Avion a JOIN Hangar ON a.id_hangar = Hangar.id JOIN Aerolinea ON a.id_aerolinea = Aerolinea.id WHERE a.id_aerolinea = ? AND a.id_hangar = ? FOR UPDATE;";
-	
+	public static String consultarAvionesDeAerolineaPorHangar = "SELECT * FROM Avion WHERE id_aerolinea = ? AND id_hangar = ? FOR UPDATE";
 	
 	//CONTRATO
 	public static String altaContrato = "INSERT INTO contrato (Precio , Id_Aerolinea) VALUES(?,?)";
