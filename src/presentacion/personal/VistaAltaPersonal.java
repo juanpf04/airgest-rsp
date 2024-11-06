@@ -112,13 +112,13 @@ public class VistaAltaPersonal extends JFrame implements Observador {
 			textoIdEmpleado.setMinimumSize(new Dimension(200, 30));
 			textoIdEmpleado.setPreferredSize(new Dimension(200, 30));
 			textoIdEmpleado.setFont(new Font("Tahoma", Font.BOLD, 18));
-			textoIdEmpleado.setToolTipText("8 d�gitos y una letra may�scula");
+			textoIdEmpleado.setToolTipText("8 digitos y una letra mayuscula");
 			panelEtiquetas.add(etiquetaIdEmpleado);
 			panelTexto.add(textoIdEmpleado);
 			centro.add(panelEtiquetas);
 			centro.add(panelTexto);
 
-			JLabel etiquetaAreaAsignada = new JLabel("�rea asignada:    ");
+			JLabel etiquetaAreaAsignada = new JLabel("Area asignada:    ");
 			etiquetaAreaAsignada.setFont(new Font("Tahoma", Font.BOLD, 25));
 			JTextField textoAreaAsignada = new JTextField();
 			textoAreaAsignada.setMaximumSize(new Dimension(200, 30));
@@ -138,7 +138,7 @@ public class VistaAltaPersonal extends JFrame implements Observador {
 			textoRol.setFont(new Font("Tahoma", Font.BOLD, 18));
 			textoRol.setToolTipText("string del rol");
 
-			JLabel etiquetaNumPlaca = new JLabel("N�mero de placa:    ");
+			JLabel etiquetaNumPlaca = new JLabel("Numero de placa:    ");
 			etiquetaNumPlaca.setFont(new Font("Tahoma", Font.BOLD, 25));
 			JTextField textoNumPlaca = new JTextField();
 			textoNumPlaca.setMaximumSize(new Dimension(200, 30));

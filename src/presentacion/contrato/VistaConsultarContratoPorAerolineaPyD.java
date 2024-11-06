@@ -40,7 +40,7 @@ public class VistaConsultarContratoPorAerolineaPyD extends JFrame implements Obs
 		funcion.setLayout(new BoxLayout(funcion, BoxLayout.PAGE_AXIS));
 
 		JPanel panel_titulo = new JPanel();
-		JLabel titulo = new JLabel("Consultar Contrato por Aerol�nea, precio y duraci�n");
+		JLabel titulo = new JLabel("Consultar Contrato por Aerolinea, precio y duracion");
 		titulo.setFont(new Font("Tahoma", Font.BOLD, 30));
 		titulo.setBorder(new LineBorder(Color.BLACK, 2));
 		titulo.setHorizontalAlignment(SwingConstants.CENTER);
@@ -81,7 +81,7 @@ public class VistaConsultarContratoPorAerolineaPyD extends JFrame implements Obs
 		panelTexto.setLayout(new BoxLayout(panelTexto, BoxLayout.PAGE_AXIS));
 		panelTexto.setAlignmentX(CENTER_ALIGNMENT);
 
-		JLabel etiquetaA = new JLabel("id Aerol�nea: ");
+		JLabel etiquetaA = new JLabel("id Aerolinea: ");
 		etiquetaA.setFont(new Font("Tahoma", Font.BOLD, 25));
 		JTextField textoA = new JTextField();
 		textoA.setToolTipText("Aqui va el id de la aerolinea a la que pertenezca el contrato (Entero mayor que 0)");
@@ -92,7 +92,7 @@ public class VistaConsultarContratoPorAerolineaPyD extends JFrame implements Obs
 		panelEtiquetas.add(etiquetaA);
 		panelTexto.add(textoA);
 		
-		JLabel etiquetaP = new JLabel("precio m�nimo: ");
+		JLabel etiquetaP = new JLabel("precio minimo: ");
 		etiquetaP.setFont(new Font("Tahoma", Font.BOLD, 25));
 		JTextField textoP = new JTextField();
 		textoP.setToolTipText("Precio minimo a partir del cual filtrar (Double)");
@@ -103,7 +103,7 @@ public class VistaConsultarContratoPorAerolineaPyD extends JFrame implements Obs
 		panelEtiquetas.add(etiquetaP);
 		panelTexto.add(textoP);
 		
-		JLabel etiquetaD = new JLabel("duraci�n m�nima: ");
+		JLabel etiquetaD = new JLabel("duracion minima: ");
 		etiquetaD.setFont(new Font("Tahoma", Font.BOLD, 25));
 		JTextField textoD = new JTextField();
 		textoD.setToolTipText("Duracion minima a partir de la cual filtrar");
@@ -143,7 +143,7 @@ public class VistaConsultarContratoPorAerolineaPyD extends JFrame implements Obs
 					parameters.add(0);
 					parameters.add(0);
 					
-					ctrl.accion(new Contexto(Evento.CONSULTAR_CONTRATOS_POR_AEROLINEA_PRECIO_Y_DURACION, 0));
+					ctrl.accion(new Contexto(Evento.CONSULTAR_CONTRATOS_POR_AEROLINEA_PRECIO_Y_DURACION, parameters));
 					dispose();
 				}
 			}
