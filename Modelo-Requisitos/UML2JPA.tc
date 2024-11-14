@@ -18,7 +18,7 @@
 <Property id="com.ibm.xtools.transform.uml2.java5.internal.GenerateFlatPackages" value="@45,=@com.ibm.xtools.transform.core.metatype.stringfalse"/>
 <Property id="com.ibm.xtools.transform.uml2.java5.internal.OrderedSet" value="@45,=@com.ibm.xtools.transform.core.metatype.stringjava.util.SortedSet"/>
 <Property id="com.ibm.xtools.transform.uml2.java5.internal.Sequence" value="@45,=@com.ibm.xtools.transform.core.metatype.stringjava.util.List"/>
-<Property id="com.ibm.xtools.transform.uml2.java5.internal.Set" value="@45,=@com.ibm.xtools.transform.core.metatype.stringjava.util.Set"/>
+<Property id="com.ibm.xtools.transform.uml2.java5.internal.Set" value="@45,=@com.ibm.xtools.transform.core.metatype.stringjava.util.List"/>
 <Property id="com.ibm.xtools.transform.uml2.java5.internal.UseJava5" value="@45,=@com.ibm.xtools.transform.core.metatype.stringtrue"/>
 <Property id="com.ibm.xtools.transform.uml2.java5.internal.UseLimitedWrite" value="@45,=@com.ibm.xtools.transform.core.metatype.stringfalse"/>
 <Property id="com.ibm.xtools.transform.uml2.java5.internal.shouldGenerateDependencies" value="@45,=@com.ibm.xtools.transform.core.metatype.stringtrue"/>
