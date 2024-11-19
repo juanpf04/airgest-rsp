@@ -145,7 +145,8 @@ public class VistaAnyadirHangar extends JFrame implements Observador {
 					seleccion = (Date) spinnerFin.getValue();
 					zonedDateTime = seleccion.toInstant().atZone(ZoneId.systemDefault());
 					LocalDate fecha_fin = zonedDateTime.toLocalDate();
-					TLineaContrato linea = new TLineaContrato(0, id_hangar, fecha_ini.format(d), fecha_fin.format(d), 0);
+					TLineaContrato linea = new TLineaContrato(0, id_hangar, fecha_ini.format(d), fecha_fin.format(d),
+							0);
 					carrito.anyadirLinea(linea);
 					controlador.accion(new Contexto(Evento.VISTA_CARRITO, carrito));
 					dispose();

@@ -18,7 +18,6 @@ import presentacion.UtilidadesP;
 
 public class VistaResultadoConsultarPersonalPorHangar extends JFrame implements Observador {
 
-	
 	private static final long serialVersionUID = 1L;
 
 	@Override
@@ -61,7 +60,7 @@ public class VistaResultadoConsultarPersonalPorHangar extends JFrame implements 
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		this.setVisible(true);
 		this.setLocation(200, 200);
-		
+
 	}
 
 }

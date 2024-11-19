@@ -22,7 +22,7 @@ import presentacion.controlador.Contexto;
 import presentacion.controlador.Controlador;
 import presentacion.controlador.Evento;
 
-public class VistaConsultarAvionesDeAerolineaPorHangar extends JFrame implements Observador{
+public class VistaConsultarAvionesDeAerolineaPorHangar extends JFrame implements Observador {
 
 	private static final long serialVersionUID = 1L;
 
@@ -52,8 +52,8 @@ public class VistaConsultarAvionesDeAerolineaPorHangar extends JFrame implements
 		JPanel centro = new JPanel();
 		centro.setLayout(new BoxLayout(centro, BoxLayout.LINE_AXIS));
 		centro.setAlignmentX(CENTER_ALIGNMENT);
-		principal.add(centro);	
-		
+		principal.add(centro);
+
 		JPanel panelBotones = new JPanel();
 		principal.add(panelBotones);
 		panelBotones.setAlignmentX(CENTER_ALIGNMENT);
@@ -71,8 +71,7 @@ public class VistaConsultarAvionesDeAerolineaPorHangar extends JFrame implements
 
 		});
 		panelBotones.add(atras);
-		
-		
+
 		JPanel panelEtiquetas = new JPanel();
 		panelEtiquetas.setLayout(new BoxLayout(panelEtiquetas, BoxLayout.PAGE_AXIS));
 		panelEtiquetas.setAlignmentX(CENTER_ALIGNMENT);
@@ -90,7 +89,7 @@ public class VistaConsultarAvionesDeAerolineaPorHangar extends JFrame implements
 		textoA.setFont(new Font("Tahoma", Font.BOLD, 18));
 		panelEtiquetas.add(etiquetaA);
 		panelTexto.add(textoA);
-		
+
 		JLabel etiquetaH = new JLabel("id Hangar: ");
 		etiquetaH.setFont(new Font("Tahoma", Font.BOLD, 25));
 		JTextField textoH = new JTextField();
@@ -102,24 +101,22 @@ public class VistaConsultarAvionesDeAerolineaPorHangar extends JFrame implements
 		panelTexto.add(textoH);
 		centro.add(panelEtiquetas);
 		centro.add(panelTexto);
-		
+
 		JButton aceptar = new JButton("ACEPTAR");
 		aceptar.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				try 
-				{
+				try {
 					int idAer = Integer.valueOf(textoA.getText());
 					int idHan = Integer.valueOf(textoH.getText());
 					ArrayList<Integer> idList = new ArrayList<>();
 					idList.add(idAer);
 					idList.add(idHan);
-					
+
 					ctrl.accion(new Contexto(Evento.CONSULTAR_AVIONES_DE_AEROLINEA_POR_HANGAR, idList));
 
-				} catch (Exception ex) 
-				{
+				} catch (Exception ex) {
 					ArrayList<Integer> idList = new ArrayList<>();
 					idList.add(0);
 					idList.add(0);
@@ -127,9 +124,9 @@ public class VistaConsultarAvionesDeAerolineaPorHangar extends JFrame implements
 				}
 			}
 		});
-		
+
 		panelBotones.add(aceptar);
-		
+
 		this.setContentPane(principal);
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		this.setVisible(true);

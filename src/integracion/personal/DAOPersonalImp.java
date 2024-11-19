@@ -195,6 +195,36 @@ public class DAOPersonalImp implements DAOPersonal {
 		}
 	}
 
+	/** 
+	* <!-- begin-UML-doc -->
+	* <!-- end-UML-doc -->
+	* @param tp
+	* @param id
+	* @return
+	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
+	*/
+	private TPLimpieza consultarLimpiezaPorId(TPersonal tp, int id) {
+		// begin-user-code
+		// TODO Auto-generated method stub
+		return null;
+		// end-user-code
+	}
+
+	/** 
+	* <!-- begin-UML-doc -->
+	* <!-- end-UML-doc -->
+	* @param tp
+	* @param id
+	* @return
+	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
+	*/
+	private TPSeguridad consultarSeguridadPorId(TPersonal tp, int id) {
+		// begin-user-code
+		// TODO Auto-generated method stub
+		return null;
+		// end-user-code
+	}
+
 	@Override
 	public TPersonal consultarPersonalPorDni(String dni) {
 		TPersonal ret = null;
@@ -247,6 +277,18 @@ public class DAOPersonalImp implements DAOPersonal {
 		} catch (Exception e) {
 			return new ArrayList<TPersonal>();
 		}
+	}
+
+	/** 
+	* (non-Javadoc)
+	* @see DAOPersonal#consultarPersonalPorDni(int idEmpleado)
+	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
+	*/
+	public String consultarPersonalPorDni(int idEmpleado) {
+		// begin-user-code
+		// TODO Auto-generated method stub
+		return null;
+		// end-user-code
 	}
 
 	@Override

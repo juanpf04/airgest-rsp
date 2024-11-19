@@ -24,6 +24,29 @@ public class TAPrivado extends TAvion {
 		this.idCarnet = idCarnet;
 	}
 
+	/** 
+	* <!-- begin-UML-doc -->
+	* <!-- end-UML-doc -->
+	* @param id
+	* @param idModelo
+	* @param nombreDuenyo
+	* @param idCarnet
+	* @param idHangar
+	* @param idAerolinea
+	* @param matricula
+	* @param activo
+	* @param fechaFabricacion
+	* @param nombre
+	* @param numAsientos
+	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
+	*/
+	public TAPrivado(int id, int idModelo, String nombreDuenyo, int idCarnet, int idHangar, int idAerolinea,
+			String matricula, boolean activo, String fechaFabricacion, String nombre, int numAsientos) {
+		// begin-user-code
+		// TODO Auto-generated constructor stub
+		// end-user-code
+	}
+
 	public void setNombreDuenyo(String nombre_duenyo) {
 		this.nombreDuenyo = nombre_duenyo;
 	}

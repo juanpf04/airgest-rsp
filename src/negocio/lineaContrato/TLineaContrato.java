@@ -1,7 +1,6 @@
 
 package negocio.lineaContrato;
 
-
 public class TLineaContrato {
 
 	private int id_contrato;

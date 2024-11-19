@@ -53,7 +53,6 @@ public class VistaModificarModelo extends JFrame implements Observador {
 		JPanel panel_textfield = new JPanel();
 		panel_textfield.setLayout(new BoxLayout(panel_textfield, BoxLayout.PAGE_AXIS));
 
-
 		JLabel etiquetaNombre = new JLabel("nombre:");
 		etiquetaNombre.setFont(new Font("Tahoma", Font.BOLD, 25));
 		JTextField textoNombre = new JTextField(tm.getNombre());
@@ -64,7 +63,6 @@ public class VistaModificarModelo extends JFrame implements Observador {
 
 		panel_etiquetas.add(etiquetaNombre);
 		panel_textfield.add(textoNombre);
-
 
 		JLabel etiquetaMotor = new JLabel("motor:");
 		etiquetaMotor.setFont(new Font("Tahoma", Font.BOLD, 25));

@@ -21,8 +21,7 @@ import presentacion.controlador.Contexto;
 import presentacion.controlador.Controlador;
 import presentacion.controlador.Evento;
 
-public class VistaConsultarPersonalPorHangar extends JFrame implements Observador{
-
+public class VistaConsultarPersonalPorHangar extends JFrame implements Observador {
 
 	private static final long serialVersionUID = 1L;
 
@@ -52,8 +51,8 @@ public class VistaConsultarPersonalPorHangar extends JFrame implements Observado
 		JPanel centro = new JPanel();
 		centro.setLayout(new BoxLayout(centro, BoxLayout.LINE_AXIS));
 		centro.setAlignmentX(CENTER_ALIGNMENT);
-		principal.add(centro);	
-		
+		principal.add(centro);
+
 		JPanel panelBotones = new JPanel();
 		principal.add(panelBotones);
 		panelBotones.setAlignmentX(CENTER_ALIGNMENT);
@@ -71,8 +70,7 @@ public class VistaConsultarPersonalPorHangar extends JFrame implements Observado
 
 		});
 		panelBotones.add(atras);
-		
-		
+
 		JPanel panelEtiquetas = new JPanel();
 		panelEtiquetas.setLayout(new BoxLayout(panelEtiquetas, BoxLayout.PAGE_AXIS));
 		panelEtiquetas.setAlignmentX(CENTER_ALIGNMENT);
@@ -90,38 +88,35 @@ public class VistaConsultarPersonalPorHangar extends JFrame implements Observado
 		textoA.setFont(new Font("Tahoma", Font.BOLD, 18));
 		panelEtiquetas.add(etiquetaA);
 		panelTexto.add(textoA);
-		
+
 		centro.add(panelEtiquetas);
 		centro.add(panelTexto);
-		
-		
+
 		JButton aceptar = new JButton("ACEPTAR");
 		aceptar.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				try 
-				{
+				try {
 					int idHang = Integer.valueOf(textoA.getText());
-					
+
 					ctrl.accion(new Contexto(Evento.CONSULTAR_PERSONAL_POR_HANGAR, idHang));
 
-				} catch (Exception ex) 
-				{
+				} catch (Exception ex) {
 					ctrl.accion(new Contexto(Evento.CONSULTAR_PERSONAL_POR_HANGAR, 0));
 				}
 			}
 		});
-		
+
 		panelBotones.add(aceptar);
-		
+
 		this.setContentPane(principal);
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		this.setVisible(true);
 		this.setLocation(200, 200);
 		this.setResizable(false);
 		this.pack();
-		
+
 	}
 
 }

@@ -62,7 +62,7 @@ public class VistaModificarContrato extends JFrame implements Observador {
 
 		JLabel etiquetaAerolinea = new JLabel("id aerolinea: ");
 		etiquetaAerolinea.setFont(new Font("Tahoma", Font.BOLD, 23));
-		JTextField textoAerolinea = new JTextField(""+contrato.getIdAerolinea());
+		JTextField textoAerolinea = new JTextField("" + contrato.getIdAerolinea());
 		textoAerolinea.setMaximumSize(new Dimension(200, 30));
 		textoAerolinea.setMinimumSize(new Dimension(200, 30));
 		textoAerolinea.setPreferredSize(new Dimension(200, 30));
@@ -77,7 +77,7 @@ public class VistaModificarContrato extends JFrame implements Observador {
 		precio.setLayout(new BoxLayout(precio, BoxLayout.LINE_AXIS));
 		JLabel etiquetaPrecio = new JLabel("precio: ");
 		etiquetaPrecio.setFont(new Font("Tahoma", Font.BOLD, 23));
-		JTextField textoPrecio = new JTextField(""+contrato.getPrecio());
+		JTextField textoPrecio = new JTextField("" + contrato.getPrecio());
 		textoPrecio.setMaximumSize(new Dimension(200, 30));
 		textoPrecio.setMinimumSize(new Dimension(200, 30));
 		textoPrecio.setPreferredSize(new Dimension(200, 30));

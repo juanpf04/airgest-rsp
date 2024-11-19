@@ -4,7 +4,7 @@ public class ValidadorModelo {
 
 	public static boolean comprobarModelo(TModelo tModelo) {
 		return comprobarNombre(tModelo.getNombre()) && comprobarMotor(tModelo.getMotor()) && tModelo.getId() != -1;
-		
+
 	}
 
 	public static boolean comprobarDatos(TModelo tModelo) {

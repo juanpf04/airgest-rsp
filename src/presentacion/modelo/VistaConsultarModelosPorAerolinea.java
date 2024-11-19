@@ -23,7 +23,6 @@ import presentacion.controlador.Evento;
 
 public class VistaConsultarModelosPorAerolinea extends JFrame implements Observador {
 
-	
 	private static final long serialVersionUID = 1L;
 
 	@Override
@@ -52,8 +51,8 @@ public class VistaConsultarModelosPorAerolinea extends JFrame implements Observa
 		JPanel centro = new JPanel();
 		centro.setLayout(new BoxLayout(centro, BoxLayout.LINE_AXIS));
 		centro.setAlignmentX(CENTER_ALIGNMENT);
-		principal.add(centro);	
-		
+		principal.add(centro);
+
 		JPanel panelBotones = new JPanel();
 		principal.add(panelBotones);
 		panelBotones.setAlignmentX(CENTER_ALIGNMENT);
@@ -71,8 +70,7 @@ public class VistaConsultarModelosPorAerolinea extends JFrame implements Observa
 
 		});
 		panelBotones.add(atras);
-		
-		
+
 		JPanel panelEtiquetas = new JPanel();
 		panelEtiquetas.setLayout(new BoxLayout(panelEtiquetas, BoxLayout.PAGE_AXIS));
 		panelEtiquetas.setAlignmentX(CENTER_ALIGNMENT);
@@ -90,31 +88,28 @@ public class VistaConsultarModelosPorAerolinea extends JFrame implements Observa
 		textoA.setFont(new Font("Tahoma", Font.BOLD, 18));
 		panelEtiquetas.add(etiquetaA);
 		panelTexto.add(textoA);
-		
+
 		centro.add(panelEtiquetas);
 		centro.add(panelTexto);
-		
-		
+
 		JButton aceptar = new JButton("ACEPTAR");
 		aceptar.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				try 
-				{
+				try {
 					int idAero = Integer.valueOf(textoA.getText());
-					
+
 					ctrl.accion(new Contexto(Evento.CONSULTAR_MODELOS_POR_AEROLINEA, idAero));
 
-				} catch (Exception ex) 
-				{
+				} catch (Exception ex) {
 					ctrl.accion(new Contexto(Evento.CONSULTAR_MODELOS_POR_AEROLINEA, 0));
 				}
 			}
 		});
-		
+
 		panelBotones.add(aceptar);
-		
+
 		this.setContentPane(principal);
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		this.setVisible(true);

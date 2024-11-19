@@ -7,7 +7,7 @@ public abstract class FactoriaVistas {
 
 	private static FactoriaVistas instancia;
 
-	public static FactoriaVistas getInstance() {
+	public synchronized static FactoriaVistas getInstance() {
 		if (instancia == null)
 			instancia = new FactoriaVistasImp();
 		return instancia;

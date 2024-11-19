@@ -54,7 +54,6 @@ public class TPersonal {
 
 	@Override
 	public String toString() {
-		return " id: " + id + "\n DNI: " + dni + "\n Área asignada: " + areaAsignada + "\n activo: "
-				+ activo + "\n";
+		return " id: " + id + "\n DNI: " + dni + "\n Área asignada: " + areaAsignada + "\n activo: " + activo + "\n";
 	}
 }

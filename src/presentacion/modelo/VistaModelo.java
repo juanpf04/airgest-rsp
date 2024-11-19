@@ -95,7 +95,7 @@ public class VistaModelo extends JFrame implements Observador {
 				ctrl.accion(new Contexto(Evento.VISTA_CONSULTAR_MODELO_POR_ID, null));
 			}
 		});
-		
+
 		consultarID.setToolTipText("Aqui consultas un modelo por id maquina");
 		botones.add(consultarID);
 
@@ -113,7 +113,7 @@ public class VistaModelo extends JFrame implements Observador {
 		botones.add(consultarTodos);
 
 		// -------------------------------------------
-		
+
 		JButton consultarModPorAerolinea = new JButton("CONSULTAR MODELOS POR AEROLÍNEA");
 
 		consultarModPorAerolinea.addActionListener(new ActionListener() {
@@ -137,7 +137,7 @@ public class VistaModelo extends JFrame implements Observador {
 				ctrl.accion(new Contexto(Evento.VISTA_MODIFICAR_MODELO_ID, null));
 			}
 		});
-		
+
 		modificar.setToolTipText("Aqui modificas un modelo maquina");
 		botones.add(modificar);
 

@@ -7,16 +7,16 @@ import java.sql.SQLException;
 import integracion.conexion.FactoriaConexion;
 
 public class TransactionMySQL implements Transaction {
-	
+
 	Connection connection;
-	
+
 	public void start() {
-		
+
 		try {
 			connection = FactoriaConexion.getInstance().getConnection();
 			connection.setAutoCommit(false);
 		} catch (SQLException e) {
-			
+
 			throw new RuntimeException("No se ha podido iniciar conexión");
 		}
 	}
@@ -42,8 +42,8 @@ public class TransactionMySQL implements Transaction {
 	}
 
 	public Object getResource() {
-		
+
 		return connection;
-		
+
 	}
 }

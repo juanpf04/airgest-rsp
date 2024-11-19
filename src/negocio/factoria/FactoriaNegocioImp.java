@@ -7,14 +7,20 @@ import negocio.avion.SAAvion;
 import negocio.avion.SAAvionImp;
 import negocio.contrato.SAContrato;
 import negocio.contrato.SAContratoImp;
+import negocio.departamento.SADepartamento;
+import negocio.empleado.SAEmpleado;
 import negocio.hangar.SAHangar;
 import negocio.hangar.SAHangarImp;
+import negocio.marca.SAMarca;
 import negocio.modelo.SAModelo;
 import negocio.modelo.SAModeloImp;
 import negocio.personal.SAPersonal;
 import negocio.personal.SAPersonalImp;
+import negocio.producto.SAProducto;
+import negocio.proveedor.SAProveedor;
+import negocio.venta.SAVenta;
 
-public class FactoriaNegocioImp extends FactoriaNegocio {
+public abstract class FactoriaNegocioImp extends FactoriaNegocio {
 
 	public SAModelo crearSAModelo() {
 		return new SAModeloImp();
@@ -41,4 +47,16 @@ public class FactoriaNegocioImp extends FactoriaNegocio {
 	public SAContrato crearSAContrato() {
 		return new SAContratoImp();
 	}
+	
+	public abstract SAVenta crearSAVenta();
+
+	public abstract SAProveedor crearSAProveedor();
+
+	public abstract SAProducto crearSAProducto();
+
+	public abstract SAMarca crearSAMarca();
+
+	public abstract SADepartamento crearSADepartamento();
+
+	public abstract SAEmpleado crearSAEmpleado();
 }

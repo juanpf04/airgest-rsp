@@ -94,7 +94,8 @@ public class VistaContrato extends JFrame implements Observador {
 
 		//-------------------------------------------
 		JButton consultarContratoPyD = new JButton("CONSULTAR CONTRATOS POR AEROLINEA, PRECIO Y DURACION");
-		consultarContratoPyD.setToolTipText("Aqui puedes ver un contrato filtrando por su aerolinea y a partir de un precio y su duracion maquina");
+		consultarContratoPyD.setToolTipText(
+				"Aqui puedes ver un contrato filtrando por su aerolinea y a partir de un precio y su duracion maquina");
 		consultarContratoPyD.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

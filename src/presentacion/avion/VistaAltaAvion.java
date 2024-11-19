@@ -280,19 +280,19 @@ public class VistaAltaAvion extends JFrame implements Observador {
 																											// localDate
 						LocalDate fecha = zonedDateTime.toLocalDate();
 						// Formatear la fecha como dd-MM-yyyy
-				        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-				        String fechaFormateada = fecha.format(formatter);
+						DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+						String fechaFormateada = fecha.format(formatter);
 
 						TAvion transfer;
 						if (datos == "COMERCIAL") {
 							String empresa = textoTrabajadores.getText();
-							transfer = new TAComercial(0, numAsientos, fechaFormateada, nombre, matricula, true, idAerolinea,
-									idModelo, idHangar, empresa);
+							transfer = new TAComercial(0, numAsientos, fechaFormateada, nombre, matricula, true,
+									idAerolinea, idModelo, idHangar, empresa);
 						} else {
 							String nombre_duenyo = textoDuenyo.getText();
 							int idCarnet = Integer.valueOf(textoCarnet.getText());
-							transfer = new TAPrivado(0, numAsientos, fechaFormateada, nombre, matricula, true, idAerolinea,
-									idModelo, idHangar, nombre_duenyo, idCarnet);
+							transfer = new TAPrivado(0, numAsientos, fechaFormateada, nombre, matricula, true,
+									idAerolinea, idModelo, idHangar, nombre_duenyo, idCarnet);
 						}
 						ctrl.accion(new Contexto(Evento.ALTA_AVION, transfer));
 					} catch (Exception ex) {

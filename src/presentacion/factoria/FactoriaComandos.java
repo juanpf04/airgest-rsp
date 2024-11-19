@@ -7,7 +7,7 @@ public abstract class FactoriaComandos {
 
 	private static FactoriaComandos instancia;
 
-	public static FactoriaComandos getInstance() {
+	public synchronized static FactoriaComandos getInstance() {
 		if (instancia == null)
 			instancia = new FactoriaComandosImp();
 		return instancia;

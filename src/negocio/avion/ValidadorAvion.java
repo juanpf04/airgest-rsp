@@ -43,6 +43,6 @@ public class ValidadorAvion {
 
 	public static boolean comprobarMatricula(String matricula) {
 		// matriculas españolas: EC-(caracteres alfanumericos)
-		return matricula.matches("^EC-[A-Za-z0-9]+$"); 
+		return matricula.matches("^EC-[A-Za-z0-9]+$");
 	}
 }

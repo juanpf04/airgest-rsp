@@ -106,7 +106,7 @@ public class VistaPersonal extends JFrame implements Observador {
 		botones.add(consultarTodos);
 
 		// -------------------------------------------
-		
+
 		JButton consultarPorHangar = new JButton("CONSULTAR PERSONAL POR HANGAR");
 
 		consultarPorHangar.addActionListener(new ActionListener() {

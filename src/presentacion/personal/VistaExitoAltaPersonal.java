@@ -23,7 +23,7 @@ public class VistaExitoAltaPersonal extends JFrame implements Observador {
 		JPanel principal = new JPanel();
 		principal.setLayout(new BorderLayout());
 
-		JLabel exito = new JLabel("Alta de Personal exitosa! con id = " + (int)datos);
+		JLabel exito = new JLabel("Alta de Personal exitosa! con id = " + (int) datos);
 		exito.setFont(new Font("Tahoma", Font.PLAIN, 29));
 		exito.setHorizontalAlignment(SwingConstants.CENTER);
 		principal.add(exito, BorderLayout.PAGE_START);

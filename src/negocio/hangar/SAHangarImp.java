@@ -20,25 +20,27 @@ public class SAHangarImp implements SAHangar {
 		if (ValidadorHangar.comprobarDatos(tHangar)) {
 			Transaction t = TransactionManager.getInstance().nuevaTransaccion();
 			t.start();
-			
+
 			DAOHangar dh = FactoriaIntegracion.getInstance().crearDAOHangar();
-			
+
 			THangar leido = dh.consultarHangarPorDireccion(tHangar.getDireccion());
-			
-			if (leido == null){
+
+			if (leido == null) {
 				id = dh.altaHangar(tHangar);
-				if (id != -1) t.commit();
-				else t.rollback();
-			}
-			else if (!leido.getActivo()) {
+				if (id != -1)
+					t.commit();
+				else
+					t.rollback();
+			} else if (!leido.getActivo()) {
 				tHangar.setId(leido.getId());
 				boolean ok = dh.modificarHangar(tHangar);
-				if(ok){ 
+				if (ok) {
 					id = tHangar.getId();
 					t.commit();
-				}
-				else t.rollback();
-			}else t.rollback();
+				} else
+					t.rollback();
+			} else
+				t.rollback();
 		}
 
 		return id;
@@ -49,37 +51,39 @@ public class SAHangarImp implements SAHangar {
 		if (UtilidadesN.comprobarId(id)) {
 			Transaction t = TransactionManager.getInstance().nuevaTransaccion();
 			t.start();
-			
+
 			DAOHangar dh = FactoriaIntegracion.getInstance().crearDAOHangar();
 			THangar leido = dh.consultarHangarPorId(id);
-			
+
 			if (leido != null && leido.getActivo()) {
-					
+
 				DAOAvion da = FactoriaIntegracion.getInstance().crearDAOAvion();
 				List<TAvion> listaa = da.consultarAvionesActivosPorHangar(id);
 				DAOPersonal dp = FactoriaIntegracion.getInstance().crearDAOPersonal();
 				List<TPersonal> listap = dp.consultarPersonalPorHangar(id);
-				if(listaa.isEmpty() && listap.isEmpty())
+				if (listaa.isEmpty() && listap.isEmpty())
 					ok = dh.bajaHangar(id);
-				
+
 			}
-			
-			if(ok) t.commit();
-			else t.rollback();
+
+			if (ok)
+				t.commit();
+			else
+				t.rollback();
 		}
 		return ok;
 	}
 
 	public THangar consultarHangarPorId(int id) {
 		THangar th = null;
-		
+
 		if (UtilidadesN.comprobarId(id)) {
 			Transaction t = TransactionManager.getInstance().nuevaTransaccion();
 			t.start();
 			DAOHangar dh = FactoriaIntegracion.getInstance().crearDAOHangar();
-			
+
 			th = dh.consultarHangarPorId(id);
-			
+
 			t.commit();
 		}
 
@@ -89,11 +93,11 @@ public class SAHangarImp implements SAHangar {
 	public List<THangar> consultarTodosHangares() {
 		Transaction t = TransactionManager.getInstance().nuevaTransaccion();
 		t.start();
-		
+
 		DAOHangar dh = FactoriaIntegracion.getInstance().crearDAOHangar();
-		List<THangar> list= dh.consultarTodosHangares();
+		List<THangar> list = dh.consultarTodosHangares();
 		t.commit();
-		
+
 		return list;
 	}
 
@@ -102,48 +106,49 @@ public class SAHangarImp implements SAHangar {
 		if (UtilidadesN.comprobarId(tHangar.getId()) && ValidadorHangar.comprobarDatos(tHangar)) {
 			Transaction t = TransactionManager.getInstance().nuevaTransaccion();
 			t.start();
-			
+
 			DAOHangar dh = FactoriaIntegracion.getInstance().crearDAOHangar();
 
 			int id = tHangar.getId();
 			String direccion = tHangar.getDireccion();
 
- 			THangar leido = dh.consultarHangarPorId(id);
+			THangar leido = dh.consultarHangarPorId(id);
 
-			
 			if (leido != null) {
-				if (leido.getActivo()
-						&& (leido.getDireccion().equals(direccion) || dh.consultarHangarPorDireccion(direccion) == null)) {
+				if (leido.getActivo() && (leido.getDireccion().equals(direccion)
+						|| dh.consultarHangarPorDireccion(direccion) == null)) {
 					ok = dh.modificarHangar(tHangar);
 				}
 			}
-			
-			if(ok) t.commit();
-			else t.rollback();
+
+			if (ok)
+				t.commit();
+			else
+				t.rollback();
 		}
 		return ok;
 	}
 
 	@Override
 	public List<THangar> consultarHangaresPorPersonal(int id_personal) {
-		
-		List<THangar> lista =  new ArrayList<>();
-		
-		if (UtilidadesN.comprobarId(id_personal)){
+
+		List<THangar> lista = new ArrayList<>();
+
+		if (UtilidadesN.comprobarId(id_personal)) {
 			Transaction t = TransactionManager.getInstance().nuevaTransaccion();
 			t.start();
 			DAOHangar dh = FactoriaIntegracion.getInstance().crearDAOHangar();
-			
+
 			DAOPersonal dp = FactoriaIntegracion.getInstance().crearDAOPersonal();
-			
+
 			TPersonal leido = dp.consultarPersonalPorId(id_personal);
-			
-			if(leido != null && leido.getActivo())
+
+			if (leido != null && leido.getActivo())
 				lista = dh.consultarHangaresPorPersonal(id_personal);
-			
+
 			t.commit();
 		}
-		
+
 		return lista;
 	}
 }

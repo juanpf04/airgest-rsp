@@ -55,7 +55,7 @@ public class VistaAltaPersonal extends JFrame implements Observador {
 		centro.setLayout(new BoxLayout(centro, BoxLayout.LINE_AXIS));
 		centro.setAlignmentX(CENTER_ALIGNMENT);
 		principal.add(centro);
-		
+
 		JPanel panelAceptar = new JPanel();
 
 		JPanel panelBotones = new JPanel();

@@ -40,7 +40,7 @@ public class VistaModificarAvion extends JFrame implements Observador {
 	public void actualizar(Object datos) {
 		UtilidadesP.setAirGestRSP(this);
 		this.setSize(1000, 750);
-		
+
 		@SuppressWarnings("unchecked")
 		ArrayList<Object> listaInfo = (ArrayList<Object>) datos;
 		Controlador ctrl = Controlador.getInstance();
@@ -106,20 +106,17 @@ public class VistaModificarAvion extends JFrame implements Observador {
 
 			// -----------------------------------------------------
 		} else { // TODO
-			TAvion aux = (TAvion)listaInfo.get(0);
+			TAvion aux = (TAvion) listaInfo.get(0);
 			String empresaAux = "";
 			String duenyoAux = "";
 			String carnetAux = "";
-			if(aux instanceof TAComercial)
-			{
-				empresaAux = ((TAComercial)aux).getEmpresa();				
+			if (aux instanceof TAComercial) {
+				empresaAux = ((TAComercial) aux).getEmpresa();
+			} else {
+				duenyoAux = ((TAPrivado) aux).getNombreDuenyo();
+				carnetAux = "" + ((TAPrivado) aux).getIdCarnet();
 			}
-			else
-			{
-				duenyoAux = ((TAPrivado)aux).getNombreDuenyo();
-				carnetAux =  "" + ((TAPrivado)aux).getIdCarnet();
-			}
-				
+
 			JPanel panelEtiquetas = new JPanel();
 			panelEtiquetas.setLayout(new BoxLayout(panelEtiquetas, BoxLayout.PAGE_AXIS));
 
@@ -261,7 +258,7 @@ public class VistaModificarAvion extends JFrame implements Observador {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					try {
-						
+
 						int idLeido = aux.getId();
 						String nombre = textoNombre.getText();
 						String matricula = textoMatricula.getText();
@@ -277,8 +274,8 @@ public class VistaModificarAvion extends JFrame implements Observador {
 																											// localDate
 						LocalDate fecha = zonedDateTime.toLocalDate();
 						// Formatear la fecha como dd-MM-yyyy
-				        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-				        String fechaFormateada = fecha.format(formatter);
+						DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+						String fechaFormateada = fecha.format(formatter);
 
 						TAvion transfer;
 						if (listaInfo.get(1) == "COMERCIAL") {
@@ -288,8 +285,8 @@ public class VistaModificarAvion extends JFrame implements Observador {
 						} else {
 							String nombre_duenyo = textoDuenyo.getText();
 							int idCarnet = Integer.valueOf(textoCarnet.getText());
-							transfer = new TAPrivado(idLeido, numAsientos, fechaFormateada, nombre, matricula, true, idAerolinea,
-									idModelo, idHangar, nombre_duenyo, idCarnet);
+							transfer = new TAPrivado(idLeido, numAsientos, fechaFormateada, nombre, matricula, true,
+									idAerolinea, idModelo, idHangar, nombre_duenyo, idCarnet);
 						}
 						dispose();
 						ctrl.accion(new Contexto(Evento.MODIFICAR_AVION, transfer));
@@ -315,8 +312,7 @@ public class VistaModificarAvion extends JFrame implements Observador {
 				dispose();
 				if (listaInfo.get(1) == null)
 					ctrl.accion(new Contexto(Evento.VISTA_AVION, null));
-				else
-				{
+				else {
 					listaInfo.add(1, null);
 					ctrl.accion(new Contexto(Evento.VISTA_MODIFICAR_AVION, listaInfo));
 				}

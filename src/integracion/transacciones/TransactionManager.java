@@ -2,7 +2,7 @@
 package integracion.transacciones;
 
 public abstract class TransactionManager {
-	
+
 	private static TransactionManager transactionManager;
 
 	public abstract Transaction nuevaTransaccion();
@@ -12,11 +12,11 @@ public abstract class TransactionManager {
 	public abstract Transaction getTransaccion();
 
 	public synchronized static TransactionManager getInstance() {
-		
-		if (transactionManager == null){
+
+		if (transactionManager == null) {
 			transactionManager = new TransactionManagerImp();
 		}
 		return transactionManager;
-		
+
 	}
 }

@@ -9,7 +9,7 @@ public class FactoriaConexionImp extends FactoriaConexion {
 	private static final String DDBB = "jdbc:mysql://localhost:3306/" + DB;
 	private static final String USERNAME = "root";
 	private static final String PASSWORD = "root";
-	
+
 	public Connection getConnection() throws SQLException {
 		return DriverManager.getConnection(DDBB, USERNAME, PASSWORD);
 

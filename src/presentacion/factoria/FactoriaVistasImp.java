@@ -201,7 +201,7 @@ public class FactoriaVistasImp extends FactoriaVistas {
 		case VISTA_RESULTADO_CONSULTAR_MODELOS_POR_AEROLINEA:
 			vista = new VistaResultadoConsultarModelosPorAerolinea();
 			break;
-			
+
 		// AVI�N
 		case VISTA_AVION:
 			vista = new VistaAvion();
@@ -269,7 +269,7 @@ public class FactoriaVistasImp extends FactoriaVistas {
 		case VISTA_RESULTADO_CONSULTAR_AVIONES_DE_AEROLINEA_POR_HANGAR:
 			vista = new VistaResultadoConsultarAvionesDeAerolineaPorHangar();
 			break;
-		
+
 		// AEROL�NEA
 		case VISTA_AEROLINEA:
 			vista = new VistaAerolinea();
@@ -382,7 +382,7 @@ public class FactoriaVistasImp extends FactoriaVistas {
 			vista = new VistaConsultarContratoPorAerolineaPyD();
 			break;
 		case VISTA_RESULTADO_CONSULTAR_CONTRATOS_POR_AEROLINEA_PRECIO_Y_DURACION:
-			vista = new VistaResultadoConsultarConstratosPorAerolineaPyD(); 
+			vista = new VistaResultadoConsultarConstratosPorAerolineaPyD();
 			break;
 
 		// HANGAR

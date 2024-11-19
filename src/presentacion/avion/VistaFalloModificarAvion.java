@@ -35,7 +35,7 @@ public class VistaFalloModificarAvion extends JFrame implements Observador {
 		JLabel imagen = new JLabel();
 		imagen.setIcon(new ImageIcon("recursos/iconos/fallo.png"));
 		principal.add(imagen, BorderLayout.CENTER);
-		
+
 		Controlador controlador = Controlador.getInstance();
 		controlador.accion(new Contexto(Evento.VISTA_AVION));
 

@@ -109,7 +109,7 @@ public class VistaHangar extends JFrame implements Observador {
 		botones.add(consultarTodos);
 
 		// -------------------------------------------
-		
+
 		JButton consultarHangarPersonal = new JButton("CONSULTAR HANGARES POR PERSONAL");
 
 		consultarHangarPersonal.addActionListener(new ActionListener() {

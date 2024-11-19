@@ -119,7 +119,6 @@ public class VistaAltaHangar extends JFrame implements Observador {
 
 		Controlador controlador = Controlador.getInstance();
 
-		
 		JPanel botones = new JPanel();
 		JButton aceptar = new JButton("ACEPTAR");
 		aceptar.addActionListener(new ActionListener() {

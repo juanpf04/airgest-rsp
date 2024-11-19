@@ -17,13 +17,13 @@ public class DAOPersonalHangarImp implements DAOPersonalHangar {
 			PreparedStatement ps = con.prepareStatement(Queries.vincularPersonalHangar);
 			ps.setInt(1, idPersonal);
 			ps.setInt(2, idHangar);
-			
+
 			int filas = ps.executeUpdate();
 			boolean vinculado = filas == 1 ? true : false;
-			
+
 			ps.close();
 
-			return vinculado;	
+			return vinculado;
 		} catch (SQLException e) {
 			return false;
 		}
@@ -36,13 +36,13 @@ public class DAOPersonalHangarImp implements DAOPersonalHangar {
 			PreparedStatement ps = con.prepareStatement(Queries.desvincularPersonalHangar);
 			ps.setInt(1, idPersonal);
 			ps.setInt(2, idHangar);
-			
+
 			int filas = ps.executeUpdate();
 			boolean desvinculado = filas == 1 ? true : false;
-			
+
 			ps.close();
 
-			return desvinculado;	
+			return desvinculado;
 		} catch (SQLException e) {
 			return false;
 		}
@@ -55,16 +55,16 @@ public class DAOPersonalHangarImp implements DAOPersonalHangar {
 			PreparedStatement ps = con.prepareStatement(Queries.comprobarvinculacionPersonalHangar);
 			ps.setInt(1, idPersonal);
 			ps.setInt(2, idHangar);
-			
+
 			ResultSet rs = ps.executeQuery();
 			boolean vinculado = false;
-			if(rs.next()){
+			if (rs.next()) {
 				vinculado = rs.getInt("NUM") == 1;
 			}
-			
+
 			ps.close();
 
-			return vinculado;	
+			return vinculado;
 		} catch (SQLException e) {
 			return false;
 		}

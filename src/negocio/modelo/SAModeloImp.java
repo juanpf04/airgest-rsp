@@ -18,34 +18,34 @@ import negocio.modeloAerolinea.ValidadorModeloAerolinea;
 public class SAModeloImp implements SAModelo {
 
 	public int altaModelo(TModelo tModelo) {
-		
+
 		int id = -1;
 		if (ValidadorModelo.comprobarDatos(tModelo)) {
 			Transaction t = TransactionManager.getInstance().nuevaTransaccion();
 			t.start();
-			
+
 			DAOModelo dm = FactoriaIntegracion.getInstance().crearDAOModelo();
 			TModelo leido = dm.consultarModeloPorNombre(tModelo.getNombre());
 
-			if (leido == null){
+			if (leido == null) {
 				id = dm.altaModelo(tModelo);
-				if(id != -1){
+				if (id != -1) {
 					t.commit();
-				}else t.rollback();
-			}
-			else if (!leido.getActivo()) {
+				} else
+					t.rollback();
+			} else if (!leido.getActivo()) {
 				tModelo.setId(leido.getId());
-				if (dm.modificarModelo(tModelo)){
+				if (dm.modificarModelo(tModelo)) {
 					t.commit();
-				} else{
+				} else {
 					t.rollback();
 				}
 				id = tModelo.getId();
-			} else{
+			} else {
 				t.rollback();
 			}
 		}
-			
+
 		return id;
 	}
 
@@ -53,27 +53,31 @@ public class SAModeloImp implements SAModelo {
 		if (UtilidadesN.comprobarId(id)) {
 			Transaction t = TransactionManager.getInstance().nuevaTransaccion();
 			t.start();
-			
+
 			DAOModelo dm = FactoriaIntegracion.getInstance().crearDAOModelo();
 
 			TModelo leido = dm.consultarModeloPorId(id);
-			
+
 			boolean ok = false;
 			if (leido != null && leido.getActivo()) {
-				
+
 				DAOAerolinea da = FactoriaIntegracion.getInstance().crearDAOAerolinea();
 				List<TAerolinea> lista = da.consultarAerolineasPorModelo(id);
-				
-				if(lista.size() == 0){
+
+				if (lista.size() == 0) {
 					DAOAvion dao = FactoriaIntegracion.getInstance().crearDAOAvion();
 					if (dao.consultarAvionesActivosPorModelo(id).isEmpty()) {
 						ok = dm.bajaModelo(id);
 					}
-					if(ok) t.commit();
-					else t.rollback();
-				}else t.rollback();
-			}else t.rollback();
-			
+					if (ok)
+						t.commit();
+					else
+						t.rollback();
+				} else
+					t.rollback();
+			} else
+				t.rollback();
+
 			return ok;
 		}
 
@@ -85,9 +89,9 @@ public class SAModeloImp implements SAModelo {
 		if (UtilidadesN.comprobarId(id)) {
 			Transaction t = TransactionManager.getInstance().nuevaTransaccion();
 			t.start();
-			
+
 			DAOModelo dm = FactoriaIntegracion.getInstance().crearDAOModelo();
-			
+
 			tm = dm.consultarModeloPorId(id);
 			t.commit();
 		}
@@ -98,12 +102,12 @@ public class SAModeloImp implements SAModelo {
 	public List<TModelo> consultarTodosModelos() {
 		Transaction t = TransactionManager.getInstance().nuevaTransaccion();
 		t.start();
-		
+
 		DAOModelo dm = FactoriaIntegracion.getInstance().crearDAOModelo();
-		
+
 		List<TModelo> list = dm.consultarTodosModelos();
 		t.commit();
-		
+
 		return list;
 	}
 
@@ -112,7 +116,7 @@ public class SAModeloImp implements SAModelo {
 		if (ValidadorModelo.comprobarModelo(tModelo)) {
 			Transaction t = TransactionManager.getInstance().nuevaTransaccion();
 			t.start();
-			
+
 			DAOModelo dm = FactoriaIntegracion.getInstance().crearDAOModelo();
 
 			int id = tModelo.getId();
@@ -126,15 +130,16 @@ public class SAModeloImp implements SAModelo {
 					ok = dm.modificarModelo(tModelo);
 				}
 			}
-			
-			if (ok){
+
+			if (ok) {
 				t.commit();
-			} else{
+			} else {
 				t.rollback();
 			}
 		}
 		return ok;
 	}
+
 	public boolean vincularModelo(TModeloAerolinea tModeloAerolinea) {
 		int idModelo = tModeloAerolinea.getIdModelo();
 		int idAerolinea = tModeloAerolinea.getIdAerolinea();
@@ -143,7 +148,7 @@ public class SAModeloImp implements SAModelo {
 		if (ValidadorModeloAerolinea.comprobarDatos(idModelo, idAerolinea)) {
 			Transaction t = TransactionManager.getInstance().nuevaTransaccion();
 			t.start();
-			
+
 			DAOModelo dm = FactoriaIntegracion.getInstance().crearDAOModelo();
 			DAOAerolinea da = FactoriaIntegracion.getInstance().crearDAOAerolinea();
 
@@ -156,10 +161,11 @@ public class SAModeloImp implements SAModelo {
 				if (!dma.comprobarVinculacion(idModelo, idAerolinea)) {
 					ok = dma.vincular(idModelo, idAerolinea);
 				}
-				
-			}if(ok){
+
+			}
+			if (ok) {
 				t.commit();
-			}else{
+			} else {
 				t.rollback();
 			}
 		}
@@ -187,9 +193,10 @@ public class SAModeloImp implements SAModelo {
 				if (dma.comprobarVinculacion(idModelo, idAerolinea)) {
 					ok = dma.desvincular(idModelo, idAerolinea);
 				}
-			}if(ok){
+			}
+			if (ok) {
 				t.commit();
-			}else{
+			} else {
 				t.rollback();
 			}
 		}
@@ -202,25 +209,25 @@ public class SAModeloImp implements SAModelo {
 		if (UtilidadesN.comprobarId(id_aerolinea)) {
 			Transaction t = TransactionManager.getInstance().nuevaTransaccion();
 			t.start();
-			
+
 			DAOModelo dm = FactoriaIntegracion.getInstance().crearDAOModelo();
-			
+
 			DAOAerolinea da = FactoriaIntegracion.getInstance().crearDAOAerolinea();
-			
+
 			TAerolinea tAerolinea = da.consultarAerolineaPorId(id_aerolinea);
-			
+
 			List<TModelo> lista;
-			
-			if(tAerolinea != null){
-				 lista = dm.consultarModelosPorAerolinea(id_aerolinea);
-				 t.commit();
-			}else{
+
+			if (tAerolinea != null) {
+				lista = dm.consultarModelosPorAerolinea(id_aerolinea);
+				t.commit();
+			} else {
 				lista = new ArrayList<TModelo>();
 				t.rollback();
 			}
 			return lista;
 		}
-		
+
 		return new ArrayList<TModelo>();
 	}
 

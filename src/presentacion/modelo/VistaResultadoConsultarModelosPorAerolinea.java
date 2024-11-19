@@ -18,7 +18,6 @@ import presentacion.UtilidadesP;
 
 public class VistaResultadoConsultarModelosPorAerolinea extends JFrame implements Observador {
 
-	
 	private static final long serialVersionUID = 1L;
 
 	@Override

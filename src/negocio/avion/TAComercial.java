@@ -18,6 +18,28 @@ public class TAComercial extends TAvion {
 		this.empresa = empresa;
 	}
 
+	/** 
+	* <!-- begin-UML-doc -->
+	* <!-- end-UML-doc -->
+	* @param id
+	* @param empresa
+	* @param activo
+	* @param idHangar
+	* @param idAerolinea
+	* @param idModelo
+	* @param nombre
+	* @param matricula
+	* @param fechaFabricacion
+	* @param numAsientos
+	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
+	*/
+	public TAComercial(int id, String empresa, boolean activo, int idHangar, int idAerolinea, int idModelo,
+			String nombre, String matricula, String fechaFabricacion, int numAsientos) {
+		// begin-user-code
+		// TODO Auto-generated constructor stub
+		// end-user-code
+	}
+
 	@Override
 	public String toString() {
 		return super.toString() + "\nEmpresa de trabajadores: " + this.getEmpresa();

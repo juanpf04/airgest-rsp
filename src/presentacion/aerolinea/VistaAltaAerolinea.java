@@ -51,8 +51,8 @@ public class VistaAltaAerolinea extends JFrame implements Observador {
 		JPanel centro = new JPanel();
 		centro.setLayout(new BoxLayout(centro, BoxLayout.LINE_AXIS));
 		centro.setAlignmentX(CENTER_ALIGNMENT);
-		principal.add(centro);	
-		
+		principal.add(centro);
+
 		JPanel panelBotones = new JPanel();
 		principal.add(panelBotones);
 		panelBotones.setAlignmentX(CENTER_ALIGNMENT);
@@ -70,8 +70,7 @@ public class VistaAltaAerolinea extends JFrame implements Observador {
 
 		});
 		panelBotones.add(atras);
-		
-		
+
 		JPanel panelEtiquetas = new JPanel();
 		panelEtiquetas.setLayout(new BoxLayout(panelEtiquetas, BoxLayout.PAGE_AXIS));
 		panelEtiquetas.setAlignmentX(CENTER_ALIGNMENT);
@@ -89,11 +88,10 @@ public class VistaAltaAerolinea extends JFrame implements Observador {
 		textoA.setFont(new Font("Tahoma", Font.BOLD, 18));
 		panelEtiquetas.add(etiquetaA);
 		panelTexto.add(textoA);
-		
+
 		centro.add(panelEtiquetas);
 		centro.add(panelTexto);
-		
-		
+
 		JButton aceptar = new JButton("ACEPTAR");
 		aceptar.addActionListener(new ActionListener() {
 
@@ -104,9 +102,9 @@ public class VistaAltaAerolinea extends JFrame implements Observador {
 				ctrl.accion(new Contexto(Evento.ALTA_AEROLINEA, transfer));
 			}
 		});
-		
+
 		panelBotones.add(aceptar);
-		
+
 		this.setContentPane(principal);
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		this.setVisible(true);

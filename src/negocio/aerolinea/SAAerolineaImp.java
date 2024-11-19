@@ -18,32 +18,31 @@ public class SAAerolineaImp implements SAAerolinea {
 
 	public int altaAerolinea(TAerolinea tAerolinea) {
 		int id = -1;
-		
+
 		if (ValidadorAerolinea.comprobarAerolinea(tAerolinea)) {
-			
+
 			Transaction t = TransactionManager.getInstance().nuevaTransaccion();
 			t.start();
-			
+
 			DAOAerolinea da = FactoriaIntegracion.getInstance().crearDAOAerolinea();
 			TAerolinea leido = da.consultarAerolineaPorNombre(tAerolinea.getNombre());
 
-			if (leido == null){
+			if (leido == null) {
 				id = da.altaAerolinea(tAerolinea);
-				if (id != -1){
+				if (id != -1) {
 					t.commit();
-				} else{
+				} else {
 					t.rollback();
 				}
-			}
-			else if (!leido.getActivo()) {
+			} else if (!leido.getActivo()) {
 				tAerolinea.setId(leido.getId());
-				if (da.modificarAerolinea(tAerolinea)){
+				if (da.modificarAerolinea(tAerolinea)) {
 					t.commit();
-				} else{
+				} else {
 					t.rollback();
 				}
 				id = tAerolinea.getId();
-			} else{
+			} else {
 				t.rollback();
 			}
 		}
@@ -56,26 +55,25 @@ public class SAAerolineaImp implements SAAerolinea {
 		if (UtilidadesN.comprobarId(id)) {
 			Transaction t = TransactionManager.getInstance().nuevaTransaccion();
 			t.start();
-			
+
 			DAOAerolinea da = FactoriaIntegracion.getInstance().crearDAOAerolinea();
 
 			TAerolinea leido = da.consultarAerolineaPorId(id);
-			
-			if (leido != null && leido.getActivo()){
+
+			if (leido != null && leido.getActivo()) {
 				DAOModeloAerolinea dam = FactoriaIntegracion.getInstance().crearDAOModeloAerolinea();
 				DAOAvion dav = FactoriaIntegracion.getInstance().crearDAOAvion();
 				DAOContrato dc = FactoriaIntegracion.getInstance().crearDAOContrato();
-				
-				
+
 				if (!dam.comprobarVinculacionAerolinea(id) && dav.consultarAvionesActivosPorAerolinea(id).isEmpty()
-						&& dc.consultarContratosPorAerolinea(id).isEmpty()){
+						&& dc.consultarContratosPorAerolinea(id).isEmpty()) {
 					ok = da.bajaAerolinea(id);
 				}
 			}
-			
+
 			if (ok) {
 				t.commit();
-			} else{
+			} else {
 				t.rollback();
 			}
 		}
@@ -87,7 +85,7 @@ public class SAAerolineaImp implements SAAerolinea {
 		if (UtilidadesN.comprobarId(id)) {
 			Transaction t = TransactionManager.getInstance().nuevaTransaccion();
 			t.start();
-			
+
 			DAOAerolinea da = FactoriaIntegracion.getInstance().crearDAOAerolinea();
 
 			ta = da.consultarAerolineaPorId(id);
@@ -100,11 +98,11 @@ public class SAAerolineaImp implements SAAerolinea {
 	public List<TAerolinea> consultarTodasAerolineas() {
 		Transaction t = TransactionManager.getInstance().nuevaTransaccion();
 		t.start();
-		
+
 		DAOAerolinea da = FactoriaIntegracion.getInstance().crearDAOAerolinea();
 		List<TAerolinea> list = da.consultarTodasAerolineas();
 		t.commit();
-		
+
 		return list;
 	}
 
@@ -113,7 +111,7 @@ public class SAAerolineaImp implements SAAerolinea {
 		if (ValidadorAerolinea.comprobarAerolinea(tAerolinea)) {
 			Transaction t = TransactionManager.getInstance().nuevaTransaccion();
 			t.start();
-			
+
 			DAOAerolinea da = FactoriaIntegracion.getInstance().crearDAOAerolinea();
 
 			int id = tAerolinea.getId();
@@ -127,10 +125,10 @@ public class SAAerolineaImp implements SAAerolinea {
 					ok = da.modificarAerolinea(tAerolinea);
 				}
 			}
-			
-			if (ok){
+
+			if (ok) {
 				t.commit();
-			} else{
+			} else {
 				t.rollback();
 			}
 		}
@@ -139,29 +137,29 @@ public class SAAerolineaImp implements SAAerolinea {
 
 	@Override
 	public List<TAerolinea> consultarAerolineasPorModelo(int id_modelo) {
-		if (UtilidadesN.comprobarId(id_modelo)){
+		if (UtilidadesN.comprobarId(id_modelo)) {
 			Transaction t = TransactionManager.getInstance().nuevaTransaccion();
 			t.start();
-			
+
 			DAOModelo dm = FactoriaIntegracion.getInstance().crearDAOModelo();
 			TModelo modelo = dm.consultarModeloPorId(id_modelo);
-			
+
 			DAOAerolinea da = FactoriaIntegracion.getInstance().crearDAOAerolinea();
 			List<TAerolinea> list;
-			
-			if (modelo != null){
+
+			if (modelo != null) {
 				list = da.consultarAerolineasPorModelo(id_modelo);
 				t.commit();
-			} else{
+			} else {
 				list = new ArrayList<TAerolinea>();
 				t.rollback();
 			}
-			
+
 			return list;
 		}
-		
+
 		return new ArrayList<TAerolinea>();
-		
+
 	}
 
 }

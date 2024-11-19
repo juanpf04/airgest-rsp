@@ -19,7 +19,7 @@ public interface SAAvion {
 	public List<TAvion> consultarAvionesPorAerolinea(int idAerolinea);
 
 	public List<TAvion> consultarAvionesPorHangar(int idHangar);
-	
+
 	public List<TAvion> consultarAvionesDeAerolineaPorHangar(int id_aerolinea, int id_hangar);
 
 }
