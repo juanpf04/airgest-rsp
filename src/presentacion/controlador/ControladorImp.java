@@ -1,7 +1,7 @@
 package presentacion.controlador;
 
 import presentacion.Observador;
-import presentacion.comandos.Comando;
+import presentacion.controlador.comandos.Comando;
 import presentacion.factoria.FactoriaComandos;
 import presentacion.factoria.FactoriaVistas;
 

@@ -1,0 +1,25 @@
+package presentacion.controlador.comandos.avion;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import negocio.avion.SAAvion;
+import negocio.avion.TAvion;
+import negocio.factoria.FactoriaNegocio;
+import presentacion.controlador.Contexto;
+import presentacion.controlador.Evento;
+import presentacion.controlador.comandos.Comando;
+
+public class ConsultarAvionesDeAerolineaPorHangar implements Comando {
+
+	@Override
+	public Contexto ejecutar(Object datos) {
+		FactoriaNegocio fn = FactoriaNegocio.getInstance();
+		SAAvion sav = fn.crearSAAvion();
+		@SuppressWarnings("unchecked")
+		ArrayList<Integer> info = (ArrayList<Integer>) datos;
+		List<TAvion> aviones = sav.consultarAvionesDeAerolineaPorHangar((int) info.get(0), (int) info.get(1));
+		return new Contexto(Evento.VISTA_RESULTADO_CONSULTAR_AVIONES_DE_AEROLINEA_POR_HANGAR, aviones);
+	}
+
+}

@@ -29,7 +29,7 @@ public class VistaPrincipal extends JFrame implements Observador {
 	@Override
 	public void actualizar(Object datos) {
 		UtilidadesP.setAirGestRSP(this);
-		this.setSize(320, 300); //hace que la ventana no salga tan chiquitita
+		this.setSize(620, 1200); //hace que la ventana no salga tan chiquitita
 		JPanel principal = new JPanel();
 		principal.setLayout(new BorderLayout());
 
@@ -127,9 +127,84 @@ public class VistaPrincipal extends JFrame implements Observador {
 				ctrl.accion(new Contexto(Evento.VISTA_CONTRATO));
 			}
 		});
-
+		
 		contrato.setToolTipText("MODULO CONTRATO");
 		botones.add(contrato);
+		
+		JButton marca = new JButton("MARCA");
+		marca.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				ctrl.accion(new Contexto(Evento.VISTA_MARCA));
+			}
+		});
+		marca.setToolTipText("MODULO MARCA");
+		botones.add(marca);
+
+		//-------------------------------------------
+		JButton proveedor = new JButton("PROVEEDOR");
+		proveedor.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				ctrl.accion(new Contexto(Evento.VISTA_PROVEEDOR));
+			}
+		});
+		proveedor.setToolTipText("MODULO PROVEEDOR");
+		botones.add(proveedor);
+
+		//-------------------------------------------
+		JButton producto = new JButton("PRODUCTO");
+		producto.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				ctrl.accion(new Contexto(Evento.VISTA_PRODUCTO));
+			}
+		});
+		producto.setToolTipText("MODULO PRODUCTO");
+		botones.add(producto);
+
+		//-------------------------------------------
+		JButton venta = new JButton("VENTA");
+		venta.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				ctrl.accion(new Contexto(Evento.VISTA_VENTA));
+			}
+		});
+		venta.setToolTipText("MODULO VENTA");
+		botones.add(venta);
+
+		//-------------------------------------------
+		JButton departamento = new JButton("DEPARTAMENTO");
+		departamento.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				ctrl.accion(new Contexto(Evento.VISTA_DEPARTAMENTO));
+			}
+		});
+		departamento.setToolTipText("MODULO DEPARTAMENTO");
+		botones.add(departamento);
+
+		//-------------------------------------------
+		JButton empleado = new JButton("EMPLEADO");
+		empleado.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				ctrl.accion(new Contexto(Evento.VISTA_EMPLEADO));
+			}
+		});
+		
+		empleado.setToolTipText("MODULO EMPLEADO");
+		botones.add(empleado);
+
+		principal.add(botones, BorderLayout.CENTER);
 
 		principal.add(botones, BorderLayout.CENTER);
 

@@ -1,27 +1,26 @@
-/**
- * 
- */
 package presentacion.controlador.comandos.hangar;
 
-import presentacion.controlador.comandos.Comando;
+import negocio.factoria.FactoriaNegocio;
+import negocio.hangar.SAHangar;
+import negocio.hangar.THangar;
 import presentacion.controlador.Contexto;
+import presentacion.controlador.Evento;
+import presentacion.controlador.comandos.Comando;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author javia
-* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-*/
 public class AltaHangar implements Comando {
-	/** 
-	* (non-Javadoc)
-	* @see Comando#ejecutar(Object datos)
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
+
+	@Override
 	public Contexto ejecutar(Object datos) {
-		// begin-user-code
-		// TODO Auto-generated method stub
-		return null;
-		// end-user-code
+		FactoriaNegocio fn = FactoriaNegocio.getInstance();
+		SAHangar sh = fn.crearSAHangar();
+		int id = sh.altaHangar((THangar) datos);
+		Evento evento = null;
+		if (id != -1) {
+			evento = Evento.VISTA_EXITO_ALTA_HANGAR;
+		} else {
+			evento = Evento.VISTA_FALLO_ALTA_HANGAR;
+		}
+		return new Contexto(evento, id);
 	}
+
 }

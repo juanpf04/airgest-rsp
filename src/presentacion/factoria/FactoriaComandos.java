@@ -1,7 +1,7 @@
 package presentacion.factoria;
 
-import presentacion.comandos.Comando;
 import presentacion.controlador.Evento;
+import presentacion.controlador.comandos.Comando;
 
 public abstract class FactoriaComandos {
 

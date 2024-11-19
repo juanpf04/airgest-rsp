@@ -1,27 +1,23 @@
-/**
- * 
- */
 package presentacion.controlador.comandos.hangar;
 
-import presentacion.controlador.comandos.Comando;
-import presentacion.controlador.Contexto;
+import java.util.List;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author javia
-* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-*/
+import negocio.factoria.FactoriaNegocio;
+import negocio.hangar.SAHangar;
+import negocio.hangar.THangar;
+import presentacion.controlador.Contexto;
+import presentacion.controlador.Evento;
+import presentacion.controlador.comandos.Comando;
+
 public class ConsultarTodosHangares implements Comando {
-	/** 
-	* (non-Javadoc)
-	* @see Comando#ejecutar(Object datos)
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
+
+	@Override
 	public Contexto ejecutar(Object datos) {
-		// begin-user-code
-		// TODO Auto-generated method stub
-		return null;
-		// end-user-code
+		FactoriaNegocio fn = FactoriaNegocio.getInstance();
+		SAHangar sh = fn.crearSAHangar();
+		List<THangar> hangares = sh.consultarTodosHangares();
+		Evento evento = Evento.VISTA_RESULTADO_CONSULTAR_TODOS_LOS_HANGARES;
+		return new Contexto(evento, hangares);
 	}
+
 }
