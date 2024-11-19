@@ -243,8 +243,6 @@ public class Empleado implements Serializable {
 	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
 	*/
 	public Empleado(TEmpleado transfer) {
-		// begin-user-code
-		// TODO Auto-generated constructor stub
-		// end-user-code
+		
 	}
 }
