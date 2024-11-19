@@ -8,6 +8,8 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.persistence.EntityManager;
+import javax.persistence.LockModeType;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -18,6 +20,9 @@ import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
 
+import integracion.factoria.EMFSingleton;
+import negocio.marca.Marca;
+import negocio.marca.TMarca;
 import presentacion.controlador.Contexto;
 import presentacion.controlador.Controlador;
 import presentacion.controlador.Evento;
@@ -200,9 +205,49 @@ public class VistaPrincipal extends JFrame implements Observador {
 				ctrl.accion(new Contexto(Evento.VISTA_EMPLEADO));
 			}
 		});
-		
 		empleado.setToolTipText("MODULO EMPLEADO");
 		botones.add(empleado);
+		
+		//-------------------------------------------
+		JButton nuclear = new JButton("nuclear");
+		nuclear.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//TODO añadir uno de cada entidad a la bbdd
+				EMFSingleton emf = EMFSingleton.getInstance();
+				EntityManager em = emf.getEMF().createEntityManager();
+				
+				em.getTransaction().begin();
+				
+				Marca marca = new Marca(new TMarca(2,"nike","alemania",true));
+				Marca marca2 = new Marca(new TMarca(2,"adidas","alemania",true));
+				
+				em.persist(marca);
+				em.persist(marca2);
+				
+				
+				em.getTransaction().commit();
+				
+
+				em.getTransaction().begin();
+				
+				//em.lock(marca, LockModeType.OPTIMISTIC_FORCE_INCREMENT);
+				//marca = em.find(Marca.class, 1);
+				
+				marca = em.find(Marca.class, 1, LockModeType.OPTIMISTIC_FORCE_INCREMENT);
+				
+				em.getTransaction().commit();
+				
+				System.out.println(marca.getNombre() + "");
+				em.close();
+				emf.getEMF().close();
+			}
+		});
+		nuclear.setToolTipText("nuclear");
+		botones.add(nuclear);
+		//-------------------------------------------
+		
 
 		principal.add(botones, BorderLayout.CENTER);
 

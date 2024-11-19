@@ -1,18 +1,20 @@
-
 package integracion.factoria;
 
 import javax.persistence.EntityManagerFactory;
-
+import javax.persistence.Persistence;
 
 public class EMFSingletonImp extends EMFSingleton {
-	
-	private static String PERSISTENCE_UNIT_NAME;
-	
+
+	private final static String PERSISTENCE_UNIT_NAME = "ms2425aeropuertocod";
+
 	private EntityManagerFactory factory;
-	
+
+	public EMFSingletonImp() {
+		this.factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+	}
+
 	@Override
 	public EntityManagerFactory getEMF() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.factory;
 	}
 }

@@ -37,7 +37,7 @@ public class LineaVenta implements Serializable {
 	* <!-- end-UML-doc -->
 	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
 	*/
-	@EmbeddedId
+	@EmbeddedId 
 	private Clave id;
 	/** 
 	* <!-- begin-UML-doc -->

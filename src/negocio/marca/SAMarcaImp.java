@@ -1,22 +1,9 @@
-/**
- * 
- */
 package negocio.marca;
 
 import java.util.List;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author javia
-* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-*/
 public class SAMarcaImp implements SAMarca {
-	/** 
-	* (non-Javadoc)
-	* @see SAMarca#altaMarca(TMarca marca)
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
+
 	public int altaMarca(TMarca marca) {
 		// begin-user-code
 		// TODO Auto-generated method stub
@@ -24,11 +11,6 @@ public class SAMarcaImp implements SAMarca {
 		// end-user-code
 	}
 
-	/** 
-	* (non-Javadoc)
-	* @see SAMarca#bajaMarca(int id)
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
 	public boolean bajaMarca(int id) {
 		// begin-user-code
 		// TODO Auto-generated method stub
