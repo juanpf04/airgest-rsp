@@ -1,47 +1,47 @@
 package negocio.factoria;
 
 import negocio.departamento.SADepartamento;
+import negocio.departamento.SADepartamentoImp;
 import negocio.empleado.SAEmpleado;
+import negocio.empleado.SAEmpleadoImp;
 import negocio.marca.SAMarca;
+import negocio.marca.SAMarcaImp;
 import negocio.producto.SAProducto;
+import negocio.producto.SAProductoImp;
 import negocio.proveedor.SAProveedor;
+import negocio.proveedor.SAProveedorImp;
 import negocio.venta.SAVenta;
+import negocio.venta.SAVentaImp;
 
-public class FactoriaNegocioImp2 extends FactoriaNegocioImp {
+public class FactoriaNegocioImp2 extends FactoriaNegocioImp1 implements FactoriaNegocio2 {
 
 	@Override
 	public SAVenta crearSAVenta() {
-		// TODO Auto-generated method stub
-		return null;
+		return new SAVentaImp();
 	}
 
 	@Override
 	public SAProveedor crearSAProveedor() {
-		// TODO Auto-generated method stub
-		return null;
+		return new SAProveedorImp();
 	}
 
 	@Override
 	public SAProducto crearSAProducto() {
-		// TODO Auto-generated method stub
-		return null;
+		return new SAProductoImp();
 	}
 
 	@Override
 	public SAMarca crearSAMarca() {
-		// TODO Auto-generated method stub
-		return null;
+		return new SAMarcaImp();
 	}
 
 	@Override
 	public SADepartamento crearSADepartamento() {
-		// TODO Auto-generated method stub
-		return null;
+		return new SADepartamentoImp();
 	}
 
 	@Override
 	public SAEmpleado crearSAEmpleado() {
-		// TODO Auto-generated method stub
-		return null;
+		return new SAEmpleadoImp();
 	}
 }

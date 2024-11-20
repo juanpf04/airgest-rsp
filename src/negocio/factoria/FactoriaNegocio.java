@@ -1,5 +1,7 @@
-
 package negocio.factoria;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
 
 import negocio.aerolinea.SAAerolinea;
 import negocio.avion.SAAvion;
@@ -20,22 +22,27 @@ public abstract class FactoriaNegocio {
 
 	public synchronized static FactoriaNegocio getInstance() {
 		if (instancia == null)
-			instancia = new FactoriaNegocioImp2();
+			instancia = getFactoriaNegocioImp();
 		return instancia;
 	}
 
-	public abstract SAModelo crearSAModelo();
-
-	public abstract SAHangar crearSAHangar();
-
-	public abstract SAAvion crearSAAvion();
-
-	public abstract SAAerolinea crearSAAerolinea();
-
-	public abstract SAPersonal crearSAPersonal();
-
-	public abstract SAContrato crearSAContrato();
-
+	private synchronized static FactoriaNegocio getFactoriaNegocioImp() {
+		String claseFactoria = null;
+		try {
+			BufferedReader in = new BufferedReader(new FileReader("recursos/configuraciones/FactoriaNegocio.txt"));
+			claseFactoria = in.readLine();
+			in.close();
+		} catch (java.io.IOException e) {
+			System.out.println("Problema de E/S");
+		}
+		try {
+			return (FactoriaNegocio) Class.forName(claseFactoria).newInstance();
+		} catch (Exception e) {
+			System.out.println("Implementación de FabricaDeLaberintos no encontrada");
+		}
+		return null;
+	}
+	
 	public abstract SAVenta crearSAVenta();
 
 	public abstract SAProveedor crearSAProveedor();
@@ -47,4 +54,16 @@ public abstract class FactoriaNegocio {
 	public abstract SADepartamento crearSADepartamento();
 
 	public abstract SAEmpleado crearSAEmpleado();
+	
+	public abstract SAModelo crearSAModelo();
+
+	public abstract SAHangar crearSAHangar();
+
+	public abstract SAAvion crearSAAvion();
+
+	public abstract SAAerolinea crearSAAerolinea();
+
+	public abstract SAPersonal crearSAPersonal();
+
+	public abstract SAContrato crearSAContrato();
 }

@@ -1,4 +1,3 @@
-
 package negocio.factoria;
 
 import negocio.aerolinea.SAAerolinea;
@@ -20,8 +19,9 @@ import negocio.producto.SAProducto;
 import negocio.proveedor.SAProveedor;
 import negocio.venta.SAVenta;
 
-public abstract class FactoriaNegocioImp extends FactoriaNegocio {
+public class FactoriaNegocioImp1 extends FactoriaNegocio implements FactoriaNegocio1 {
 
+	@Override
 	public SAModelo crearSAModelo() {
 		return new SAModeloImp();
 	}
@@ -31,14 +31,17 @@ public abstract class FactoriaNegocioImp extends FactoriaNegocio {
 		return new SAHangarImp();
 	}
 
+	@Override
 	public SAAvion crearSAAvion() {
 		return new SAAvionImp();
 	}
 
+	@Override
 	public SAAerolinea crearSAAerolinea() {
 		return new SAAerolineaImp();
 	}
 
+	@Override
 	public SAPersonal crearSAPersonal() {
 		return new SAPersonalImp();
 	}
@@ -47,16 +50,40 @@ public abstract class FactoriaNegocioImp extends FactoriaNegocio {
 	public SAContrato crearSAContrato() {
 		return new SAContratoImp();
 	}
-	
-	public abstract SAVenta crearSAVenta();
 
-	public abstract SAProveedor crearSAProveedor();
+	@Override
+	public SAVenta crearSAVenta() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-	public abstract SAProducto crearSAProducto();
+	@Override
+	public SAProveedor crearSAProveedor() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-	public abstract SAMarca crearSAMarca();
+	@Override
+	public SAProducto crearSAProducto() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-	public abstract SADepartamento crearSADepartamento();
+	@Override
+	public SAMarca crearSAMarca() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-	public abstract SAEmpleado crearSAEmpleado();
+	@Override
+	public SADepartamento crearSADepartamento() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public SAEmpleado crearSAEmpleado() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
