@@ -1,4 +1,3 @@
-
 package presentacion.controlador.comandos.marca;
 
 import presentacion.controlador.comandos.Comando;
@@ -17,7 +16,7 @@ public class ConsultarMarcas implements Comando {
 		FactoriaNegocioMall fn = FactoriaNegocioMall.getInstance();
 		SAMarca sa = fn.crearSAMarca();
 		List<TMarca> marcas = sa.consultarMarcas();
-		Evento evento = Evento.VISTA_RESULTADO_CONSULTAR_TODAS_MARCAS;
+		Evento evento = Evento.VISTA_RESULTADO_CONSULTAR_MARCAS;
 		return new Contexto(evento, marcas);
 	}
 }
