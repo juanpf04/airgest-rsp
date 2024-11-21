@@ -1,6 +1,7 @@
 package negocio.venta;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 import javax.persistence.Embeddable;
 
@@ -29,20 +30,20 @@ public class Clave implements Serializable {
 		return true;
 	}
 
-	//private UUID uuid;
+	
+	private UUID uuid;
 
 	public int hashCode() {
-//		final int prime = 31;
-//		int hash = 17;
-//		hash = hash * prime + venta;
-//		hash = hash * prime + producto;
-//		if (hash == 17) {
-//			if (uuid == null) {
-//				uuid = UUID.randomUUID();
-//			}
-//			hash = uuid.hashCode();
-//		}
-//		return hash;
-		return 4;
+		final int prime = 31;
+		int hash = 17;
+		hash = hash * prime + venta;
+		hash = hash * prime + producto;
+		if (hash == 17) {
+			if (uuid == null) {
+				uuid = UUID.randomUUID();
+			}
+			hash = uuid.hashCode();
+		}
+		return hash;
 	}
 }
