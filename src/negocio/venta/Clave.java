@@ -3,6 +3,8 @@ package negocio.venta;
 import java.io.Serializable;
 
 import javax.persistence.Embeddable;
+import javax.persistence.MappedSuperclass;
+import javax.persistence.MapsId;
 
 @Embeddable
 public class Clave implements Serializable {
@@ -13,7 +15,7 @@ public class Clave implements Serializable {
 	}
 
 	private int venta;
-
+	
 	private int producto;
 
 	public boolean equals(Object obj) {

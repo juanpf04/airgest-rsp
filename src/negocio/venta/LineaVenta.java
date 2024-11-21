@@ -9,6 +9,7 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.NamedQuery;
 import negocio.producto.Producto;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import javax.persistence.NamedQueries;
 
 /** 
@@ -44,14 +45,14 @@ public class LineaVenta implements Serializable {
 	* <!-- end-UML-doc -->
 	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
 	*/
-	@ManyToOne
+	@ManyToOne @MapsId
 	private Producto producto;
 	/** 
 	* <!-- begin-UML-doc -->
 	* <!-- end-UML-doc -->
 	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
 	*/
-	@ManyToOne
+	@ManyToOne @MapsId
 	private Venta venta;
 	/** 
 	* <!-- begin-UML-doc -->
