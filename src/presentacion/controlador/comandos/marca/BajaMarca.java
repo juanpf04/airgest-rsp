@@ -1,27 +1,25 @@
-/**
- * 
- */
+
 package presentacion.controlador.comandos.marca;
 
 import presentacion.controlador.comandos.Comando;
+import negocio.marca.SAMarca;
+import negocio.factoria.FactoriaNegocioMall;
 import presentacion.controlador.Contexto;
+import presentacion.controlador.Evento;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author javia
-* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-*/
 public class BajaMarca implements Comando {
-	/** 
-	* (non-Javadoc)
-	* @see Comando#ejecutar(Object datos)
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
+
+	@Override
 	public Contexto ejecutar(Object datos) {
-		// begin-user-code
-		// TODO Auto-generated method stub
-		return null;
-		// end-user-code
+		FactoriaNegocioMall fn = FactoriaNegocioMall.getInstance();
+		SAMarca sa = fn.crearSAMarca();
+		boolean exito = sa.bajaMarca((int) datos);
+		Evento evento = null;
+		if (exito) {
+			evento = Evento.VISTA_EXITO_BAJA_MARCA;
+		} else {
+			evento = Evento.VISTA_FALLO_BAJA_MARCA;
+		}
+		return new Contexto(evento, exito);
 	}
 }
