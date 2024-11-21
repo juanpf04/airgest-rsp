@@ -23,6 +23,8 @@ import javax.swing.border.MatteBorder;
 import integracion.factoria.EMFSingleton;
 import negocio.marca.Marca;
 import negocio.marca.TMarca;
+import negocio.producto.Producto;
+import negocio.producto.TProducto;
 import presentacion.controlador.Contexto;
 import presentacion.controlador.Controlador;
 import presentacion.controlador.Evento;
@@ -222,10 +224,13 @@ public class VistaPrincipal extends JFrame implements Observador {
 				
 				Marca marca = new Marca(new TMarca(2,"nike","alemania",true));
 				Marca marca2 = new Marca(new TMarca(2,"adidas","alemania",true));
+				Producto p = new Producto(new TProducto(1, "cocacola", 5, 2.20, 82872, true));
+				
 				
 				em.persist(marca);
 				em.persist(marca2);
-				
+				p.setMarca(marca2);
+				em.persist(p);
 				
 				em.getTransaction().commit();
 				
@@ -254,7 +259,7 @@ public class VistaPrincipal extends JFrame implements Observador {
 		principal.add(botones, BorderLayout.CENTER);
 
 		this.setContentPane(principal);
-		this.setResizable(false); // no se puede modificar la ventana
+		this.setResizable(true); // no se puede modificar la ventana
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
 		this.setLocation(200, 200);
