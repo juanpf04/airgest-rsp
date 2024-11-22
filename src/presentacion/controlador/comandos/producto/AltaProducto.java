@@ -8,7 +8,7 @@ import presentacion.controlador.Contexto;
 import presentacion.controlador.Evento;
 
 public class AltaProducto implements Comando {
-	@Override
+	@Override 
 	public Contexto ejecutar(Object datos) {
 		FactoriaNegocioMall fn = FactoriaNegocioMall.getInstance();
 		SAProducto sp = fn.crearSAProducto();
