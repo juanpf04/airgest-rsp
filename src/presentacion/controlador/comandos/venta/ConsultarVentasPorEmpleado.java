@@ -1,27 +1,22 @@
-/**
- * 
- */
 package presentacion.controlador.comandos.venta;
 
 import presentacion.controlador.comandos.Comando;
-import presentacion.controlador.Contexto;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author javia
-* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-*/
+import java.util.List;
+
+import negocio.factoria.FactoriaNegocioMall;
+import negocio.venta.SAVenta;
+import negocio.venta.TVenta;
+import presentacion.controlador.Contexto;
+import presentacion.controlador.Evento;
+
 public class ConsultarVentasPorEmpleado implements Comando {
-	/** 
-	* (non-Javadoc)
-	* @see Comando#ejecutar(Object datos)
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
+	@Override
 	public Contexto ejecutar(Object datos) {
-		// begin-user-code
-		// TODO Auto-generated method stub
-		return null;
-		// end-user-code
+		FactoriaNegocioMall fn = FactoriaNegocioMall.getInstance();
+		SAVenta sv = fn.crearSAVenta();
+		List<TVenta> ventas = sv.consultarVentasPorEmpleado((int) datos);
+		Evento evento = Evento.VISTA_RESULTADO_CONSULTAR_VENTAS_POR_EMPLEADO;
+		return new Contexto(evento, ventas);
 	}
 }
