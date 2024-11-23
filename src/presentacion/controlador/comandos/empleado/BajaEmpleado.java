@@ -1,27 +1,23 @@
-/**
- * 
- */
 package presentacion.controlador.comandos.empleado;
 
 import presentacion.controlador.comandos.Comando;
+import negocio.factoria.FactoriaNegocioMall;
+import negocio.empleado.SAEmpleado;
 import presentacion.controlador.Contexto;
+import presentacion.controlador.Evento;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author javia
-* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-*/
 public class BajaEmpleado implements Comando {
-	/** 
-	* (non-Javadoc)
-	* @see Comando#ejecutar(Object datos)
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
+	@Override
 	public Contexto ejecutar(Object datos) {
-		// begin-user-code
-		// TODO Auto-generated method stub
-		return null;
-		// end-user-code
+		FactoriaNegocioMall fn = FactoriaNegocioMall.getInstance();
+		SAEmpleado se = fn.crearSAEmpleado();
+		boolean exito = se.bajaEmpleado((int) datos);
+		Evento evento = null;
+		if (exito) {
+			evento = Evento.VISTA_EXITO_BAJA_EMPLEADO;
+		} else {
+			evento = Evento.VISTA_FALLO_BAJA_EMPLEADO;
+		}
+		return new Contexto(evento, exito);
 	}
 }
