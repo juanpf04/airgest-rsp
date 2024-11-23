@@ -4,24 +4,21 @@
 package presentacion.controlador.comandos.empleado;
 
 import presentacion.controlador.comandos.Comando;
-import presentacion.controlador.Contexto;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author javia
-* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-*/
+import java.util.List;
+
+import negocio.factoria.FactoriaNegocioMall;
+import negocio.empleado.SAEmpleado;
+import negocio.empleado.TEmpleado;
+import presentacion.controlador.Contexto;
+import presentacion.controlador.Evento;
+
 public class ConsultarEmpleados implements Comando {
-	/** 
-	* (non-Javadoc)
-	* @see Comando#ejecutar(Object datos)
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
 	public Contexto ejecutar(Object datos) {
-		// begin-user-code
-		// TODO Auto-generated method stub
-		return null;
-		// end-user-code
+		FactoriaNegocioMall fn = FactoriaNegocioMall.getInstance();
+		SAEmpleado se = fn.crearSAEmpleado();
+		List<TEmpleado> empleado = se.consultarEmpleados();
+		Evento evento = Evento.VISTA_RESULTADO_CONSULTAR_EMPLEADOS;
+		return new Contexto(evento, empleado);
 	}
 }
