@@ -4,24 +4,20 @@
 package presentacion.controlador.comandos.departamento;
 
 import presentacion.controlador.comandos.Comando;
+import negocio.factoria.FactoriaNegocioMall;
+import negocio.departamento.SADepartamento;
+import negocio.departamento.TDepartamento;
 import presentacion.controlador.Contexto;
+import presentacion.controlador.Evento;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author javia
-* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-*/
 public class ConsultarDepartamentoPorId implements Comando {
-	/** 
-	* (non-Javadoc)
-	* @see Comando#ejecutar(Object datos)
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
+	@Override
 	public Contexto ejecutar(Object datos) {
-		// begin-user-code
-		// TODO Auto-generated method stub
-		return null;
-		// end-user-code
+		FactoriaNegocioMall fn = FactoriaNegocioMall.getInstance();
+		SADepartamento sd = fn.crearSADepartamento();
+		TDepartamento departamento = sd.consultarDepartamentoPorId((int) datos);
+		Evento evento = Evento.VISTA_RESULTADO_CONSULTAR_DEPARTAMENTO_POR_ID;
+
+		return new Contexto(evento, departamento);
 	}
 }
