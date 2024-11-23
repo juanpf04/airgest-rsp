@@ -1,27 +1,25 @@
-/**
- * 
- */
 package presentacion.controlador.comandos.proveedor;
 
 import presentacion.controlador.comandos.Comando;
+import negocio.factoria.FactoriaNegocioMall;
+import negocio.proveedor.SAProveedor;
 import presentacion.controlador.Contexto;
+import presentacion.controlador.Evento;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author javia
-* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-*/
 public class BajaProveedor implements Comando {
-	/** 
-	* (non-Javadoc)
-	* @see Comando#ejecutar(Object datos)
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
+
+	@Override
 	public Contexto ejecutar(Object datos) {
-		// begin-user-code
-		// TODO Auto-generated method stub
-		return null;
-		// end-user-code
+		FactoriaNegocioMall fn = FactoriaNegocioMall.getInstance();
+		SAProveedor sp = fn.crearSAProveedor();
+		boolean exito = sp.bajaProveedor((int) datos);
+		Evento evento = null;
+		if (exito) {
+			evento = Evento.VISTA_EXITO_BAJA_PROVEEDOR;
+		} else {
+			evento = Evento.VISTA_FALLO_BAJA_PROVEEDOR;
+		}
+		return new Contexto(evento, exito);
 	}
+
 }
