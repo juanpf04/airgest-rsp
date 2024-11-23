@@ -15,7 +15,7 @@ public abstract class FactoriaNegocioMall {
 			instancia = new FactoriaNegocioMallImp();
 		return instancia;
 	}
-	
+
 	public abstract SAVenta crearSAVenta();
 
 	public abstract SAProveedor crearSAProveedor();

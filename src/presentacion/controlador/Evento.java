@@ -235,6 +235,8 @@ public enum Evento {
     VISTA_CONSULTAR_PERSONAL_POR_HANGAR, 
     VISTA_RESULTADO_CONSULTAR_PERSONAL_POR_HANGAR,
    
+    /////////////////////////////////////////////////////////////
+    
     //MARCA
     VISTA_MARCA,
     

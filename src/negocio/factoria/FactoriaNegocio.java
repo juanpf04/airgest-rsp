@@ -1,4 +1,3 @@
-
 package negocio.factoria;
 
 import negocio.aerolinea.SAAerolinea;
