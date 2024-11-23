@@ -1,6 +1,3 @@
-/**
- * 
- */
 package presentacion.controlador.comandos.departamento;
 
 import presentacion.controlador.comandos.Comando;

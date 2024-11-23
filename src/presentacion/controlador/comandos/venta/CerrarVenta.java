@@ -1,27 +1,24 @@
-/**
- * 
- */
 package presentacion.controlador.comandos.venta;
 
-import presentacion.controlador.comandos.Comando;
+import negocio.factoria.FactoriaNegocioMall;
+import negocio.venta.SAVenta;
+import negocio.venta.TCarritoVenta;
 import presentacion.controlador.Contexto;
+import presentacion.controlador.Evento;
+import presentacion.controlador.comandos.Comando;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author javia
-* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-*/
 public class CerrarVenta implements Comando {
-	/** 
-	* (non-Javadoc)
-	* @see Comando#ejecutar(Object datos)
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
+
 	public Contexto ejecutar(Object datos) {
-		// begin-user-code
-		// TODO Auto-generated method stub
-		return null;
-		// end-user-code
+		FactoriaNegocioMall fn = FactoriaNegocioMall.getInstance();
+		SAVenta sv = fn.crearSAVenta();
+		int id = sv.cerrarVenta((TCarritoVenta) datos);
+		Evento evento = null;
+		if (id != -1)
+			evento = Evento.VISTA_EXITO_CERRAR_VENTA;
+		else
+			evento = Evento.VISTA_FALLO_CERRAR_VENTA;
+
+		return new Contexto(evento, id);
 	}
 }

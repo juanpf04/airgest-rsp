@@ -1,27 +1,23 @@
-/**
- * 
- */
 package presentacion.controlador.comandos.proveedor;
 
-import presentacion.controlador.comandos.Comando;
+import negocio.factoria.FactoriaNegocioMall;
+import negocio.proveedor.SAProveedor;
 import presentacion.controlador.Contexto;
+import presentacion.controlador.Evento;
+import presentacion.controlador.comandos.Comando;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author javia
-* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-*/
 public class VincularProveedorProducto implements Comando {
-	/** 
-	* (non-Javadoc)
-	* @see Comando#ejecutar(Object datos)
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
+
 	public Contexto ejecutar(Object datos) {
-		// begin-user-code
-		// TODO Auto-generated method stub
-		return null;
-		// end-user-code
+		FactoriaNegocioMall fn = FactoriaNegocioMall.getInstance();
+		SAProveedor sp = fn.crearSAProveedor();
+		boolean exito = sp.vincularProveedorProducto(((int[]) datos)[0], ((int[]) datos)[1]);
+		Evento evento = null;
+		if (exito) {
+			evento = Evento.VISTA_EXITO_VINCULAR_PROVEEDOR;
+		} else {
+			evento = Evento.VISTA_FALLO_VINCULAR_PROVEEDOR;
+		}
+		return new Contexto(evento, exito);
 	}
 }

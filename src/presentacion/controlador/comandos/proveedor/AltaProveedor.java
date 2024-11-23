@@ -7,7 +7,6 @@ import negocio.proveedor.TProveedor;
 import presentacion.controlador.Contexto;
 import presentacion.controlador.Evento;
 
-
 public class AltaProveedor implements Comando {
 	@Override
 	public Contexto ejecutar(Object datos) {

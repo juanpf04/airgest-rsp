@@ -344,7 +344,8 @@ public enum Evento {
     VISTA_VENTA,
     
     ABRIR_VENTA, 
-    VISTA_ABRIR_VENTA, 
+    VISTA_EXITO_ABRIR_VENTA, 
+    VISTA_FALLO_ABRIR_VENTA, 
     
     VISTA_CARRITO_VENTA,
     

@@ -1,27 +1,23 @@
-/**
- * 
- */
 package presentacion.controlador.comandos.venta;
 
-import presentacion.controlador.comandos.Comando;
+import negocio.factoria.FactoriaNegocioMall;
+import negocio.venta.SAVenta;
 import presentacion.controlador.Contexto;
+import presentacion.controlador.Evento;
+import presentacion.controlador.comandos.Comando;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author javia
-* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-*/
 public class AbrirCarrito implements Comando {
-	/** 
-	* (non-Javadoc)
-	* @see Comando#ejecutar(Object datos)
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
+
 	public Contexto ejecutar(Object datos) {
-		// begin-user-code
-		// TODO Auto-generated method stub
-		return null;
-		// end-user-code
+		FactoriaNegocioMall fn = FactoriaNegocioMall.getInstance();
+		SAVenta sv = fn.crearSAVenta();
+		boolean exito = sv.abrirCarrito((int) datos);
+		Evento evento = null;
+		if (exito)
+			evento = Evento.VISTA_EXITO_ABRIR_VENTA;
+		else
+			evento = Evento.VISTA_FALLO_ABRIR_VENTA;
+
+		return new Contexto(evento);
 	}
 }

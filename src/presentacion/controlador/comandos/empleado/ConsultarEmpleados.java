@@ -1,6 +1,3 @@
-/**
- * 
- */
 package presentacion.controlador.comandos.empleado;
 
 import presentacion.controlador.comandos.Comando;
