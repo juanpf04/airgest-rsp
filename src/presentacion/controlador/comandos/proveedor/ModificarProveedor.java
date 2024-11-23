@@ -4,24 +4,24 @@
 package presentacion.controlador.comandos.proveedor;
 
 import presentacion.controlador.comandos.Comando;
+import negocio.factoria.FactoriaNegocioMall;
+import negocio.proveedor.SAProveedor;
+import negocio.proveedor.TProveedor;
 import presentacion.controlador.Contexto;
+import presentacion.controlador.Evento;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author javia
-* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-*/
 public class ModificarProveedor implements Comando {
-	/** 
-	* (non-Javadoc)
-	* @see Comando#ejecutar(Object datos)
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
+	@Override
 	public Contexto ejecutar(Object datos) {
-		// begin-user-code
-		// TODO Auto-generated method stub
-		return null;
-		// end-user-code
+		FactoriaNegocioMall fn = FactoriaNegocioMall.getInstance();
+		SAProveedor sp = fn.crearSAProveedor();
+		boolean exito = sp.modificarProveedor((TProveedor) datos);
+		Evento evento = null;
+		if (exito) {
+			evento = Evento.VISTA_EXITO_MODIFICAR_PROVEEDOR;
+		} else {
+			evento = Evento.VISTA_FALLO_MODIFICAR_PROVEEDOR;
+		}
+		return new Contexto(evento, exito);
 	}
 }
