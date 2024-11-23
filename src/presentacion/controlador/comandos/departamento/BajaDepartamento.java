@@ -1,27 +1,23 @@
-/**
- * 
- */
 package presentacion.controlador.comandos.departamento;
 
 import presentacion.controlador.comandos.Comando;
+import negocio.factoria.FactoriaNegocioMall;
+import negocio.departamento.SADepartamento;
 import presentacion.controlador.Contexto;
+import presentacion.controlador.Evento;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author javia
-* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-*/
 public class BajaDepartamento implements Comando {
-	/** 
-	* (non-Javadoc)
-	* @see Comando#ejecutar(Object datos)
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
+	@Override
 	public Contexto ejecutar(Object datos) {
-		// begin-user-code
-		// TODO Auto-generated method stub
-		return null;
-		// end-user-code
+		FactoriaNegocioMall fn = FactoriaNegocioMall.getInstance();
+		SADepartamento sd = fn.crearSADepartamento();
+		boolean exito = sd.bajaDepartamento((int) datos);
+		Evento evento = null;
+		if (exito) {
+			evento = Evento.VISTA_EXITO_BAJA_DEPARTAMENTO;
+		} else {
+			evento = Evento.VISTA_FALLO_BAJA_DEPARTAMENTO;
+		}
+		return new Contexto(evento, exito);
 	}
 }
