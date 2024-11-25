@@ -11,12 +11,33 @@ public class Clave implements Serializable {
 
 	private static final long serialVersionUID = 0;
 
-	public Clave() {
-	}
-
 	private int venta;
 	
 	private int producto;
+	
+	public Clave() {
+	}
+	
+	public Clave(int venta, int producto){
+		this.venta = venta;
+		this.producto = producto;
+	}
+	
+	public int getVenta() {
+		return venta;
+	}
+
+	public void setVenta(int venta) {
+		this.venta = venta;
+	}
+
+	public int getProducto() {
+		return producto;
+	}
+
+	public void setProducto(int producto) {
+		this.producto = producto;
+	}
 
 	public boolean equals(Object obj) {
 		if (obj == this)
@@ -39,5 +60,4 @@ public class Clave implements Serializable {
 	    result = prime * result + producto; 
 	    return result;        
 	}
-
 }

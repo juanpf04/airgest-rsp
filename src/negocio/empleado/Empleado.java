@@ -1,9 +1,11 @@
-/**
- * 
- */
+
 package negocio.empleado;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+
 import java.io.Serializable;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
@@ -13,13 +15,8 @@ import javax.persistence.NamedQueries;
 import java.util.List;
 import negocio.venta.Venta;
 import javax.persistence.OneToMany;
+import javax.persistence.Version;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author javia
-* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-*/
 @Entity
 @NamedQueries({
 		@NamedQuery(name = "negocio.empleado.Empleado.findByid", query = "select obj from Empleado obj where :id = obj.id "),
@@ -30,219 +27,90 @@ import javax.persistence.OneToMany;
 		@NamedQuery(name = "negocio.empleado.Empleado.findByactivo", query = "select obj from Empleado obj where :activo = obj.activo "),
 		@NamedQuery(name = "negocio.empleado.Empleado.findByversion", query = "select obj from Empleado obj where :version = obj.version ") })
 public class Empleado implements Serializable {
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
+	
 	private static final long serialVersionUID = 0;
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
-	@Id
+	
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
+	
 	@ManyToOne
 	private Departamento departamento;
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
+	
 	@OneToMany(mappedBy = "empleado")
 	private List<Venta> ventas;
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
+	
+	@Column(unique = true, nullable = false)
 	private int tag;
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
+	
 	private int horasMensuales;
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
+	
 	private boolean activo;
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
+	
+	@Version
 	private int version;
-
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @return
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
-	public int getTag() {
-		// begin-user-code
-		// TODO Auto-generated method stub
-		return 0;
-		// end-user-code
-	}
-
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @return
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
-	public int getHorasMensuales() {
-		// begin-user-code
-		// TODO Auto-generated method stub
-		return 0;
-		// end-user-code
-	}
-
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @return
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
-	public boolean getActivo() {
-		// begin-user-code
-		// TODO Auto-generated method stub
-		return false;
-		// end-user-code
-	}
-
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @param tag
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
-	public void setTag(int tag) {
-		// begin-user-code
-		// TODO Auto-generated method stub
-
-		// end-user-code
-	}
-
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @param horasMensuales
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
-	public void setHorasMensuales(int horasMensuales) {
-		// begin-user-code
-		// TODO Auto-generated method stub
-
-		// end-user-code
-	}
-
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @param activo
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
-	public void setActivo(int activo) {
-		// begin-user-code
-		// TODO Auto-generated method stub
-
-		// end-user-code
-	}
-
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
+	
 	public Empleado() {
-		// begin-user-code
-		// TODO Auto-generated constructor stub
-		// end-user-code
-	}
-
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @return
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
-	public Integer getId() {
-		// begin-user-code
-		// TODO Auto-generated method stub
-		return null;
-		// end-user-code
-	}
-
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @param id
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
-	public void setId(Integer id) {
-		// begin-user-code
-		// TODO Auto-generated method stub
-
-		// end-user-code
-	}
-
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @return
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
-	public Departamento getDepartamento() {
-		// begin-user-code
-		// TODO Auto-generated method stub
-		return null;
-		// end-user-code
-	}
-
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @param departamento
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
-	public void setDepartamento(Departamento departamento) {
-		// begin-user-code
-		// TODO Auto-generated method stub
-
-		// end-user-code
-	}
-
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @return
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
-	public TEmpleado toTransfer() {
-		// begin-user-code
-		// TODO Auto-generated method stub
-		return null;
-		// end-user-code
-	}
-
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @param transfer
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
-	public Empleado(TEmpleado transfer) {
 		
 	}
+	
+	public Empleado(TEmpleado transfer) {
+		this.id = transfer.getId();
+		this.tag = transfer.getTag();
+		this.horasMensuales = transfer.getHorasMensuales();
+		this.activo = transfer.getActivo();
+	}
+	
+	public Integer getId() {
+		return this.id;
+	}
+	
+	public int getTag() {
+		return this.tag;
+	}
+	
+	public Departamento getDepartamento() {
+		return this.departamento;
+	}
+	
+	public List<Venta> getVentas(){
+		return this.ventas;
+	}
+
+	public int getHorasMensuales() {
+		return this.horasMensuales;
+	}
+
+	public boolean getActivo() {
+		return this.activo;
+	}
+	
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public void setTag(int tag) {
+		this.tag = tag;
+	}
+
+	public void setHorasMensuales(int horasMensuales) {
+		this.horasMensuales = horasMensuales;
+	}
+	
+	public void setActivo(boolean activo) {
+		this.activo = activo;
+	}
+
+	public void setDepartamento(Departamento departamento) {
+		this.departamento = departamento;
+	}
+	
+	public void setVentas(List<Venta> ventas){
+		this.ventas = ventas;
+	}
+
+	
+	public TEmpleado toTransfer() {
+		return new TEmpleado(this.id, this.tag, this.horasMensuales, this.departamento.getId(), this.activo);
+	}
+
 }

@@ -7,6 +7,8 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.LockModeType;
@@ -21,10 +23,18 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
 
 import integracion.factoria.EMFSingleton;
+import negocio.departamento.Departamento;
+import negocio.departamento.TDepartamento;
+import negocio.empleado.Empleado;
+import negocio.empleado.Gerente;
+import negocio.empleado.TGerente;
 import negocio.marca.Marca;
 import negocio.marca.TMarca;
 import negocio.producto.Producto;
 import negocio.producto.TProducto;
+import negocio.proveedor.Nacional;
+import negocio.proveedor.Proveedor;
+import negocio.proveedor.TNacional;
 import presentacion.controlador.Contexto;
 import presentacion.controlador.Controlador;
 import presentacion.controlador.Evento;
@@ -225,26 +235,43 @@ public class VistaPrincipal extends JFrame implements Observador {
 				Marca marca = new Marca(new TMarca(2,"nike","alemania",true));
 				Marca marca2 = new Marca(new TMarca(2,"adidas","alemania",true));
 				Producto p = new Producto(new TProducto(1, "cocacola", 5, 2.20, 82872, true));
+				Nacional n = new Nacional(new TNacional(0, "Nacional1", true, 12345));
 				
 				
+				//Marca
 				em.persist(marca);
 				em.persist(marca2);
+				
+				//Producto
+				List<Proveedor> proveedores = new ArrayList<>();
+				proveedores.add(n);
+				p.setProveedores(proveedores); // Vincular proveedor y producto
 				p.setMarca(marca2);
 				em.persist(p);
 				
+				//Proveedor nacional
+				List<Producto> productos = new ArrayList<>();
+				productos.add(p);
+				n.setProductos(productos);	// Vincular proveedor y producto
+				em.persist(n);
+				
+				//Departamento y Empleado
+				Departamento d = new Departamento(new TDepartamento(0, "Recursos Humanos", 1, 23.5, true));
+				
+				Gerente g = new Gerente(new TGerente(0, 1, 160, 1, true, 1, 10));
+				g.setDepartamento(d);
+				
+				// Añadir el empleado a la lista que tiene departamento
+				List<Empleado> empleados = new ArrayList<>();
+				empleados.add(g);
+				d.setEmpleados(empleados);
+				
+				em.persist(d);
+				em.persist(g);
+				
+				
 				em.getTransaction().commit();
 				
-
-				em.getTransaction().begin();
-				
-				//em.lock(marca, LockModeType.OPTIMISTIC_FORCE_INCREMENT);
-				//marca = em.find(Marca.class, 1);
-				
-				marca = em.find(Marca.class, 1, LockModeType.OPTIMISTIC_FORCE_INCREMENT);
-				
-				em.getTransaction().commit();
-				
-				System.out.println(marca.getNombre() + "");
 				em.close();
 				emf.getEMF().close();
 			}
