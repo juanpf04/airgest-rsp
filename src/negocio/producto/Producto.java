@@ -143,7 +143,7 @@ public class Producto implements Serializable {
 
 	
 	public TProducto toTransfer() {
-		return new TProducto(id, nombre, stock, precio, ref, activo);
+		return new TProducto(id, nombre, stock, precio, ref, marca.getId(), activo);
 	}
 
 	

@@ -12,6 +12,8 @@ public class TProducto {
 	private double precio;
 
 	private int ref;
+	
+	private int idMarca;
 
 	private boolean activo;
 
@@ -70,12 +72,21 @@ public class TProducto {
 	public TProducto() {
 	}
 
-	public TProducto(int id, String nombre, int stock, double precio, int ref, boolean activo) {
+	public TProducto(int id, String nombre, int stock, double precio, int ref, int idMarca, boolean activo) {
 		this.id = id;
 		this.nombre = nombre;
 		this.stock = stock;
 		this.precio = precio;
 		this.ref = ref;
+		this.idMarca = idMarca;
 		this.activo = activo;
+	}
+
+	public int getIdMarca() {
+		return idMarca;
+	}
+
+	public void setIdMarca(int idMarca) {
+		this.idMarca = idMarca;
 	}
 }
