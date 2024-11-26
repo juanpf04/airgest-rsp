@@ -11,13 +11,13 @@ public class AbrirCarrito implements Comando {
 	public Contexto ejecutar(Object datos) {
 		FactoriaNegocioMall fn = FactoriaNegocioMall.getInstance();
 		SAVenta sv = fn.crearSAVenta();
-		boolean exito = sv.abrirCarrito((int) datos);
+		/*boolean exito = sv.abrirCarrito((int) datos);
 		Evento evento = null;
 		if (exito)
 			evento = Evento.VISTA_EXITO_ABRIR_VENTA;
 		else
-			evento = Evento.VISTA_FALLO_ABRIR_VENTA;
+			evento = Evento.VISTA_FALLO_ABRIR_VENTA;*/
 
-		return new Contexto(evento);
+		return null;
 	}
 }

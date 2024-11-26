@@ -22,26 +22,27 @@ import javax.persistence.NamedQueries;
 		@NamedQuery(name = "negocio.venta.Venta.findByfecha", query = "select obj from Venta obj where :fecha = obj.fecha "),
 		@NamedQuery(name = "negocio.venta.Venta.findByversion", query = "select obj from Venta obj where :version = obj.version ") })
 public class Venta implements Serializable {
-	
+
 	private static final long serialVersionUID = 0;
-	
-	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	@ManyToOne
 	private Empleado empleado;
-	
+
 	private double precio;
-	
+
 	private String fecha;
-	
+
 	@Version
 	private int version;
 
 	public Venta() {
-		
+
 	}
-	
+
 	public Venta(TVenta transfer) {
 		this.id = transfer.getId();
 		this.precio = transfer.getPrecio();
@@ -71,8 +72,7 @@ public class Venta implements Serializable {
 	public void setFecha(String fecha) {
 		this.fecha = fecha;
 	}
-	
-	
+
 	public Empleado getEmpleado() {
 		return empleado;
 	}

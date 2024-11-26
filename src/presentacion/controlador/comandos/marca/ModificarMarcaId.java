@@ -15,12 +15,12 @@ public class ModificarMarcaId implements Comando {
 		SAMarca sa = fn.crearSAMarca();
 		TMarca marca = sa.consultarMarcaPorId((int) datos);
 		Evento evento;
-		if (marca != null && marca.getActivo()){
+		if (marca != null && marca.getActivo()) {
 			evento = Evento.VISTA_MODIFICAR_MARCA;
-		} else{
+		} else {
 			evento = Evento.VISTA_FALLO_MODIFICAR_MARCA;
 		}
-		
+
 		return new Contexto(evento, marca);
 	}
 

@@ -18,4 +18,5 @@ public class ConsultarProveedoresPorProducto implements Comando {
 		List<TProveedor> proveedores = sp.consultarProveedoresPorProducto((int) datos);
 		Evento evento = Evento.VISTA_RESULTADO_CONSULTAR_PROVEEDORES_POR_PRODUCTO;
 		return new Contexto(evento, proveedores);
-	}}
+	}
+}

@@ -6,11 +6,11 @@ package negocio.venta;
 import java.util.List;
 
 /** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author javia
-* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-*/
+ * <!-- begin-UML-doc -->
+ * <!-- end-UML-doc -->
+ * @author javia
+ * @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
+ */
 public interface SAVenta {
 	/** 
 	* <!-- begin-UML-doc -->
@@ -19,7 +19,7 @@ public interface SAVenta {
 	* @return
 	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
 	*/
-	public boolean abrirCarrito(int idEmpleado);
+	public TCarritoVenta abrirCarrito(int idEmpleado);
 
 	/** 
 	* <!-- begin-UML-doc -->
@@ -64,4 +64,13 @@ public interface SAVenta {
 	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
 	*/
 	public List<TVenta> consultarVentasPorEmpleado(int id);
+
+	/** 
+	* <!-- begin-UML-doc -->
+	* <!-- end-UML-doc -->
+	* @param venta
+	* @return
+	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
+	*/
+	public boolean modificarVenta(TVenta venta);
 }

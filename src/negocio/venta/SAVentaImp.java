@@ -6,21 +6,21 @@ package negocio.venta;
 import java.util.List;
 
 /** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author javia
-* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-*/
+ * <!-- begin-UML-doc -->
+ * <!-- end-UML-doc -->
+ * @author javia
+ * @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
+ */
 public class SAVentaImp implements SAVenta {
 	/** 
 	* (non-Javadoc)
 	* @see SAVenta#abrirCarrito(int idEmpleado)
 	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
 	*/
-	public boolean abrirCarrito(int idEmpleado) {
+	public TCarritoVenta abrirCarrito(int idEmpleado) {
 		// begin-user-code
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 		// end-user-code
 	}
 
@@ -81,6 +81,18 @@ public class SAVentaImp implements SAVenta {
 		// begin-user-code
 		// TODO Auto-generated method stub
 		return null;
+		// end-user-code
+	}
+
+	/** 
+	* (non-Javadoc)
+	* @see SAVenta#modificarVenta(TVenta venta)
+	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
+	*/
+	public boolean modificarVenta(TVenta venta) {
+		// begin-user-code
+		// TODO Auto-generated method stub
+		return false;
 		// end-user-code
 	}
 }

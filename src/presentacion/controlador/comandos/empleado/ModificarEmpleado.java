@@ -8,7 +8,7 @@ import presentacion.controlador.Contexto;
 import presentacion.controlador.Evento;
 
 public class ModificarEmpleado implements Comando {
-	
+
 	public Contexto ejecutar(Object datos) {
 		FactoriaNegocioMall fn = FactoriaNegocioMall.getInstance();
 		SAEmpleado se = fn.crearSAEmpleado();

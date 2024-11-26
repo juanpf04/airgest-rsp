@@ -11,15 +11,15 @@ import javax.persistence.NamedQueries;
 		@NamedQuery(name = "negocio.proveedor.Internacional.findBypais", query = "select obj from Internacional obj where :pais = obj.pais "),
 		@NamedQuery(name = "negocio.proveedor.Internacional.findByimpuesto", query = "select obj from Internacional obj where :impuesto = obj.impuesto ") })
 public class Internacional extends Proveedor implements Serializable {
-	
+
 	private static final long serialVersionUID = 0;
-	
+
 	private String pais;
-	
+
 	private Double impuesto;
-	
+
 	public Internacional() {
-		
+
 	}
 
 	public Internacional(TInternacional transfer) {
@@ -43,8 +43,8 @@ public class Internacional extends Proveedor implements Serializable {
 	public void setPais(String pais) {
 		this.pais = pais;
 	}
-	
-	public TInternacional toTransfer(){
+
+	public TInternacional toTransfer() {
 		return new TInternacional(getId(), getNombre(), getActivo(), this.pais, this.impuesto);
 	}
 }

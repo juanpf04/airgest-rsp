@@ -25,8 +25,9 @@ import javax.persistence.NamedQueries;
 public class Marca implements Serializable {
 
 	private static final long serialVersionUID = 0;
-	
-	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
 	@OneToMany(mappedBy = "marca")
@@ -34,11 +35,11 @@ public class Marca implements Serializable {
 
 	@Column(unique = true, nullable = false)
 	private String nombre;
-	
+
 	private String origen;
-	
+
 	private boolean activo;
-	
+
 	@Version
 	private int version;
 
@@ -81,10 +82,23 @@ public class Marca implements Serializable {
 		return this.productos;
 	}
 
+	/** 
+	* <!-- begin-UML-doc -->
+	* <!-- end-UML-doc -->
+	* @param productos
+	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
+	*/
+	public void setProductos(Producto... productos) {
+		// begin-user-code
+		// TODO Auto-generated method stub
+
+		// end-user-code
+	}
+
 	public void setProductos(List<Producto> productos) {
 		this.productos = productos;
 	}
-	
+
 	public TMarca toTransfer() {
 		return new TMarca(this.id, this.nombre, this.origen, this.activo);
 	}

@@ -502,7 +502,7 @@ public class FactoriaVistasImp extends FactoriaVistas {
 		case VISTA_FALLO_DESVINCULAR_PERSONAL:
 			vista = new VistaFalloDesvincularPersonal();
 			break;
-			
+
 		default:
 			break;
 		}

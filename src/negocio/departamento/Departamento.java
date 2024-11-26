@@ -25,31 +25,32 @@ import javax.persistence.Version;
 		@NamedQuery(name = "negocio.departamento.Departamento.findByactivo", query = "select obj from Departamento obj where :activo = obj.activo "),
 		@NamedQuery(name = "negocio.departamento.Departamento.findByversion", query = "select obj from Departamento obj where :version = obj.version ") })
 public class Departamento implements Serializable {
-	
+
 	private static final long serialVersionUID = 0;
-	
-	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	@Column(unique = true, nullable = false)
 	private String nombre;
-	
+
 	private int sala;
-	
+
 	private double sueldoHora;
-	
+
 	@OneToMany(mappedBy = "departamento")
 	private List<Empleado> empleados;
-	
+
 	private boolean activo;
-	
+
 	@Version
 	private int version;
 
 	public Departamento() {
-		
+
 	}
-	
+
 	public Departamento(TDepartamento transfer) {
 		this.id = transfer.getId();
 		this.nombre = transfer.getNombre();
@@ -105,6 +106,19 @@ public class Departamento implements Serializable {
 
 	public List<Empleado> getEmpleados() {
 		return this.empleados;
+	}
+
+	/** 
+	* <!-- begin-UML-doc -->
+	* <!-- end-UML-doc -->
+	* @param empleados
+	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
+	*/
+	public void setEmpleados(Empleado... empleados) {
+		// begin-user-code
+		// TODO Auto-generated method stub
+
+		// end-user-code
 	}
 
 	public void setEmpleados(List<Empleado> empleados) {

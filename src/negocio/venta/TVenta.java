@@ -1,19 +1,18 @@
 
 package negocio.venta;
 
-
 public class TVenta {
-	
+
 	private int id;
-	
+
 	private double precio;
-	
+
 	private String fecha;
-	
+
 	private int idEmpleado;
 
 	public TVenta() {
-		
+
 	}
 
 	public TVenta(int id, double precio, String fecha, int idEmpleado) {

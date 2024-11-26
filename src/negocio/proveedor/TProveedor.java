@@ -2,11 +2,11 @@
 package negocio.proveedor;
 
 public class TProveedor {
-	
+
 	private int id;
-	
+
 	private String nombre;
-	
+
 	private boolean activo;
 
 	public TProveedor(int id, String nombre, boolean activo) {
@@ -41,5 +41,17 @@ public class TProveedor {
 
 	public void setActivo(boolean activo) {
 		this.activo = activo;
+	}
+
+	/** 
+	* (non-Javadoc)
+	* @see Observador#actualizar(Object datos)
+	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
+	*/
+	public void actualizar(Object datos) {
+		// begin-user-code
+		// TODO Auto-generated method stub
+
+		// end-user-code
 	}
 }

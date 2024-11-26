@@ -4,9 +4,9 @@ package negocio.proveedor;
 public class TInternacional extends TProveedor {
 
 	private String pais;
-	
+
 	private double impuesto;
-	
+
 	public TInternacional(int id, String nombre, boolean activo, String pais, double impuesto) {
 		super(id, nombre, activo);
 		this.pais = pais;
@@ -14,7 +14,7 @@ public class TInternacional extends TProveedor {
 	}
 
 	public TInternacional() {
-		
+
 	}
 
 	public String getPais() {

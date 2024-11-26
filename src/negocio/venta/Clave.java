@@ -12,17 +12,17 @@ public class Clave implements Serializable {
 	private static final long serialVersionUID = 0;
 
 	private int venta;
-	
+
 	private int producto;
-	
+
 	public Clave() {
 	}
-	
-	public Clave(int venta, int producto){
+
+	public Clave(int venta, int producto) {
 		this.venta = venta;
 		this.producto = producto;
 	}
-	
+
 	public int getVenta() {
 		return venta;
 	}
@@ -52,12 +52,11 @@ public class Clave implements Serializable {
 		return true;
 	}
 
-	
 	public int hashCode() {
-	    final int prime = 31; 
-	    int result = 1;       
-	    result = prime * result + venta;     
-	    result = prime * result + producto; 
-	    return result;        
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + venta;
+		result = prime * result + producto;
+		return result;
 	}
 }

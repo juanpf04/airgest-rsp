@@ -2,19 +2,19 @@
 package negocio.departamento;
 
 public class TDepartamento {
-	
+
 	private int id;
-	
+
 	private String nombre;
-	
+
 	private int sala;
-	
+
 	private double sueldoHora;
-	
+
 	private boolean activo;
-	
+
 	public TDepartamento() {
-	
+
 	}
 
 	public TDepartamento(int id, String nombre, int sala, double sueldoHora, boolean activo) {
@@ -40,7 +40,7 @@ public class TDepartamento {
 	public double getSueldoHora() {
 		return this.sueldoHora;
 	}
-	
+
 	public boolean getActivo() {
 		return this.activo;
 	}

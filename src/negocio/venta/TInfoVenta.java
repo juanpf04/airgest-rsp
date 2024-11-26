@@ -10,11 +10,11 @@ import negocio.producto.TProducto;
 import negocio.contrato.TInfoContrato;
 
 /** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author javia
-* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-*/
+ * <!-- begin-UML-doc -->
+ * <!-- end-UML-doc -->
+ * @author javia
+ * @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
+ */
 public class TInfoVenta {
 	/** 
 	* <!-- begin-UML-doc -->

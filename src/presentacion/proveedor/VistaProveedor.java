@@ -3,6 +3,8 @@
  */
 package presentacion.proveedor;
 
+import javax.swing.JFrame;
+
 import presentacion.Observador;
 
 /** 
@@ -11,11 +13,11 @@ import presentacion.Observador;
  * @author javia
  * @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
  */
-public class VistaProveedor implements Observador {
+public class VistaProveedor extends JFrame implements Observador {
 
 	@Override
 	public void actualizar(Object datos) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

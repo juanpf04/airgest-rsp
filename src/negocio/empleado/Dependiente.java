@@ -6,21 +6,20 @@ import java.io.Serializable;
 import javax.persistence.NamedQuery;
 import javax.persistence.NamedQueries;
 
-
 @Entity
 @NamedQueries({
 		@NamedQuery(name = "negocio.empleado.Dependiente.findByseccion", query = "select obj from Dependiente obj where :seccion = obj.seccion "),
 		@NamedQuery(name = "negocio.empleado.Dependiente.findBynoches", query = "select obj from Dependiente obj where :noches = obj.noches ") })
 public class Dependiente extends Empleado implements Serializable {
-	
+
 	private static final long serialVersionUID = 0;
-	
+
 	private int seccion;
-	
+
 	private boolean noches;
-	
+
 	public Dependiente() {
-	
+
 	}
 
 	public Dependiente(TDependiente transfer) {
@@ -44,8 +43,9 @@ public class Dependiente extends Empleado implements Serializable {
 	public void setNoches(boolean noches) {
 		this.noches = noches;
 	}
-	
-	public TDependiente toTransfer(){
-		return new TDependiente(getId(), getTag(), getHorasMensuales(), getDepartamento().getId(), getActivo(), this.seccion, this.noches);
+
+	public TDependiente toTransfer() {
+		return new TDependiente(getId(), getTag(), getHorasMensuales(), getDepartamento().getId(), getActivo(),
+				this.seccion, this.noches);
 	}
 }

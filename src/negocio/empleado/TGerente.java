@@ -2,16 +2,17 @@
 package negocio.empleado;
 
 public class TGerente extends TEmpleado {
-	
+
 	private int despacho;
-	
+
 	private int horasExtra;
 
 	public TGerente() {
-		
+
 	}
 
-	public TGerente(int id, int tag, int horasMensuales, int idDepartamento, boolean activo, int despacho, int horasExtra) {
+	public TGerente(int id, int tag, int horasMensuales, int idDepartamento, boolean activo, int despacho,
+			int horasExtra) {
 		super(id, tag, horasMensuales, idDepartamento, activo);
 		this.despacho = despacho;
 		this.horasExtra = horasExtra;

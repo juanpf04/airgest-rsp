@@ -7,7 +7,6 @@ import negocio.empleado.TEmpleado;
 import presentacion.controlador.Contexto;
 import presentacion.controlador.Evento;
 
-
 public class AltaEmpleado implements Comando {
 	@Override
 	public Contexto ejecutar(Object datos) {

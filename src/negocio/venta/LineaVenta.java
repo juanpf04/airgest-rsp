@@ -21,29 +21,31 @@ import javax.persistence.NamedQueries;
 		@NamedQuery(name = "negocio.venta.LineaVenta.findByprecio", query = "select obj from LineaVenta obj where :precio = obj.precio "),
 		@NamedQuery(name = "negocio.venta.LineaVenta.findByversion", query = "select obj from LineaVenta obj where :version = obj.version ") })
 public class LineaVenta implements Serializable {
-	
+
 	private static final long serialVersionUID = 0;
-	
-	@EmbeddedId 
+
+	@EmbeddedId
 	private Clave id;
-	
-	@ManyToOne @MapsId
+
+	@ManyToOne
+	@MapsId
 	private Producto producto;
-	
-	@ManyToOne @MapsId
+
+	@ManyToOne
+	@MapsId
 	private Venta venta;
-	
+
 	private int cantidad;
-	
+
 	private double precio;
-	
+
 	@Version
 	private int version;
-	
+
 	public LineaVenta() {
-		
+
 	}
-	
+
 	public LineaVenta(TLineaVenta transfer) {
 		// TODO Clave???
 		this.cantidad = transfer.getCantidad();
@@ -54,7 +56,7 @@ public class LineaVenta implements Serializable {
 	public Clave getId() {
 		return this.id;
 	}
-	
+
 	public void setId(Clave id) {
 		this.id = id;
 	}
@@ -74,7 +76,7 @@ public class LineaVenta implements Serializable {
 	public void setPrecio(double precio) {
 		this.precio = precio;
 	}
-	
+
 	public Producto getProducto() {
 		return this.producto;
 	}
@@ -90,7 +92,7 @@ public class LineaVenta implements Serializable {
 	public void setVenta(Venta venta) {
 		this.venta = venta;
 	}
-	
+
 	public TLineaVenta toTransfer() {
 		return new TLineaVenta(this.id.getVenta(), this.id.getProducto(), this.cantidad, this.precio);
 	}

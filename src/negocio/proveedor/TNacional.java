@@ -2,11 +2,11 @@
 package negocio.proveedor;
 
 public class TNacional extends TProveedor {
-	
+
 	private int codigoPostal;
-	
+
 	public TNacional() {
-		
+
 	}
 
 	public TNacional(int id, String nombre, boolean activo, int cp) {

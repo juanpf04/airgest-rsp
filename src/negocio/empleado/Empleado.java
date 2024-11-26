@@ -27,53 +27,67 @@ import javax.persistence.Version;
 		@NamedQuery(name = "negocio.empleado.Empleado.findByactivo", query = "select obj from Empleado obj where :activo = obj.activo "),
 		@NamedQuery(name = "negocio.empleado.Empleado.findByversion", query = "select obj from Empleado obj where :version = obj.version ") })
 public class Empleado implements Serializable {
-	
+
 	private static final long serialVersionUID = 0;
-	
-	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	@ManyToOne
 	private Departamento departamento;
-	
+
 	@OneToMany(mappedBy = "empleado")
 	private List<Venta> ventas;
-	
+
 	@Column(unique = true, nullable = false)
 	private int tag;
-	
+
 	private int horasMensuales;
-	
+
 	private boolean activo;
-	
+
 	@Version
 	private int version;
-	
+
 	public Empleado() {
-		
+
 	}
-	
+
 	public Empleado(TEmpleado transfer) {
 		this.id = transfer.getId();
 		this.tag = transfer.getTag();
 		this.horasMensuales = transfer.getHorasMensuales();
 		this.activo = transfer.getActivo();
 	}
-	
+
 	public Integer getId() {
 		return this.id;
 	}
-	
+
 	public int getTag() {
 		return this.tag;
 	}
-	
+
 	public Departamento getDepartamento() {
 		return this.departamento;
 	}
-	
-	public List<Venta> getVentas(){
+
+	public List<Venta> getVentas() {
 		return this.ventas;
+	}
+
+	/** 
+	* <!-- begin-UML-doc -->
+	* <!-- end-UML-doc -->
+	* @param ventas
+	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
+	*/
+	public void setVentas(Venta... ventas) {
+		// begin-user-code
+		// TODO Auto-generated method stub
+
+		// end-user-code
 	}
 
 	public int getHorasMensuales() {
@@ -83,7 +97,7 @@ public class Empleado implements Serializable {
 	public boolean getActivo() {
 		return this.activo;
 	}
-	
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
@@ -95,7 +109,7 @@ public class Empleado implements Serializable {
 	public void setHorasMensuales(int horasMensuales) {
 		this.horasMensuales = horasMensuales;
 	}
-	
+
 	public void setActivo(boolean activo) {
 		this.activo = activo;
 	}
@@ -103,12 +117,11 @@ public class Empleado implements Serializable {
 	public void setDepartamento(Departamento departamento) {
 		this.departamento = departamento;
 	}
-	
-	public void setVentas(List<Venta> ventas){
+
+	public void setVentas(List<Venta> ventas) {
 		this.ventas = ventas;
 	}
 
-	
 	public TEmpleado toTransfer() {
 		return new TEmpleado(this.id, this.tag, this.horasMensuales, this.departamento.getId(), this.activo);
 	}

@@ -4,11 +4,11 @@ package negocio.venta;
 public class TLineaVenta {
 
 	private int idVenta;
-	
+
 	private int idProducto;
-	
+
 	private int cantidad;
-	
+
 	private double precio;
 
 	public TLineaVenta(int idVenta, int idProducto, int cantidad, double precio) {
@@ -19,7 +19,7 @@ public class TLineaVenta {
 	}
 
 	public TLineaVenta() {
-		
+
 	}
 
 	public int getIdVenta() {
@@ -41,7 +41,7 @@ public class TLineaVenta {
 	public int getCantidad() {
 		return this.cantidad;
 	}
-	
+
 	public void setCantidad(int cantidad) {
 		this.cantidad = cantidad;
 	}

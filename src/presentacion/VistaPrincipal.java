@@ -144,10 +144,10 @@ public class VistaPrincipal extends JFrame implements Observador {
 				ctrl.accion(new Contexto(Evento.VISTA_CONTRATO));
 			}
 		});
-		
+
 		contrato.setToolTipText("MODULO CONTRATO");
 		botones.add(contrato);
-		
+
 		JButton marca = new JButton("MARCA");
 		marca.addActionListener(new ActionListener() {
 			@Override
@@ -219,58 +219,57 @@ public class VistaPrincipal extends JFrame implements Observador {
 		});
 		empleado.setToolTipText("MODULO EMPLEADO");
 		botones.add(empleado);
-		
+
 		//-------------------------------------------
 		JButton nuclear = new JButton("nuclear");
 		nuclear.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//TODO añadir uno de cada entidad a la bbdd
 				EMFSingleton emf = EMFSingleton.getInstance();
 				EntityManager em = emf.getEMF().createEntityManager();
-				
+
 				em.getTransaction().begin();
-				
-				Marca marca = new Marca(new TMarca(2,"nike","alemania",true));
-				Marca marca2 = new Marca(new TMarca(2,"adidas","alemania",true));
+
+				Marca marca = new Marca(new TMarca(2, "nike", "alemania", true));
+				Marca marca2 = new Marca(new TMarca(2, "adidas", "alemania", true));
 				Producto p = new Producto(new TProducto(1, "cocacola", 5, 2.20, 82872, 1, true));
 				Nacional n = new Nacional(new TNacional(0, "Nacional1", true, 12345));
-				
-				
+
 				//Marca
 				em.persist(marca);
 				em.persist(marca2);
-				
+
 				//Producto
 				List<Proveedor> proveedores = new ArrayList<>();
 				proveedores.add(n);
 				p.setProveedores(proveedores); // Vincular proveedor y producto
 				p.setMarca(marca2);
 				em.persist(p);
-				
+
 				//Proveedor nacional
 				List<Producto> productos = new ArrayList<>();
 				productos.add(p);
-				n.setProductos(productos);	// Vincular proveedor y producto
+				n.setProductos(productos); // Vincular proveedor y producto
 				em.persist(n);
-				
+
 				//Departamento y Empleado
 				Departamento d = new Departamento(new TDepartamento(0, "Recursos Humanos", 1, 23.5, true));
-				
+
 				Gerente g = new Gerente(new TGerente(0, 1, 160, 1, true, 1, 10));
 				g.setDepartamento(d);
-				
+
 				// Añadir el empleado a la lista que tiene departamento
 				List<Empleado> empleados = new ArrayList<>();
 				empleados.add(g);
 				d.setEmpleados(empleados);
-				
+
 				em.persist(d);
 				em.persist(g);
-				
+
 				em.getTransaction().commit();
-				
+
 				em.close();
 				emf.getEMF().close();
 			}
@@ -278,7 +277,6 @@ public class VistaPrincipal extends JFrame implements Observador {
 		nuclear.setToolTipText("nuclear");
 		botones.add(nuclear);
 		//-------------------------------------------
-		
 
 		principal.add(botones, BorderLayout.CENTER);
 

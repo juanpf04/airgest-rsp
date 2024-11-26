@@ -2,19 +2,19 @@
 package negocio.empleado;
 
 public class TEmpleado {
-	
+
 	private int id;
-	
+
 	private int tag;
-	
+
 	private int horasMensuales;
-	
+
 	private boolean activo;
-	
+
 	private int idDepartamento;
 
 	public TEmpleado() {
-		
+
 	}
 
 	public TEmpleado(int id, int tag, int horasMensuales, int idDepartamento, boolean activo) {
@@ -40,7 +40,7 @@ public class TEmpleado {
 	public boolean getActivo() {
 		return this.activo;
 	}
-	
+
 	public int getIdDepartamento() {
 		return this.idDepartamento;
 	}

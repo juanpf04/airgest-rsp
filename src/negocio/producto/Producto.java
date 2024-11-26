@@ -18,7 +18,6 @@ import java.util.List;
 import negocio.proveedor.Proveedor;
 import javax.persistence.ManyToMany;
 
-
 @Entity
 @NamedQueries({
 		@NamedQuery(name = "negocio.producto.Producto.findByid", query = "select obj from Producto obj where :id = obj.id "),
@@ -31,122 +30,117 @@ import javax.persistence.ManyToMany;
 		@NamedQuery(name = "negocio.producto.Producto.findByactivo", query = "select obj from Producto obj where :activo = obj.activo "),
 		@NamedQuery(name = "negocio.producto.Producto.findByversion", query = "select obj from Producto obj where :version = obj.version ") })
 public class Producto implements Serializable {
-	
+
 	private static final long serialVersionUID = 0;
-	
-	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	@ManyToOne
 	private Marca marca;
-	
+
 	@ManyToMany
 	private List<Proveedor> proveedores;
-	
+
 	private String nombre;
-	
+
 	private int stock;
-	
+
 	private double precio;
-	
+
 	@Column(unique = true, nullable = false)
 	private int ref;
-	
+
 	private boolean activo;
-	
+
 	@Version
 	private int version;
 
-	
 	public Producto() {
 	}
 
-	
 	public Integer getId() {
 		return this.id;
 	}
 
-	
 	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	
 	public String getNombre() {
 		return nombre;
 	}
 
-	
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
-	
 	public int getStock() {
 		return stock;
 	}
 
-	
 	public void setStock(int stock) {
 		this.stock = stock;
 	}
 
-	
 	public double getPrecio() {
 		return precio;
 	}
 
-	
 	public void setPrecio(double precio) {
 		this.precio = precio;
 	}
 
-	
 	public int getRef() {
 		return ref;
 	}
 
-	
 	public void setRef(int ref) {
 		this.ref = ref;
 	}
 
-	
 	public boolean getActivo() {
 		return activo;
 	}
 
-	
 	public void setActivo(boolean activo) {
 		this.activo = activo;
 	}
 
-	
 	public Marca getMarca() {
 		return marca;
 	}
 
-	
 	public void setMarca(Marca marca) {
 		this.marca = marca;
 	}
 
-	
 	public List<Proveedor> getProveedores() {
 		return proveedores;
 	}
 
-	
+	/** 
+	* <!-- begin-UML-doc -->
+	* <!-- end-UML-doc -->
+	* @param proveedores
+	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
+	*/
+	public void setProveedores(Proveedor... proveedores) {
+		// begin-user-code
+		// TODO Auto-generated method stub
+
+		// end-user-code
+	}
+
 	public void setProveedores(List<Proveedor> proveedores) {
 		this.proveedores = proveedores;
 	}
 
-	
 	public TProducto toTransfer() {
 		return new TProducto(id, nombre, stock, precio, ref, marca.getId(), activo);
 	}
 
-	
 	public Producto(TProducto transfer) {
 		this.id = transfer.getId();
 		this.nombre = transfer.getNombre();

@@ -23,31 +23,32 @@ import javax.persistence.NamedQueries;
 		@NamedQuery(name = "negocio.proveedor.Proveedor.findByactivo", query = "select obj from Proveedor obj where :activo = obj.activo "),
 		@NamedQuery(name = "negocio.proveedor.Proveedor.findByversion", query = "select obj from Proveedor obj where :version = obj.version ") })
 public class Proveedor implements Serializable {
-	
+
 	private static final long serialVersionUID = 0;
-	
-	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	@ManyToMany(mappedBy = "proveedores")
 	private List<Producto> productos;
-	
+
 	@Column(unique = true, nullable = false)
 	private String nombre;
-	
+
 	private boolean activo;
-	
+
 	@Version
 	private int version;
-	
+
 	public Proveedor(TProveedor transfer) {
 		this.id = transfer.getId();
 		this.nombre = transfer.getNombre();
 		this.activo = transfer.getActivo();
 	}
-	
+
 	public Proveedor() {
-		
+
 	}
 
 	public Integer getId() {
@@ -76,6 +77,19 @@ public class Proveedor implements Serializable {
 
 	public List<Producto> getProductos() {
 		return this.productos;
+	}
+
+	/** 
+	* <!-- begin-UML-doc -->
+	* <!-- end-UML-doc -->
+	* @param productos
+	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
+	*/
+	public void setProductos(Producto... productos) {
+		// begin-user-code
+		// TODO Auto-generated method stub
+
+		// end-user-code
 	}
 
 	public void setProductos(List<Producto> productos) {

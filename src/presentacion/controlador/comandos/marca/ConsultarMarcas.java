@@ -10,7 +10,6 @@ import negocio.factoria.FactoriaNegocioMall;
 import presentacion.controlador.Contexto;
 import presentacion.controlador.Evento;
 
-
 public class ConsultarMarcas implements Comando {
 	public Contexto ejecutar(Object datos) {
 		FactoriaNegocioMall fn = FactoriaNegocioMall.getInstance();

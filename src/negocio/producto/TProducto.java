@@ -1,10 +1,9 @@
 package negocio.producto;
 
-
 public class TProducto {
 
 	private int id;
-	
+
 	private String nombre;
 
 	private int stock;
@@ -12,11 +11,17 @@ public class TProducto {
 	private double precio;
 
 	private int ref;
-	
+
+	/** 
+	* <!-- begin-UML-doc -->
+	* <!-- end-UML-doc -->
+	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
+	*/
+	private boolean _boolean;
+
 	private int idMarca;
 
 	private boolean activo;
-
 
 	public int getId() {
 		return this.id;
@@ -26,16 +31,13 @@ public class TProducto {
 		this.id = id;
 	}
 
-
 	public String getNombre() {
 		return this.nombre;
 	}
 
-
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-
 
 	public int getStock() {
 		return this.stock;
@@ -70,6 +72,23 @@ public class TProducto {
 	}
 
 	public TProducto() {
+	}
+
+	/** 
+	* <!-- begin-UML-doc -->
+	* <!-- end-UML-doc -->
+	* @param id
+	* @param nombre
+	* @param stock
+	* @param precio
+	* @param ref
+	* @param activo
+	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
+	*/
+	public TProducto(int id, String nombre, int stock, double precio, int ref, boolean activo) {
+		// begin-user-code
+		// TODO Auto-generated constructor stub
+		// end-user-code
 	}
 
 	public TProducto(int id, String nombre, int stock, double precio, int ref, int idMarca, boolean activo) {

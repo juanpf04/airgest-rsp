@@ -15,6 +15,6 @@ public class ConsultarProveedorPorId implements Comando {
 		SAProveedor sp = fn.crearSAProveedor();
 		TProveedor proveedor = sp.consultarProveedorPorId((int) datos);
 		Evento evento = Evento.VISTA_RESULTADO_CONSULTAR_PROVEEDOR_POR_ID;
-		return new Contexto (evento,proveedor);
+		return new Contexto(evento, proveedor);
 	}
 }

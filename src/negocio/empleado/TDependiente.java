@@ -4,19 +4,19 @@ package negocio.empleado;
 public class TDependiente extends TEmpleado {
 
 	private int seccion;
-	
+
 	private boolean noches;
 
 	public TDependiente() {
-		
+
 	}
 
-	public TDependiente(int id, int tag, int horasMensuales, int idDepartamento, boolean activo, int seccion, boolean noches) {
+	public TDependiente(int id, int tag, int horasMensuales, int idDepartamento, boolean activo, int seccion,
+			boolean noches) {
 		super(id, tag, horasMensuales, idDepartamento, activo);
 		this.seccion = seccion;
 		this.noches = noches;
 	}
-
 
 	public int getSeccion() {
 		return this.seccion;
