@@ -19,9 +19,24 @@ public class FactoriaVistasImp2 extends FactoriaVistasImp {
 			vista = super.crearVista(evento);
 		} else {
 			switch (evento) {
+			//Proveedor
 			case VISTA_PROVEEDOR:
 				vista = new VistaProveedor();
 				break;
+				
+			//Producto
+				
+				
+			//Empleado
+				
+				
+			//Departamento
+				
+			
+			//Marca
+				
+				
+			//Venta
 
 			default:
 				break;

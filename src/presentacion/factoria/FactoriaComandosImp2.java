@@ -19,6 +19,7 @@ public class FactoriaComandosImp2 extends FactoriaComandosImp {
 			comando = super.crearComando(evento);
 		} else {
 			switch (evento) {
+			// Marca
 			case ALTA_MARCA:
 				comando = new AltaMarca();
 				break;
@@ -26,6 +27,8 @@ public class FactoriaComandosImp2 extends FactoriaComandosImp {
 				comando = new BajaMarca();
 				break;
 
+				
+			// Proveedor
 			case ALTA_PROVEEDOR:
 				comando = new AltaProveedor();
 				break;
@@ -33,6 +36,8 @@ public class FactoriaComandosImp2 extends FactoriaComandosImp {
 				comando = new BajaProveedor();
 				break;
 
+				
+			//Producto
 			case ALTA_PRODUCTO:
 				comando = new AltaProducto();
 				break;
@@ -40,6 +45,8 @@ public class FactoriaComandosImp2 extends FactoriaComandosImp {
 				comando = new BajaProducto();
 				break;
 
+				
+			// Empleado
 			case ALTA_EMPLEADO:
 				comando = new AltaEmpleado();
 				break;
@@ -47,6 +54,8 @@ public class FactoriaComandosImp2 extends FactoriaComandosImp {
 				comando = new BajaEmpleado();
 				break;
 
+				
+			//Departamento
 			case ALTA_DEPARTAMENTO:
 				comando = new AltaDepartamento();
 				break;
@@ -54,6 +63,7 @@ public class FactoriaComandosImp2 extends FactoriaComandosImp {
 				comando = new BajaDepartamento();
 				break;
 
+			//Venta
 			case ABRIR_VENTA:
 				comando = new AbrirCarrito();
 				break;
