@@ -1,7 +1,7 @@
 /**
  * 
  */
-package presentacion.proveedor;
+package presentacion.venta;
 
 import javax.swing.JFrame;
 import presentacion.Observador;
@@ -12,7 +12,7 @@ import presentacion.Observador;
 * @author javia
 * @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
 */
-public class VistaProveedor extends JFrame implements Observador {
+public class VistaVenta extends JFrame implements Observador {
 	/** 
 	* (non-Javadoc)
 	* @see Observador#actualizar(Object datos)
