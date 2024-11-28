@@ -273,11 +273,16 @@ public class VistaPrincipal extends JFrame implements Observador {
 				
 				em.getTransaction().begin();
 				
-				Marca consultarNombre = em.createNamedQuery("negocio.marca.Marca.findBynombre", Marca.class)
-		                 .setParameter("nombre", "nike") // Asignar el valor del parámetro
-		                 .getSingleResult();
+				List<Marca> resultados = em.createNamedQuery("negocio.marca.Marca.findBynombre", Marca.class)
+                        .setParameter("nombre", "nike")
+                        .getResultList();
 				
-				System.out.println(consultarNombre.getId());
+				if (resultados.isEmpty()){
+					System.out.println("No hay marca con ese nombre");
+				} else{
+					System.out.println(resultados.get(0).getId());
+				}
+				
 
 				em.close();
 				emf.getEMF().close();
