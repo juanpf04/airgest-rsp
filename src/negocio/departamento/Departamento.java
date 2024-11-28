@@ -108,19 +108,6 @@ public class Departamento implements Serializable {
 		return this.empleados;
 	}
 
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @param empleados
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
-	public void setEmpleados(Empleado... empleados) {
-		// begin-user-code
-		// TODO Auto-generated method stub
-
-		// end-user-code
-	}
-
 	public void setEmpleados(List<Empleado> empleados) {
 		this.empleados = empleados;
 	}
