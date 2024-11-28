@@ -82,19 +82,6 @@ public class Marca implements Serializable {
 		return this.productos;
 	}
 
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @param productos
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
-	public void setProductos(Producto... productos) {
-		// begin-user-code
-		// TODO Auto-generated method stub
-
-		// end-user-code
-	}
-
 	public void setProductos(List<Producto> productos) {
 		this.productos = productos;
 	}
