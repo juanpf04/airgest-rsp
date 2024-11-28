@@ -235,7 +235,7 @@ public class VistaPrincipal extends JFrame implements Observador {
 				Marca marca = new Marca(new TMarca(2, "nike", "alemania", true));
 				Marca marca2 = new Marca(new TMarca(2, "adidas", "alemania", true));
 				Producto p = new Producto(new TProducto(1, "cocacola", 5, 2.20, 82872, 1, true));
-				Nacional n = new Nacional(new TNacional(0, "Nacional1", true, 12345));
+				Nacional n = new Nacional(new TNacional(0, "Nacional1", true, "12345"));
 
 				//Marca
 				em.persist(marca);

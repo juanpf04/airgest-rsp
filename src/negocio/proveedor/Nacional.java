@@ -11,7 +11,7 @@ public class Nacional extends Proveedor implements Serializable {
 
 	private static final long serialVersionUID = 0;
 
-	private int codigoPostal;
+	private String codigoPostal;
 
 	public Nacional() {
 
@@ -22,11 +22,11 @@ public class Nacional extends Proveedor implements Serializable {
 		this.codigoPostal = transfer.getCodigoPostal();
 	}
 
-	public int getCodigoPostal() {
+	public String getCodigoPostal() {
 		return this.codigoPostal;
 	}
 
-	public void setCodigoPostal(int cp) {
+	public void setCodigoPostal(String cp) {
 		this.codigoPostal = cp;
 	}
 
