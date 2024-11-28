@@ -77,19 +77,6 @@ public class Empleado implements Serializable {
 		return this.ventas;
 	}
 
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @param ventas
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
-	public void setVentas(Venta... ventas) {
-		// begin-user-code
-		// TODO Auto-generated method stub
-
-		// end-user-code
-	}
-
 	public int getHorasMensuales() {
 		return this.horasMensuales;
 	}

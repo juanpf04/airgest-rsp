@@ -1,34 +1,48 @@
-/**
- * 
- */
+
 package negocio.empleado;
 
+import java.util.ArrayList;
 import java.util.List;
 
-/** 
- * <!-- begin-UML-doc -->
- * <!-- end-UML-doc -->
- * @author javia
- * @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
- */
+import javax.persistence.EntityManager;
+import javax.persistence.LockModeType;
+
+import integracion.factoria.EMFSingleton;
+import negocio.departamento.Departamento;
+import negocio.venta.Venta;
+
+
 public class SAEmpleadoImp implements SAEmpleado {
-	/** 
-	* (non-Javadoc)
-	* @see SAEmpleado#altaEmpleado(TEmpleado empleado)
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
-	public int altaEmpleado(TEmpleado empleado) {
-		// begin-user-code
-		// TODO Auto-generated method stub
-		return 0;
-		// end-user-code
+	
+	public synchronized int altaEmpleado(TEmpleado empleado) {
+		EMFSingleton emf = EMFSingleton.getInstance();
+		EntityManager em = emf.getEMF().createEntityManager();
+		try{
+
+			em.getTransaction().begin();
+			Departamento d = em.find(Departamento.class, empleado.getIdDepartamento());
+			em.lock(d, LockModeType.OPTIMISTIC_FORCE_INCREMENT);
+			
+			Empleado e = new Empleado(empleado);
+			e.setDepartamento(d);
+			e.setVentas(new ArrayList<Venta>());
+			
+			em.persist(e);
+			
+			em.getTransaction().commit();
+			return e.getId();
+//			Empleado e2 = em.find(Empleado.class,e);
+//			return e2.getId();
+		}catch(Exception e){
+			em.getTransaction().rollback();
+			return -1;
+		}finally{
+			em.close();
+			emf.getEMF().close();
+		}
 	}
 
-	/** 
-	* (non-Javadoc)
-	* @see SAEmpleado#bajaEmpleado(int id)
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
+	
 	public boolean bajaEmpleado(int id) {
 		// begin-user-code
 		// TODO Auto-generated method stub
@@ -36,11 +50,7 @@ public class SAEmpleadoImp implements SAEmpleado {
 		// end-user-code
 	}
 
-	/** 
-	* (non-Javadoc)
-	* @see SAEmpleado#consultarEmpleadoPorId(int id)
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
+	
 	public TEmpleado consultarEmpleadoPorId(int id) {
 		// begin-user-code
 		// TODO Auto-generated method stub
@@ -48,11 +58,7 @@ public class SAEmpleadoImp implements SAEmpleado {
 		// end-user-code
 	}
 
-	/** 
-	* (non-Javadoc)
-	* @see SAEmpleado#consultarEmpleados()
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
+	
 	public List<TEmpleado> consultarEmpleados() {
 		// begin-user-code
 		// TODO Auto-generated method stub
@@ -60,11 +66,7 @@ public class SAEmpleadoImp implements SAEmpleado {
 		// end-user-code
 	}
 
-	/** 
-	* (non-Javadoc)
-	* @see SAEmpleado#modificarEmpleado(TEmpleado empleado)
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
+	
 	public boolean modificarEmpleado(TEmpleado empleado) {
 		// begin-user-code
 		// TODO Auto-generated method stub
@@ -72,11 +74,7 @@ public class SAEmpleadoImp implements SAEmpleado {
 		// end-user-code
 	}
 
-	/** 
-	* (non-Javadoc)
-	* @see SAEmpleado#consultarEmpleadosPorDepartamento(int idDepartamento)
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
+	
 	public List<TEmpleado> consultarEmpleadosPorDepartamento(int idDepartamento) {
 		// begin-user-code
 		// TODO Auto-generated method stub
