@@ -2,6 +2,7 @@ package negocio.marca;
 
 import java.util.List;
 
+import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.OptimisticLockException;
 import javax.persistence.PersistenceException;
@@ -11,31 +12,21 @@ import integracion.factoria.EMFSingleton;
 
 public class SAMarcaImp implements SAMarca {
 
-	public synchronized int altaMarca(TMarca marca) {
+	public synchronized int altaMarca(TMarca tMarca) {
 		EntityManager em = null;
 
 		try {
-			// ------------------------------------------------------
 			em = EMFSingleton.getInstance().getEMF().createEntityManager();
-
-			// ------------------------------------------------------
 			em.getTransaction().begin();
-
+			
 			int id = -1;
+			
+			Marca marca = new Marca(tMarca);
+			
+			//Hay que comprobar si la marca existe ya
+			
 
-			// ------------------------------------------------------
-			// Marca oldMarca =
-			// em.createNamedQuery("negocio.marca.Marca.findBynombre").getFirstResult();
-
-			Marca newMarca = new Marca(marca);
-
-			em.persist(newMarca);
-
-			id = newMarca.getId();
-			// ------------------------------------------------------
-
-			em.getTransaction().commit();
-			// ------------------------------------------------------
+			
 
 			em.close();
 
@@ -45,12 +36,11 @@ public class SAMarcaImp implements SAMarca {
 			em.getTransaction().rollback();
 			em.close();
 			return -1;
-		} catch (PersistenceException e) { // excepcion para denro de la transacion TODO
-			em.getTransaction().rollback();
-			em.close();
-			return -1;
-		} 
-		catch (RuntimeException e2) { // excepcion por soi falla algo de transaccion
+		}
+		catch (RuntimeException e2) { // excepcion por si falla algo de transaccion
+			if (em.getTransaction().isActive()){
+				em.getTransaction().rollback();
+			}
 			em.close();
 			return -1;
 		} catch (Exception e3) { // excepcion por si peta otra cosa

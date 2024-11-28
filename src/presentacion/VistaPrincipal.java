@@ -241,6 +241,7 @@ public class VistaPrincipal extends JFrame implements Observador {
 				em.persist(marca);
 				em.persist(marca2);
 
+				/*
 				//Producto
 				List<Proveedor> proveedores = new ArrayList<>();
 				proveedores.add(n);
@@ -266,9 +267,17 @@ public class VistaPrincipal extends JFrame implements Observador {
 				d.setEmpleados(empleados);
 
 				em.persist(d);
-				em.persist(g);
+				em.persist(g);*/
 
 				em.getTransaction().commit();
+				
+				em.getTransaction().begin();
+				
+				Marca consultarNombre = em.createNamedQuery("negocio.marca.Marca.findBynombre", Marca.class)
+		                 .setParameter("nombre", "nike") // Asignar el valor del parámetro
+		                 .getSingleResult();
+				
+				System.out.println(consultarNombre.getId());
 
 				em.close();
 				emf.getEMF().close();

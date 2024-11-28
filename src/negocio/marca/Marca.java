@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import java.io.Serializable;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
+
+import java.util.ArrayList;
 import java.util.List;
 import negocio.producto.Producto;
 import javax.persistence.OneToMany;
@@ -95,5 +97,6 @@ public class Marca implements Serializable {
 		this.nombre = transfer.getNombre();
 		this.origen = transfer.getOrigen();
 		this.activo = transfer.getActivo();
+		this.productos = new ArrayList<>();
 	}
 }
