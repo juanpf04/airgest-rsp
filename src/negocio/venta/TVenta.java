@@ -21,6 +21,10 @@ public class TVenta {
 		this.fecha = fecha;
 		this.idEmpleado = idEmpleado;
 	}
+	
+	public TVenta(int idEmpleado) {
+		this.idEmpleado = idEmpleado;
+	}
 
 	public int getId() {
 		return this.id;

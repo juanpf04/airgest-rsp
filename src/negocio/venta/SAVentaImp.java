@@ -1,27 +1,18 @@
-/**
- * 
- */
+
 package negocio.venta;
 
+import java.util.ArrayList;
 import java.util.List;
 
-/** 
- * <!-- begin-UML-doc -->
- * <!-- end-UML-doc -->
- * @author javia
- * @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
- */
+import javax.persistence.EntityManager;
+
+import integracion.factoria.EMFSingleton;
+
+
 public class SAVentaImp implements SAVenta {
-	/** 
-	* (non-Javadoc)
-	* @see SAVenta#abrirCarrito(int idEmpleado)
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
+	
 	public TCarritoVenta abrirCarrito(int idEmpleado) {
-		// begin-user-code
-		// TODO Auto-generated method stub
-		return null;
-		// end-user-code
+		return new TCarritoVenta(idEmpleado);
 	}
 
 	/** 
@@ -48,16 +39,36 @@ public class SAVentaImp implements SAVenta {
 		// end-user-code
 	}
 
-	/** 
-	* (non-Javadoc)
-	* @see SAVenta#consultarVentas()
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
 	public List<TVenta> consultarVentas() {
-		// begin-user-code
-		// TODO Auto-generated method stub
+		EMFSingleton emf = EMFSingleton.getInstance();
+		EntityManager em = emf.getEMF().createEntityManager();
+		em.getTransaction().begin();
+		
+		try{
+			
+			List<Venta> ventas = em.createNamedQuery("negocio.venta.Venta.findAll", Venta.class).getResultList();
+			
+			List<TVenta> listaTranfers = new ArrayList<TVenta>();
+			
+			for (Venta venta : ventas){
+				listaTranfers.add(venta.toTransfer());
+			}
+			
+			em.getTransaction().commit();
+			
+			em.close();
+			
+			//NO sabemos si hay que cerrar la factoria
+			
+			return listaTranfers;
+			
+			
+		} catch(Exception e){
+			em.getTransaction().rollback();
+			em.close();
+		}
+		
 		return null;
-		// end-user-code
 	}
 
 	/** 
