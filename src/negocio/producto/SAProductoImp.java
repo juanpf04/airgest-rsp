@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.LockModeType;
-import javax.persistence.TypedQuery;
 
 import integracion.factoria.EMFSingleton;
 import negocio.UtilidadesN;
@@ -15,58 +14,69 @@ import negocio.proveedor.Proveedor;
 
 public class SAProductoImp implements SAProducto {
 
-	/////																								/////
-	/////							FALTA METER EMF.CLOSE Y EM.CLOSE EN TODOS LADOS						/////
-	/////																								/////
-	
 	public synchronized int altaProducto(TProducto producto) {
+		EntityManager em = null;
+		int id = -1;
 		if(ValidadorProducto.comprobarDatos(producto)){
-			EMFSingleton emf = EMFSingleton.getInstance();
-			EntityManager em = emf.getEMF().createEntityManager();
 			try{
+				em = EMFSingleton.getInstance().getEMF().createEntityManager();
 				em.getTransaction().begin();
-				TypedQuery<Producto> query = em.createNamedQuery("negocio.producto.Producto.findByref", Producto.class);
-				query.setParameter("ref", String.valueOf(producto.getRef())); //TODO NO SABEMOS SI ESTA BIEN ASI
-				Producto aux = query.getSingleResult();
-				
-				if(aux != null){
-					if(aux.getActivo()){
-						em.getTransaction().rollback();
-						return -1;
-					}else{
-						aux.setActivo(true);
-						em.persist(aux);
-						em.getTransaction().commit();
-						return aux.getId();
-					}
-				}else{
+				List<Producto> resultados = em.createNamedQuery("negocio.producto.Producto.findByref", Producto.class).
+						setParameter("ref", String.valueOf(producto.getRef())).getResultList();
+				if(resultados.isEmpty()){
+					
 					Marca marca = em.find(Marca.class, producto.getIdMarca(), LockModeType.OPTIMISTIC_FORCE_INCREMENT);
 					if(marca == null || !marca.getActivo()){
 						em.getTransaction().rollback();
-						return -1;
+					}else{
+						Producto p = new Producto(producto);
+						p.setMarca(marca);
+						em.persist(p);
+						em.getTransaction().commit();
+						id = p.getId();
 					}
-					Producto p = new Producto(producto);
-					p.setMarca(marca);
-					em.persist(p);
-					em.getTransaction().commit();
-					return p.getId();
+				}else{
+					Producto p = resultados.get(0);
+					if(p.getActivo()){
+						em.getTransaction().rollback();
+					}else{
+						Marca marca = em.find(Marca.class, producto.getIdMarca(), LockModeType.OPTIMISTIC_FORCE_INCREMENT);
+						if(marca == null || !marca.getActivo()){
+							em.getTransaction().rollback();
+						}else{
+							p.setActivo(true);
+							p.setMarca(marca);
+							p.setNombre(producto.getNombre());
+							p.setPrecio(producto.getPrecio());
+							p.setRef(producto.getRef());
+							p.setStock(producto.getStock());
+							em.getTransaction().commit();
+							id = p.getId();
+						}
+					}
 				}
 			}
 			catch(Exception e) {
-				em.getTransaction().rollback();
-				return -1;
+				if(em != null && em.getTransaction().isActive()){
+					em.getTransaction().rollback();
+				}
+			}finally{
+				if(em != null){
+					em.close();
+				}
 			}
-		}else return -1;
+		}
+		return id;
 	}
 
 	public boolean bajaProducto(int id) {
+		EntityManager em = null;
 		boolean ok = false;
 		if(UtilidadesN.comprobarId(id)){
-			EMFSingleton emf = EMFSingleton.getInstance();
-			EntityManager em = emf.getEMF().createEntityManager();
 			try{
+				em = EMFSingleton.getInstance().getEMF().createEntityManager();
 				em.getTransaction().begin();
-				Producto p = em.find(Producto.class, id); //TODO mirar si lo cambiamos a query
+				Producto p = em.find(Producto.class, id);
 				if(p != null && p.getActivo() == true){
 					p.setActivo(false);
 					em.persist(p);
@@ -75,92 +85,117 @@ public class SAProductoImp implements SAProducto {
 				}
 			}
 			catch(Exception e) {
-				em.getTransaction().rollback();
-				return false;
+				if(em != null && em.getTransaction().isActive()){
+					em.getTransaction().rollback();
+				}
+			}finally{
+				if(em != null){
+					em.close();
+				}
 			}
 		}
 		return ok;
 	}
 
 	public TProducto consultarProductoPorId(int id) {
+		EntityManager em = null;
 		TProducto p = null;
 		if(UtilidadesN.comprobarId(id)){
-			EMFSingleton emf = EMFSingleton.getInstance();
-			EntityManager em = emf.getEMF().createEntityManager();
 			try{
+				em = EMFSingleton.getInstance().getEMF().createEntityManager();
 				em.getTransaction().begin();
-				p = em.find(Producto.class, id).toTransfer(); //TODO mirar si lo cambiamos a query
+				p = em.find(Producto.class, id).toTransfer();
 				em.getTransaction().commit();
-			}catch(Exception e){
-				em.getTransaction().rollback();
-				return null;
+			}catch(Exception e) {
+				if(em != null && em.getTransaction().isActive()){
+					em.getTransaction().rollback();
+				}
+			}finally{
+				if(em != null){
+					em.close();
+				}
 			}
 		}
 		return p;
 	}
 
 	public List<TProducto> consultarProductos() {
-		EMFSingleton emf = EMFSingleton.getInstance();
-		EntityManager em = emf.getEMF().createEntityManager();
+		EntityManager em = null;
 		List<TProducto> list = new ArrayList<>();
 		try{
+			em = EMFSingleton.getInstance().getEMF().createEntityManager();
 			em.getTransaction().begin();
 			List<Producto> aux = em.createNamedQuery("negocio.producto.Producto.findAll", Producto.class).getResultList();
 			for(Producto p : aux){
 				list.add(p.toTransfer());
 			}
 			em.getTransaction().commit();
-			return list;
 		}
-		catch(Exception e){
-			em.getTransaction().rollback();
-			return new ArrayList<TProducto>();
+		catch(Exception e) {
+			if(em != null && em.getTransaction().isActive()){
+				em.getTransaction().rollback();
+			}
+		}finally{
+			if(em != null){
+				em.close();
+			}
 		}
+		return list;
 	}
 
 	public boolean modificarProducto(TProducto tProducto) {
+		EntityManager em = null;
 		boolean ok = false;
 		if(ValidadorProducto.comprobarDatos(tProducto)){
-			EMFSingleton emf = EMFSingleton.getInstance();
-			EntityManager em = emf.getEMF().createEntityManager();
 			try{
+				em = EMFSingleton.getInstance().getEMF().createEntityManager();
 				em.getTransaction().begin();
 				Marca marca = em.find(Marca.class, tProducto.getIdMarca(), LockModeType.OPTIMISTIC_FORCE_INCREMENT);
-				TypedQuery<Producto> query = em.createNamedQuery("negocio.producto.Producto.findByref", Producto.class);
-				query.setParameter("ref", String.valueOf(tProducto.getRef())); //TODO no sabemos si esta bien asi la llamada a la query
-				Producto p = query.getSingleResult();
-				if(marca == null || !marca.getActivo() || p == null || !p.getActivo()){
+				List<Producto> resultados = em.createNamedQuery("negocio.producto.Producto.findByref", Producto.class).
+						setParameter("ref", String.valueOf(tProducto.getRef())).getResultList();
+				if(marca == null || !marca.getActivo() || !resultados.isEmpty()){
 					em.getTransaction().rollback();
-					ok = false;
 				}else{
-					em.lock(p, LockModeType.OPTIMISTIC);
-					p = new Producto(tProducto);
-					p.setMarca(marca);
-					em.persist(p);
-					em.getTransaction().commit();
-					ok = true;
+					Producto p = resultados.get(0);
+					if(p.getActivo() && p.getId() == tProducto.getId()){
+						em.lock(p, LockModeType.OPTIMISTIC);
+						p.setMarca(marca);
+						p.setNombre(tProducto.getNombre());
+						p.setPrecio(tProducto.getPrecio());
+						p.setRef(tProducto.getRef());
+						p.setStock(tProducto.getStock());
+						em.getTransaction().commit();
+						ok = true;
+					}else{
+						em.getTransaction().rollback();
+					}
 				}
 			}
-			catch (Exception e){
-				em.getTransaction().rollback();
-				return false;
+			catch(Exception e) {
+				if(em != null && em.getTransaction().isActive()){
+					em.getTransaction().rollback();
+				}
+			}finally{
+				if(em != null){
+					em.close();
+				}
 			}
 		}
 		return ok;
 	}
 
 	public List<TProducto> consultarProductosPorMarca(int idMarca) {
+		EntityManager em = null;
 		List<TProducto> list = new ArrayList<TProducto>();
 		if(UtilidadesN.comprobarId(idMarca)){
-			EMFSingleton emf = EMFSingleton.getInstance();
-			EntityManager em = emf.getEMF().createEntityManager();
 			try{
+				em = EMFSingleton.getInstance().getEMF().createEntityManager();
 				em.getTransaction().begin();
 				Marca marca = em.find(Marca.class, idMarca);
 				if(marca != null && marca.getActivo()){
-					TypedQuery<Producto> query = em.createNamedQuery("negocio.producto.Producto.findBymarca", Producto.class);
-					query.setParameter("marca", String.valueOf(idMarca)); //TODO no sabemos si esta bien asi la llamada a la query
-					for(Producto p : query.getResultList()){
+					List<Producto> resultados = em.createNamedQuery("negocio.producto.Producto.findBymarca", Producto.class).
+							setParameter("marca", String.valueOf(idMarca)).getResultList();
+					for(Producto p : resultados){
 						list.add(p.toTransfer());
 					}
 					em.getTransaction().commit();
@@ -168,22 +203,28 @@ public class SAProductoImp implements SAProducto {
 					em.getTransaction().rollback();
 				}
 			}
-			catch(Exception e){
-				em.getTransaction().rollback();
-				return new ArrayList<TProducto>();
+			catch(Exception e) {
+				if(em != null && em.getTransaction().isActive()){
+					em.getTransaction().rollback();
+				}
+			}finally{
+				if(em != null){
+					em.close();
+				}
 			}
 		}
 		return list;
 	}
 
+	
 	public List<TProducto> consultarProductosPorProveedor(int idProveedor) {
+		EntityManager em = null;
 		List<TProducto> list = new ArrayList<TProducto>();
 		if(UtilidadesN.comprobarId(idProveedor)){
-			EMFSingleton emf = EMFSingleton.getInstance();
-			EntityManager em = emf.getEMF().createEntityManager();
 			try{
+				em = EMFSingleton.getInstance().getEMF().createEntityManager();
 				em.getTransaction().begin();
-				Proveedor prov = em.find(Proveedor.class, idProveedor); //TODO mirar si lo cambiamos a query
+				Proveedor prov = em.find(Proveedor.class, idProveedor);
 				if(prov != null && prov.getActivo()){
 					List<Producto> aux = prov.getProductos();
 					for(Producto p : aux){
@@ -194,9 +235,14 @@ public class SAProductoImp implements SAProducto {
 					em.getTransaction().rollback();
 				}
 			}
-			catch(Exception e){
-				em.getTransaction().rollback();
-				return new ArrayList<TProducto>();
+			catch(Exception e) {
+				if(em != null && em.getTransaction().isActive()){
+					em.getTransaction().rollback();
+				}
+			}finally{
+				if(em != null){
+					em.close();
+				}
 			}
 		}
 		return list;
