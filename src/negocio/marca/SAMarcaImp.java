@@ -8,6 +8,7 @@ import javax.persistence.LockModeType;
 
 import integracion.factoria.EMFSingleton;
 import negocio.UtilidadesN;
+import negocio.producto.Producto;
 
 public class SAMarcaImp implements SAMarca {
 
@@ -71,7 +72,51 @@ public class SAMarcaImp implements SAMarca {
 
 	public boolean bajaMarca(int id) {
 
-		return false;
+		EntityManager em = null;
+		boolean exito = false;
+
+		if (UtilidadesN.comprobarId(id)) {
+			try {
+				em = EMFSingleton.getInstance().getEMF().createEntityManager();
+				em.getTransaction().begin();
+
+				Marca marca;
+				
+				marca = em.find(Marca.class, id);
+				
+				if (marca != null && marca.getActivo()){	// Si existe y está activa
+					List<Producto> productos = em.createNamedQuery("negocio.producto.Producto.findBymarca", Producto.class)
+							.setParameter("marca", marca)
+							.setLockMode(LockModeType.OPTIMISTIC)
+							.getResultList();
+					
+					for (Producto prod : productos){
+						if (prod.getActivo()){ // tiene productos activos, no lo puedo dar de baja
+							em.getTransaction().rollback();
+							return exito;
+						}
+					}
+					
+					marca.setActivo(false);
+					exito = true;
+					em.getTransaction().commit();
+				} else{
+					em.getTransaction().rollback();
+				}
+			} catch (Exception e) { 
+				if (em != null && em.getTransaction().isActive()) {
+					em.getTransaction().rollback();
+				}
+
+			} finally {
+				if (em != null) {
+					em.close();
+				}
+
+			}
+		}
+
+		return exito;
 	}
 
 	public TMarca consultarMarcaPorId(int id) {

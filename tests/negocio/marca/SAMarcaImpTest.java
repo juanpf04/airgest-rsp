@@ -3,9 +3,14 @@ import static org.junit.Assert.*;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 import org.junit.Test;
 
+import integracion.factoria.EMFSingleton;
 import negocio.factoria.FactoriaNegocioMall;
+import negocio.producto.Producto;
+import negocio.producto.TProducto;
 
 public class SAMarcaImpTest {
 
@@ -97,5 +102,44 @@ public class SAMarcaImpTest {
 		tMarca.setOrigen("francia");
 		exito = sm.modificarMarca(tMarca);
 		assertFalse("se debería modificar marca", exito);
+	}
+	
+	@Test
+	public void bajaMarcaTest(){
+		SAMarca sm = FactoriaNegocioMall.getInstance().crearSAMarca();
+		
+		TMarca tMarca = new TMarca(-1, "puma", "EEUU", true);
+		sm.altaMarca(tMarca);
+		
+		// exito
+		tMarca.setId(1);
+		boolean exito = sm.bajaMarca(1);
+		assertTrue("se debería modificar marca", exito);
+		
+		// fallo marca inexistente
+		exito = sm.bajaMarca(10);
+		assertFalse("no existe marca", exito);
+		
+		// fallo marca inactiva
+		tMarca = new TMarca(-1, "adidas", "EEUU", false);
+		sm.altaMarca(tMarca);
+		exito = sm.bajaMarca(2);
+		assertFalse("la marca esta inactiva", exito);
+		
+		// fallo tiene productos inactivos
+		tMarca = new TMarca(-1, "kalise", "españa", true);
+		sm.altaMarca(tMarca);
+		
+		EntityManager em = EMFSingleton.getInstance().getEMF().createEntityManager();
+		em.getTransaction().begin();
+		Marca marca = em.find(Marca.class, 3);
+		Producto p = new Producto(new TProducto(1, "cocacola", 5, 2.20, 82872, 1, true));
+		p.setMarca(marca);
+		em.persist(p);
+		marca.getProductos().add(p);
+		em.getTransaction().commit();
+		
+		exito = sm.bajaMarca(3);
+		assertFalse("la marca tiene productos activos", exito);
 	}
 }
