@@ -22,7 +22,7 @@ public class SAProductoImp implements SAProducto {
 				em = EMFSingleton.getInstance().getEMF().createEntityManager();
 				em.getTransaction().begin();
 				List<Producto> resultados = em.createNamedQuery("negocio.producto.Producto.findByref", Producto.class).
-						setParameter("ref", String.valueOf(producto.getRef())).getResultList();
+						setParameter("ref", producto.getRef()).getResultList();
 				if(resultados.isEmpty()){
 					
 					Marca marca = em.find(Marca.class, producto.getIdMarca(), LockModeType.OPTIMISTIC_FORCE_INCREMENT);
@@ -32,6 +32,7 @@ public class SAProductoImp implements SAProducto {
 						Producto p = new Producto(producto);
 						p.setMarca(marca);
 						em.persist(p);
+						marca.getProductos().add(p);
 						em.getTransaction().commit();
 						id = p.getId();
 					}
@@ -69,7 +70,7 @@ public class SAProductoImp implements SAProducto {
 		return id;
 	}
 
-	public boolean bajaProducto(int id) {
+	public boolean bajaProducto(int id) { //TODO no se puede dar de baja si tiene lineas de venta, ni proveedores vinculados
 		EntityManager em = null;
 		boolean ok = false;
 		if(UtilidadesN.comprobarId(id)){
@@ -79,7 +80,6 @@ public class SAProductoImp implements SAProducto {
 				Producto p = em.find(Producto.class, id);
 				if(p != null && p.getActivo() == true){
 					p.setActivo(false);
-					em.persist(p);
 					em.getTransaction().commit();
 					ok = true;
 				}
@@ -152,7 +152,7 @@ public class SAProductoImp implements SAProducto {
 				em.getTransaction().begin();
 				Marca marca = em.find(Marca.class, tProducto.getIdMarca(), LockModeType.OPTIMISTIC_FORCE_INCREMENT);
 				List<Producto> resultados = em.createNamedQuery("negocio.producto.Producto.findByref", Producto.class).
-						setParameter("ref", String.valueOf(tProducto.getRef())).getResultList();
+						setParameter("ref", tProducto.getRef()).getResultList();
 				if(marca == null || !marca.getActivo() || !resultados.isEmpty()){
 					em.getTransaction().rollback();
 				}else{
@@ -194,7 +194,7 @@ public class SAProductoImp implements SAProducto {
 				Marca marca = em.find(Marca.class, idMarca);
 				if(marca != null && marca.getActivo()){
 					List<Producto> resultados = em.createNamedQuery("negocio.producto.Producto.findBymarca", Producto.class).
-							setParameter("marca", String.valueOf(idMarca)).getResultList();
+							setParameter("marca", idMarca).getResultList();
 					for(Producto p : resultados){
 						list.add(p.toTransfer());
 					}
