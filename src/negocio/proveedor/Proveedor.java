@@ -30,7 +30,7 @@ public class Proveedor implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@ManyToMany(mappedBy = "proveedores")
+	@ManyToMany
 	private List<Producto> productos;
 
 	@Column(unique = true, nullable = false)

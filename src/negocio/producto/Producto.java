@@ -40,7 +40,7 @@ public class Producto implements Serializable {
 	@ManyToOne
 	private Marca marca;
 
-	@ManyToMany
+	@ManyToMany(mappedBy = "productos")
 	private List<Proveedor> proveedores;
 
 	private String nombre;
