@@ -115,8 +115,8 @@ public class SAProveedorImp implements SAProveedor {
 					if(proveedor.getProductos().size() == 0)// si no tiene productos vinculados
 					{
 						proveedor.setActivo(false);
-						exito = true;
 						em.getTransaction().commit();
+						exito = true;
 					}
 					else
 					{
