@@ -152,8 +152,11 @@ public class SAEmpleadoImp implements SAEmpleado {
 		List<TEmpleado> l = new ArrayList<>();
 		try {
 			em.getTransaction().begin();
-			l = em.createNamedQuery("negocio.empleado.Empleado.findAll", Empleado.class).getResultList()
-					.stream().map(Empleado::toTransfer).toList();
+			List<Empleado> le = em.createNamedQuery("negocio.empleado.Empleado.findAll", Empleado.class).getResultList();
+			
+			for(Empleado emple : le){
+				l.add(emple.toTransfer());
+			}
 					
 			em.getTransaction().commit();
 		
@@ -218,9 +221,12 @@ public class SAEmpleadoImp implements SAEmpleado {
 		List<TEmpleado> l = new ArrayList<>();
 		try {
 			em.getTransaction().begin();
-			l = em.createNamedQuery("negocio.empleado.Empleado.findBydepartamento", Empleado.class).getResultList()
-					.stream().map(Empleado::toTransfer).toList();
-					
+			List<Empleado> le = em.createNamedQuery("negocio.empleado.Empleado.findBydepartamento", Empleado.class)
+					.setParameter("departamento", em.find(Departamento.class, idDepartamento)).getResultList();
+			
+			for(Empleado emple : le){
+				l.add(emple.toTransfer());
+			}
 			em.getTransaction().commit();
 		
 		} catch (Exception e) {
