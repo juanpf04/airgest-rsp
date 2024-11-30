@@ -23,22 +23,31 @@ public class SAProveedorImp implements SAProveedor {
 				em = EMFSingleton.getInstance().getEMF().createEntityManager();
 				em.getTransaction().begin();
 
-				Proveedor proveedor;
-
 				List<Proveedor> resultados = em.createNamedQuery("negocio.proveedor.Proveedor.findBynombre", Proveedor.class)
 						.setParameter("nombre", tProveedor.getNombre())
 						.getResultList();
 
 				if (resultados.isEmpty()) 
 				{
-					proveedor = new Proveedor(tProveedor);
-					em.persist(proveedor);
-					em.getTransaction().commit();
-					id = proveedor.getId();
+					if(tProveedor instanceof TNacional)
+					{
+						Nacional nacional = new Nacional((TNacional)tProveedor);
+						em.persist(nacional);
+						em.getTransaction().commit();
+						id = nacional.getId();
+					}
+					else
+					{
+						Internacional internacional = new Internacional((TInternacional)tProveedor);
+						em.persist(internacional);
+						em.getTransaction().commit();
+						id = internacional.getId();
+					}
+					
 				} 
 				else 
 				{
-					proveedor = resultados.get(0);
+					Proveedor proveedor = resultados.get(0);
 					if (!proveedor.getActivo()) 
 					{ 
 						if(tProveedor instanceof TNacional && proveedor instanceof Nacional)
@@ -46,7 +55,7 @@ public class SAProveedorImp implements SAProveedor {
 							((Nacional) proveedor).setCodigoPostal(((TNacional)tProveedor).getCodigoPostal());
 							proveedor.setActivo(true);
 							em.getTransaction().commit();
-							id = tProveedor.getId();
+							id = proveedor.getId();
 						}
 						else if(tProveedor instanceof TInternacional && proveedor instanceof Internacional)
 						{
@@ -54,7 +63,7 @@ public class SAProveedorImp implements SAProveedor {
 							((Internacional) proveedor).setImpuesto(((TInternacional)tProveedor).getImpuesto());
 							proveedor.setActivo(true);
 							em.getTransaction().commit();
-							id = tProveedor.getId();
+							id = proveedor.getId();
 						}
 						else
 						{
@@ -180,8 +189,8 @@ public class SAProveedorImp implements SAProveedor {
 
 			List<Proveedor> resultados = em.createNamedQuery("negocio.proveedor.Proveedor.findAll", Proveedor.class).getResultList();
 
-			for (Proveedor marca : resultados) {
-				listaProveedores.add(marca.toTransfer());
+			for (Proveedor prov : resultados) {
+				listaProveedores.add(prov.toTransfer());
 			}
 
 			em.getTransaction().commit();
@@ -214,8 +223,8 @@ public class SAProveedorImp implements SAProveedor {
 				.setParameter("productos", em.find(Producto.class, idProducto))
 				.getResultList();
 		
-		for (Proveedor marca : resultados) {
-			listaProveedores.add(marca.toTransfer());
+		for (Proveedor prov : resultados) {
+			listaProveedores.add(prov.toTransfer());
 		}
 		
 		em.getTransaction().commit();
@@ -326,6 +335,14 @@ public class SAProveedorImp implements SAProveedor {
 				
 				if(proveedor != null && producto != null && proveedor.getActivo() && producto.getActivo())
 				{
+					for(Producto p : proveedor.getProductos())
+					{
+						if(p.getId() == idProducto)
+						{
+							em.getTransaction().rollback();
+							return exito;
+						}
+					}
 					proveedor.getProductos().add(producto);
 					em.getTransaction().commit();
 					exito = true;
@@ -367,9 +384,15 @@ public class SAProveedorImp implements SAProveedor {
 				
 				if(proveedor != null && producto != null && proveedor.getActivo() && producto.getActivo())
 				{
-					proveedor.getProductos().remove(producto);
-					em.getTransaction().commit();
-					exito = true;
+					if(proveedor.getProductos().remove(producto))//el producto no está vinculado a ese proveedor
+					{
+						em.getTransaction().commit();
+						exito = true;
+					}
+					else
+					{
+						em.getTransaction().rollback();						
+					}
 				}
 				else
 				{
@@ -380,6 +403,7 @@ public class SAProveedorImp implements SAProveedor {
 				if (em != null && em.getTransaction().isActive()) 
 				{
 					em.getTransaction().rollback();
+					exito = false;
 				}
 			} finally {
 				if (em != null) 

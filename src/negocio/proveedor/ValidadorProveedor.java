@@ -1,11 +1,13 @@
 package negocio.proveedor;
 
-import negocio.UtilidadesN;
 
 public class ValidadorProveedor {
 	
 	public static boolean comprobarDatos(TProveedor datos) {
-		return false;
+		if(datos instanceof TNacional)
+			return comprobarNacional((TNacional)datos);
+		else
+			return comprobarInternacional((TInternacional)datos);
 	}
 
 	public static boolean comprobarCodigoPostal(String cp)
@@ -14,7 +16,7 @@ public class ValidadorProveedor {
 	}
 	
 	public static boolean comprobarNacional(TNacional nacional) {
-		return UtilidadesN.comprobarId(nacional.getId()) && comprobarCodigoPostal(nacional.getCodigoPostal());
+		return comprobarCodigoPostal(nacional.getCodigoPostal());
 	}
 
 	public static boolean comprobarPais(String pais)
@@ -28,7 +30,7 @@ public class ValidadorProveedor {
 	}
 	
 	public static boolean comprobarInternacional(TInternacional internacional) {
-		return  UtilidadesN.comprobarId(internacional.getId()) && comprobarPais(internacional.getPais()) && comprobarImpuestos(internacional.getImpuesto());
+		return comprobarPais(internacional.getPais()) && comprobarImpuestos(internacional.getImpuesto());
 	}
 
 }

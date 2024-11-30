@@ -21,7 +21,8 @@ import javax.persistence.NamedQueries;
 		@NamedQuery(name = "negocio.proveedor.Proveedor.findByproductos", query = "select obj from Proveedor obj where :productos MEMBER OF obj.productos "),
 		@NamedQuery(name = "negocio.proveedor.Proveedor.findBynombre", query = "select obj from Proveedor obj where :nombre = obj.nombre "),
 		@NamedQuery(name = "negocio.proveedor.Proveedor.findByactivo", query = "select obj from Proveedor obj where :activo = obj.activo "),
-		@NamedQuery(name = "negocio.proveedor.Proveedor.findByversion", query = "select obj from Proveedor obj where :version = obj.version ") })
+		@NamedQuery(name = "negocio.proveedor.Proveedor.findByversion", query = "select obj from Proveedor obj where :version = obj.version "),
+		@NamedQuery(name = "negocio.proveedor.Proveedor.findAll", query = "select obj from Proveedor obj ")})
 public class Proveedor implements Serializable {
 
 	private static final long serialVersionUID = 0;
