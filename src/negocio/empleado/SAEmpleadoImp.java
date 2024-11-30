@@ -59,6 +59,10 @@ public class SAEmpleadoImp implements SAEmpleado {
 				else
 					e = altaDependiente((TDependiente) empleado, d);
 
+				List<Empleado> newList = d.getEmpleados();
+				newList.add(e);
+				
+				d.setEmpleados(newList);
 				em.persist(e);
 				
 				if (!em.contains(e))
@@ -119,28 +123,39 @@ public class SAEmpleadoImp implements SAEmpleado {
 	}
 
 	public TEmpleado consultarEmpleadoPorId(int id) {
+		if (!UtilidadesN.comprobarId(id)) return null;
 		
+		EMFSingleton emf = EMFSingleton.getInstance();
+		EntityManager em = emf.getEMF().createEntityManager();
+		TEmpleado te = null;
+		try {
+			em.getTransaction().begin();
+			
+			Empleado e = em.find(Empleado.class, id);
+			if (e != null) {
+				te = e.toTransfer();
+			}
+			
+			em.getTransaction().commit();
+		} catch (Exception e) {
+			if (em != null && em.getTransaction().isActive()) em.getTransaction().rollback();
+		} finally {
+			if (em != null) em.close();
+		}
+		return te;
 	}
 
 	public List<TEmpleado> consultarEmpleados() {
-		// begin-user-code
-		// TODO Auto-generated method stub
-		return null;
-		// end-user-code
-	}
-
-	public boolean modificarEmpleado(TEmpleado empleado) {
-		// begin-user-code
-		// TODO Auto-generated method stub
-		return false;
-		// end-user-code
-	}
-
-	public List<TEmpleado> consultarEmpleadosPorDepartamento(int idDepartamento) {
 		EMFSingleton emf = EMFSingleton.getInstance();
 		EntityManager em = emf.getEMF().createEntityManager();
+		
+		List<TEmpleado> l = new ArrayList<>();
 		try {
 			em.getTransaction().begin();
+			l = em.createNamedQuery("negocio.empleado.Empleado.findAll", Empleado.class).getResultList()
+					.stream().map(Empleado::toTransfer).toList();
+					
+			em.getTransaction().commit();
 		
 		} catch (Exception e) {
 			if (em != null && em.getTransaction().isActive()) em.getTransaction().rollback();
@@ -148,5 +163,73 @@ public class SAEmpleadoImp implements SAEmpleado {
 		} finally {
 			if (em != null) em.close();
 		}
+		
+		return l;
+	}
+	
+	public boolean modificarEmpleado(TEmpleado empleado) {
+		if (!ValidadorEmpleado.comprobarDatos(empleado)) return false;
+		EMFSingleton emf = EMFSingleton.getInstance();
+		EntityManager em = emf.getEMF().createEntityManager();
+		boolean done = false;
+		
+		try {
+			em.getTransaction().begin();
+			
+			Departamento d = em.find(Departamento.class, empleado.getIdDepartamento());
+			Empleado e = em.find(Empleado.class, empleado.getId());
+			if (e != null && d != null) {
+				if (e.getActivo() && e.getTag() == empleado.getTag()) {
+					em.lock(d, LockModeType.OPTIMISTIC_FORCE_INCREMENT);
+					em.lock(e, LockModeType.OPTIMISTIC);
+					
+					if (empleado instanceof TGerente) {
+						TGerente tg = (TGerente) empleado;
+						Gerente g = (Gerente) e;
+						
+						g.setDespacho(tg.getDespacho());
+						g.setHorasExtra(tg.getHorasExtra());
+					} else {
+						TDependiente tdp = (TDependiente) empleado; // teledeporte xd
+						Dependiente dp = (Dependiente) e;
+						
+						dp.setNoches(tdp.getNoches());
+						dp.setSeccion(tdp.getSeccion());
+
+					}	
+					done = true;
+				}
+			}
+			
+			if (done) em.getTransaction().commit();
+			else em.getTransaction().rollback();
+		} catch (Exception e) {
+			if (em != null && em.getTransaction().isActive()) em.getTransaction().rollback();
+		} finally {
+			if (em != null) em.close();
+		}
+		return done;
+	}
+
+	public List<TEmpleado> consultarEmpleadosPorDepartamento(int idDepartamento) {
+		EMFSingleton emf = EMFSingleton.getInstance();
+		EntityManager em = emf.getEMF().createEntityManager();
+		
+		List<TEmpleado> l = new ArrayList<>();
+		try {
+			em.getTransaction().begin();
+			l = em.createNamedQuery("negocio.empleado.Empleado.findBydepartamento", Empleado.class).getResultList()
+					.stream().map(Empleado::toTransfer).toList();
+					
+			em.getTransaction().commit();
+		
+		} catch (Exception e) {
+			if (em != null && em.getTransaction().isActive()) em.getTransaction().rollback();
+			return null;
+		} finally {
+			if (em != null) em.close();
+		}
+		
+		return l;
 	}
 }

@@ -3,6 +3,9 @@ package negocio.empleado;
 import javax.persistence.EntityManager;
 
 import static org.junit.Assert.*;
+
+import java.util.List;
+
 import org.junit.Test;
 
 import integracion.factoria.EMFSingleton;
@@ -67,6 +70,30 @@ public class SAEmpleadoImpTest {
 		int newId = sa.altaEmpleado(new TGerente(id, 1, 160, d.getId(), true, 1, 10));
 
 		assertEquals(newId, id);
+		em.close();
+	}
+	
+	@Test
+	public void listarTodosTest() {
+		EMFSingleton emf = EMFSingleton.getInstance();
+		EntityManager em = emf.getEMF().createEntityManager();
+		em.getTransaction().begin();
+		Departamento d = new Departamento(new TDepartamento(0, "Recursos Humanos", 1, 23.5, true));
+
+		em.persist(d);
+		em.getTransaction().commit();
+		FactoriaNegocioMall fm = new FactoriaNegocioMallImp();
+		SAEmpleado sa = fm.crearSAEmpleado();
+
+		sa.altaEmpleado(new TGerente(0, 1, 160, d.getId(), true, 1, 10));
+		sa.altaEmpleado(new TGerente(0, 2, 160, d.getId(), true, 1, 10));
+		sa.altaEmpleado(new TGerente(0, 3, 160, d.getId(), true, 1, 10));
+		sa.altaEmpleado(new TGerente(0, 4, 160, d.getId(), true, 1, 10));
+		sa.altaEmpleado(new TDependiente(0, 5, 160, d.getId(), true, 10, true));
+
+		List<TEmpleado> l = sa.consultarEmpleados();
+		
+		assertEquals(l.size(), 5);
 		em.close();
 	}
 }

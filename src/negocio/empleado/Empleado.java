@@ -25,7 +25,8 @@ import javax.persistence.Version;
 		@NamedQuery(name = "negocio.empleado.Empleado.findBytag", query = "select obj from Empleado obj where :tag = obj.tag "),
 		@NamedQuery(name = "negocio.empleado.Empleado.findByhorasMensuales", query = "select obj from Empleado obj where :horasMensuales = obj.horasMensuales "),
 		@NamedQuery(name = "negocio.empleado.Empleado.findByactivo", query = "select obj from Empleado obj where :activo = obj.activo "),
-		@NamedQuery(name = "negocio.empleado.Empleado.findByversion", query = "select obj from Empleado obj where :version = obj.version ") })
+		@NamedQuery(name = "negocio.empleado.Empleado.findByversion", query = "select obj from Empleado obj where :version = obj.version "),
+		@NamedQuery(name = "negocio.empleado.Empleado.findAll", query = "select obj from Empleado obj") })
 public class Empleado implements Serializable {
 
 	private static final long serialVersionUID = 0;
