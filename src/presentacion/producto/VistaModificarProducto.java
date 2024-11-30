@@ -133,7 +133,7 @@ public class VistaModificarProducto extends JFrame implements Observador {
                     String nombreLeido = textoNombre.getText();
                     int stockLeido = Integer.parseInt(textoStock.getText());
                     double precioLeido = Double.parseDouble(textoPrecio.getText());
-                    String refLeido = textoRef.getText();
+                    int refLeido = Integer.parseInt(textoRef.getText());
                     int idMarcaLeido = Integer.parseInt(textoIdMarca.getText());
 
                     // Creamos un nuevo objeto TProducto con los datos modificados
