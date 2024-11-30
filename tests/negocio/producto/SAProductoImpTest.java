@@ -261,29 +261,6 @@ public class SAProductoImpTest {
 		em.persist(marca);
 		em.getTransaction().commit();
 		
-		List<Producto> lista = new ArrayList<>();
-		
-		em.getTransaction().begin();
-		TProducto tProducto = new TProducto(-1,"hamburguesa", 10, 5.99, 1, marca.getId(), true);
-		Producto p1 = new Producto(tProducto);
-		em.persist(p1);
-		em.getTransaction().commit();
-		lista.add(p1);
-		
-		em.getTransaction().begin();
-		tProducto = new TProducto(-1,"cafe", 10, 5.99, 2, marca.getId(), true);
-		Producto p2 = new Producto(tProducto);
-		em.persist(p2);
-		em.getTransaction().commit();
-		lista.add(p2);
-		
-		em.getTransaction().begin();
-		tProducto = new TProducto(-1,"zumo", 10, 1.99, 5, marca.getId(), true);
-		Producto p3 = new Producto(tProducto);
-		em.persist(p3);
-		em.getTransaction().commit();
-		lista.add(p3);
-		
 		em.getTransaction().begin();
 		TProveedor tProveedor = new TProveedor(-1, "Arturo", true);
 		Proveedor prov = new Proveedor(tProveedor);
@@ -291,8 +268,31 @@ public class SAProductoImpTest {
 		em.getTransaction().commit();
 		
 		em.getTransaction().begin();
-		prov.setProductos(lista);
+		TProducto tProducto = new TProducto(-1,"hamburguesa", 10, 5.99, 1, marca.getId(), true);
+		Producto p1 = new Producto(tProducto);
+		//prov.getProductos().add(p1);
+		em.persist(p1);
 		em.getTransaction().commit();
+		
+		em.getTransaction().begin();
+		tProducto = new TProducto(-1,"cafe", 10, 5.99, 2, marca.getId(), true);
+		Producto p2 = new Producto(tProducto);
+		//prov.getProductos().add(p2);
+		em.persist(p2);
+		em.getTransaction().commit();
+		
+		em.getTransaction().begin();
+		tProducto = new TProducto(-1,"zumo", 10, 1.99, 5, marca.getId(), true);
+		Producto p3 = new Producto(tProducto);
+		//prov.getProductos().add(p3);
+		em.persist(p3);
+		em.getTransaction().commit();
+		/*
+		em.getTransaction().begin();
+		prov.getProductos().add(p1);
+		prov.getProductos().add(p2);
+		prov.getProductos().add(p3);
+		em.getTransaction().commit();*/
 		
 		//Exito
 		List<TProducto> l = sp.consultarProductosPorProveedor(1);
