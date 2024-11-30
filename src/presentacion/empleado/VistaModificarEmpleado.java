@@ -143,7 +143,7 @@ public class VistaModificarEmpleado extends JFrame implements Observador {
 
 			JLabel etiquetaTag = new JLabel("Tag: ");
 			etiquetaTag.setFont(new Font("Tahoma", Font.BOLD, 25));
-			JTextField textoTag = new JTextField(aux.getTag());
+			JTextField textoTag = new JTextField("" +  aux.getTag());
 			textoTag.setMaximumSize(new Dimension(200, 30));
 			textoTag.setMinimumSize(new Dimension(200, 30));
 			textoTag.setPreferredSize(new Dimension(200, 30));
@@ -156,7 +156,7 @@ public class VistaModificarEmpleado extends JFrame implements Observador {
 
 			JLabel etiquetaHorasMensuales = new JLabel("Horas Mensuales:    ");
 			etiquetaHorasMensuales.setFont(new Font("Tahoma", Font.BOLD, 25));
-			JTextField textoHorasMensuales = new JTextField(aux.getHorasMensuales());
+			JTextField textoHorasMensuales = new JTextField("" + aux.getHorasMensuales());
 			textoHorasMensuales.setMaximumSize(new Dimension(200, 30));
 			textoHorasMensuales.setMinimumSize(new Dimension(200, 30));
 			textoHorasMensuales.setPreferredSize(new Dimension(200, 30));
@@ -167,7 +167,7 @@ public class VistaModificarEmpleado extends JFrame implements Observador {
 
 			JLabel etiquetaIdDepartamento = new JLabel("id Departamento:    ");
 			etiquetaIdDepartamento.setFont(new Font("Tahoma", Font.BOLD, 25));
-			JTextField textoIdDepartamento = new JTextField(aux.getIdDepartamento());
+			JTextField textoIdDepartamento = new JTextField("" + aux.getIdDepartamento());
 			textoIdDepartamento.setMaximumSize(new Dimension(200, 30));
 			textoIdDepartamento.setMinimumSize(new Dimension(200, 30));
 			textoIdDepartamento.setPreferredSize(new Dimension(200, 30));
@@ -253,7 +253,7 @@ public class VistaModificarEmpleado extends JFrame implements Observador {
 						int horasMensuales = Integer.valueOf(textoHorasMensuales.getText());
 						int idDepartamento = Integer.valueOf(textoIdDepartamento.getText());
 						TEmpleado transfer;
-						if (listaInfo.get(1) == "SEGURIDAD") {
+						if (listaInfo.get(1) == "GERENTE") {
 							int despacho = Integer.valueOf(textoDespacho.getText());
 							int horasExtra = Integer.valueOf(textoHorasExtra.getText());
 							transfer = new TGerente(0, tag, horasMensuales, idDepartamento, true, despacho, horasExtra);
@@ -283,5 +283,6 @@ public class VistaModificarEmpleado extends JFrame implements Observador {
 		this.setVisible(true);
 		this.setLocation(200, 200);
 		this.setResizable(false);
+		this.pack();
 	}
 }
