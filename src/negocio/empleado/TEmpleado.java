@@ -64,4 +64,9 @@ public class TEmpleado {
 	public void setIdDepartamento(int idDepartamento) {
 		this.idDepartamento = idDepartamento;
 	}
+	
+	@Override
+	public String toString() {
+		return " id: " + id + "\n Tag: " + tag + "\n Horas Mensuales: " + horasMensuales + "\n Id Departamento: " + idDepartamento + "\n activo: " + activo + "\n";
+	}
 }
