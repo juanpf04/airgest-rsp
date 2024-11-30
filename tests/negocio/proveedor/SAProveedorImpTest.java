@@ -188,6 +188,7 @@ public class SAProveedorImpTest {
 		
 		exito = sa.bajaProveedor(4);
 		assertFalse("el proveedor tiene productos activos", exito);
+		em.close();
 	}
 	
 	@Test
@@ -222,7 +223,7 @@ public class SAProveedorImpTest {
 		
 		lista = sa.consultarProveedoresPorProducto(3);
 		assertEquals("debería haber 0 proveedores", 0, lista.size());
-
+		em.close();
 	}
 	
 	
@@ -266,7 +267,7 @@ public class SAProveedorImpTest {
 		sa.altaProveedor(tNacional);
 		exito = sa.vincularProveedorProducto(1, 3);
 		assertFalse("no se deberia vincular el proveedor y el producto", exito);
-
+		em.close();
 
 	}
 	
@@ -305,7 +306,7 @@ public class SAProveedorImpTest {
 		
 		exito = sa.desvincularProveedorProducto(1, 2);
 		assertTrue("se deberia desvincular el proveedor y el producto", exito);
-		
+		em.close();
 		
 	}
 	
