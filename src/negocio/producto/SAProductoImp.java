@@ -236,10 +236,14 @@ public class SAProductoImp implements SAProducto {
 				Proveedor prov = em.find(Proveedor.class, idProveedor);
 				if(prov != null && prov.getActivo()){
 					List<Producto> aux = prov.getProductos();
-					for(Producto p : aux){
-						list.add(p.toTransfer());
+					if(!aux.isEmpty()){
+						for(Producto p : aux){
+							list.add(p.toTransfer());
+						}
+						em.getTransaction().commit();
+					}else{
+						em.getTransaction().rollback();
 					}
-					em.getTransaction().commit();
 				}else{
 					em.getTransaction().rollback();
 				}

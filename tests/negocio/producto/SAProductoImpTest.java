@@ -2,6 +2,7 @@ package negocio.producto;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -12,6 +13,8 @@ import integracion.factoria.EMFSingleton;
 import negocio.factoria.FactoriaNegocioMall;
 import negocio.marca.Marca;
 import negocio.marca.TMarca;
+import negocio.proveedor.Proveedor;
+import negocio.proveedor.TProveedor;
 
 public class SAProductoImpTest {
 
@@ -226,12 +229,77 @@ public class SAProductoImpTest {
 		tProducto = new TProducto(-1,"zumo", 10, 1.99, 5, marca2.getId(), true);
 		sp.altaProducto(tProducto);
 		
+		//Exito
 		List<TProducto> lista = sp.consultarProductosPorMarca(marca.getId());
 		
 		for(TProducto p : lista){
 			System.out.println(p.getId() + " " + p.getNombre() + " " + p.getRef());
 		}
 		assertEquals("debería haber 3 productos", 3, lista.size());
+		
+		//Fallo marca no existe
+		lista = sp.consultarProductosPorMarca(10);
+		
+		assertTrue("debería haber 0 productos", lista.isEmpty());
+		
+		//TODO no sé si hay que hacer Fallo por marca inactiva 
+		//(no se puede dar de baja una marca con productos "vinculados")
+		
+		
+	}
+	
+	@Test
+	public void consultar_por_proveedor_test(){
+		
+		SAProducto sp = FactoriaNegocioMall.getInstance().crearSAProducto();
+		EntityManager em = EMFSingleton.getInstance().getEMF().createEntityManager();
+		
+		//Marca1
+		em.getTransaction().begin();
+		TMarca tMarca = new TMarca(-1, "puma", "EEUU", true);
+		Marca marca = new Marca(tMarca);
+		em.persist(marca);
+		em.getTransaction().commit();
+		
+		List<Producto> lista = new ArrayList<>();
+		
+		em.getTransaction().begin();
+		TProducto tProducto = new TProducto(-1,"hamburguesa", 10, 5.99, 1, marca.getId(), true);
+		Producto p1 = new Producto(tProducto);
+		em.persist(p1);
+		em.getTransaction().commit();
+		lista.add(p1);
+		
+		em.getTransaction().begin();
+		tProducto = new TProducto(-1,"cafe", 10, 5.99, 2, marca.getId(), true);
+		Producto p2 = new Producto(tProducto);
+		em.persist(p2);
+		em.getTransaction().commit();
+		lista.add(p2);
+		
+		em.getTransaction().begin();
+		tProducto = new TProducto(-1,"zumo", 10, 1.99, 5, marca.getId(), true);
+		Producto p3 = new Producto(tProducto);
+		em.persist(p3);
+		em.getTransaction().commit();
+		lista.add(p3);
+		
+		em.getTransaction().begin();
+		TProveedor tProveedor = new TProveedor(-1, "Arturo", true);
+		Proveedor prov = new Proveedor(tProveedor);
+		em.persist(prov);
+		em.getTransaction().commit();
+		
+		em.getTransaction().begin();
+		prov.setProductos(lista);
+		em.getTransaction().commit();
+		
+		//Exito
+		List<TProducto> l = sp.consultarProductosPorProveedor(1);
+		for(TProducto p : l){
+			System.out.println(p.getId() + " " + p.getNombre() + " " + p.getRef());
+		}
+		assertEquals("debería haber 3 productos", 3, l.size());
 		
 	}
 	
