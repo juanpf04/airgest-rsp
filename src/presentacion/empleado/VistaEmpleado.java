@@ -107,7 +107,7 @@ public class VistaEmpleado extends JFrame implements Observador {
 
 		// -------------------------------------------
 
-		JButton consultarPorDepartamento = new JButton("CONSULTAR EMPLEADO POR DEPARTAMENTO");//SE METE EN FACTORIA 1 EN VEZ DE 2, IDK
+		JButton consultarPorDepartamento = new JButton("CONSULTAR EMPLEADO POR DEPARTAMENTO");
 
 		consultarPorDepartamento.addActionListener(new ActionListener() {
 			@Override
