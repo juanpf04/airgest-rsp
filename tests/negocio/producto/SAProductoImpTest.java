@@ -1,8 +1,10 @@
 package negocio.producto;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -267,32 +269,24 @@ public class SAProductoImpTest {
 		em.persist(prov);
 		em.getTransaction().commit();
 		
-		em.getTransaction().begin();
-		TProducto tProducto = new TProducto(-1,"hamburguesa", 10, 5.99, 1, marca.getId(), true);
-		Producto p1 = new Producto(tProducto);
-		//prov.getProductos().add(p1);
-		em.persist(p1);
-		em.getTransaction().commit();
+		
+		sp.altaProducto(new TProducto(-1,"hamburguesa", 10, 5.99, 1, marca.getId(), true));
+		sp.altaProducto(new TProducto(-1,"cafe", 10, 5.99, 2, marca.getId(), true));
+		sp.altaProducto(new TProducto(-1,"zumo", 10, 1.99, 5, marca.getId(), true));
 		
 		em.getTransaction().begin();
-		tProducto = new TProducto(-1,"cafe", 10, 5.99, 2, marca.getId(), true);
-		Producto p2 = new Producto(tProducto);
-		//prov.getProductos().add(p2);
-		em.persist(p2);
-		em.getTransaction().commit();
 		
-		em.getTransaction().begin();
-		tProducto = new TProducto(-1,"zumo", 10, 1.99, 5, marca.getId(), true);
-		Producto p3 = new Producto(tProducto);
-		//prov.getProductos().add(p3);
-		em.persist(p3);
-		em.getTransaction().commit();
-		/*
-		em.getTransaction().begin();
+		Producto p1 = em.find(Producto.class, 1);
+		p1.getProveedores().add(prov);
+		Producto p2 = em.find(Producto.class, 2);
+		p2.getProveedores().add(prov);
+		Producto p3 = em.find(Producto.class, 3);
+		p3.getProveedores().add(prov);
+		
 		prov.getProductos().add(p1);
 		prov.getProductos().add(p2);
 		prov.getProductos().add(p3);
-		em.getTransaction().commit();*/
+		em.getTransaction().commit();
 		
 		//Exito
 		List<TProducto> l = sp.consultarProductosPorProveedor(1);
