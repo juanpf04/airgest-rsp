@@ -202,9 +202,9 @@ public class SAProductoImp implements SAProducto {
 				em.getTransaction().begin();
 				Marca marca = em.find(Marca.class, idMarca);
 				if(marca != null && marca.getActivo()){
-					List<Producto> resultados = em.createNamedQuery("negocio.producto.Producto.findBymarca", Producto.class).
-							setParameter("marca", marca).getResultList();
-					for(Producto p : resultados){
+					/*List<Producto> resultados = em.createNamedQuery("negocio.producto.Producto.findBymarca", Producto.class).
+							setParameter("marca", marca).getResultList();*/
+					for(Producto p : marca.getProductos()){
 						list.add(p.toTransfer());
 					}
 					em.getTransaction().commit();
