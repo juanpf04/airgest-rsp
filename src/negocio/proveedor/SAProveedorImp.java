@@ -335,7 +335,7 @@ public class SAProveedorImp implements SAProveedor {
 				
 				if(proveedor != null && producto != null && proveedor.getActivo() && producto.getActivo())
 				{
-					for(Producto p : proveedor.getProductos())
+					for(Producto p : proveedor.getProductos())//compruebo si ha sido vinculado antes
 					{
 						if(p.getId() == idProducto)
 						{
@@ -344,6 +344,7 @@ public class SAProveedorImp implements SAProveedor {
 						}
 					}
 					proveedor.getProductos().add(producto);
+					producto.getProveedores().add(proveedor);
 					em.getTransaction().commit();
 					exito = true;
 				}
@@ -384,7 +385,7 @@ public class SAProveedorImp implements SAProveedor {
 				
 				if(proveedor != null && producto != null && proveedor.getActivo() && producto.getActivo())
 				{
-					if(proveedor.getProductos().remove(producto))//el producto no está vinculado a ese proveedor
+					if(proveedor.getProductos().remove(producto) && producto.getProveedores().remove(proveedor))//se elimina el proveedor del producto y el producto del proveedor
 					{
 						em.getTransaction().commit();
 						exito = true;
