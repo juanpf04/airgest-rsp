@@ -1,27 +1,45 @@
-/**
- * 
- */
 package presentacion.producto;
 
+import java.awt.BorderLayout;
+import java.awt.Font;
+
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+
 import presentacion.Observador;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author javia
-* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-*/
 public class VistaExitoAltaProducto extends JFrame implements Observador {
-	/** 
-	* (non-Javadoc)
-	* @see Observador#actualizar(Object datos)
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
-	public void actualizar(Object datos) {
-		// begin-user-code
-		// TODO Auto-generated method stub
 
-		// end-user-code
+	private static final long serialVersionUID = 1L;
+
+	@Override
+	public void actualizar(Object datos) {
+		// Configuración de la ventana
+		this.setSize(488, 430);
+
+		// Panel principal
+		JPanel principal = new JPanel();
+		principal.setLayout(new BorderLayout());
+
+		// Etiqueta para mostrar el mensaje de éxito
+		JLabel exito = new JLabel("Alta de Producto exitosa! con id = " + datos);
+		exito.setFont(new Font("Tahoma", Font.PLAIN, 29));
+		exito.setHorizontalAlignment(SwingConstants.CENTER);
+		principal.add(exito, BorderLayout.PAGE_START);
+
+		// Etiqueta para mostrar la imagen de éxito
+		JLabel imagen = new JLabel();
+		imagen.setIcon(new ImageIcon("recursos/iconos/exito.png"));
+		principal.add(imagen, BorderLayout.CENTER);
+
+		// Configuración final
+		this.setContentPane(principal);
+		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		this.setVisible(true);
+		this.setLocation(200, 200);
+		this.setResizable(false);
 	}
 }
