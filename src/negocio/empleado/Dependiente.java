@@ -48,4 +48,9 @@ public class Dependiente extends Empleado implements Serializable {
 		return new TDependiente(getId(), getTag(), getHorasMensuales(), getDepartamento().getId(), getActivo(),
 				this.seccion, this.noches);
 	}
+	
+	@Override
+	public double calcularSueldo(){
+		return 2;
+	}
 }

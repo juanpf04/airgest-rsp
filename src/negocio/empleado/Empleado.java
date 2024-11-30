@@ -27,7 +27,7 @@ import javax.persistence.Version;
 		@NamedQuery(name = "negocio.empleado.Empleado.findByactivo", query = "select obj from Empleado obj where :activo = obj.activo "),
 		@NamedQuery(name = "negocio.empleado.Empleado.findByversion", query = "select obj from Empleado obj where :version = obj.version "),
 		@NamedQuery(name = "negocio.empleado.Empleado.findAll", query = "select obj from Empleado obj") })
-public class Empleado implements Serializable {
+public abstract class Empleado implements Serializable {
 
 	private static final long serialVersionUID = 0;
 
@@ -114,4 +114,7 @@ public class Empleado implements Serializable {
 		return new TEmpleado(this.id, this.tag, this.horasMensuales, this.departamento.getId(), this.activo);
 	}
 
+	public double calcularSueldo(){
+		return 0.0;
+	}
 }
