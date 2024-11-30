@@ -35,10 +35,9 @@ public class SAEmpleadoImp implements SAEmpleado {
 	public synchronized int altaEmpleado(TEmpleado empleado) {
 		if (!ValidadorEmpleado.comprobarDatos(empleado))
 			return -1;
-
-		EMFSingleton emf = EMFSingleton.getInstance();
-		EntityManager em = emf.getEMF().createEntityManager();
+		EntityManager em = null;
 		try {
+			em = EMFSingleton.getInstance().getEMF().createEntityManager();
 
 			em.getTransaction().begin();
 
