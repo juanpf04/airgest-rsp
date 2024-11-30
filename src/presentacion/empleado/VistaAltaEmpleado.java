@@ -87,7 +87,7 @@ public class VistaAltaEmpleado extends JFrame implements Observador {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					dispose();
-					ctrl.accion(new Contexto(Evento.VISTA_ALTA_PERSONAL, "DEPENDIENTE"));
+					ctrl.accion(new Contexto(Evento.VISTA_ALTA_EMPLEADO, "DEPENDIENTE"));
 				}
 			});
 
@@ -101,59 +101,96 @@ public class VistaAltaEmpleado extends JFrame implements Observador {
 		} else {
 			JPanel panelEtiquetas = new JPanel();
 			panelEtiquetas.setLayout(new BoxLayout(panelEtiquetas, BoxLayout.PAGE_AXIS));
-
+			panelEtiquetas.setAlignmentX(CENTER_ALIGNMENT);
+			
 			JPanel panelTexto = new JPanel();
 			panelTexto.setLayout(new BoxLayout(panelTexto, BoxLayout.PAGE_AXIS));
+			panelTexto.setAlignmentX(CENTER_ALIGNMENT);
 
-			JLabel etiquetaIdEmpleado = new JLabel("DNI: ");
-			etiquetaIdEmpleado.setFont(new Font("Tahoma", Font.BOLD, 25));
-			JTextField textoIdEmpleado = new JTextField();
-			textoIdEmpleado.setMaximumSize(new Dimension(200, 30));
-			textoIdEmpleado.setMinimumSize(new Dimension(200, 30));
-			textoIdEmpleado.setPreferredSize(new Dimension(200, 30));
-			textoIdEmpleado.setFont(new Font("Tahoma", Font.BOLD, 18));
-			textoIdEmpleado.setToolTipText("8 digitos y una letra mayuscula");
-			panelEtiquetas.add(etiquetaIdEmpleado);
-			panelTexto.add(textoIdEmpleado);
+			JLabel etiquetaTag = new JLabel("Tag: ");
+			etiquetaTag.setFont(new Font("Tahoma", Font.BOLD, 25));
+			JTextField textoTag = new JTextField();
+			textoTag.setMaximumSize(new Dimension(200, 30));
+			textoTag.setMinimumSize(new Dimension(200, 30));
+			textoTag.setPreferredSize(new Dimension(200, 30));
+			textoTag.setFont(new Font("Tahoma", Font.BOLD, 18));
+			textoTag.setToolTipText("8 digitos y una letra mayuscula");
+			panelEtiquetas.add(etiquetaTag);
+			panelTexto.add(textoTag);
 			centro.add(panelEtiquetas);
 			centro.add(panelTexto);
 
-			JLabel etiquetaAreaAsignada = new JLabel("Area asignada:    ");
-			etiquetaAreaAsignada.setFont(new Font("Tahoma", Font.BOLD, 25));
-			JTextField textoAreaAsignada = new JTextField();
-			textoAreaAsignada.setMaximumSize(new Dimension(200, 30));
-			textoAreaAsignada.setMinimumSize(new Dimension(200, 30));
-			textoAreaAsignada.setPreferredSize(new Dimension(200, 30));
-			textoAreaAsignada.setFont(new Font("Tahoma", Font.BOLD, 18));
-			panelEtiquetas.add(etiquetaAreaAsignada);
-			panelTexto.add(textoAreaAsignada);
-			textoAreaAsignada.setToolTipText("string de la zona asignada");
+			JLabel etiquetaHorasMensuales = new JLabel("Horas Mensuales:    ");
+			etiquetaHorasMensuales.setFont(new Font("Tahoma", Font.BOLD, 25));
+			JTextField textoHorasMensuales = new JTextField();
+			textoHorasMensuales.setMaximumSize(new Dimension(200, 30));
+			textoHorasMensuales.setMinimumSize(new Dimension(200, 30));
+			textoHorasMensuales.setPreferredSize(new Dimension(200, 30));
+			textoHorasMensuales.setFont(new Font("Tahoma", Font.BOLD, 18));
+			panelEtiquetas.add(etiquetaHorasMensuales);
+			panelTexto.add(textoHorasMensuales);
+			textoHorasMensuales.setToolTipText("int de las horas mensuales");
 
-			JLabel etiquetaRol = new JLabel("Rol:    ");
-			etiquetaRol.setFont(new Font("Tahoma", Font.BOLD, 25));
-			JTextField textoRol = new JTextField();
-			textoRol.setMaximumSize(new Dimension(200, 30));
-			textoRol.setMinimumSize(new Dimension(200, 30));
-			textoRol.setPreferredSize(new Dimension(200, 30));
-			textoRol.setFont(new Font("Tahoma", Font.BOLD, 18));
-			textoRol.setToolTipText("string del rol");
+			JLabel etiquetaIdDepartamento = new JLabel("id Departamento:    ");
+			etiquetaIdDepartamento.setFont(new Font("Tahoma", Font.BOLD, 25));
+			JTextField textoIdDepartamento = new JTextField();
+			textoIdDepartamento.setMaximumSize(new Dimension(200, 30));
+			textoIdDepartamento.setMinimumSize(new Dimension(200, 30));
+			textoIdDepartamento.setPreferredSize(new Dimension(200, 30));
+			textoIdDepartamento.setFont(new Font("Tahoma", Font.BOLD, 18));
+			panelEtiquetas.add(etiquetaIdDepartamento);
+			panelTexto.add(textoIdDepartamento);
+			textoIdDepartamento.setToolTipText("numero mayor que 0");
+			
+			JLabel etiquetaDespacho = new JLabel("Nº Despacho:    ");
+			etiquetaDespacho.setFont(new Font("Tahoma", Font.BOLD, 25));
+			JTextField textoDespacho = new JTextField();
+			textoDespacho.setMaximumSize(new Dimension(200, 30));
+			textoDespacho.setMinimumSize(new Dimension(200, 30));
+			textoDespacho.setPreferredSize(new Dimension(200, 30));
+			textoDespacho.setFont(new Font("Tahoma", Font.BOLD, 18));
+			textoDespacho.setToolTipText("numero mayor que 0");
+			
+			JLabel etiquetaHorasExtra = new JLabel("Horas Extra:    ");
+			etiquetaHorasExtra.setFont(new Font("Tahoma", Font.BOLD, 25));
+			JTextField textoHorasExtra = new JTextField();
+			textoHorasExtra.setMaximumSize(new Dimension(200, 30));
+			textoHorasExtra.setMinimumSize(new Dimension(200, 30));
+			textoHorasExtra.setPreferredSize(new Dimension(200, 30));
+			textoHorasExtra.setFont(new Font("Tahoma", Font.BOLD, 18));
+			textoHorasExtra.setToolTipText("numero mayor que 0");
+			
+			JLabel etiquetaSeccion = new JLabel("Sección:    ");
+			etiquetaSeccion.setFont(new Font("Tahoma", Font.BOLD, 25));
+			JTextField textoSeccion = new JTextField();
+			textoSeccion.setMaximumSize(new Dimension(200, 30));
+			textoSeccion.setMinimumSize(new Dimension(200, 30));
+			textoSeccion.setPreferredSize(new Dimension(200, 30));
+			textoSeccion.setFont(new Font("Tahoma", Font.BOLD, 18));
+			textoSeccion.setToolTipText("numero mayor que 0");
+			
+			JLabel etiquetaNoches = new JLabel("Noches:    ");
+			etiquetaNoches.setFont(new Font("Tahoma", Font.BOLD, 25));
+			JTextField textoNoches = new JTextField();
+			textoNoches.setMaximumSize(new Dimension(200, 30));
+			textoNoches.setMinimumSize(new Dimension(200, 30));
+			textoNoches.setPreferredSize(new Dimension(200, 30));
+			textoNoches.setFont(new Font("Tahoma", Font.BOLD, 18));
+			textoNoches.setToolTipText("si o no");
 
-			JLabel etiquetaNumPlaca = new JLabel("Numero de placa:    ");
-			etiquetaNumPlaca.setFont(new Font("Tahoma", Font.BOLD, 25));
-			JTextField textoNumPlaca = new JTextField();
-			textoNumPlaca.setMaximumSize(new Dimension(200, 30));
-			textoNumPlaca.setMinimumSize(new Dimension(200, 30));
-			textoNumPlaca.setPreferredSize(new Dimension(200, 30));
-			textoNumPlaca.setFont(new Font("Tahoma", Font.BOLD, 18));
-			textoNumPlaca.setToolTipText("numero mayor que 0");
-
-			if ("LIMPIEZA" == datos) {
-				panelEtiquetas.add(etiquetaRol);
-				panelTexto.add(textoRol);
+			if ("GERENTE" == datos) {
+				panelEtiquetas.add(etiquetaDespacho);
+				panelTexto.add(textoDespacho);
+				
+				panelEtiquetas.add(etiquetaHorasExtra);
+				panelTexto.add(textoHorasExtra);
 			} else {
 
-				panelEtiquetas.add(etiquetaNumPlaca);
-				panelTexto.add(textoNumPlaca);
+				panelEtiquetas.add(etiquetaSeccion);
+				panelTexto.add(textoSeccion);
+				
+				panelEtiquetas.add(etiquetaNoches);
+				panelTexto.add(textoNoches);
 			}
 
 			JButton aceptar = new JButton("ACEPTAR");
@@ -162,26 +199,30 @@ public class VistaAltaEmpleado extends JFrame implements Observador {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					try {
-//						String DNI = String.valueOf(textoIdEmpleado.getText());
-//						String areaAsignada = textoAreaAsignada.getText();
-//
-//						TEmpleado transfer;
-//						if (datos == "SEGURIDAD") {
-//							int numPlaca = Integer.valueOf(textoNumPlaca.getText());
-//							transfer = new TGerente(0, DNI, areaAsignada, true, numPlaca);
-//						} else {
-//							String rol = textoRol.getText();
-//							transfer = new TDependiente(0, DNI, areaAsignada, true, rol);
-//						}
-//						ctrl.accion(new Contexto(Evento.ALTA_PERSONAL, transfer));
+						int tag = Integer.valueOf(textoTag.getText());
+						int horasMensuales = Integer.valueOf(textoHorasMensuales.getText());
+						int idDepartamento = Integer.valueOf(textoIdDepartamento.getText());
+						TEmpleado transfer;
+						if (datos == "GERENTE") {
+							int despacho = Integer.valueOf(textoDespacho.getText());
+							int horasExtra = Integer.valueOf(textoHorasExtra.getText());
+							transfer = new TGerente(0, tag, horasMensuales, idDepartamento, true, despacho, horasExtra);
+						} else {
+							int seccion = Integer.valueOf(textoSeccion.getText());
+							String noche = textoNoches.getText();
+							boolean noches = false;
+							if(noche.equals("si") || noche.equals("Si") || noche.equals("SI")) noches = true;
+							transfer = new TDependiente(0, tag, horasMensuales, idDepartamento, true, seccion, noches);
+						}
+						ctrl.accion(new Contexto(Evento.ALTA_EMPLEADO, transfer));
 					} catch (Exception ex) {
-
+						ctrl.accion(new Contexto(Evento.VISTA_FALLO_ALTA_EMPLEADO));
 					}
 				}
 
 			});
 
-			panelAceptar.add(aceptar);
+			panelBotones.add(aceptar);
 
 		}
 
@@ -194,19 +235,21 @@ public class VistaAltaEmpleado extends JFrame implements Observador {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 				if (datos == null)
-					ctrl.accion(new Contexto(Evento.VISTA_PERSONAL, null));
+					ctrl.accion(new Contexto(Evento.VISTA_EMPLEADO, null));
 				else
-					ctrl.accion(new Contexto(Evento.VISTA_ALTA_PERSONAL, null));
+					ctrl.accion(new Contexto(Evento.VISTA_ALTA_EMPLEADO, null));
 			}
 
 		});
 		panelBotones.add(atras);
 		panelBotones.add(panelAceptar);
-
+		
+		
 		this.setContentPane(principal);
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		this.setVisible(true);
 		this.setLocation(200, 200);
 		this.setResizable(false);
+		this.pack();
 	}
 }
