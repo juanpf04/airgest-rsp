@@ -107,17 +107,17 @@ public class VistaEmpleado extends JFrame implements Observador {
 
 		// -------------------------------------------
 
-		JButton consultarPorHangar = new JButton("CONSULTAR EMPLEADO POR DEPARTAMENTO");//SALTA EXCEPCION Y NO SÉ XQ
+		JButton consultarPorDepartamento = new JButton("CONSULTAR EMPLEADO POR DEPARTAMENTO");//SE METE EN FACTORIA 1 EN VEZ DE 2, IDK
 
-		consultarPorHangar.addActionListener(new ActionListener() {
+		consultarPorDepartamento.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 				ctrl.accion(new Contexto(Evento.VISTA_CONSULTAR_EMPLEADOS_POR_DEPARTAMENTO, null));
 			}
 		});
-		consultarPorHangar.setToolTipText("Aqui consultas un empleado por departamento maquina");
-		botones.add(consultarPorHangar);
+		consultarPorDepartamento.setToolTipText("Aqui consultas un empleado por departamento maquina");
+		botones.add(consultarPorDepartamento);
 
 		// -------------------------------------------
 		JButton modificar = new JButton("MODIFICAR EMPLEADO");
