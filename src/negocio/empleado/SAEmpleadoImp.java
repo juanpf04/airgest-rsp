@@ -179,7 +179,8 @@ public class SAEmpleadoImp implements SAEmpleado {
 			em.getTransaction().begin();
 			
 			Departamento d = em.find(Departamento.class, empleado.getIdDepartamento());
-			Empleado e = em.find(Empleado.class, empleado.getId());
+			Empleado e = em.find(Empleado.class, empleado.getId());//Luis esto devuelve null xd
+			
 			if (e != null && d != null) {
 				if (e.getActivo() && e.getTag() == empleado.getTag()) {
 					em.lock(d, LockModeType.OPTIMISTIC_FORCE_INCREMENT);
