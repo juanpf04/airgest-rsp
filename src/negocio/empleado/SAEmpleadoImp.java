@@ -10,8 +10,27 @@ import javax.persistence.LockModeType;
 import integracion.factoria.EMFSingleton;
 import negocio.departamento.Departamento;
 import negocio.venta.Venta;
+import negocio.UtilidadesN;
 
 public class SAEmpleadoImp implements SAEmpleado {
+
+	private synchronized Gerente altaGerente(TGerente gerente, Departamento d) {
+		Gerente g = new Gerente(gerente);
+
+		g.setDepartamento(d);
+		g.setVentas(new ArrayList<Venta>());
+		
+		return g;
+	}
+
+	private synchronized Dependiente altaDependiente(TDependiente dependiente, Departamento d) {
+		Dependiente dp = new Dependiente(dependiente);
+
+		dp.setDepartamento(d);
+		dp.setVentas(new ArrayList<Venta>());
+		
+		return dp;
+	}
 
 	public synchronized int altaEmpleado(TEmpleado empleado) {
 		if (!ValidadorEmpleado.comprobarDatos(empleado))
@@ -22,20 +41,31 @@ public class SAEmpleadoImp implements SAEmpleado {
 		try {
 
 			em.getTransaction().begin();
-			
+
 			Departamento d = em.find(Departamento.class, empleado.getIdDepartamento());
 			em.lock(d, LockModeType.OPTIMISTIC_FORCE_INCREMENT);
 
-			Empleado e = em.createNamedQuery("Empleado.findBytag", Empleado.class).getSingleResult();
+			Empleado e;
+			try {
+				e = em.createNamedQuery("negocio.empleado.Empleado.findBytag", Empleado.class)
+						.setParameter("tag", empleado.getTag()).getSingleResult();
+			} catch (Exception ex) {
+				e = null;
+			}
 
 			if (e == null) {
-				e = new Empleado(empleado);
-				e.setDepartamento(d);
-				e.setVentas(new ArrayList<Venta>());
+				if (empleado instanceof TGerente)
+					e = altaGerente((TGerente) empleado, d);
+				else
+					e = altaDependiente((TDependiente) empleado, d);
 
 				em.persist(e);
-
-				em.getTransaction().commit();
+				
+				if (!em.contains(e))
+					em.getTransaction().rollback();
+				else
+					em.getTransaction().commit();
+				
 				return e.getId();
 
 			} else {
@@ -51,26 +81,45 @@ public class SAEmpleadoImp implements SAEmpleado {
 			}
 
 		} catch (Exception e) {
-			em.getTransaction().rollback();
+			if (em != null && em.getTransaction().isActive()) em.getTransaction().rollback();
 			return -1;
 		} finally {
-			em.close();
-			emf.getEMF().close();
+			if (em != null) em.close();
 		}
 	}
 
 	public boolean bajaEmpleado(int id) {
-		// begin-user-code
-		// TODO Auto-generated method stub
-		return false;
-		// end-user-code
+		if (!UtilidadesN.comprobarId(id)) return false;
+		boolean done = false;
+		
+		EMFSingleton emf = EMFSingleton.getInstance();
+		EntityManager em = emf.getEMF().createEntityManager();
+		try {
+			
+		em.getTransaction().begin();
+		Empleado e = em.find(Empleado.class, id);
+		
+		if (e != null && e.getActivo()) {
+			e.setActivo(false);
+			done = true;
+		}
+		
+		
+		if (done) em.getTransaction().commit();
+		else em.getTransaction().rollback();
+		} catch (Exception e) {
+			if (em != null && em.getTransaction().isActive()) em.getTransaction().rollback();
+		} finally {
+			if (em != null) em.close();			
+		}
+		
+		return done;
+		
+		
 	}
 
 	public TEmpleado consultarEmpleadoPorId(int id) {
-		// begin-user-code
-		// TODO Auto-generated method stub
-		return null;
-		// end-user-code
+		
 	}
 
 	public List<TEmpleado> consultarEmpleados() {
@@ -88,9 +137,16 @@ public class SAEmpleadoImp implements SAEmpleado {
 	}
 
 	public List<TEmpleado> consultarEmpleadosPorDepartamento(int idDepartamento) {
-		// begin-user-code
-		// TODO Auto-generated method stub
-		return null;
-		// end-user-code
+		EMFSingleton emf = EMFSingleton.getInstance();
+		EntityManager em = emf.getEMF().createEntityManager();
+		try {
+			em.getTransaction().begin();
+		
+		} catch (Exception e) {
+			if (em != null && em.getTransaction().isActive()) em.getTransaction().rollback();
+			return null;
+		} finally {
+			if (em != null) em.close();
+		}
 	}
 }
