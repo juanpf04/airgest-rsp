@@ -38,7 +38,7 @@ public class SAProductoImpTest {
 		
 		//Como ya existe el producto
 		id = sp.altaProducto(tProducto);
-		assertEquals("El id debería ser -1 porque ya existe marca", -1, id);
+		assertEquals("El id debería ser -1 porque ya existe producto", -1, id);
 		
 		//Reactivar producto
 		tProducto.setRef(1235);
