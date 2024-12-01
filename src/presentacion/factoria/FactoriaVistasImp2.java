@@ -53,6 +53,9 @@ public class FactoriaVistasImp2 extends FactoriaVistasImp {
 			case VISTA_MODIFICAR_PROVEEDOR:
 				vista = new VistaModificarProveedor();
 				break;
+			case VISTA_MODIFICAR_PROVEEDOR_ID:
+				vista = new VistaModificarProveedorId();
+				break;
 			case VISTA_EXITO_MODIFICAR_PROVEEDOR:
 				vista = new VistaExitoModificarProveedor();
 				break;
