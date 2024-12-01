@@ -57,4 +57,8 @@ public class TVenta {
 	public void setIdEmpleado(int idEmpleado) {
 		this.idEmpleado = idEmpleado;
 	}
+	
+	public String toString() {
+		return "id: " + this.id + "\nid empleado: " + this.idEmpleado + "\nprecio: " + this.precio + "\nfecha: " + this.fecha + "\n";
+	}
 }

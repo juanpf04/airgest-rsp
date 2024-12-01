@@ -3,6 +3,8 @@ package negocio.venta;
 
 import java.util.List;
 import negocio.empleado.TEmpleado;
+import negocio.lineaContrato.TLineaContrato;
+
 import java.util.HashMap;
 import negocio.producto.TProducto;
 
@@ -57,5 +59,23 @@ public class TInfoVenta {
 
 	public void setProductos(HashMap<Integer, TProducto> productos) {
 		this.productos = productos;
+	}
+	
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("Información de la venta:\n");
+		sb.append(this.venta + "\n\n");
+		sb.append("Información del empleado:\n");
+		sb.append(this.empleado + "\n\n");
+		sb.append("Información de las líneas y sus productos:\n");
+
+		for (TLineaVenta linea : this.lineasVenta) {
+			sb.append("Información de la línea:\n");
+			sb.append(linea + "\n");
+			sb.append("Información del producto:\n");
+			sb.append(this.productos.get(linea.getIdProducto()) + "\n");
+		}
+
+		return sb.toString();
 	}
 }
