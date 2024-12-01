@@ -228,8 +228,11 @@ public class FactoriaVistasImp2 extends FactoriaVistasImp {
 			case VISTA_VENTA:
 				vista = new VistaVenta();
 				break;
+			case VISTA_ABRIR_VENTA:
+				vista = new VistaAbrirCarrito();
+				break;
 			case VISTA_CARRITO_VENTA:
-				vista = new VistaCarrito();
+				vista = new VistaCarritoVenta();
 				break;
 			case VISTA_ANYADIR_PRODUCTO:
 				vista = new VistaAñadirProducto();
@@ -246,8 +249,29 @@ public class FactoriaVistasImp2 extends FactoriaVistasImp {
 			case VISTA_CONSULTAR_VENTA_POR_ID:
 				vista = new VistaConsultarVentaPorId();
 				break;
+			case VISTA_RESULTADO_CONSULTAR_VENTA_POR_ID:
+				vista = new VistaResultadoConsultarVentaPorId();
+				break;
+			case VISTA_CONSULTAR_VENTAS_POR_EMPLEADO:
+				vista = new VistaConsultarVentasPorEmpleado();
+				break;
+			case VISTA_RESULTADO_CONSULTAR_VENTAS_POR_EMPLEADO:
+				vista = new VistaResultadoConsultarVentasPorEmpleado();
+				break;
 			case VISTA_RESULTADO_CONSULTAR_VENTAS:
 				vista = new VistaResultadoConsultarVentas();
+				break;
+			case VISTA_MODIFICAR_VENTA_ID:
+				vista = new VistaModificarIdVenta();
+				break;
+			case VISTA_MODIFICAR_VENTA:
+				vista = new VistaModificarVenta();
+				break;
+			case VISTA_EXITO_MODIFICAR_VENTA:
+				vista = new VistaExitoModificarVenta();
+				break;
+			case VISTA_FALLO_MODIFICAR_VENTA:
+				vista = new VistaFalloModificarVenta();
 				break;
 			case VISTA_DEVOLUCION_VENTA:
 				vista = new VistaDevolucion();
@@ -258,7 +282,6 @@ public class FactoriaVistasImp2 extends FactoriaVistasImp {
 			case VISTA_FALLO_DEVOLUCION_VENTA:
 				vista = new VistaFalloDevolucion();
 				break;
-
 			default:
 				break;
 			}

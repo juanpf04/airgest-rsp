@@ -4,6 +4,9 @@ import presentacion.controlador.comandos.Comando;
 
 import java.util.List;
 
+import negocio.contrato.SAContrato;
+import negocio.contrato.TContrato;
+import negocio.factoria.FactoriaNegocio;
 import negocio.factoria.FactoriaNegocioMall;
 import negocio.venta.SAVenta;
 import negocio.venta.TVenta;
@@ -15,7 +18,7 @@ public class ConsultarVentas implements Comando {
 		FactoriaNegocioMall fn = FactoriaNegocioMall.getInstance();
 		SAVenta sv = fn.crearSAVenta();
 		List<TVenta> ventas = sv.consultarVentas();
-		Evento evento = Evento.VISTA_RESULTADO_CONSULTAR_VENTAS;
-		return new Contexto(evento, ventas);
+		
+		return new Contexto(Evento.VISTA_RESULTADO_CONSULTAR_VENTAS, ventas);
 	}
 }
