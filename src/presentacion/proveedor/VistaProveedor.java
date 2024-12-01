@@ -1,6 +1,3 @@
-/**
- * 
- */
 package presentacion.proveedor;
 
 import javax.swing.JFrame;
