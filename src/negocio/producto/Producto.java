@@ -15,7 +15,6 @@ import negocio.marca.Marca;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 
-import java.util.ArrayList;
 import java.util.List;
 import negocio.proveedor.Proveedor;
 import javax.persistence.ManyToMany;

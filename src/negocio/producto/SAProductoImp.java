@@ -11,6 +11,7 @@ import integracion.factoria.EMFSingleton;
 import negocio.UtilidadesN;
 import negocio.marca.Marca;
 import negocio.proveedor.Proveedor;
+import negocio.venta.LineaVenta;
 
 public class SAProductoImp implements SAProducto {
 
@@ -24,7 +25,6 @@ public class SAProductoImp implements SAProducto {
 				List<Producto> resultados = em.createNamedQuery("negocio.producto.Producto.findByref", Producto.class).
 						setParameter("ref", producto.getRef()).getResultList();
 				if(resultados.isEmpty()){
-					
 					Marca marca = em.find(Marca.class, producto.getIdMarca(), LockModeType.OPTIMISTIC_FORCE_INCREMENT);
 					if(marca == null || !marca.getActivo()){
 						em.getTransaction().rollback();
@@ -41,7 +41,8 @@ public class SAProductoImp implements SAProducto {
 					if(p.getActivo()){
 						em.getTransaction().rollback();
 					}else{
-						Marca marca = em.find(Marca.class, producto.getIdMarca(), LockModeType.OPTIMISTIC_FORCE_INCREMENT);
+						Marca marca = p.getMarca();
+						em.lock(marca, LockModeType.OPTIMISTIC_FORCE_INCREMENT);
 						if(marca == null || !marca.getActivo()){
 							em.getTransaction().rollback();
 						}else{
@@ -70,18 +71,22 @@ public class SAProductoImp implements SAProducto {
 		return id;
 	}
 
-	public boolean bajaProducto(int id) { //TODO no se puede dar de baja si tiene lineas de venta, ni proveedores vinculados
+	public boolean bajaProducto(int id) {
 		EntityManager em = null;
 		boolean ok = false;
 		if(UtilidadesN.comprobarId(id)){
 			try{
 				em = EMFSingleton.getInstance().getEMF().createEntityManager();
 				em.getTransaction().begin();
-				Producto p = em.find(Producto.class, id);
-				if(p != null && p.getActivo() == true){
+				Producto p = em.find(Producto.class, id);    				//TODO nose si debería ser con la query
+				List<LineaVenta> resultados = em.createNamedQuery("negocio.venta.LineaVenta.findByproducto", LineaVenta.class).
+						setParameter("producto", p).getResultList();
+				if(p != null && p.getActivo() == true && p.getProveedores().isEmpty() && resultados.isEmpty()){
 					p.setActivo(false);
 					em.getTransaction().commit();
 					ok = true;
+				}else{
+					em.getTransaction().rollback();
 				}
 			}
 			catch(Exception e) {
@@ -104,7 +109,7 @@ public class SAProductoImp implements SAProducto {
 			try{
 				em = EMFSingleton.getInstance().getEMF().createEntityManager();
 				em.getTransaction().begin();
-				p = em.find(Producto.class, id).toTransfer();
+				p = em.find(Producto.class, id).toTransfer();//TODO nose si debería ser con la query
 				em.getTransaction().commit();
 			}catch(Exception e) {
 				if(em != null && em.getTransaction().isActive()){
@@ -151,7 +156,7 @@ public class SAProductoImp implements SAProducto {
 				em = EMFSingleton.getInstance().getEMF().createEntityManager();
 				em.getTransaction().begin();
 				
-				Producto p = em.find(Producto.class, tProducto.getId());
+				Producto p = em.find(Producto.class, tProducto.getId()); //TODO nose si debería ser con la query
 				
 				if(p != null){
 					
@@ -160,7 +165,7 @@ public class SAProductoImp implements SAProducto {
 					
 					if(p.getActivo() && (p.getRef() == tProducto.getRef() || resultados.isEmpty())){
 						
-						Marca marca = em.find(Marca.class, tProducto.getIdMarca(), LockModeType.OPTIMISTIC_FORCE_INCREMENT);
+						Marca marca = em.find(Marca.class, tProducto.getIdMarca(), LockModeType.OPTIMISTIC_FORCE_INCREMENT);//TODO nose si debería ser con la query
 						
 						if(marca == null || !marca.getActivo()){
 							em.getTransaction().rollback();
