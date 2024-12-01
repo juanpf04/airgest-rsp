@@ -83,7 +83,6 @@ public class VistaConsultarProductosPorProveedor extends JFrame implements Obser
 				if (!proveedor.isEmpty()) {
 					controlador.accion(new Contexto(Evento.CONSULTAR_PRODUCTOS_POR_PROVEEDOR, proveedor));
 				} else {
-					System.err.println("Error: El campo de proveedor no puede estar vacío.");
 					controlador.accion(new Contexto(Evento.CONSULTAR_PRODUCTOS_POR_PROVEEDOR, null)); // Manejo de error
 				}
 			}

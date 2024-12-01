@@ -83,7 +83,6 @@ public class VistaConsultarProductosPorMarca extends JFrame implements Observado
 				if (!marca.isEmpty()) {
 					controlador.accion(new Contexto(Evento.CONSULTAR_PRODUCTOS_POR_MARCA, marca));
 				} else {
-					System.err.println("Error: El campo de marca no puede estar vacío.");
 					controlador.accion(new Contexto(Evento.CONSULTAR_PRODUCTOS_POR_MARCA, null)); // Manejo de error
 				}
 			}

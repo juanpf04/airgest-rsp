@@ -73,7 +73,6 @@ public class VistaConsultarProductoPorId extends JFrame implements Observador {
 					int idProducto = Integer.parseInt(textoId.getText());
 					controlador.accion(new Contexto(Evento.CONSULTAR_PRODUCTO_POR_ID, idProducto));
 				} catch (NumberFormatException n) {
-					System.err.println("Error: El ID debe ser un número entero.");
 					controlador.accion(new Contexto(Evento.CONSULTAR_PRODUCTO_POR_ID, 0)); // Manejo de error
 				}
 			}

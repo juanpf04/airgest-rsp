@@ -74,7 +74,6 @@ public class VistaBajaProducto extends JFrame implements Observador {
 					int idProducto = Integer.parseInt(textoId.getText());
 					controlador.accion(new Contexto(Evento.BAJA_PRODUCTO, idProducto));
 				} catch (NumberFormatException n) {
-					System.err.println("Error: El ID debe ser un número entero.");
 					controlador.accion(new Contexto(Evento.BAJA_PRODUCTO, 0)); // O manejar un error específico
 				}
 			}

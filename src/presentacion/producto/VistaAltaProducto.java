@@ -135,8 +135,7 @@ public class VistaAltaProducto extends JFrame implements Observador {
 					TProducto transfer = new TProducto(0, nombreLeido, stockLeido, precioLeido, refLeida, idMarcaLeida, true);
 					ctrl.accion(new Contexto(Evento.ALTA_PRODUCTO, transfer));
 				} catch (NumberFormatException ex) {
-					// Manejo de errores para campos numéricos
-					System.err.println("Error en el formato de los datos: " + ex.getMessage());
+				
 				}
 			}
 		});
