@@ -5,24 +5,64 @@ package presentacion.proveedor;
 
 import javax.swing.JFrame;
 import presentacion.Observador;
+import java.awt.BorderLayout;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
 
-/** 
- * <!-- begin-UML-doc -->
- * <!-- end-UML-doc -->
- * @author javia
- * @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
- */
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+
+import negocio.proveedor.TProveedor;
+import presentacion.UtilidadesP;
+
+
 public class VistaMostrarProveedoresPorProducto extends JFrame implements Observador {
+	private static final long serialVersionUID = 1L;
 
-	/** 
-	* (non-Javadoc)
-	* @see Observador#actualizar(Object datos)
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
+	@Override
 	public void actualizar(Object datos) {
-		// begin-user-code
-		// TODO Auto-generated method stub
+		UtilidadesP.setAirGestRSP(this);
+		this.setSize(400, 450);
 
-		// end-user-code
+		JPanel principal = new JPanel();
+		principal.setLayout(new BorderLayout());
+
+		@SuppressWarnings("unchecked")
+		List<TProveedor> proveedores = (List<TProveedor>) datos;
+
+		String s = "";
+		for (TProveedor prov : proveedores)
+			s += prov.toString() + "\n";
+
+		JTextArea exito = new JTextArea(s);
+		exito.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		principal.add(exito, BorderLayout.PAGE_START);
+		exito.setEditable(false);
+
+		JScrollPane scroll = new JScrollPane(exito, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		principal.add(scroll, BorderLayout.CENTER);
+
+		JButton atras = new JButton("ATRAS"); // boton para volver a la ventana
+												// principal
+		atras.setToolTipText("Esto vuelve a la ventana anterior");
+		atras.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
+
+		principal.add(atras, BorderLayout.PAGE_END);
+
+		this.setContentPane(principal);
+		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		this.setVisible(true);
+		this.setLocation(200, 200);
 	}
 }
