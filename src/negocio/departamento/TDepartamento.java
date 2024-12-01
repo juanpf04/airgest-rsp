@@ -64,4 +64,9 @@ public class TDepartamento {
 	public void setId(int id) {
 		this.id = id;
 	}
+	
+	@Override
+	public String toString(){
+		return " ID: " + id + "\n Nombre: " + nombre + "\n Sala: " + sala + "\n Sueldo por hora: " + sueldoHora + "\n Activo: " + activo; 
+	}
 }

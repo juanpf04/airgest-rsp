@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 package presentacion.departamento;
 
 import java.awt.BorderLayout;
@@ -15,12 +13,6 @@ import javax.swing.SwingConstants;
 import presentacion.Observador;
 import presentacion.UtilidadesP;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author javia
-* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-*/
 public class VistaFalloAltaDepartamento extends JFrame implements Observador {
 	public void actualizar(Object datos) {
 		UtilidadesP.setAirGestRSP(this);

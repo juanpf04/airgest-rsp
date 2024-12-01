@@ -12,7 +12,8 @@ public class CalcularNomina implements Comando {
 	public Contexto ejecutar(Object datos) {
 		FactoriaNegocioMall fn = FactoriaNegocioMall.getInstance();
 		SADepartamento sd = fn.crearSADepartamento();
-		double nomina = sd.calcularNomina((int) datos);
+		int id = (int) datos;
+		double nomina = sd.calcularNomina(id);
 		Evento evento = null;
 		if (nomina != -1)
 			evento = Evento.VISTA_EXITO_CALCULAR_NOMINA;

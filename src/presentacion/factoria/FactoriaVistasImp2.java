@@ -167,6 +167,9 @@ public class FactoriaVistasImp2 extends FactoriaVistasImp {
 			case VISTA_RESULTADO_CONSULTAR_DEPARTAMENTOS:
 				vista = new VistaResultadoConsultarDepartamentos();
 				break;
+			case VISTA_MODIFICAR_ID_DEPARTAMENTO:
+				vista = new VistaModificarIdDepartamento();
+				break;
 			case VISTA_MODIFICAR_DEPARTAMENTO:
 				vista = new VistaModificarDepartamento();
 				break;

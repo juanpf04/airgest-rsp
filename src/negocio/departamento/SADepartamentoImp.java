@@ -257,6 +257,7 @@ public class SADepartamentoImp implements SADepartamento {
 						em.getTransaction().commit();
 				}else{
 					em.getTransaction().rollback();
+					return -1;
 				}
 				
 			}catch(Exception e){

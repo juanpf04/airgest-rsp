@@ -93,8 +93,7 @@ public class VistaModificarIdDepartamento extends JFrame implements Observador {
 		aceptar.setMaximumSize(new Dimension(100, 30));
 		aceptar.setPreferredSize(new Dimension(100, 30));
 
-		JButton atras = new JButton("ATRAS"); // boton para volver a la ventana
-												// principal
+		JButton atras = new JButton("ATRAS"); 
 		atras.setToolTipText("Esto vuelve a la ventana anterior");
 		atras.addActionListener(new ActionListener() {
 
