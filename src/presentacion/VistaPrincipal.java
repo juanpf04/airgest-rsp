@@ -239,8 +239,28 @@ public class VistaPrincipal extends JFrame implements Observador {
 
 				//Marca
 				em.persist(marca);
-				em.persist(marca2);
+				//em.persist(marca2);
+				
+				//Producto
+				p.setMarca(marca);
+				//marca.getProductos().add(p);
+				em.persist(p);
 
+				em.getTransaction().commit();
+				
+				// La marca tiene el producto vinculado????
+				em.getTransaction().begin();
+				Marca leida = em.find(Marca.class, 1);
+				
+				for (Producto prod : leida.getProductos()){
+					System.out.println(prod.getNombre());
+				}
+				
+				em.getTransaction().commit();
+				
+				//em.persist(marca2);
+
+				/*
 				//Producto
 				List<Proveedor> proveedores = new ArrayList<>();
 				proveedores.add(n);
@@ -266,9 +286,10 @@ public class VistaPrincipal extends JFrame implements Observador {
 				d.setEmpleados(empleados);
 
 				em.persist(d);
-				em.persist(g);
+				em.persist(g);*/
 
-				em.getTransaction().commit();
+				
+				
 
 				em.close();
 				emf.getEMF().close();

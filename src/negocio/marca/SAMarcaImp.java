@@ -1,56 +1,230 @@
 package negocio.marca;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.LockModeType;
+
+import integracion.factoria.EMFSingleton;
+import negocio.UtilidadesN;
+import negocio.producto.Producto;
 
 public class SAMarcaImp implements SAMarca {
 
-	public int altaMarca(TMarca marca) {
-		// begin-user-code
-		// TODO Auto-generated method stub
-		return 0;
-		// end-user-code
+	public synchronized int altaMarca(TMarca tMarca) {
+		EntityManager em = null;
+		int id = -1;
+
+		if (ValidadorMarca.comprobarDatos(tMarca)) {
+			try {
+				em = EMFSingleton.getInstance().getEMF().createEntityManager();
+				em.getTransaction().begin();
+
+				Marca marca;
+
+				// Hay que comprobar si la marca existe ya, devuelve lista
+				// porque esta función no lanza excepción y es mas facil de
+				// tratar
+				List<Marca> resultados = em.createNamedQuery("negocio.marca.Marca.findBynombre", Marca.class)
+						.setParameter("nombre", tMarca.getNombre())
+						// .setLockMode(arg0)
+						.getResultList();
+				// Si es necesario bloquear añadir -> .setLockMode
+
+				if (resultados.isEmpty()) { // Si la lista está vacía quiere
+											// decir que no hay marcas con ese
+											// nombre
+					marca = new Marca(tMarca);
+					em.persist(marca);
+					em.getTransaction().commit();
+					// IMPORTANTE si quieres obtener el id se hace
+					// obligatoriamente después de hacer el commit
+					id = marca.getId();
+				} else { // Si no está vacía hay un único registro, porque
+							// nombre es unique
+					marca = resultados.get(0);
+					if (!marca.getActivo()) { // Si está inactivo, lo reactivo y asignamos datos de entrada para modificarlos. Para modificar una entidad basta con hacer sets y commit
+						marca.setActivo(true);
+						marca.setOrigen(tMarca.getOrigen());
+						em.getTransaction().commit();
+						id = marca.getId();
+					} else { // Si está activa no puedo reactivarla
+						em.getTransaction().rollback();
+					}
+				}
+			} catch (Exception e) { // excepcion por si falla algo de
+									// transaccion
+				if (em != null && em.getTransaction().isActive()) {
+					em.getTransaction().rollback();
+				}
+
+			} finally {
+				if (em != null) {
+					em.close();
+				}
+
+			}
+		}
+
+		return id;
 	}
 
 	public boolean bajaMarca(int id) {
-		// begin-user-code
-		// TODO Auto-generated method stub
-		return false;
-		// end-user-code
+
+		EntityManager em = null;
+		boolean exito = false;
+
+		if (UtilidadesN.comprobarId(id)) {
+			try {
+				em = EMFSingleton.getInstance().getEMF().createEntityManager();
+				em.getTransaction().begin();
+
+				Marca marca;
+				
+				marca = em.find(Marca.class, id);
+				
+				if (marca != null && marca.getActivo()){	// Si existe y está activa
+					for (Producto prod : marca.getProductos()){
+						em.lock(prod, LockModeType.OPTIMISTIC);
+						if (prod.getActivo()){ // tiene productos activos, no lo puedo dar de baja
+							em.getTransaction().rollback();
+							return exito;
+						}
+					}
+					
+					marca.setActivo(false);
+					exito = true;
+					em.getTransaction().commit();
+				} else{
+					em.getTransaction().rollback();
+				}
+			} catch (Exception e) { 
+				if (em != null && em.getTransaction().isActive()) {
+					em.getTransaction().rollback();
+				}
+
+			} finally {
+				if (em != null) {
+					em.close();
+				}
+
+			}
+		}
+
+		return exito;
 	}
 
-	/** 
-	* (non-Javadoc)
-	* @see SAMarca#consultarMarcaPorId(int id)
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
 	public TMarca consultarMarcaPorId(int id) {
-		// begin-user-code
-		// TODO Auto-generated method stub
-		return null;
-		// end-user-code
+		EntityManager em = null;
+		TMarca tMarca = null;
+
+		if (UtilidadesN.comprobarId(id)) {
+			try {
+				em = EMFSingleton.getInstance().getEMF().createEntityManager();
+				em.getTransaction().begin();
+
+				Marca marca = em.find(Marca.class, id);
+
+				if (marca != null) {
+					tMarca = marca.toTransfer();
+				}
+
+				em.getTransaction().commit();
+
+			} catch (Exception e) { // excepcion por si falla algo de
+									// transaccion
+				if (em != null && em.getTransaction().isActive()) {
+					em.getTransaction().rollback();
+				}
+
+			} finally {
+				if (em != null) {
+					em.close();
+				}
+
+			}
+		}
+
+		return tMarca;
 	}
 
-	/** 
-	* (non-Javadoc)
-	* @see SAMarca#consultarMarcas()
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
 	public List<TMarca> consultarMarcas() {
-		// begin-user-code
-		// TODO Auto-generated method stub
-		return null;
-		// end-user-code
+		EntityManager em = null;
+		List<TMarca> listaMarcas = new ArrayList<TMarca>();
+
+		try {
+			em = EMFSingleton.getInstance().getEMF().createEntityManager();
+			em.getTransaction().begin();
+
+			List<Marca> resultados = em.createNamedQuery("negocio.marca.Marca.findAll", Marca.class).getResultList();
+
+			for (Marca marca : resultados) {
+				listaMarcas.add(marca.toTransfer());
+			}
+
+			em.getTransaction().commit();
+
+		} catch (Exception e) { // excepcion por si falla algo de
+								// transaccion
+			if (em != null && em.getTransaction().isActive()) {
+				em.getTransaction().rollback();
+			}
+
+		} finally {
+			if (em != null) {
+				em.close();
+			}
+		}
+
+		return listaMarcas;
+
 	}
 
-	/** 
-	* (non-Javadoc)
-	* @see SAMarca#modificarMarca(TMarca marca)
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
-	public boolean modificarMarca(TMarca marca) {
-		// begin-user-code
-		// TODO Auto-generated method stub
-		return false;
-		// end-user-code
+	public boolean modificarMarca(TMarca tMarca) {
+		EntityManager em = null;
+		boolean exito = false;
+
+		if (ValidadorMarca.comprobarDatos(tMarca)) {
+			try {
+				em = EMFSingleton.getInstance().getEMF().createEntityManager();
+				em.getTransaction().begin();
+
+				Marca marca;
+				
+				marca = em.find(Marca.class, tMarca.getId());
+				
+				if (marca != null) {
+					List<Marca> resultados = em.createNamedQuery("negocio.marca.Marca.findBynombre", Marca.class)
+							.setParameter("nombre", tMarca.getNombre())
+							.getResultList();
+					
+					if (marca.getActivo()																	// Puedo modificar la marca si esta activa y si no existe marca con ese nombre
+							&& (marca.getNombre().equals(tMarca.getNombre()) || resultados.isEmpty())) {	// o la que estoy modicando es la que he leido por nombre
+						exito = true;
+						marca.setNombre(tMarca.getNombre());
+						marca.setOrigen(tMarca.getOrigen());
+						em.getTransaction().commit();
+					} else{
+						em.getTransaction().rollback();
+					}
+				} else{
+					em.getTransaction().rollback();
+				}
+			} catch (Exception e) { // excepcion por si falla algo de
+									// transaccion
+				if (em != null && em.getTransaction().isActive()) {
+					em.getTransaction().rollback();
+				}
+
+			} finally {
+				if (em != null) {
+					em.close();
+				}
+
+			}
+		}
+
+		return exito;
 	}
 }

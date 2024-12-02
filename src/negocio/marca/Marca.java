@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import java.io.Serializable;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
+
+import java.util.ArrayList;
 import java.util.List;
 import negocio.producto.Producto;
 import javax.persistence.OneToMany;
@@ -21,7 +23,8 @@ import javax.persistence.NamedQueries;
 		@NamedQuery(name = "negocio.marca.Marca.findBynombre", query = "select obj from Marca obj where :nombre = obj.nombre "),
 		@NamedQuery(name = "negocio.marca.Marca.findByorigen", query = "select obj from Marca obj where :origen = obj.origen "),
 		@NamedQuery(name = "negocio.marca.Marca.findByactivo", query = "select obj from Marca obj where :activo = obj.activo "),
-		@NamedQuery(name = "negocio.marca.Marca.findByversion", query = "select obj from Marca obj where :version = obj.version ") })
+		@NamedQuery(name = "negocio.marca.Marca.findByversion", query = "select obj from Marca obj where :version = obj.version "),
+		@NamedQuery(name = "negocio.marca.Marca.findAll", query = "select obj from Marca obj ")})
 public class Marca implements Serializable {
 
 	private static final long serialVersionUID = 0;
@@ -82,19 +85,6 @@ public class Marca implements Serializable {
 		return this.productos;
 	}
 
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @param productos
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
-	public void setProductos(Producto... productos) {
-		// begin-user-code
-		// TODO Auto-generated method stub
-
-		// end-user-code
-	}
-
 	public void setProductos(List<Producto> productos) {
 		this.productos = productos;
 	}
@@ -108,5 +98,6 @@ public class Marca implements Serializable {
 		this.nombre = transfer.getNombre();
 		this.origen = transfer.getOrigen();
 		this.activo = transfer.getActivo();
+		this.productos = new ArrayList<>();
 	}
 }
