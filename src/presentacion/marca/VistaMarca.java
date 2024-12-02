@@ -58,7 +58,7 @@ public class VistaMarca extends JFrame implements Observador {
 
         Controlador ctrl = Controlador.getInstance();
 
-        JButton alta = new JButton("ALTA_DE_MARCA");
+        JButton alta = new JButton("ALTA DE MARCA");
         alta.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -70,7 +70,7 @@ public class VistaMarca extends JFrame implements Observador {
         botones.add(alta);
 
         //-------------------------------------------
-        JButton baja = new JButton("BAJA_DE_MARCA");
+        JButton baja = new JButton("BAJA DE MARCA");
         baja.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -82,7 +82,7 @@ public class VistaMarca extends JFrame implements Observador {
         botones.add(baja);
 
         //-------------------------------------------
-        JButton consultarID = new JButton("CONSULTAR_MARCA_POR_ID");
+        JButton consultarID = new JButton("CONSULTAR MARCA POR ID");
 
         consultarID.addActionListener(new ActionListener() {
             @Override
@@ -96,7 +96,7 @@ public class VistaMarca extends JFrame implements Observador {
         botones.add(consultarID);
 
         //-------------------------------------------
-        JButton consultarTodos = new JButton("CONSULTAR_TODAS_LAS_MARCAS");
+        JButton consultarTodos = new JButton("CONSULTAR MARCAS");
 
         consultarTodos.addActionListener(new ActionListener() {
             @Override
@@ -109,7 +109,7 @@ public class VistaMarca extends JFrame implements Observador {
         botones.add(consultarTodos);
 
         //-------------------------------------------
-        JButton modificar = new JButton("MODIFICAR_MARCA");
+        JButton modificar = new JButton("MODIFICAR MARCA");
 
         modificar.addActionListener(new ActionListener() {
             @Override

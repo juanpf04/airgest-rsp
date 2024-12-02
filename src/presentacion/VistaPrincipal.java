@@ -13,6 +13,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.LockModeType;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -46,7 +47,7 @@ public class VistaPrincipal extends JFrame implements Observador {
 	@Override
 	public void actualizar(Object datos) {
 		UtilidadesP.setAirGestRSP(this);
-		this.setSize(620, 1200); //hace que la ventana no salga tan chiquitita
+		this.setSize(2000, 2200); //hace que la ventana no salga tan chiquitita
 		JPanel principal = new JPanel();
 		principal.setLayout(new BorderLayout());
 
@@ -72,6 +73,11 @@ public class VistaPrincipal extends JFrame implements Observador {
 		botones.setLayout(new GridLayout(0, 1, 1, 7));
 
 		Controlador ctrl = Controlador.getInstance();
+		
+		JLabel imagen = new JLabel();
+        imagen.setIcon(new ImageIcon("recursos/iconos/team.jpg"));
+        principal.add(imagen, BorderLayout.PAGE_END);
+		
 
 		//-------------------------------------------
 

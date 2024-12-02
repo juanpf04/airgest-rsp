@@ -33,7 +33,7 @@ public class VistaBajaMarca extends JFrame implements Observador {
         principal.setLayout(new BoxLayout(principal, BoxLayout.PAGE_AXIS));
 
         JPanel panel_titulo = new JPanel();
-        JLabel titulo = new JLabel("Baja_Marca");
+        JLabel titulo = new JLabel("Baja Marca");
         titulo.setFont(new Font("Tahoma", Font.BOLD, 30));
         titulo.setBorder(new LineBorder(Color.BLACK, 2));
         titulo.setHorizontalAlignment(SwingConstants.CENTER);

@@ -39,7 +39,7 @@ public class VistaAltaMarca extends JFrame implements Observador {
         funcion.setLayout(new BoxLayout(funcion, BoxLayout.PAGE_AXIS));
 
         JPanel panel_titulo = new JPanel();
-        JLabel titulo = new JLabel("Alta_Marca");
+        JLabel titulo = new JLabel("Alta Marca");
         titulo.setFont(new Font("Tahoma", Font.BOLD, 30));
         titulo.setBorder(new LineBorder(Color.BLACK, 2));
         titulo.setHorizontalAlignment(SwingConstants.CENTER);

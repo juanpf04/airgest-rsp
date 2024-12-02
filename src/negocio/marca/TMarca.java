@@ -51,4 +51,10 @@ public class TMarca {
 	public void setActivo(boolean activo) {
 		this.activo = activo;
 	}
+
+	@Override
+	public String toString() {
+		return "\nId: " + this.id + "\nNombre: " + this.nombre + "\nOrigen: " + this.origen + "\nActivo: "
+				+ this.activo;
+	}
 }

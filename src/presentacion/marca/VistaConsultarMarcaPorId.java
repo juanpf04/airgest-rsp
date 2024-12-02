@@ -33,7 +33,7 @@ public class VistaConsultarMarcaPorId extends JFrame implements Observador {
         principal.setLayout(new BoxLayout(principal, BoxLayout.PAGE_AXIS));
 
         JPanel panel_titulo = new JPanel();
-        JLabel titulo = new JLabel("Consultar_marca_por_ID");
+        JLabel titulo = new JLabel("Consultar marca por Id");
         titulo.setFont(new Font("Tahoma", Font.BOLD, 30));
         titulo.setBorder(new LineBorder(Color.BLACK, 2));
         titulo.setHorizontalAlignment(SwingConstants.CENTER);
