@@ -7,7 +7,7 @@ public class ValidadorEmpleado {
 	public static boolean comprobarDatos(TEmpleado empleado) {
 		boolean comprobacionGeneral = comprobarTag(empleado.getTag()) 
 				&& comprobarHorasMensuales(empleado.getHorasMensuales())
-				&& comprobarIdDepartamemto(empleado.getIdDepartamento());
+				&& comprobarIdDepartamento(empleado.getIdDepartamento());
 		if(empleado instanceof TGerente) comprobacionGeneral = comprobacionGeneral && comprobarGerente((TGerente)empleado);
 		else comprobacionGeneral = comprobacionGeneral && comprobarDependiente((TDependiente)empleado);
 		return comprobacionGeneral;
@@ -21,7 +21,7 @@ public class ValidadorEmpleado {
 		return horasMensuales > 0;
 	}
 	
-	public static boolean comprobarIdDepartamemto(int idDepartamento) {
+	public static boolean comprobarIdDepartamento(int idDepartamento) {
 		return idDepartamento > 0;
 	}
 
