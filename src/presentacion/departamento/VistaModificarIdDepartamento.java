@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 package presentacion.departamento;
 
 import java.awt.Color;
