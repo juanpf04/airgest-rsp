@@ -47,6 +47,12 @@ public class FactoriaVistasImp2 extends FactoriaVistasImp {
 			case VISTA_CONSULTAR_PROVEEDORES_POR_PRODUCTO:
 				vista = new VistaMostrarProveedoresPorProducto();
 				break;
+			case VISTA_RESULTADO_CONSULTAR_PROVEEDORES_POR_PRODUCTO:
+				vista = new VistaResultadoMostrarProveedoresPorProducto();
+				break;
+			case VISTA_CONSULTAR_PROVEEDORES:
+				vista = new VistaConsultarTodosProveedores();
+				break;
 			case VISTA_RESULTADO_CONSULTAR_PROVEEDOR_POR_ID:
 				vista = new VistaResultadoConsultarProveedorPorId();
 				break;
@@ -67,6 +73,21 @@ public class FactoriaVistasImp2 extends FactoriaVistasImp {
 				break;
 			case VISTA_DESVINCULAR_PROVEEDOR:
 				vista = new VistaDesvincularProveedorProducto();
+				break;
+			case VISTA_EXITO_DESVINCULAR_PROVEEDOR:
+				vista = new VistaExitoDesvincularProveedorProducto();
+				break;
+			case VISTA_FALLO_DESVINCULAR_PROVEEDOR:
+				vista = new VistaFalloDesvincularProveedorProducto();
+				break;
+			case VISTA_VINCULAR_PROVEEDOR:
+				vista = new VistaVincularProveedorProducto();
+				break;
+			case VISTA_EXITO_VINCULAR_PROVEEDOR:
+				vista = new VistaExitoVincularProveedorProducto();
+				break;
+			case VISTA_FALLO_VINCULAR_PROVEEDOR:
+				vista = new VistaFalloVincularProveedorProducto();
 				break;
 
 			// Producto
