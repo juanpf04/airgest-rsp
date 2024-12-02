@@ -193,14 +193,17 @@ public class FactoriaVistasImp2 extends FactoriaVistasImp {
 			case VISTA_ALTA_MARCA:
 				vista = new VistaAltaMarca();
 				break;
+			case VISTA_BAJA_MARCA:
+				vista = new VistaBajaMarca();
+				break;
+			case VISTA_CONSULTAR_MARCA_POR_ID:
+				vista = new VistaConsultarMarcaPorId();
+				break;
 			case VISTA_EXITO_ALTA_MARCA:
 				vista = new VistaExitoAltaMarca();
 				break;
 			case VISTA_FALLO_ALTA_MARCA:
 				vista = new VistaFalloAltaMarca();
-				break;
-			case VISTA_BAJA_MARCA:
-				vista = new VistaBajaMarca();
 				break;
 			case VISTA_EXITO_BAJA_MARCA:
 				vista = new VistaExitoBajaMarca();
@@ -208,22 +211,27 @@ public class FactoriaVistasImp2 extends FactoriaVistasImp {
 			case VISTA_FALLO_BAJA_MARCA:
 				vista = new VistaFalloBajaMarca();
 				break;
-			case VISTA_CONSULTAR_MARCA_POR_ID:
-				vista = new VistaConsultarMarcaPorId();
-				break;
-			case VISTA_RESULTADO_CONSULTAR_MARCAS:
-				vista = new VistaResultadoConsultarMarcas();
-				break;
-			case VISTA_MODIFICAR_MARCA:
-				vista = new VistaModificarMarca();
-				break;
 			case VISTA_EXITO_MODIFICAR_MARCA:
 				vista = new VistaExitoModificarMarca();
 				break;
 			case VISTA_FALLO_MODIFICAR_MARCA:
 				vista = new VistaFalloModificarMarca();
 				break;
-
+			case VISTA_MODIFICAR_MARCA:
+				vista = new VistaModificarMarca();
+				break;
+			case VISTA_MODIFICAR_ID_MARCA:
+				vista = new VistaModificarMarcaId();
+				break;
+			case VISTA_RESULTADO_CONSULTAR_MARCA_POR_ID:
+				vista = new VistaResultadoConsultarMarcaPorId();
+				break;
+			case VISTA_RESULTADO_CONSULTAR_MARCAS:
+				vista = new VistaResultadoConsultarMarcas();
+				break;			
+						
+			
+			
 			// Venta
 			case VISTA_VENTA:
 				vista = new VistaVenta();
