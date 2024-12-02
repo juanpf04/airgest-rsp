@@ -1,27 +1,63 @@
-/**
- * 
- */
 package presentacion.marca;
 
+import java.awt.BorderLayout;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
+
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+
+import negocio.marca.TMarca;
 import presentacion.Observador;
+import presentacion.UtilidadesP;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author javia
-* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-*/
 public class VistaResultadoConsultarMarcas extends JFrame implements Observador {
-	/** 
-	* (non-Javadoc)
-	* @see Observador#actualizar(Object datos)
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
-	public void actualizar(Object datos) {
-		// begin-user-code
-		// TODO Auto-generated method stub
 
-		// end-user-code
-	}
+    private static final long serialVersionUID = 1L;
+
+    public void actualizar(Object datos) {
+        UtilidadesP.setAirGestRSP(this);
+        this.setSize(600, 650);
+
+        JPanel principal = new JPanel();
+        principal.setLayout(new BorderLayout());
+
+        @SuppressWarnings("unchecked")
+        List<TMarca> marcas = (List<TMarca>) datos;
+
+        String s = "";
+        for (TMarca ma : marcas)
+            s += ma.toString() + "\n";
+
+        JTextArea exito = new JTextArea(s);
+        exito.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        exito.setEditable(false);
+        principal.add(exito, BorderLayout.PAGE_START);
+
+        JScrollPane scroll = new JScrollPane(exito, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        principal.add(scroll, BorderLayout.CENTER);
+
+        JButton atras = new JButton("ATRAS"); // botón para volver a la ventana principal
+        atras.setToolTipText("Esto vuelve a la ventana anterior");
+        atras.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+            }
+        });
+
+        principal.add(atras, BorderLayout.PAGE_END);
+
+        this.setContentPane(principal);
+        this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        this.setVisible(true);
+        this.setLocation(200, 200);
+    }
 }
