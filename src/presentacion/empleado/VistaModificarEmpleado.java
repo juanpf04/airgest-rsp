@@ -148,9 +148,9 @@ public class VistaModificarEmpleado extends JFrame implements Observador {
 			textoTag.setMinimumSize(new Dimension(200, 30));
 			textoTag.setPreferredSize(new Dimension(200, 30));
 			textoTag.setFont(new Font("Tahoma", Font.BOLD, 18));
-			textoTag.setToolTipText("número mayor que 0");
 			panelEtiquetas.add(etiquetaTag);
 			panelTexto.add(textoTag);
+			textoTag.setToolTipText("número mayor que 0");
 			centro.add(panelEtiquetas);
 			centro.add(panelTexto);
 

@@ -114,7 +114,7 @@ public class VistaAltaEmpleado extends JFrame implements Observador {
 			textoTag.setMinimumSize(new Dimension(200, 30));
 			textoTag.setPreferredSize(new Dimension(200, 30));
 			textoTag.setFont(new Font("Tahoma", Font.BOLD, 18));
-			textoTag.setToolTipText("8 digitos y una letra mayuscula");
+			textoTag.setToolTipText("número mayor que 0");
 			panelEtiquetas.add(etiquetaTag);
 			panelTexto.add(textoTag);
 			centro.add(panelEtiquetas);
