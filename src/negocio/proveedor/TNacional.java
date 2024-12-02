@@ -21,4 +21,9 @@ public class TNacional extends TProveedor {
 	public void setCodigoPostal(String cp) {
 		this.codigoPostal = cp;
 	}
+	
+	@Override
+	public String toString() {
+		return super.toString() + "\nCodigo Postal: " + this.getCodigoPostal();
+	}
 }

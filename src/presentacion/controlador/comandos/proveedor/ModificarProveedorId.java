@@ -1,6 +1,3 @@
-/**
- * 
- */
 package presentacion.controlador.comandos.proveedor;
 
 import presentacion.controlador.comandos.Comando;

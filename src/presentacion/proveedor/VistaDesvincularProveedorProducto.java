@@ -114,7 +114,7 @@ public class VistaDesvincularProveedorProducto extends JFrame implements Observa
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				controlador.accion(new Contexto(Evento.VISTA_MODELO, null));
+				controlador.accion(new Contexto(Evento.VISTA_PROVEEDOR, null));
 			}
 
 		});
