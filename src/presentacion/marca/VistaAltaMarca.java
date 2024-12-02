@@ -1,27 +1,125 @@
-/**
- * 
- */
 package presentacion.marca;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.LineBorder;
+
+import negocio.marca.TMarca;
 import presentacion.Observador;
+import presentacion.UtilidadesP;
+import presentacion.controlador.Contexto;
+import presentacion.controlador.Controlador;
+import presentacion.controlador.Evento;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author javia
-* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-*/
 public class VistaAltaMarca extends JFrame implements Observador {
-	/** 
-	* (non-Javadoc)
-	* @see Observador#actualizar(Object datos)
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
-	public void actualizar(Object datos) {
-		// begin-user-code
-		// TODO Auto-generated method stub
 
-		// end-user-code
-	}
+    private static final long serialVersionUID = 1L;
+
+    public void actualizar(Object datos) {
+        UtilidadesP.setAirGestRSP(this);
+        this.setSize(450, 250);
+
+        Controlador ctrl = Controlador.getInstance();
+
+        JPanel principal = new JPanel();
+        principal.setLayout(new BoxLayout(principal, BoxLayout.PAGE_AXIS));
+
+        JPanel funcion = new JPanel();
+        funcion.setLayout(new BoxLayout(funcion, BoxLayout.PAGE_AXIS));
+
+        JPanel panel_titulo = new JPanel();
+        JLabel titulo = new JLabel("Alta_Marca");
+        titulo.setFont(new Font("Tahoma", Font.BOLD, 30));
+        titulo.setBorder(new LineBorder(Color.BLACK, 2));
+        titulo.setHorizontalAlignment(SwingConstants.CENTER);
+        panel_titulo.add(titulo);
+
+        funcion.add(panel_titulo);
+        principal.add(funcion);
+
+        JPanel centro = new JPanel();
+        centro.setLayout(new BoxLayout(centro, BoxLayout.LINE_AXIS));
+        centro.setAlignmentX(CENTER_ALIGNMENT);
+        principal.add(centro);
+
+        JPanel panelBotones = new JPanel();
+        principal.add(panelBotones);
+        panelBotones.setAlignmentX(CENTER_ALIGNMENT);
+
+        JButton atras = new JButton("ATRAS"); // botón para volver a la ventana
+        atras.setToolTipText("Esto vuelve a la ventana anterior");
+        atras.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                ctrl.accion(new Contexto(Evento.VISTA_MARCA, null));
+            }
+
+        });
+        panelBotones.add(atras);
+
+        JPanel panelEtiquetas = new JPanel();
+        panelEtiquetas.setLayout(new BoxLayout(panelEtiquetas, BoxLayout.PAGE_AXIS));
+        panelEtiquetas.setAlignmentX(CENTER_ALIGNMENT);
+
+        JPanel panelTexto = new JPanel();
+        panelTexto.setLayout(new BoxLayout(panelTexto, BoxLayout.PAGE_AXIS));
+        panelTexto.setAlignmentX(CENTER_ALIGNMENT);
+
+        JLabel etiquetaA = new JLabel("Nombre: ");
+        etiquetaA.setFont(new Font("Tahoma", Font.BOLD, 25));
+        JTextField textoA = new JTextField();
+        textoA.setMaximumSize(new Dimension(200, 30));
+        textoA.setMinimumSize(new Dimension(200, 30));
+        textoA.setPreferredSize(new Dimension(200, 30));
+        textoA.setFont(new Font("Tahoma", Font.BOLD, 18));
+        panelEtiquetas.add(etiquetaA);
+        panelTexto.add(textoA);
+
+        JLabel etiquetaB = new JLabel("Origen: ");
+        etiquetaB.setFont(new Font("Tahoma", Font.BOLD, 25));
+        JTextField textoB = new JTextField();
+        textoB.setMaximumSize(new Dimension(200, 30));
+        textoB.setMinimumSize(new Dimension(200, 30));
+        textoB.setPreferredSize(new Dimension(200, 30));
+        textoB.setFont(new Font("Tahoma", Font.BOLD, 18));
+        panelEtiquetas.add(etiquetaB);
+        panelTexto.add(textoB);
+        
+        centro.add(panelEtiquetas);
+        centro.add(panelTexto);
+
+        JButton aceptar = new JButton("ACEPTAR");
+        aceptar.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String nombreLeido = textoA.getText();
+                String origenLeido = textoB.getText();
+                TMarca transfer = new TMarca(0, nombreLeido, origenLeido, true);
+                ctrl.accion(new Contexto(Evento.ALTA_MARCA, transfer));
+            }
+        });
+
+        panelBotones.add(aceptar);
+
+        this.setContentPane(principal);
+        this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        this.setVisible(true);
+        this.setLocation(200, 200);
+        this.setResizable(false);
+        this.pack();
+    }
 }
