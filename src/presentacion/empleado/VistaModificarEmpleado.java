@@ -176,7 +176,7 @@ public class VistaModificarEmpleado extends JFrame implements Observador {
 			panelTexto.add(textoIdDepartamento);
 			textoIdDepartamento.setToolTipText("numero mayor que 0");
 			
-			JLabel etiquetaDespacho = new JLabel("Nº Despacho:    ");
+			JLabel etiquetaDespacho = new JLabel("Nï¿½ Despacho:    ");
 			etiquetaDespacho.setFont(new Font("Tahoma", Font.BOLD, 25));
 			JTextField textoDespacho = new JTextField(despacho);
 			textoDespacho.setMaximumSize(new Dimension(200, 30));
@@ -194,7 +194,7 @@ public class VistaModificarEmpleado extends JFrame implements Observador {
 			textoHorasExtra.setFont(new Font("Tahoma", Font.BOLD, 18));
 			textoHorasExtra.setToolTipText("numero mayor que 0");
 			
-			JLabel etiquetaSeccion = new JLabel("Sección:    ");
+			JLabel etiquetaSeccion = new JLabel("Secciï¿½n:    ");
 			etiquetaSeccion.setFont(new Font("Tahoma", Font.BOLD, 25));
 			JTextField textoSeccion = new JTextField(seccion);
 			textoSeccion.setMaximumSize(new Dimension(200, 30));
@@ -256,13 +256,13 @@ public class VistaModificarEmpleado extends JFrame implements Observador {
 						if (listaInfo.get(1) == "GERENTE") {
 							int despacho = Integer.valueOf(textoDespacho.getText());
 							int horasExtra = Integer.valueOf(textoHorasExtra.getText());
-							transfer = new TGerente(0, tag, horasMensuales, idDepartamento, true, despacho, horasExtra);
+							transfer = new TGerente(aux.getId(), tag, horasMensuales, idDepartamento, true, despacho, horasExtra);
 						} else {
 							int seccion = Integer.valueOf(textoSeccion.getText());
 							String noche = textoNoches.getText();
 							boolean noches = false;
 							if(noche.equals("si") || noche.equals("Si") || noche.equals("SI")) noches = true;
-							transfer = new TDependiente(0, tag, horasMensuales, idDepartamento, true, seccion, noches);
+							transfer = new TDependiente(aux.getId(), tag, horasMensuales, idDepartamento, true, seccion, noches);
 						}
 						dispose();
 						ctrl.accion(new Contexto(Evento.MODIFICAR_EMPLEADO, transfer));
