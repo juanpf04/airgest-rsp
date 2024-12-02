@@ -73,7 +73,7 @@ public class VistaModificarProveedorId extends JFrame implements Observador {
 				try {
 					dispose();
 					int id = Integer.parseInt(textoId.getText());
-					controlador.accion(new Contexto(Evento.MODIFICAR_PROVEEDOR, id));
+					controlador.accion(new Contexto(Evento.MODIFICAR_PROVEEDOR_ID, id));
 				} catch (NumberFormatException n) {
 					controlador.accion(new Contexto(Evento.VISTA_FALLO_MODIFICAR_PROVEEDOR));
 				}
