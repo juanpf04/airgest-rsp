@@ -103,5 +103,6 @@ public class VistaMostrarProveedoresPorProducto extends JFrame implements Observ
 		this.setVisible(true);
 		this.setLocation(200, 200);
 		this.setResizable(false);
+		this.pack();
 	}
 }

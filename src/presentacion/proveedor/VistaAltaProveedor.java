@@ -88,7 +88,7 @@ public class VistaAltaProveedor extends JFrame implements Observador {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					dispose();
-					ctrl.accion(new Contexto(Evento.VISTA_ALTA_EMPLEADO, "INTERNACIONAL"));
+					ctrl.accion(new Contexto(Evento.VISTA_ALTA_PROVEEDOR, "INTERNACIONAL"));
 				}
 			});
 
@@ -146,7 +146,7 @@ public class VistaAltaProveedor extends JFrame implements Observador {
 			textoPais.setPreferredSize(new Dimension(200, 30));
 			textoPais.setFont(new Font("Tahoma", Font.BOLD, 18));
 
-			if ("Nacional" == datos) {
+			if ("NACIONAL" == datos) {
 				panelEtiquetas.add(etiquetaCodigoPostal);
 				panelTexto.add(textoCodigoPostal);
 			} else {
@@ -170,7 +170,7 @@ public class VistaAltaProveedor extends JFrame implements Observador {
 							String codigoPostal = textoCodigoPostal.getText();
 							transfer = new TNacional(0, nombre, true, codigoPostal);
 						} else {
-							int impuesto = Integer.valueOf(textoImpuesto.getText());
+							double impuesto = Double.valueOf(textoImpuesto.getText());
 							String pais = textoPais.getText();
 							transfer = new TInternacional(0, nombre, true, pais, impuesto);
 						}
@@ -182,7 +182,7 @@ public class VistaAltaProveedor extends JFrame implements Observador {
 
 			});
 
-			panelBotones.add(aceptar);
+			panelAceptar.add(aceptar);
 
 		}
 

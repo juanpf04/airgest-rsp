@@ -44,6 +44,9 @@ public class FactoriaVistasImp2 extends FactoriaVistasImp {
 			case VISTA_CONSULTAR_PROVEEDOR_POR_ID:
 				vista = new VistaConsultarProveedorPorId();
 				break;
+			case VISTA_CONSULTAR_PROVEEDORES_POR_PRODUCTO:
+				vista = new VistaMostrarProveedoresPorProducto();
+				break;
 			case VISTA_RESULTADO_CONSULTAR_PROVEEDOR_POR_ID:
 				vista = new VistaResultadoConsultarProveedorPorId();
 				break;

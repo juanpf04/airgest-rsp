@@ -61,5 +61,6 @@ public class VistaConsultarTodosProveedores extends JFrame implements Observador
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		this.setVisible(true);
 		this.setLocation(200, 200);
+		this.pack();
 	}
 }

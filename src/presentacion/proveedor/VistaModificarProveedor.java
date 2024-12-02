@@ -103,12 +103,12 @@ public class VistaModificarProveedor extends JFrame implements Observador {
 		} else {
 			TProveedor aux = (TProveedor) listaInfo.get(0);
 			String codigoPostalAux = "";
-			int impuestoAux = -1;
+			double impuestoAux = -1;
 			String paisAux = "";
 			if (aux instanceof TNacional) {
 				codigoPostalAux = ((TNacional) aux).getCodigoPostal();
 			} else {
-				impuestoAux = (int) ((TInternacional) aux).getImpuesto();
+				impuestoAux = (double) ((TInternacional) aux).getImpuesto();
 				paisAux = "" + ((TInternacional) aux).getPais();
 			}
 
@@ -141,7 +141,7 @@ public class VistaModificarProveedor extends JFrame implements Observador {
 			
 			JLabel etiquetaImpuesto = new JLabel("Impuesto:    ");
 			etiquetaImpuesto.setFont(new Font("Tahoma", Font.BOLD, 25));
-			JTextField textoImpuesto = new JTextField(impuestoAux);
+			JTextField textoImpuesto = new JTextField("" + impuestoAux);
 			textoImpuesto.setMaximumSize(new Dimension(200, 30));
 			textoImpuesto.setMinimumSize(new Dimension(200, 30));
 			textoImpuesto.setPreferredSize(new Dimension(200, 30));
@@ -180,7 +180,7 @@ public class VistaModificarProveedor extends JFrame implements Observador {
 							String codigoPostal = textoCodigoPostal.getText();
 							transfer = new TNacional(0, nombre, true, codigoPostal);
 						} else {
-							int impuesto = Integer.valueOf(textoImpuesto.getText());
+							double impuesto = Double.valueOf(textoImpuesto.getText());
 							String pais = textoPais.getText();
 							transfer = new TInternacional(0, nombre, true, pais, impuesto);
 						}

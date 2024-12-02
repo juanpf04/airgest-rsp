@@ -1,6 +1,3 @@
-/**
- * 
- */
 package presentacion.proveedor;
 
 import java.awt.Color;
@@ -19,7 +16,6 @@ import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
 import negocio.modeloAerolinea.TModeloAerolinea;
-import negocio.personalHangar.TPersonalHangar;
 import presentacion.Observador;
 import presentacion.UtilidadesP;
 import presentacion.controlador.Contexto;
@@ -100,9 +96,11 @@ public class VistaVincularProveedorProducto extends JFrame implements Observador
 			public void actionPerformed(ActionEvent e) {
 				try {
 					int idProveedorLeido = Integer.valueOf(textoIdProveedor.getText());
-					int idHangarLeido = Integer.valueOf(textoIdProducto.getText());
-					TPersonalHangar transfer = new TPersonalHangar(idProveedorLeido, idHangarLeido);
-					controlador.accion(new Contexto(Evento.VINCULAR_PROVEEDOR, transfer));
+					int idProductoLeido = Integer.valueOf(textoIdProducto.getText());
+					int[] parametros = new int[2];
+					parametros[0] = idProductoLeido;
+					parametros[1] = idProveedorLeido;
+					controlador.accion(new Contexto(Evento.VINCULAR_PROVEEDOR, parametros));
 				} catch (NumberFormatException n) {
 					controlador.accion(new Contexto(Evento.VISTA_FALLO_VINCULAR_PROVEEDOR, new TModeloAerolinea())); //creo
 				}
@@ -121,7 +119,7 @@ public class VistaVincularProveedorProducto extends JFrame implements Observador
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				controlador.accion(new Contexto(Evento.VISTA_PERSONAL, null));
+				controlador.accion(new Contexto(Evento.VISTA_PROVEEDOR, null));
 			}
 
 		});
@@ -131,11 +129,11 @@ public class VistaVincularProveedorProducto extends JFrame implements Observador
 		botones.add(atras);
 		botones.add(aceptar);
 		principal.add(botones);
-
 		this.setContentPane(principal);
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		this.setVisible(true);
 		this.setLocation(200, 200);
 		this.setResizable(false);
+		this.pack();
 	}
 }

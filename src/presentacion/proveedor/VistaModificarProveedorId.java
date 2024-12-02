@@ -107,6 +107,7 @@ public class VistaModificarProveedorId extends JFrame implements Observador {
 		this.setVisible(true);
 		this.setLocation(200, 200);
 		this.setResizable(false);
+		this.pack();
 	}
 
 }
