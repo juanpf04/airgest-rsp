@@ -148,7 +148,7 @@ public class VistaModificarEmpleado extends JFrame implements Observador {
 			textoTag.setMinimumSize(new Dimension(200, 30));
 			textoTag.setPreferredSize(new Dimension(200, 30));
 			textoTag.setFont(new Font("Tahoma", Font.BOLD, 18));
-			textoTag.setToolTipText("8 digitos y una letra mayuscula");
+			textoTag.setToolTipText("número mayor que 0");
 			panelEtiquetas.add(etiquetaTag);
 			panelTexto.add(textoTag);
 			centro.add(panelEtiquetas);
@@ -176,7 +176,7 @@ public class VistaModificarEmpleado extends JFrame implements Observador {
 			panelTexto.add(textoIdDepartamento);
 			textoIdDepartamento.setToolTipText("numero mayor que 0");
 			
-			JLabel etiquetaDespacho = new JLabel("Nï¿½ Despacho:    ");
+			JLabel etiquetaDespacho = new JLabel("Nº Despacho:    ");
 			etiquetaDespacho.setFont(new Font("Tahoma", Font.BOLD, 25));
 			JTextField textoDespacho = new JTextField(despacho);
 			textoDespacho.setMaximumSize(new Dimension(200, 30));
@@ -194,7 +194,7 @@ public class VistaModificarEmpleado extends JFrame implements Observador {
 			textoHorasExtra.setFont(new Font("Tahoma", Font.BOLD, 18));
 			textoHorasExtra.setToolTipText("numero mayor que 0");
 			
-			JLabel etiquetaSeccion = new JLabel("Secciï¿½n:    ");
+			JLabel etiquetaSeccion = new JLabel("Sección:    ");
 			etiquetaSeccion.setFont(new Font("Tahoma", Font.BOLD, 25));
 			JTextField textoSeccion = new JTextField(seccion);
 			textoSeccion.setMaximumSize(new Dimension(200, 30));
@@ -210,7 +210,7 @@ public class VistaModificarEmpleado extends JFrame implements Observador {
 			textoNoches.setMinimumSize(new Dimension(200, 30));
 			textoNoches.setPreferredSize(new Dimension(200, 30));
 			textoNoches.setFont(new Font("Tahoma", Font.BOLD, 18));
-			textoNoches.setToolTipText("si o no");
+			textoNoches.setToolTipText("true/false");
 
 			if ("GERENTE" == listaInfo.get(1)) {
 				panelEtiquetas.add(etiquetaDespacho);
@@ -261,7 +261,7 @@ public class VistaModificarEmpleado extends JFrame implements Observador {
 							int seccion = Integer.valueOf(textoSeccion.getText());
 							String noche = textoNoches.getText();
 							boolean noches = false;
-							if(noche.equals("si") || noche.equals("Si") || noche.equals("SI")) noches = true;
+							if(noche.equals("true") || noche.equals("True") || noche.equals("TRUE")) noches = true;
 							transfer = new TDependiente(aux.getId(), tag, horasMensuales, idDepartamento, true, seccion, noches);
 						}
 						dispose();
