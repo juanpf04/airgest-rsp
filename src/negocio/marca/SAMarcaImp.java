@@ -85,12 +85,8 @@ public class SAMarcaImp implements SAMarca {
 				marca = em.find(Marca.class, id);
 				
 				if (marca != null && marca.getActivo()){	// Si existe y está activa
-					List<Producto> productos = em.createNamedQuery("negocio.producto.Producto.findBymarca", Producto.class)
-							.setParameter("marca", marca)
-							.setLockMode(LockModeType.OPTIMISTIC)
-							.getResultList();
-					
-					for (Producto prod : productos){
+					for (Producto prod : marca.getProductos()){
+						em.lock(prod, LockModeType.OPTIMISTIC);
 						if (prod.getActivo()){ // tiene productos activos, no lo puedo dar de baja
 							em.getTransaction().rollback();
 							return exito;
