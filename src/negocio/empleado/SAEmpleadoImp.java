@@ -191,39 +191,37 @@ public class SAEmpleadoImp implements SAEmpleado {
 			em.getTransaction().begin();
 
 			Departamento d = em.find(Departamento.class, empleado.getIdDepartamento());
-			Empleado e = em.find(Empleado.class, empleado.getId());// Luis esto devuelve null xd
+			Empleado e = em.find(Empleado.class, empleado.getId());// Luis esto devuelve null xd // ya no
 
-			if (e != null && d != null) {
-				if (e.getActivo()) {
-					em.lock(d, LockModeType.OPTIMISTIC_FORCE_INCREMENT);
-					em.lock(e, LockModeType.OPTIMISTIC);
+			if (e != null && d != null && e.getActivo() && d.getActivo()) {
 
-					Departamento nd = em.find(Departamento.class, empleado.getIdDepartamento());
+				em.lock(d, LockModeType.OPTIMISTIC_FORCE_INCREMENT);
+				em.lock(e, LockModeType.OPTIMISTIC);
 
-					List<Empleado> empl = em.createNamedQuery("negocio.empleado.Empleado.findBytag", Empleado.class)
-							.setParameter("tag", empleado.getTag()).getResultList();
+				List<Empleado> empl = em.createNamedQuery("negocio.empleado.Empleado.findBytag", Empleado.class)
+						.setParameter("tag", empleado.getTag()).getResultList();
 
-					if (nd != null && empl.size() == 0) {
+				if (empl.size() == 0 || empl.get(0).equals(e)) {
 
-						e.setTag(empleado.getTag());
-						e.setHorasMensuales(empleado.getHorasMensuales());
+					e.setTag(empleado.getTag());
+					e.setHorasMensuales(empleado.getHorasMensuales());
 
-						e.setDepartamento(nd);
-						if (empleado instanceof TGerente) {
-							TGerente tg = (TGerente) empleado;
+					e.setDepartamento(d);
+					if (empleado instanceof TGerente) {
+						TGerente tg = (TGerente) empleado;
 
-							((Gerente) e).setDespacho(tg.getDespacho());
-							((Gerente) e).setHorasExtra(tg.getHorasExtra());
-						} else {
-							TDependiente tdp = (TDependiente) empleado; // teledeporte xd
+						((Gerente) e).setDespacho(tg.getDespacho());
+						((Gerente) e).setHorasExtra(tg.getHorasExtra());
+					} else {
+						TDependiente tdp = (TDependiente) empleado; // teledeporte xd
 
-							((Dependiente) e).setNoches(tdp.getNoches());
-							((Dependiente) e).setSeccion(tdp.getSeccion());
+						((Dependiente) e).setNoches(tdp.getNoches());
+						((Dependiente) e).setSeccion(tdp.getSeccion());
 
-						}
-						done = true;
 					}
+					done = true;
 				}
+
 			}
 
 			if (done)
