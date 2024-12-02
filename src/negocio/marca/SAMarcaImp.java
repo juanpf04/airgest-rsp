@@ -197,6 +197,7 @@ public class SAMarcaImp implements SAMarca {
 				if (marca != null) {
 					List<Marca> resultados = em.createNamedQuery("negocio.marca.Marca.findBynombre", Marca.class)
 							.setParameter("nombre", tMarca.getNombre())
+							.setLockMode(LockModeType.OPTIMISTIC)
 							.getResultList();
 					
 					if (marca.getActivo()																	// Puedo modificar la marca si esta activa y si no existe marca con ese nombre
