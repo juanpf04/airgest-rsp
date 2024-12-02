@@ -114,7 +114,5 @@ public abstract class Empleado implements Serializable {
 		return new TEmpleado(this.id, this.tag, this.horasMensuales, this.departamento.getId(), this.activo);
 	}
 
-	public double calcularSueldo(){
-		return 0.0;
-	}
+	public abstract double calcularSueldo();
 }

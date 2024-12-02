@@ -51,6 +51,9 @@ public class Dependiente extends Empleado implements Serializable {
 	
 	@Override
 	public double calcularSueldo(){
-		return 2;
+		double sueldoDepartamento = super.getDepartamento().getSueldoHora();
+		double sueldo = sueldoDepartamento * super.getHorasMensuales();
+		if(this.noches) sueldo += (sueldo * 1.4); 
+		return sueldo;
 	}
 }
