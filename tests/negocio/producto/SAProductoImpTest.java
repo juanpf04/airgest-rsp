@@ -294,10 +294,6 @@ public class SAProductoImpTest {
 		
 		assertTrue("debería haber 0 productos", lista.isEmpty());
 		
-		//TODO no sé si hay que hacer Fallo por marca inactiva 
-		//(no se puede dar de baja una marca con productos "vinculados")
-		
-		
 	}
 	
 	@Test
