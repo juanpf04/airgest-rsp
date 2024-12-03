@@ -63,10 +63,13 @@ public class SAEmpleadoImp implements SAEmpleado {
 					em.getTransaction().rollback();
 					return -1;
 				} else {
+					//elimino del antiguo dpto
+					empleado.getDepartamento().getEmpleados().remove(empleado);
 					empleado.setActivo(true);
 					empleado.setDepartamento(departamento);
 					empleado.setHorasMensuales(templeado.getHorasMensuales());
 					empleado.setTag(templeado.getTag());
+					departamento.getEmpleados().add(empleado);
 					em.persist(empleado);
 					em.getTransaction().commit();
 					return empleado.getId();
@@ -182,11 +185,10 @@ public class SAEmpleadoImp implements SAEmpleado {
 
 			Departamento departamento = em.find(Departamento.class, templeado.getIdDepartamento());
 			Empleado empleado = em.find(Empleado.class, templeado.getId());
+			em.lock(departamento, LockModeType.OPTIMISTIC_FORCE_INCREMENT);
+			em.lock(empleado, LockModeType.OPTIMISTIC);
 
 			if (empleado != null && departamento != null && empleado.getActivo() && departamento.getActivo()) {
-
-				em.lock(departamento, LockModeType.OPTIMISTIC_FORCE_INCREMENT);
-				em.lock(empleado, LockModeType.OPTIMISTIC);
 
 				List<Empleado> listaEmpleados = em.createNamedQuery("negocio.empleado.Empleado.findBytag", Empleado.class)
 						.setParameter("tag", templeado.getTag()).getResultList();
@@ -195,8 +197,12 @@ public class SAEmpleadoImp implements SAEmpleado {
 
 					empleado.setTag(templeado.getTag());
 					empleado.setHorasMensuales(templeado.getHorasMensuales());
-
+					
+					//Elimino del antiguo departamento
+					empleado.getDepartamento().getEmpleados().remove(empleado);
+					
 					empleado.setDepartamento(departamento);
+					departamento.getEmpleados().add(empleado);
 					if (templeado instanceof TGerente) {
 						TGerente tgerente = (TGerente) templeado;
 
@@ -235,10 +241,10 @@ public class SAEmpleadoImp implements SAEmpleado {
 		List<TEmpleado> listaEmpleado = new ArrayList<>();
 		try {
 			em.getTransaction().begin();
-			List<Empleado> resultado = em.createNamedQuery("negocio.empleado.Empleado.findBydepartamento", Empleado.class)
-					.setParameter("departamento", em.find(Departamento.class, idDepartamento)).getResultList();
+			
+			Departamento dpto = em.find(Departamento.class, idDepartamento);
 
-			for (Empleado empleado : resultado) {
+			for (Empleado empleado : dpto.getEmpleados()) {
 				listaEmpleado.add(empleado.toTransfer());
 			}
 			em.getTransaction().commit();
