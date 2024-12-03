@@ -3,8 +3,14 @@ import static org.junit.Assert.*;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 import org.junit.Test;
 
+import integracion.factoria.EMFSingleton;
+import negocio.empleado.Empleado;
+import negocio.empleado.TEmpleado;
+import negocio.empleado.TGerente;
 import negocio.factoria.FactoriaNegocioMall;
 
 
@@ -36,12 +42,34 @@ public class SADepartamentoImpTest {
 		assertEquals("El id deberia ser 2", 2 , id);
 	}
 	
-	/*@Test
-	 * public void bajaDepartamentoTest(){
+	@Test
+	 public void bajaDepartamentoTest(){
 		SADepartamento sad = FactoriaNegocioMall.getInstance().crearSADepartamento();
 		
-	}// no se puede hacer sin empleado*/
-	
+		TDepartamento tDep = new TDepartamento(-1, "departamento1", 1, 1.0, true);
+		 int id = sad.altaDepartamento(tDep);
+		
+		EntityManager em = EMFSingleton.getInstance().getEMF().createEntityManager();
+		em.getTransaction().begin();
+		
+		Departamento dep = em.find(Departamento.class, 1);
+		Empleado emp = new Empleado(new TGerente(0, 1, 160, dep.getId(), false, 1, 10));
+		emp.setDepartamento(dep);
+		dep.getEmpleados().add(emp);
+		em.persist(emp);
+
+		em.getTransaction().commit();
+		
+		//como tiene un empleado deberia prohibirse dar de baja
+		
+		/*boolean exito = sad.bajaDepartamento(tDep.getId());
+		assertFalse("No deberia darse de baja", exito);*/
+		
+		//ahora tiene un empleado no activo
+		boolean exito2 = sad.bajaDepartamento(tDep.getId());
+		assertTrue("Deberia darse de baja", exito2);
+		
+	}
 	@Test
 	public void consultarDepartamentosTest(){
 		

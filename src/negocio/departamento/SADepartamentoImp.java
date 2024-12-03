@@ -122,12 +122,10 @@ public class SADepartamentoImp implements SADepartamento {
 				
 				if(dep != null && dep.getActivo()){
 					
-					List<Empleado> listaEmpleados = em.createNamedQuery("negocio.empleado.Empleado.findBydepartamento", Empleado.class)
-							.setParameter("departamento", dep)
-							.setLockMode(LockModeType.OPTIMISTIC)
-							.getResultList();
-					
+					List<Empleado> listaEmpleados = dep.getEmpleados();
 					for(Empleado emp : listaEmpleados){
+						em.lock(emp, LockModeType.OPTIMISTIC);
+						
 						if(emp.getActivo()){
 							em.getTransaction().rollback();
 							return ok;
@@ -252,7 +250,11 @@ public class SADepartamentoImp implements SADepartamento {
 				if(dep != null){
 					for (Empleado emp : dep.getEmpleados()) {
 						em.lock(emp, LockModeType.OPTIMISTIC);
-						//nomina += emp.calcularSueldo();
+						
+						if (emp.getActivo()){
+							
+							//nomina += emp.calcularSueldo();
+						}
 					}
 						em.getTransaction().commit();
 				}else{

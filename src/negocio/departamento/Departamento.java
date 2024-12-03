@@ -101,11 +101,6 @@ public class Departamento implements Serializable {
 		this.activo = activo;
 	}
 
-	public double calcularNomina() {
-		// TODO Departamento::calcularNomina()
-		return 0;
-	}
-
 	public List<Empleado> getEmpleados() {
 		return this.empleados;
 	}
