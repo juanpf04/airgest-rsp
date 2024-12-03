@@ -302,9 +302,11 @@ public class SAVentaImp implements SAVenta {
 					Empleado emp = em.find(Empleado.class, tVenta.getIdEmpleado(), LockModeType.OPTIMISTIC_FORCE_INCREMENT);
 					
 					if (emp != null && emp.getActivo()){
+						venta.getEmpleado().getVentas().remove(venta);
 						venta.setEmpleado(emp);
 						venta.setFecha(tVenta.getFecha());
 						venta.setPrecio(tVenta.getPrecio());
+						emp.getVentas().add(venta);
 						em.getTransaction().commit();
 						exito = true;
 					} else{
