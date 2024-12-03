@@ -268,4 +268,58 @@ public class SAVentaImpTest {
 		id = sv.cerrarVenta(carrito);
 		assertEquals("El id debería ser -1", -1, id);
 	}
+	
+	@Test
+	public void devolucionTest(){
+		EntityManager em = EMFSingleton.getInstance().getEMF().createEntityManager();
+		em.getTransaction().begin();
+		
+		Departamento d = new Departamento(new TDepartamento(0, "Recursos Humanos", 1, 23.5, true));
+
+		Gerente g = new Gerente(new TGerente(0, 1, 160, 1, true, 1, 10));
+		g.setDepartamento(d);
+		em.persist(d);
+		em.persist(g);
+		
+		Marca m = new Marca(new TMarca(-1, "adidas", "EEUU", true));
+		em.persist(m);
+		Producto p = new Producto(new TProducto(1, "cocacola", 5, 2.20, 82872, 1, true));
+		p.setMarca(m);
+		em.persist(p);
+		Producto p1 = new Producto(new TProducto(1, "pepsi", 5, 2.20, 82873, 1, true));
+		p1.setMarca(m);
+		em.persist(p1);
+		
+		TCarritoVenta carrito = new TCarritoVenta(1);
+		carrito.setVenta(new TVenta(-1, 0, "03/12/2024", 1));
+		TLineaVenta tl1 = new TLineaVenta();
+		tl1.setIdProducto(1);
+		tl1.setCantidad(4);
+		carrito.anyadirLinea(tl1);
+		
+		TLineaVenta tl2 = new TLineaVenta();
+		tl2.setIdProducto(2);
+		tl2.setCantidad(4);
+		carrito.anyadirLinea(tl2);
+		
+		em.getTransaction().commit();
+		
+		SAVenta sv = FactoriaNegocioMall.getInstance().crearSAVenta();
+		sv.cerrarVenta(carrito);
+		
+		// exito
+		TLineaVenta devolucion = new TLineaVenta(1, 1, 3, 0);
+		boolean exito = sv.devolucion(devolucion);
+		assertTrue("Se debería realizar la devolucion", exito);
+		
+		// exito pero devolviendo todo
+		devolucion = new TLineaVenta(1, 2, 4, 0);
+		exito = sv.devolucion(devolucion);
+		assertTrue("Se debería realizar la devolucion", exito);
+		
+		// fallo la cantidad a devolver es mayor que la comprada
+		devolucion = new TLineaVenta(1, 1, 10, 0);
+		exito = sv.devolucion(devolucion);
+		assertFalse("No se debería realizar la devolucion", exito);
+	}
 }

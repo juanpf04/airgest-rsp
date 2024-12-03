@@ -77,6 +77,8 @@ public class SAVentaImp implements SAVenta {
 				
 				em.getTransaction().commit();
 				id = venta.getId();
+			} else {
+				em.getTransaction().rollback();
 			}
 
 		} catch (Exception e) {
@@ -184,11 +186,71 @@ public class SAVentaImp implements SAVenta {
 	}
 
 	public boolean devolucion(TLineaVenta tLineaVenta) {
-		// begin-user-code
-		// TODO Auto-generated method stub
-		return false;
-		// end-user-code
+	    EntityManager em = null;
+	    boolean exito = false;
+	    
+	    if (ValidadorLineaVenta.comprobarDatos(tLineaVenta)){
+	    	try {
+		        em = EMFSingleton.getInstance().getEMF().createEntityManager();
+		        em.getTransaction().begin();
+
+		        LineaVenta lineaVenta = em.find(LineaVenta.class, 
+		            new Clave(tLineaVenta.getIdVenta(), tLineaVenta.getIdProducto()), 
+		            LockModeType.OPTIMISTIC);
+
+		        if (lineaVenta != null) {
+		            Producto prod = lineaVenta.getProducto();
+		            em.lock(prod, LockModeType.OPTIMISTIC);
+		            
+		            Venta venta = lineaVenta.getVenta();
+		            em.lock(venta, LockModeType.OPTIMISTIC);
+
+		            int cantidadDevolver = tLineaVenta.getCantidad();
+
+		            if (cantidadDevolver <= lineaVenta.getCantidad()) {
+		                // Actualizar la cantidad de la línea de venta
+		                int nuevaCantidad = lineaVenta.getCantidad() - cantidadDevolver;
+		                lineaVenta.setCantidad(nuevaCantidad);
+
+		                // Actualizar el precio total de la línea de venta
+		                double nuevoPrecioLinea = nuevaCantidad * prod.getPrecio();
+		                double precioAnteriorLinea = lineaVenta.getPrecio();
+		                lineaVenta.setPrecio(nuevoPrecioLinea);
+
+		                // Actualizar el precio total de la venta
+		                venta.setPrecio(venta.getPrecio() - precioAnteriorLinea + nuevoPrecioLinea);
+
+		                // Si la cantidad es 0, eliminar la línea de venta
+		                if (nuevaCantidad == 0) {
+		                    em.remove(lineaVenta);
+		                }
+
+		                prod.setStock(prod.getStock() + cantidadDevolver);
+
+		                exito = true;
+		            }
+		        }
+
+		        if (exito){
+		        	em.getTransaction().commit();
+		        } else{
+		        	em.getTransaction().rollback();
+		        }
+		    } catch (Exception e) {
+		        if (em != null && em.getTransaction().isActive()) {
+		            em.getTransaction().rollback();
+		        }
+		        e.printStackTrace();
+		    } finally {
+		        if (em != null) {
+		            em.close();
+		        }
+		    }
+	    }
+
+	    return exito;
 	}
+
 
 	public List<TVenta> consultarVentasPorEmpleado(int id) {
 		EntityManager em = null;
