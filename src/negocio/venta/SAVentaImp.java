@@ -21,10 +21,78 @@ public class SAVentaImp implements SAVenta {
 	}
 
 	public int cerrarVenta(TCarritoVenta carrito) {
-		// begin-user-code
-		// TODO Auto-generated method stub
-		return 0;
-		// end-user-code
+		EntityManager em = null;
+		int id = -1;
+		
+		try {
+			em = EMFSingleton.getInstance().getEMF().createEntityManager();
+			em.getTransaction().begin();
+			
+			//Comprobamos que el empleado existe, está activo y que hay productos en el carrito
+			Empleado empleado = em.find(Empleado.class, carrito.getIdEmpleado(), LockModeType.OPTIMISTIC);
+			
+			if (empleado != null && empleado.getActivo() && !carrito.getLineasVenta().isEmpty()){
+				
+				//Comprobamos que no hay productos repetidos
+				for (TLineaVenta linea : carrito.getLineasVenta()){
+					for (TLineaVenta l : carrito.getLineasVenta()){
+						if (l != linea && l.getIdProducto() == linea.getIdProducto()){
+							em.getTransaction().rollback();
+							return id;
+						}
+					}
+				}
+				
+				//Doy de alta la venta con precio 0
+				Venta venta = new Venta(carrito.getVenta());
+				// TODO igual no hace falta, depende de las vistas
+				venta.setPrecio(0);
+				venta.setEmpleado(empleado);
+				
+				double precioTotal = 0;
+				//Recorro las lineas de venta y compruebo que los productos existan, estén activos y disponibles
+				for (TLineaVenta linea : carrito.getLineasVenta()){
+					Producto prod = em.find(Producto.class, linea.getIdProducto(), LockModeType.OPTIMISTIC);
+					
+					if (prod != null && prod.getActivo() && prod.getStock() >= linea.getCantidad() && linea.getCantidad() > 0){
+						int nuevoStock = prod.getStock() - linea.getCantidad();
+						prod.setStock(nuevoStock);
+						
+						LineaVenta lineaVenta = new LineaVenta(linea);
+						lineaVenta.setVenta(venta);
+						lineaVenta.setProducto(prod);
+						double precioLinea = linea.getCantidad() * prod.getPrecio();
+						lineaVenta.setPrecio(precioLinea);
+						em.persist(lineaVenta);
+						precioTotal += precioLinea;
+					} else{
+						em.getTransaction().rollback();
+						return id;
+					}
+				}
+				
+				venta.setPrecio(precioTotal);
+				em.persist(venta);
+				empleado.getVentas().add(venta);
+				
+				em.getTransaction().commit();
+				id = venta.getId();
+			}
+
+		} catch (Exception e) {
+								
+			if (em != null && em.getTransaction().isActive()) {
+				em.getTransaction().rollback();
+			}
+
+		} finally {
+			if (em != null) {
+				em.close();
+			}
+		}
+		
+		return id;
+		
 	}
 
 	public TInfoVenta consultarVentaPorId(int id) {

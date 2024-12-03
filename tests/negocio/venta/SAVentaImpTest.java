@@ -161,4 +161,111 @@ public class SAVentaImpTest {
 		//fallo empleado inactivo
 		assertFalse("No se debería modificar venta", sv.modificarVenta(new TVenta(1, 123456, "16/01/2001", 3)));
 	}
+	
+	@Test
+	public void cerrarVentaTest(){
+		EntityManager em = EMFSingleton.getInstance().getEMF().createEntityManager();
+		em.getTransaction().begin();
+		
+		Departamento d = new Departamento(new TDepartamento(0, "Recursos Humanos", 1, 23.5, true));
+
+		Gerente g = new Gerente(new TGerente(0, 1, 160, 1, true, 1, 10));
+		g.setDepartamento(d);
+		em.persist(d);
+		em.persist(g);
+		
+		Marca m = new Marca(new TMarca(-1, "adidas", "EEUU", true));
+		em.persist(m);
+		Producto p = new Producto(new TProducto(1, "cocacola", 5, 2.20, 82872, 1, true));
+		p.setMarca(m);
+		em.persist(p);
+		Producto p1 = new Producto(new TProducto(1, "pepsi", 5, 2.20, 82873, 1, true));
+		p1.setMarca(m);
+		em.persist(p1);
+		
+		TCarritoVenta carrito = new TCarritoVenta(1);
+		carrito.setVenta(new TVenta(-1, 0, "03/12/2024", 1));
+		TLineaVenta tl1 = new TLineaVenta();
+		tl1.setIdProducto(1);
+		tl1.setCantidad(4);
+		carrito.anyadirLinea(tl1);
+		
+		TLineaVenta tl2 = new TLineaVenta();
+		tl2.setIdProducto(2);
+		tl2.setCantidad(4);
+		carrito.anyadirLinea(tl2);
+		
+		em.getTransaction().commit();
+		
+		SAVenta sv = FactoriaNegocioMall.getInstance().crearSAVenta();
+		int id = sv.cerrarVenta(carrito);
+		
+		// exito
+		assertEquals("El id debería ser 1", 1, id);
+		
+		//fallo empleado no existente
+		carrito = new TCarritoVenta(10);
+		carrito.anyadirLinea(tl1);
+		id = sv.cerrarVenta(carrito);
+		assertEquals("El id debería ser -1", -1, id);
+		
+		//fallo empleado inactivo
+		em.getTransaction().begin();
+		g.setActivo(false);
+		em.getTransaction().commit();
+		
+		carrito = new TCarritoVenta(1);
+		carrito.anyadirLinea(tl1);
+		id = sv.cerrarVenta(carrito);
+		assertEquals("El id debería ser -1", -1, id);
+		
+		//fallo producto repetido
+		em.getTransaction().begin();
+		g.setActivo(true);
+		em.getTransaction().commit();
+		carrito = new TCarritoVenta(1);
+		carrito.anyadirLinea(tl1);
+		tl2.setIdProducto(1);
+		carrito.anyadirLinea(tl2);
+		id = sv.cerrarVenta(carrito);
+		assertEquals("El id debería ser -1", -1, id);
+		
+		//fallo producto inexistente
+		carrito = new TCarritoVenta(1);
+		carrito.setVenta(new TVenta(-1, 0, "03/12/2024", 1));
+		tl1 = new TLineaVenta();
+		tl1.setIdProducto(10);
+		tl1.setCantidad(4);
+		carrito.anyadirLinea(tl1);
+		id = sv.cerrarVenta(carrito);
+		assertEquals("El id debería ser -1", -1, id);
+		
+		//fallo producto inactivo
+		em.getTransaction().begin();
+		Producto p2 = new Producto(new TProducto(1, "fanta", 5, 2.20, 82877, 1, false));
+		p.setMarca(m);
+		em.persist(p2);
+		em.getTransaction().commit();
+		
+		carrito = new TCarritoVenta(1);
+		carrito.setVenta(new TVenta(-1, 0, "03/12/2024", 1));
+		tl1 = new TLineaVenta();
+		tl1.setIdProducto(3);
+		tl1.setCantidad(4);
+		tl2.setCantidad(1);
+		carrito.anyadirLinea(tl2);
+		carrito.anyadirLinea(tl1);
+		id = sv.cerrarVenta(carrito);
+		assertEquals("El id debería ser -1", -1, id);
+		
+		//fallo no hay cantidad suficiente
+		carrito = new TCarritoVenta(1);
+		carrito.setVenta(new TVenta(-1, 0, "03/12/2024", 1));
+		tl1 = new TLineaVenta();
+		tl1.setIdProducto(1);
+		tl1.setCantidad(4);
+		carrito.anyadirLinea(tl1);
+		id = sv.cerrarVenta(carrito);
+		assertEquals("El id debería ser -1", -1, id);
+	}
 }
