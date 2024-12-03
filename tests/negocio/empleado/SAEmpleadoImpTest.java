@@ -73,7 +73,8 @@ public class SAEmpleadoImpTest {
 		em.close();
 	}
 	
-	@Test void bajaEmpleadoTest() {
+	@Test
+	public void bajaEmpleadoTest() {
 		EMFSingleton emf = EMFSingleton.getInstance();
 		EntityManager em = emf.getEMF().createEntityManager();
 		em.getTransaction().begin();
@@ -91,7 +92,8 @@ public class SAEmpleadoImpTest {
 		em.close();
 	}
 	
-	@Test void bajaEmpleadoNoExistenteTest() {
+	@Test 
+	public void bajaEmpleadoNoExistenteTest() {
 		EMFSingleton emf = EMFSingleton.getInstance();
 		EntityManager em = emf.getEMF().createEntityManager();
 		em.getTransaction().begin();
