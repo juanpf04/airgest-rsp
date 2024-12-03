@@ -85,7 +85,7 @@ public class SAEmpleadoImpTest {
 		FactoriaNegocioMall fm = new FactoriaNegocioMallImp();
 		SAEmpleado sa = fm.crearSAEmpleado();
 
-		int id = sa.altaEmpleado(new TGerente(0, 1, 160, d.getId(), false, 1, 10));
+		int id = sa.altaEmpleado(new TGerente(0, 1, 160, d.getId(), true, 1, 10));
 		
 		boolean done = sa.bajaEmpleado(id);
 		assertTrue(done);
@@ -123,7 +123,7 @@ public class SAEmpleadoImpTest {
 		FactoriaNegocioMall fm = new FactoriaNegocioMallImp();
 		SAEmpleado sa = fm.crearSAEmpleado();
 
-		int id = sa.altaEmpleado(new TGerente(0, 1, 160, d.getId(), false, 1, 10));
+		int id = sa.altaEmpleado(new TGerente(0, 1, 160, d.getId(), true, 1, 10));
 		
 		sa.bajaEmpleado(id);
 		boolean done = sa.bajaEmpleado(id);
