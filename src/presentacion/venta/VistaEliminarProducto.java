@@ -50,7 +50,7 @@ public class VistaEliminarProducto extends JFrame implements Observador {
 
 		JPanel id = new JPanel();
 		id.setLayout(new BoxLayout(id, BoxLayout.LINE_AXIS));
-		JLabel etiquetaId = new JLabel("id hangar: ");
+		JLabel etiquetaId = new JLabel("id producto: ");
 		etiquetaId.setFont(new Font("Tahoma", Font.BOLD, 25));
 		JTextField textoId = new JTextField();
 		textoId.setMaximumSize(new Dimension(200, 30));

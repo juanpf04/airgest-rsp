@@ -85,16 +85,6 @@ public class VistaAñadirProducto extends JFrame implements Observador {
 		centro.add(panel_etiquetas);
 		centro.add(panel_textfield);
 
-		JLabel etiquetaPrecio = new JLabel("precio: ");
-		etiquetaPrecio.setFont(new Font("Tahoma", Font.BOLD, 23));
-		JTextField textoPrecio = new JTextField();
-		textoPrecio.setMaximumSize(new Dimension(200, 30));
-		textoPrecio.setMinimumSize(new Dimension(200, 30));
-		textoPrecio.setPreferredSize(new Dimension(200, 30));
-		textoPrecio.setFont(new Font("Tahoma", Font.BOLD, 18));
-		panel_etiquetas.add(etiquetaPrecio);
-		panel_textfield.add(textoPrecio);
-
 		centro.add(panel_etiquetas);
 		centro.add(panel_textfield);
 
@@ -110,11 +100,10 @@ public class VistaAñadirProducto extends JFrame implements Observador {
 				try {
 					int id_producto = Integer.parseInt(textoId.getText());
 					int cantidad = Integer.parseInt(textoCantidad.getText());
-					double precio = Double.parseDouble(textoPrecio.getText());
 					
-					TLineaVenta linea_venta = new TLineaVenta(0, id_producto, cantidad, precio);
+					TLineaVenta linea_venta = new TLineaVenta(0, id_producto, cantidad, 0);
 					carrito_venta.anyadirLinea(linea_venta);
-					controlador.accion(new Contexto(Evento.VISTA_VENTA, carrito_venta));
+					controlador.accion(new Contexto(Evento.VISTA_CARRITO_VENTA, carrito_venta));
 					dispose();
 				} catch (NumberFormatException n) {
 

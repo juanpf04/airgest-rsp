@@ -9,6 +9,8 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -86,7 +88,12 @@ public class VistaCarritoVenta extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//dispose();
+				LocalDate fechaActual = LocalDate.now();
+				DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+				String fechaHoy = fechaActual.format(formato);
+				carrito_venta.getVenta().setFecha(fechaHoy);
 				ctrl.accion(new Contexto(Evento.CERRAR_VENTA, carrito_venta));
+				
 			}
 		});
 		botones.add(cerrar);
@@ -97,7 +104,7 @@ public class VistaCarritoVenta extends JFrame implements Observador {
 
 		String s = "";
 		for (TLineaVenta l : carrito_venta.getLineasVenta()) {
-			s += "id_producto: " + l.getIdProducto() + " cantidad: " + l.getCantidad() + " precio: " + l.getPrecio()
+			s += "id_producto: " + l.getIdProducto() + " cantidad: " + l.getCantidad()
 					+ "\n";
 		}
 

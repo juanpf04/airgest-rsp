@@ -150,8 +150,11 @@ public class FactoriaComandosImp2 extends FactoriaComandosImp {
 			case CONSULTAR_VENTA_POR_ID:
 				comando = new ConsultarVentaPorId();
 				break;
+			case MODIFICAR_VENTA:
+				comando = new ModificarVenta();
+				break;
 			case MODIFICAR_VENTA_ID:
-				comando = new ConsultarVentaPorId();
+				comando = new ModificarVentaId();
 				break;
 			case CONSULTAR_VENTAS:
 				comando = new ConsultarVentas();

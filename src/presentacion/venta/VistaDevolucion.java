@@ -97,20 +97,6 @@ public class VistaDevolucion extends JFrame implements Observador {
 		centro.add(panel_etiquetas);
 		centro.add(panel_textfield);
 
-
-		JLabel etiquetaPrecio = new JLabel("precio: ");
-		etiquetaPrecio.setFont(new Font("Tahoma", Font.BOLD, 23));
-		JTextField textoPrecio = new JTextField();
-		textoPrecio.setMaximumSize(new Dimension(200, 30));
-		textoPrecio.setMinimumSize(new Dimension(200, 30));
-		textoPrecio.setPreferredSize(new Dimension(200, 30));
-		textoPrecio.setFont(new Font("Tahoma", Font.BOLD, 18));
-		panel_etiquetas.add(etiquetaPrecio);
-		panel_textfield.add(textoPrecio);
-
-		centro.add(panel_etiquetas);
-		centro.add(panel_textfield);
-
 		principal.add(funcion);
 		principal.add(centro);
 
@@ -124,9 +110,8 @@ public class VistaDevolucion extends JFrame implements Observador {
 					int id_venta = Integer.parseInt(textoVenta.getText());
 					int id_producto = Integer.parseInt(textoId.getText());
 					int cantidad = Integer.parseInt(textoCantidad.getText());
-					double precio = Double.parseDouble(textoPrecio.getText());
 					
-					TLineaVenta linea = new TLineaVenta(id_venta, id_producto, cantidad, precio);
+					TLineaVenta linea = new TLineaVenta(id_venta, id_producto, cantidad, 0);
 					controlador.accion(new Contexto(Evento.DEVOLUCION_VENTA, linea));
 				} catch (NumberFormatException n) {
 

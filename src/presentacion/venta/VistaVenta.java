@@ -123,33 +123,6 @@ public class VistaVenta extends JFrame implements Observador {
 		
 
 		//-------------------------------------------
-		JButton modificarLinea = new JButton("MODIFICAR LINEA VENTA");
-		modificarLinea.setToolTipText("Aqui puedes modificar los detalles de una venta");
-		modificarLinea.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-				ctrl.accion(new Contexto(Evento.VISTA_MODIFICAR_LINEA_VENTA, null));
-			}
-		});
-
-		botones.add(modificarLinea);
-
-//		//-------------------------------------------
-//		JButton modificar_datos_venta = new JButton("MODIFICAR DATOS DE VENTA");
-//		modificar_datos_venta.setToolTipText("Aqui modificas los datos de una venta");
-//		modificar_datos_venta.addActionListener(new ActionListener() {
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				dispose();
-//				ctrl.accion(new Contexto(Evento.VISTA_MODIFICAR_VENTA, null));
-//			}
-//		});
-//		botones.add(modificar_datos_venta);
-		
-		
-
-		//-------------------------------------------
 		JButton devolucion = new JButton("DEVOLUCION");
 		devolucion.setToolTipText("Aqui puedes hacer una devolucion");
 		devolucion.addActionListener(new ActionListener() {

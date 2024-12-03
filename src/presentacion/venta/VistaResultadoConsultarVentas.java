@@ -26,27 +26,16 @@ public class VistaResultadoConsultarVentas extends JFrame implements Observador 
 	
 	private static final long serialVersionUID = 1L;
 
-	@SuppressWarnings("unchecked")
 	public void actualizar(Object datos) {
 		UtilidadesP.setAirGestRSP(this);
 		this.setSize(400, 450);
 
 		JPanel principal = new JPanel();
 		principal.setLayout(new BorderLayout());
-
-		List<TVenta> ventas;
 		
-		if(datos != null) {
-			ventas = (List<TVenta>) datos;
-		}
-		else{
-			ventas = new ArrayList<>();
-		}
-		
-		/* ESTO ESTABA ANTES, LO COMENTO PARA QUE FUNCIONE YA QUE DATOS ES NULL PORQUE LO DE NEGOCIO NO ESTA HECHO AUN
-		 * 	@SuppressWarnings("unchecked")
-		 * List<TVenta> ventas = (List<TVenta>) datos;
-		 * */
+		@SuppressWarnings("unchecked")
+		List<TVenta> ventas = (List<TVenta>) datos;
+		 
 		
 		String s = "";
 		for (TVenta v : ventas)

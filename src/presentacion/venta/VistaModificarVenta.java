@@ -91,7 +91,7 @@ public class VistaModificarVenta extends JFrame implements Observador {
 		
 		JPanel fecha = new JPanel();
 		fecha.setLayout(new BoxLayout(fecha, BoxLayout.LINE_AXIS));
-		JLabel etiquetaFecha = new JLabel("fecha: ");
+		JLabel etiquetaFecha = new JLabel("fecha: ");//CAMBIAR PARA Q NO SEA TEXT, SINO BOTONCITOS
 		etiquetaFecha.setFont(new Font("Tahoma", Font.BOLD, 23));
 		JTextField textoFecha = new JTextField("" + venta.getFecha());
 		textoFecha.setMaximumSize(new Dimension(200, 30));
@@ -117,7 +117,7 @@ public class VistaModificarVenta extends JFrame implements Observador {
 				try {
 					int id_empleado = Integer.parseInt(textoEmpleado.getText());
 					double precio = Double.parseDouble(textoPrecio.getText());
-					String fecha = textoPrecio.getText();
+					String fecha = textoFecha.getText();
 
 					TVenta v = new TVenta(venta.getId(), precio, fecha, id_empleado);
 					controlador.accion(new Contexto(Evento.MODIFICAR_VENTA, v));
