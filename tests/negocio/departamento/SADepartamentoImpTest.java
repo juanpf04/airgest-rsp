@@ -44,10 +44,16 @@ public class SADepartamentoImpTest {
 	
 	@Test
 	 public void bajaDepartamentoTest(){
+		
 		SADepartamento sad = FactoriaNegocioMall.getInstance().crearSADepartamento();
 		
 		TDepartamento tDep = new TDepartamento(-1, "departamento1", 1, 1.0, true);
 		 int id = sad.altaDepartamento(tDep);
+		 
+		//ejemplo de depto sin empleado (tiene que darlo de baja)
+		 
+		boolean ok = sad.bajaDepartamento(id);
+		assertTrue("Deberia darse de baja", ok);
 		
 		EntityManager em = EMFSingleton.getInstance().getEMF().createEntityManager();
 		em.getTransaction().begin();
@@ -61,15 +67,15 @@ public class SADepartamentoImpTest {
 		em.getTransaction().commit();
 		
 		//como tiene un empleado deberia prohibirse dar de baja
+		boolean exito = sad.bajaDepartamento(id);
+		assertFalse("No deberia darse de baja", exito);
 		
-		/*boolean exito = sad.bajaDepartamento(tDep.getId());
-		assertFalse("No deberia darse de baja", exito);*/
-		
-		//ahora tiene un empleado no activo
-		boolean exito2 = sad.bajaDepartamento(tDep.getId());
+		//ahora tiene un empleado no activo(deberia poder darlo de baja)
+		boolean exito2 = sad.bajaDepartamento(id);
 		assertTrue("Deberia darse de baja", exito2);
 		
 	}
+	
 	@Test
 	public void consultarDepartamentosTest(){
 		
