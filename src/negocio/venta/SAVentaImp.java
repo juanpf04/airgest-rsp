@@ -133,11 +133,7 @@ public class SAVentaImp implements SAVenta {
 			Empleado emp = em.find(Empleado.class, id);
 			
 			if (emp != null){
-				List<Venta> ventas = em.createNamedQuery("negocio.venta.Venta.findByempleado", Venta.class)
-						.setParameter("empleado", emp)
-						.getResultList();
-				
-				for (Venta venta : ventas){
+				for (Venta venta : emp.getVentas()){
 					listaVentas.add(venta.toTransfer());
 				}
 				

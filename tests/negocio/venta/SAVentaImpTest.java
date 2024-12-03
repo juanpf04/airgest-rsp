@@ -59,11 +59,15 @@ public class SAVentaImpTest {
 		g.setDepartamento(d);
 		em.persist(d);
 		em.persist(g);
+		em.getTransaction().commit();
 		
+		em.getTransaction().begin();
 		Venta v1 = new Venta(new TVenta(-1, 1000, "12/04/2002", 1));
 		v1.setEmpleado(g);
 		Venta v2 = new Venta(new TVenta(-1, 1000, "12/04/2002", 1));
 		v2.setEmpleado(g);
+		g.getVentas().add(v1);
+		g.getVentas().add(v2);
 		em.persist(v1);
 		em.persist(v2);
 		em.getTransaction().commit();
