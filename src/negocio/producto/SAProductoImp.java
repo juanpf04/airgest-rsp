@@ -24,8 +24,8 @@ public class SAProductoImp implements SAProducto {
 				em.getTransaction().begin();
 				List<Producto> resultados = em.createNamedQuery("negocio.producto.Producto.findByref", Producto.class).
 						setParameter("ref", producto.getRef()).getResultList();
+				Marca marca = em.find(Marca.class, producto.getIdMarca(), LockModeType.OPTIMISTIC_FORCE_INCREMENT);
 				if(resultados.isEmpty()){
-					Marca marca = em.find(Marca.class, producto.getIdMarca(), LockModeType.OPTIMISTIC_FORCE_INCREMENT);
 					if(marca == null || !marca.getActivo()){
 						em.getTransaction().rollback();
 					}else{
@@ -41,13 +41,13 @@ public class SAProductoImp implements SAProducto {
 					if(p.getActivo()){
 						em.getTransaction().rollback();
 					}else{
-						Marca marca = p.getMarca();
-						em.lock(marca, LockModeType.OPTIMISTIC_FORCE_INCREMENT);
 						if(marca == null || !marca.getActivo()){
 							em.getTransaction().rollback();
 						}else{
+							p.getMarca().getProductos().remove(p);
 							p.setActivo(true);
 							p.setMarca(marca);
+							marca.getProductos().add(p);
 							p.setNombre(producto.getNombre());
 							p.setPrecio(producto.getPrecio());
 							p.setRef(producto.getRef());
@@ -170,7 +170,9 @@ public class SAProductoImp implements SAProducto {
 						if(marca == null || !marca.getActivo()){
 							em.getTransaction().rollback();
 						}else{
+							p.getMarca().getProductos().remove(p);
 							p.setMarca(marca);
+							marca.getProductos().add(p);
 							p.setNombre(tProducto.getNombre());
 							p.setPrecio(tProducto.getPrecio());
 							p.setRef(tProducto.getRef());
