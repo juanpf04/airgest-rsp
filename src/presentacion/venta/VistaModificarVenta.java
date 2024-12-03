@@ -7,13 +7,20 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import javax.swing.SpinnerDateModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
@@ -89,17 +96,29 @@ public class VistaModificarVenta extends JFrame implements Observador {
 		centro.add(panel_etiquetas);
 		centro.add(panel_textfield);
 		
-		JPanel fecha = new JPanel();
-		fecha.setLayout(new BoxLayout(fecha, BoxLayout.LINE_AXIS));
-		JLabel etiquetaFecha = new JLabel("fecha: ");//CAMBIAR PARA Q NO SEA TEXT, SINO BOTONCITOS
-		etiquetaFecha.setFont(new Font("Tahoma", Font.BOLD, 23));
-		JTextField textoFecha = new JTextField("" + venta.getFecha());
-		textoFecha.setMaximumSize(new Dimension(200, 30));
-		textoFecha.setMinimumSize(new Dimension(200, 30));
-		textoFecha.setPreferredSize(new Dimension(200, 30));
-		textoFecha.setFont(new Font("Tahoma", Font.BOLD, 18));
+		// SPINNER O COMBOBOX PARA LA FECHA
+		JLabel etiquetaFecha = new JLabel("Fecha de Fabricación: ");
+		etiquetaFecha.setFont(new Font("Tahoma", Font.BOLD, 25));
+		LocalDate currentDate = LocalDate.now();
+		Date initialDate = Date.from(currentDate.atStartOfDay(ZoneId.systemDefault()).toInstant());// pasarlo
+																									// a
+																									// Date
+																									// para
+																									// el
+																									// spinner
+		SpinnerDateModel model = new SpinnerDateModel(initialDate, null, initialDate,
+				java.util.Calendar.DAY_OF_MONTH);
+		JSpinner spinner = new JSpinner(model);
+		spinner.setMaximumSize(new Dimension(200, 30));
+		spinner.setMinimumSize(new Dimension(200, 30));
+		spinner.setPreferredSize(new Dimension(200, 30));
+		JSpinner.DateEditor editor = new JSpinner.DateEditor(spinner, "dd/MM/yyyy");// formato
+																					// de
+																					// la
+																					// fecha
+		spinner.setEditor(editor);
 		panel_etiquetas.add(etiquetaFecha);
-		panel_textfield.add(textoFecha);
+		panel_textfield.add(spinner);
 
 		centro.add(panel_etiquetas);
 		centro.add(panel_textfield);
@@ -117,9 +136,14 @@ public class VistaModificarVenta extends JFrame implements Observador {
 				try {
 					int id_empleado = Integer.parseInt(textoEmpleado.getText());
 					double precio = Double.parseDouble(textoPrecio.getText());
-					String fecha = textoFecha.getText();
+					Date seleccion = (Date) spinner.getValue();
+					ZonedDateTime zonedDateTime = seleccion.toInstant().atZone(ZoneId.systemDefault());
+					LocalDate fecha = zonedDateTime.toLocalDate();
+					// Formatear la fecha como dd-MM-yyyy
+					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+					String fechaFormateada = fecha.format(formatter);
 
-					TVenta v = new TVenta(venta.getId(), precio, fecha, id_empleado);
+					TVenta v = new TVenta(venta.getId(), precio, fechaFormateada, id_empleado);
 					controlador.accion(new Contexto(Evento.MODIFICAR_VENTA, v));
 					dispose();
 				} catch (NumberFormatException n) {
@@ -158,5 +182,6 @@ public class VistaModificarVenta extends JFrame implements Observador {
 		this.setVisible(true);
 		this.setLocation(200, 200);
 		this.setResizable(false);
+		this.pack();
 	}
 }
