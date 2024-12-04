@@ -29,129 +29,156 @@ public class VistaAltaProducto extends JFrame implements Observador {
 	public void actualizar(Object datos) {
 		UtilidadesP.setAirGestRSP(this);
 
-		Controlador ctrl = Controlador.getInstance();
-
 		JPanel principal = new JPanel();
 		principal.setLayout(new BoxLayout(principal, BoxLayout.PAGE_AXIS));
 
 		JPanel funcion = new JPanel();
 		funcion.setLayout(new BoxLayout(funcion, BoxLayout.PAGE_AXIS));
 
-		JPanel panelTitulo = new JPanel();
+		JPanel centro = new JPanel();
+
+		JPanel panel_titulo = new JPanel();
+
 		JLabel titulo = new JLabel("Alta Producto");
 		titulo.setFont(new Font("Tahoma", Font.BOLD, 30));
 		titulo.setBorder(new LineBorder(Color.BLACK, 2));
 		titulo.setHorizontalAlignment(SwingConstants.CENTER);
-		panelTitulo.add(titulo);
+		panel_titulo.add(titulo);
 
-		funcion.add(panelTitulo);
-		principal.add(funcion);
+		funcion.add(panel_titulo);
 
-		JPanel centro = new JPanel();
-		centro.setLayout(new BoxLayout(centro, BoxLayout.LINE_AXIS));
-		centro.setAlignmentX(CENTER_ALIGNMENT);
-		principal.add(centro);
+		JPanel panel_etiquetas = new JPanel();
+		panel_etiquetas.setLayout(new BoxLayout(panel_etiquetas, BoxLayout.PAGE_AXIS));
 
-		JPanel panelEtiquetas = new JPanel();
-		panelEtiquetas.setLayout(new BoxLayout(panelEtiquetas, BoxLayout.PAGE_AXIS));
-		panelEtiquetas.setAlignmentX(CENTER_ALIGNMENT);
+		JPanel panel_textfield = new JPanel();
+		panel_textfield.setLayout(new BoxLayout(panel_textfield, BoxLayout.PAGE_AXIS));
 
-		JPanel panelTexto = new JPanel();
-		panelTexto.setLayout(new BoxLayout(panelTexto, BoxLayout.PAGE_AXIS));
-		panelTexto.setAlignmentX(CENTER_ALIGNMENT);
-
-		// Campos para los datos del producto
 		JLabel etiquetaNombre = new JLabel("Nombre: ");
-		etiquetaNombre.setFont(new Font("Tahoma", Font.BOLD, 25));
+		etiquetaNombre.setFont(new Font("Tahoma", Font.BOLD, 23));
 		JTextField textoNombre = new JTextField();
 		textoNombre.setMaximumSize(new Dimension(200, 30));
 		textoNombre.setMinimumSize(new Dimension(200, 30));
+		textoNombre.setPreferredSize(new Dimension(200, 30));
 		textoNombre.setFont(new Font("Tahoma", Font.BOLD, 18));
-		panelEtiquetas.add(etiquetaNombre);
-		panelTexto.add(textoNombre);
+		textoNombre.setToolTipText("letraSy/oNumeros");
+
+		panel_etiquetas.add(etiquetaNombre);
+		panel_textfield.add(textoNombre);
+
+		centro.add(panel_etiquetas);
+		centro.add(panel_textfield);
 
 		JLabel etiquetaStock = new JLabel("Stock: ");
-		etiquetaStock.setFont(new Font("Tahoma", Font.BOLD, 25));
+		etiquetaStock.setFont(new Font("Tahoma", Font.BOLD, 23));
 		JTextField textoStock = new JTextField();
 		textoStock.setMaximumSize(new Dimension(200, 30));
 		textoStock.setMinimumSize(new Dimension(200, 30));
+		textoStock.setPreferredSize(new Dimension(200, 30));
 		textoStock.setFont(new Font("Tahoma", Font.BOLD, 18));
-		panelEtiquetas.add(etiquetaStock);
-		panelTexto.add(textoStock);
+		textoStock.setToolTipText("numero natural con 0");
+
+		panel_etiquetas.add(etiquetaStock);
+		panel_textfield.add(textoStock);
+
+		centro.add(panel_etiquetas);
+		centro.add(panel_textfield);
 
 		JLabel etiquetaPrecio = new JLabel("Precio: ");
-		etiquetaPrecio.setFont(new Font("Tahoma", Font.BOLD, 25));
+		etiquetaPrecio.setFont(new Font("Tahoma", Font.BOLD, 23));
 		JTextField textoPrecio = new JTextField();
 		textoPrecio.setMaximumSize(new Dimension(200, 30));
 		textoPrecio.setMinimumSize(new Dimension(200, 30));
+		textoPrecio.setPreferredSize(new Dimension(200, 30));
 		textoPrecio.setFont(new Font("Tahoma", Font.BOLD, 18));
-		panelEtiquetas.add(etiquetaPrecio);
-		panelTexto.add(textoPrecio);
+		textoPrecio.setToolTipText("numero double");
 
-		JLabel etiquetaRef = new JLabel("Referencia: ");
-		etiquetaRef.setFont(new Font("Tahoma", Font.BOLD, 25));
+		panel_etiquetas.add(etiquetaPrecio);
+		panel_textfield.add(textoPrecio);
+
+		centro.add(panel_etiquetas);
+		centro.add(panel_textfield);
+
+		JLabel etiquetaRef = new JLabel("Ref:    ");
+		etiquetaRef.setFont(new Font("Tahoma", Font.BOLD, 23));
 		JTextField textoRef = new JTextField();
 		textoRef.setMaximumSize(new Dimension(200, 30));
 		textoRef.setMinimumSize(new Dimension(200, 30));
+		textoRef.setPreferredSize(new Dimension(200, 30));
 		textoRef.setFont(new Font("Tahoma", Font.BOLD, 18));
-		panelEtiquetas.add(etiquetaRef);
-		panelTexto.add(textoRef);
+		textoRef.setToolTipText("numero natural sin 0");
 
-		JLabel etiquetaIdMarca = new JLabel("ID Marca: ");
-		etiquetaIdMarca.setFont(new Font("Tahoma", Font.BOLD, 25));
+		panel_etiquetas.add(etiquetaRef);
+		panel_textfield.add(textoRef);
+		
+		JLabel etiquetaIdMarca = new JLabel("Id Marca:    ");
+		etiquetaIdMarca.setFont(new Font("Tahoma", Font.BOLD, 23));
 		JTextField textoIdMarca = new JTextField();
 		textoIdMarca.setMaximumSize(new Dimension(200, 30));
 		textoIdMarca.setMinimumSize(new Dimension(200, 30));
+		textoIdMarca.setPreferredSize(new Dimension(200, 30));
 		textoIdMarca.setFont(new Font("Tahoma", Font.BOLD, 18));
-		panelEtiquetas.add(etiquetaIdMarca);
-		panelTexto.add(textoIdMarca);
+		textoIdMarca.setToolTipText("numero natural > 0");
 
-		centro.add(panelEtiquetas);
-		centro.add(panelTexto);
+		panel_etiquetas.add(etiquetaIdMarca);
+		panel_textfield.add(textoIdMarca);
 
-		// Botones
-		JPanel panelBotones = new JPanel();
-		principal.add(panelBotones);
-		panelBotones.setAlignmentX(CENTER_ALIGNMENT);
+		centro.add(panel_etiquetas);
+		centro.add(panel_textfield);
 
-		JButton atras = new JButton("ATRÁS");
-		atras.setToolTipText("Volver a la ventana anterior");
-		atras.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-				ctrl.accion(new Contexto(Evento.VISTA_PRODUCTO, null));
-			}
-		});
-		panelBotones.add(atras);
+		principal.add(funcion);
+		principal.add(centro);
 
+		Controlador controlador = Controlador.getInstance();
+
+		JPanel botones = new JPanel();
 		JButton aceptar = new JButton("ACEPTAR");
 		aceptar.addActionListener(new ActionListener() {
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
 					String nombreLeido = textoNombre.getText();
 					int stockLeido = Integer.parseInt(textoStock.getText());
 					double precioLeido = Double.parseDouble(textoPrecio.getText());
-					int refLeida = Integer.parseInt(textoRef.getText());
-					int idMarcaLeida = Integer.parseInt(textoIdMarca.getText());
-
-					TProducto transfer = new TProducto(0, nombreLeido, stockLeido, precioLeido, refLeida, idMarcaLeida, true);
-					ctrl.accion(new Contexto(Evento.ALTA_PRODUCTO, transfer));
-				} catch (NumberFormatException ex) {
-				
+					int refLeido = Integer.parseInt(textoRef.getText());
+					int idMarcaLeido = Integer.parseInt(textoRef.getText());
+					TProducto transfer = new TProducto(0, nombreLeido, stockLeido, precioLeido, refLeido, idMarcaLeido, true);
+					controlador.accion(new Contexto(Evento.ALTA_PRODUCTO, transfer));
+				} catch (NumberFormatException n) {
+					TProducto producto = new TProducto(0, "", 0, 0, 0, 0, false);
+					controlador.accion(new Contexto(Evento.ALTA_PRODUCTO, producto));
 				}
 			}
+
 		});
-		panelBotones.add(aceptar);
+
+		aceptar.setMaximumSize(new Dimension(100, 30));
+		aceptar.setPreferredSize(new Dimension(100, 30));
+
+		JButton atras = new JButton("ATRAS"); // boton para volver a la ventana
+												// principal
+		atras.setToolTipText("Esto vuelve a la ventana anterior");
+		atras.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				controlador.accion(new Contexto(Evento.VISTA_PRODUCTO, null));
+			}
+
+		});
+		atras.setMaximumSize(new Dimension(90, 30));
+		atras.setPreferredSize(new Dimension(90, 30));
+
+		botones.add(atras);
+		botones.add(aceptar);
+		principal.add(botones);
 
 		this.setContentPane(principal);
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		this.setVisible(true);
 		this.setLocation(200, 200);
-		this.setResizable(false);
 		this.pack();
 		this.setResizable(false);
-
 	}
 }

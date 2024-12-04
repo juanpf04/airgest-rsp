@@ -74,6 +74,21 @@ public class VistaConsultarProductosPorProveedor extends JFrame implements Obser
 		JPanel panelBotones = new JPanel();
 		panelBotones.setAlignmentX(CENTER_ALIGNMENT);
 
+		// Botón ATRÁS
+		JButton atras = new JButton("ATRÁS");
+		atras.setToolTipText("Volver a la ventana anterior");
+		atras.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				controlador.accion(new Contexto(Evento.VISTA_PRODUCTO, null));
+			}
+		});
+
+		atras.setMaximumSize(new Dimension(90, 30));
+		atras.setPreferredSize(new Dimension(90, 30));
+		panelBotones.add(atras);
+		
 		// Botón ACEPTAR
 		JButton aceptar = new JButton("ACEPTAR");
 		aceptar.addActionListener(new ActionListener() {
@@ -91,21 +106,6 @@ public class VistaConsultarProductosPorProveedor extends JFrame implements Obser
 		aceptar.setMaximumSize(new Dimension(100, 30));
 		aceptar.setPreferredSize(new Dimension(100, 30));
 		panelBotones.add(aceptar);
-
-		// Botón ATRÁS
-		JButton atras = new JButton("ATRÁS");
-		atras.setToolTipText("Volver a la ventana anterior");
-		atras.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-				controlador.accion(new Contexto(Evento.VISTA_PRODUCTO, null));
-			}
-		});
-
-		atras.setMaximumSize(new Dimension(90, 30));
-		atras.setPreferredSize(new Dimension(90, 30));
-		panelBotones.add(atras);
 
 		principal.add(panelBotones);
 
