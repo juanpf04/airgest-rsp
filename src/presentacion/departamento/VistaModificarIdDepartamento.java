@@ -22,7 +22,6 @@ import presentacion.controlador.Contexto;
 import presentacion.controlador.Controlador;
 import presentacion.controlador.Evento;
 
-//falla porque falta anyadirla a la factoria de vistas imp2
 
 public class VistaModificarIdDepartamento extends JFrame implements Observador {
 	/**
