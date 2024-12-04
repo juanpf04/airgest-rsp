@@ -117,7 +117,7 @@ public class VistaModificarDepartamento extends JFrame implements Observador {
 					controlador.accion(new Contexto(Evento.MODIFICAR_DEPARTAMENTO, transfer));
 					
 				}catch(Exception ex){
-					controlador.accion(new Contexto(Evento.MODIFICAR_DEPARTAMENTO, new TDepartamento()));
+					controlador.accion(new Contexto(Evento.VISTA_FALLO_MODIFICAR_DEPARTAMENTO, new TDepartamento()));
 				}
 			}
 
@@ -134,7 +134,7 @@ public class VistaModificarDepartamento extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				controlador.accion(new Contexto(Evento.VISTA_DEPARTAMENTO, null));
+				controlador.accion(new Contexto(Evento.VISTA_MODIFICAR_ID_DEPARTAMENTO, null));
 			}
 
 		});

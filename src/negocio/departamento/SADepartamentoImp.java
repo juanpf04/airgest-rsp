@@ -190,8 +190,7 @@ public class SADepartamentoImp implements SADepartamento {
 		EntityManager em = null;
 		boolean ok = false;
 		
-		if (ValidadorDepartamento.comprobarDatos(departamento)){
-			
+		if (!ValidadorDepartamento.comprobarDatos(departamento)) return false;
 			
 			try{
 				
@@ -228,8 +227,7 @@ public class SADepartamentoImp implements SADepartamento {
 					
 					if(em != null) em.close();
 				}
-			}
-
+			
 		
 		return ok;
 	}

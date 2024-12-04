@@ -51,10 +51,8 @@ public class VistaAltaDepartamento extends JFrame implements Observador {
 
 		SpringLayout layout = new SpringLayout();
 		JPanel centro = new JPanel();
-		centro.setLayout(layout);// BoxLayout(centro, BoxLayout.PAGE_AXIS)
+		centro.setLayout(layout);
 
-		// JPanel nombre = new JPanel();
-		// nombre.setLayout(new BoxLayout(nombre, BoxLayout.LINE_AXIS));
 		JLabel etiquetaNombre = new JLabel("nombre:");
 		etiquetaNombre.setFont(new Font("Tahoma", Font.BOLD, 25));
 		JTextField textoNombre = new JTextField();
@@ -72,7 +70,7 @@ public class VistaAltaDepartamento extends JFrame implements Observador {
 		JLabel etiquetaSala = new JLabel("sala");
 		etiquetaSala.setFont(new Font("Tahoma", Font.BOLD, 25));
 		JTextField textoSala = new JTextField();
-		textoSala.setToolTipText("NUMERO");
+		textoSala.setToolTipText("entero");
 		textoSala.setMaximumSize(new Dimension(200, 30));
 		textoSala.setMinimumSize(new Dimension(200, 30));
 		textoSala.setPreferredSize(new Dimension(200, 30));
@@ -81,7 +79,7 @@ public class VistaAltaDepartamento extends JFrame implements Observador {
 		JLabel etiquetaSueldoHora = new JLabel("sueldo/hora");
 		etiquetaSueldoHora.setFont(new Font("Tahoma", Font.BOLD, 25));
 		JTextField textoSueldoHora = new JTextField();
-		textoSueldoHora.setToolTipText("{numero double");
+		textoSueldoHora.setToolTipText("double");
 		textoSueldoHora.setMaximumSize(new Dimension(200, 30));
 		textoSueldoHora.setMinimumSize(new Dimension(200, 30));
 		textoSueldoHora.setPreferredSize(new Dimension(200, 30));

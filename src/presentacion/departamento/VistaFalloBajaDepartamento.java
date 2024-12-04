@@ -14,11 +14,10 @@ import presentacion.Observador;
 import presentacion.UtilidadesP;
 
 public class VistaFalloBajaDepartamento extends JFrame implements Observador {
-	
-	//NO SE PUEDE PROBAR
+
 		public void actualizar(Object datos) {
 			UtilidadesP.setAirGestRSP(this);
-			this.setSize(480, 430);
+			this.setSize(600, 600);
 
 			JPanel principal = new JPanel();
 			principal.setLayout(new BorderLayout());
