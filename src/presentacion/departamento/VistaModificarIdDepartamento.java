@@ -25,6 +25,11 @@ import presentacion.controlador.Evento;
 //falla porque falta anyadirla a la factoria de vistas imp2
 
 public class VistaModificarIdDepartamento extends JFrame implements Observador {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public void actualizar(Object datos) {
 		UtilidadesP.setAirGestRSP(this);
 
