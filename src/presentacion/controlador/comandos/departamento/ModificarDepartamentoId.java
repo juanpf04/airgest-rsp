@@ -17,14 +17,11 @@ public class ModificarDepartamentoId implements Comando {
 		SADepartamento sd = fn.crearSADepartamento();
 		TDepartamento tdep = sd.consultarDepartamentoPorId((int) datos);
 		Evento evento;
-		ArrayList<Object> lista = new ArrayList<Object>();
-		lista.add(tdep);
-		lista.add(null);
 		if(tdep != null && tdep.getActivo()) {
 			evento = Evento.VISTA_MODIFICAR_DEPARTAMENTO;
 		}else {
 			evento = Evento.VISTA_FALLO_MODIFICAR_DEPARTAMENTO;
 		}
-		return new Contexto(evento, lista);
+		return new Contexto(evento, tdep);
 	}
 }

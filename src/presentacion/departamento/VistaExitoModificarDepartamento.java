@@ -20,13 +20,13 @@ public class VistaExitoModificarDepartamento extends JFrame implements Observado
 
 	public void actualizar(Object datos) {
 		UtilidadesP.setAirGestRSP(this);
-		this.setSize(488, 430);
+		this.setSize(500, 430);
 
 		JPanel principal = new JPanel();
 		principal.setLayout(new BorderLayout());
 
 		JLabel exito = new JLabel("Modificación de Departamento exitosa!");
-		exito.setFont(new Font("Tahoma", Font.PLAIN, 29));
+		exito.setFont(new Font("Tahoma", Font.PLAIN, 23));
 		exito.setHorizontalAlignment(SwingConstants.CENTER);
 		principal.add(exito, BorderLayout.PAGE_START);
 

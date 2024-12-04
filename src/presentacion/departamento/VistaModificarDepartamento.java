@@ -1,7 +1,9 @@
 
 package presentacion.departamento;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,6 +14,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
@@ -26,12 +30,9 @@ public class VistaModificarDepartamento extends JFrame implements Observador {
 
 	public void actualizar(Object datos) {
 		UtilidadesP.setAirGestRSP(this);
-		this.setSize(450, 270);
-
-		//que es esto??
-		@SuppressWarnings("unchecked")
-		ArrayList<Object> listaInfo = (ArrayList<Object>) datos;
-		Controlador ctrl = Controlador.getInstance();
+		this.setSize(400, 240);
+		
+		TDepartamento tDep = (TDepartamento) datos;
 
 		JPanel principal = new JPanel();
 		principal.setLayout(new BoxLayout(principal, BoxLayout.PAGE_AXIS));
@@ -47,72 +48,108 @@ public class VistaModificarDepartamento extends JFrame implements Observador {
 		panel_titulo.add(titulo);
 
 		funcion.add(panel_titulo);
-		principal.add(funcion);
 
+		SpringLayout layout = new SpringLayout();
 		JPanel centro = new JPanel();
-		centro.setLayout(new BoxLayout(centro, BoxLayout.LINE_AXIS));
-		principal.add(centro);
+		centro.setLayout(layout);
+		
+		JLabel etiquetaNombre = new JLabel("nombre:");
+		etiquetaNombre.setFont(new Font("Tahoma", Font.BOLD, 25));
+		JTextField textoNombre = new JTextField();
+		textoNombre.setToolTipText("letras-numeros");
 
-		JPanel panelBotones = new JPanel();
-		principal.add(panelBotones);
+		textoNombre.setMaximumSize(new Dimension(200, 30));
+		textoNombre.setMinimumSize(new Dimension(200, 30));
+		textoNombre.setPreferredSize(new Dimension(200, 30));
+		textoNombre.setFont(new Font("Tahoma", Font.BOLD, 18));
+
+		centro.add(etiquetaNombre);
+		centro.add(textoNombre);
+		layout.putConstraint(SpringLayout.WEST, textoNombre, 53, SpringLayout.EAST, etiquetaNombre);
+
+		JLabel etiquetaSala = new JLabel("sala");
+		etiquetaSala.setFont(new Font("Tahoma", Font.BOLD, 25));
+		JTextField textoSala = new JTextField();
+		textoSala.setToolTipText("NUMERO");
+		textoSala.setMaximumSize(new Dimension(200, 30));
+		textoSala.setMinimumSize(new Dimension(200, 30));
+		textoSala.setPreferredSize(new Dimension(200, 30));
+		textoSala.setFont(new Font("Tahoma", Font.BOLD, 18));
 		
+		JLabel etiquetaSueldoHora = new JLabel("sueldo/hora");
+		etiquetaSueldoHora.setFont(new Font("Tahoma", Font.BOLD, 25));
+		JTextField textoSueldoHora = new JTextField();
+		textoSueldoHora.setToolTipText("{numero double");
+		textoSueldoHora.setMaximumSize(new Dimension(200, 30));
+		textoSueldoHora.setMinimumSize(new Dimension(200, 30));
+		textoSueldoHora.setPreferredSize(new Dimension(200, 30));
+		textoSueldoHora.setFont(new Font("Tahoma", Font.BOLD, 18));
 		
+
+		layout.putConstraint(SpringLayout.NORTH, etiquetaSala, 2, SpringLayout.SOUTH, etiquetaNombre);
+		layout.putConstraint(SpringLayout.NORTH, textoSala, 2, SpringLayout.SOUTH, textoNombre);
+		layout.putConstraint(SpringLayout.WEST, textoSala, 108, SpringLayout.EAST, etiquetaSala);
+		
+		layout.putConstraint(SpringLayout.NORTH, etiquetaSueldoHora, 2, SpringLayout.SOUTH, etiquetaSala);
+		layout.putConstraint(SpringLayout.NORTH, textoSueldoHora, 2, SpringLayout.SOUTH, textoSala);
+		layout.putConstraint(SpringLayout.WEST, textoSueldoHora, 5, SpringLayout.EAST, etiquetaSueldoHora);
+
+		centro.add(etiquetaSala);
+		centro.add(textoSala);
+		centro.add(etiquetaSueldoHora);
+		centro.add(textoSueldoHora);
+
+		Controlador controlador = Controlador.getInstance();
+
+		principal.add(funcion);
+		principal.add(centro);
+		JPanel botones = new JPanel();
 		JButton aceptar = new JButton("ACEPTAR");
 		aceptar.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				try {
-					/*int tag = Integer.valueOf(textoTag.getText());
-					int horasMensuales = Integer.valueOf(textoHorasMensuales.getText());
-					int idDepartamento = Integer.valueOf(textoIdDepartamento.getText());
-					TEmpleado transfer;
-					if (listaInfo.get(1) == "GERENTE") {
-						int despacho = Integer.valueOf(textoDespacho.getText());
-						int horasExtra = Integer.valueOf(textoHorasExtra.getText());
-						transfer = new TGerente(0, tag, horasMensuales, idDepartamento, true, despacho, horasExtra);
-					} else {
-						int seccion = Integer.valueOf(textoSeccion.getText());
-						String noche = textoNoches.getText();
-						boolean noches = false;
-						if(noche.equals("si") || noche.equals("Si") || noche.equals("SI")) noches = true;
-						transfer = new TDependiente(0, tag, horasMensuales, idDepartamento, true, seccion, noches);
-					}*/
-					TDepartamento tdep = new TDepartamento();
-					dispose();
-					ctrl.accion(new Contexto(Evento.MODIFICAR_DEPARTAMENTO, tdep));
-				} catch (Exception ex) {
-					dispose();
-					ctrl.accion(new Contexto(Evento.VISTA_FALLO_MODIFICAR_DEPARTAMENTO, null));
+				try{
+					String nombreLeido = textoNombre.getText();
+					int salaLeida = Integer.valueOf(textoSala.getText());
+					double sueldoLeido = Double.valueOf(textoSueldoHora.getText());
+					TDepartamento transfer = new TDepartamento(tDep.getId(), nombreLeido, salaLeida, sueldoLeido, true);
+					controlador.accion(new Contexto(Evento.MODIFICAR_DEPARTAMENTO, transfer));
+					
+				}catch(Exception ex){
+					controlador.accion(new Contexto(Evento.MODIFICAR_DEPARTAMENTO, new TDepartamento()));
 				}
 			}
 
 		});
 
-		panelBotones.add(aceptar);
-		
-		JButton atras = new JButton("ATRAS"); 
+		aceptar.setMaximumSize(new Dimension(100, 30));
+		aceptar.setPreferredSize(new Dimension(100, 30));
+
+		JButton atras = new JButton("ATRAS"); // boton para volver a la ventana
+												// principal
 		atras.setToolTipText("Esto vuelve a la ventana anterior");
 		atras.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				if (listaInfo.get(1) == null)
-					ctrl.accion(new Contexto(Evento.VISTA_MODIFICAR_ID_DEPARTAMENTO, null));
-				else
-					ctrl.accion(new Contexto(Evento.VISTA_MODIFICAR_ID_DEPARTAMENTO, listaInfo));
+				controlador.accion(new Contexto(Evento.VISTA_DEPARTAMENTO, null));
 			}
 
 		});
-		
-		panelBotones.add(atras);
 
-	this.setContentPane(principal);
-	this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-	this.setVisible(true);
-	this.setLocation(200, 200);
-	this.setResizable(false);
-	this.pack();
+		atras.setMaximumSize(new Dimension(90, 30));
+		atras.setPreferredSize(new Dimension(90, 30));
+
+		botones.add(atras);
+		botones.add(aceptar);
+		principal.add(botones, BorderLayout.PAGE_END);
+
+		this.setContentPane(principal);
+		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		this.setVisible(true);
+		this.setResizable(false);
+		this.setLocation(200, 200);
 	}
 }
