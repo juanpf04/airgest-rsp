@@ -218,14 +218,16 @@ public class SAProveedorImp implements SAProveedor {
 		try {
 			em = EMFSingleton.getInstance().getEMF().createEntityManager();
 			em.getTransaction().begin();
-		
-		List<Proveedor> resultados = em.createNamedQuery("negocio.proveedor.Proveedor.findByproductos", Proveedor.class)
-				.setParameter("productos", em.find(Producto.class, idProducto))
-				.getResultList();
-		
-		for (Proveedor prov : resultados) {
-			listaProveedores.add(prov.toTransfer());
-		}
+			
+			Producto p = em.find(Producto.class, idProducto);
+			
+			if(p != null)
+			{
+				List<Proveedor> resultados = p.getProveedores();
+				for (Proveedor prov : resultados) {
+					listaProveedores.add(prov.toTransfer());
+				}
+			}
 		
 		em.getTransaction().commit();
 

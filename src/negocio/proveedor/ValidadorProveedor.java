@@ -5,9 +5,14 @@ public class ValidadorProveedor {
 	
 	public static boolean comprobarDatos(TProveedor datos) {
 		if(datos instanceof TNacional)
-			return comprobarNacional((TNacional)datos);
+			return comprobarNombre(datos.getNombre()) && comprobarNacional((TNacional)datos);
 		else
-			return comprobarInternacional((TInternacional)datos);
+			return comprobarNombre(datos.getNombre()) && comprobarInternacional((TInternacional)datos);
+	}
+	
+	public static boolean comprobarNombre(String nombre)
+	{
+		return nombre.matches("[a-zA-Z]+");
 	}
 
 	public static boolean comprobarCodigoPostal(String cp)
