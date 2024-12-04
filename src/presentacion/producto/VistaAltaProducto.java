@@ -27,8 +27,7 @@ public class VistaAltaProducto extends JFrame implements Observador {
 	private static final long serialVersionUID = 1L;
 
 	public void actualizar(Object datos) {
-		UtilidadesP.setAirGestRSP(this); // Ajustar utilidades según sea necesario
-//		this.setSize(600, 400);
+		UtilidadesP.setAirGestRSP(this);
 
 		Controlador ctrl = Controlador.getInstance();
 
@@ -66,6 +65,7 @@ public class VistaAltaProducto extends JFrame implements Observador {
 		etiquetaNombre.setFont(new Font("Tahoma", Font.BOLD, 25));
 		JTextField textoNombre = new JTextField();
 		textoNombre.setMaximumSize(new Dimension(200, 30));
+		textoNombre.setMinimumSize(new Dimension(200, 30));
 		textoNombre.setFont(new Font("Tahoma", Font.BOLD, 18));
 		panelEtiquetas.add(etiquetaNombre);
 		panelTexto.add(textoNombre);
@@ -74,6 +74,7 @@ public class VistaAltaProducto extends JFrame implements Observador {
 		etiquetaStock.setFont(new Font("Tahoma", Font.BOLD, 25));
 		JTextField textoStock = new JTextField();
 		textoStock.setMaximumSize(new Dimension(200, 30));
+		textoStock.setMinimumSize(new Dimension(200, 30));
 		textoStock.setFont(new Font("Tahoma", Font.BOLD, 18));
 		panelEtiquetas.add(etiquetaStock);
 		panelTexto.add(textoStock);
@@ -82,6 +83,7 @@ public class VistaAltaProducto extends JFrame implements Observador {
 		etiquetaPrecio.setFont(new Font("Tahoma", Font.BOLD, 25));
 		JTextField textoPrecio = new JTextField();
 		textoPrecio.setMaximumSize(new Dimension(200, 30));
+		textoPrecio.setMinimumSize(new Dimension(200, 30));
 		textoPrecio.setFont(new Font("Tahoma", Font.BOLD, 18));
 		panelEtiquetas.add(etiquetaPrecio);
 		panelTexto.add(textoPrecio);
@@ -90,6 +92,7 @@ public class VistaAltaProducto extends JFrame implements Observador {
 		etiquetaRef.setFont(new Font("Tahoma", Font.BOLD, 25));
 		JTextField textoRef = new JTextField();
 		textoRef.setMaximumSize(new Dimension(200, 30));
+		textoRef.setMinimumSize(new Dimension(200, 30));
 		textoRef.setFont(new Font("Tahoma", Font.BOLD, 18));
 		panelEtiquetas.add(etiquetaRef);
 		panelTexto.add(textoRef);
@@ -98,6 +101,7 @@ public class VistaAltaProducto extends JFrame implements Observador {
 		etiquetaIdMarca.setFont(new Font("Tahoma", Font.BOLD, 25));
 		JTextField textoIdMarca = new JTextField();
 		textoIdMarca.setMaximumSize(new Dimension(200, 30));
+		textoIdMarca.setMinimumSize(new Dimension(200, 30));
 		textoIdMarca.setFont(new Font("Tahoma", Font.BOLD, 18));
 		panelEtiquetas.add(etiquetaIdMarca);
 		panelTexto.add(textoIdMarca);
