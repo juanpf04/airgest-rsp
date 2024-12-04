@@ -134,7 +134,7 @@ public class VistaProducto extends JFrame implements Observador {
 			}
 		});
 
-		mostrarPorHangar.setToolTipText("Aqui consultas un avion por hangar maquina");
+		mostrarPorHangar.setToolTipText("Aqui consultas los productos por marca maquina");
 		botones.add(mostrarPorHangar);
 
 		// -------------------------------------------
@@ -148,7 +148,7 @@ public class VistaProducto extends JFrame implements Observador {
 			}
 		});
 
-		mostrarPorAerolinea.setToolTipText("Aqui consultas un avion por aerolinea maquina");
+		mostrarPorAerolinea.setToolTipText("Aqui consultas los productos por proveedor maquina");
 		botones.add(mostrarPorAerolinea);
 
 		// -------------------------------------------

@@ -79,11 +79,11 @@ public class VistaConsultarProductosPorProveedor extends JFrame implements Obser
 		aceptar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String proveedor = textoProveedor.getText().trim();
-				if (!proveedor.isEmpty()) {
+				try{
+				int proveedor = Integer.valueOf(textoProveedor.getText());
 					controlador.accion(new Contexto(Evento.CONSULTAR_PRODUCTOS_POR_PROVEEDOR, proveedor));
-				} else {
-					controlador.accion(new Contexto(Evento.CONSULTAR_PRODUCTOS_POR_PROVEEDOR, null)); // Manejo de error
+				} catch(Exception ex) {
+					controlador.accion(new Contexto(Evento.CONSULTAR_PRODUCTOS_POR_PROVEEDOR, 0)); // Manejo de error
 				}
 			}
 		});

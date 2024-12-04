@@ -79,11 +79,11 @@ public class VistaConsultarProductosPorMarca extends JFrame implements Observado
 		aceptar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String marca = textoMarca.getText().trim();
-				if (!marca.isEmpty()) {
+				try{
+					int marca = Integer.valueOf(textoMarca.getText());
 					controlador.accion(new Contexto(Evento.CONSULTAR_PRODUCTOS_POR_MARCA, marca));
-				} else {
-					controlador.accion(new Contexto(Evento.CONSULTAR_PRODUCTOS_POR_MARCA, null)); // Manejo de error
+				}catch(Exception ex){
+					controlador.accion(new Contexto(Evento.CONSULTAR_PRODUCTOS_POR_MARCA, 0)); // Manejo de error
 				}
 			}
 		});

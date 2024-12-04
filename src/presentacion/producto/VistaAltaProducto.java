@@ -28,7 +28,7 @@ public class VistaAltaProducto extends JFrame implements Observador {
 
 	public void actualizar(Object datos) {
 		UtilidadesP.setAirGestRSP(this); // Ajustar utilidades según sea necesario
-		this.setSize(600, 400);
+//		this.setSize(600, 400);
 
 		Controlador ctrl = Controlador.getInstance();
 
@@ -147,5 +147,7 @@ public class VistaAltaProducto extends JFrame implements Observador {
 		this.setLocation(200, 200);
 		this.setResizable(false);
 		this.pack();
+		this.setResizable(false);
+
 	}
 }
