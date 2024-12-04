@@ -79,7 +79,7 @@ public class VistaProducto extends JFrame implements Observador {
 				ctrl.accion(new Contexto(Evento.VISTA_BAJA_PRODUCTO, null));
 			}
 		});
-		baja.setToolTipText("Aqui das de baja un PRODUCTO maquina");
+		baja.setToolTipText("Aqui das de baja un producto maquina");
 		botones.add(baja);
 
 		// -------------------------------------------
@@ -93,7 +93,7 @@ public class VistaProducto extends JFrame implements Observador {
 			}
 		});
 
-		consultarID.setToolTipText("Aqui consultas un PRODUCTO por id ");
+		consultarID.setToolTipText("Aqui consultas un producto por id ");
 		botones.add(consultarID);
 
 		// -------------------------------------------
@@ -106,7 +106,7 @@ public class VistaProducto extends JFrame implements Observador {
 			}
 		});
 
-		consultarTodos.setToolTipText("Aqui consultas todos los PRODUCTOS maquina");
+		consultarTodos.setToolTipText("Aqui consultas todos los productos maquina");
 		botones.add(consultarTodos);
 
 
@@ -121,7 +121,9 @@ public class VistaProducto extends JFrame implements Observador {
 			}
 		});
 
-
+		modificar.setToolTipText("Aqui modificas un producto maquina");
+		botones.add(modificar);
+		
 
 		// -------------------------------------------
 		JButton mostrarPorHangar = new JButton("CONSULTAR PRODUCTOS POR MARCA");

@@ -10,6 +10,10 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import presentacion.Observador;
+import presentacion.UtilidadesP;
+import presentacion.controlador.Contexto;
+import presentacion.controlador.Controlador;
+import presentacion.controlador.Evento;
 
 public class VistaFalloModificarProducto extends JFrame implements Observador {
 
@@ -17,7 +21,7 @@ public class VistaFalloModificarProducto extends JFrame implements Observador {
 
     @Override
     public void actualizar(Object datos) {
-        // Configuración de la ventana
+        UtilidadesP.setAirGestRSP(this);
         this.setSize(600, 660);
 
         // Panel principal
@@ -34,6 +38,8 @@ public class VistaFalloModificarProducto extends JFrame implements Observador {
         JLabel imagen = new JLabel();
         imagen.setIcon(new ImageIcon("recursos/iconos/fallo.png"));
         principal.add(imagen, BorderLayout.CENTER);
+        Controlador controlador = Controlador.getInstance();
+		controlador.accion(new Contexto(Evento.VISTA_PRODUCTO));
 
         // Configuración final
         this.setContentPane(principal);
