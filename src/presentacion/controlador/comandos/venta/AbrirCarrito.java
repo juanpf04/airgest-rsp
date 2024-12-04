@@ -1,6 +1,5 @@
 package presentacion.controlador.comandos.venta;
 
-import negocio.contrato.TCarrito;
 import negocio.factoria.FactoriaNegocioMall;
 import negocio.venta.SAVenta;
 import negocio.venta.TCarritoVenta;
