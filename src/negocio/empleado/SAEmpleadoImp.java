@@ -62,6 +62,7 @@ public class SAEmpleadoImp implements SAEmpleado {
 				if (empleado.getActivo()) {
 					em.getTransaction().rollback();
 					return -1;
+					
 				} else {
 					if(templeado instanceof TGerente && empleado instanceof Gerente){
 						((Gerente)empleado).setHorasExtra(((TGerente) templeado).getHorasExtra());
