@@ -12,13 +12,6 @@ public class TProducto {
 
 	private int ref;
 
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
-	private boolean _boolean;
-
 	private int idMarca;
 
 	private boolean activo;
@@ -74,23 +67,6 @@ public class TProducto {
 	public TProducto() {
 	}
 
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @param id
-	* @param nombre
-	* @param stock
-	* @param precio
-	* @param ref
-	* @param activo
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
-	public TProducto(int id, String nombre, int stock, double precio, int ref, boolean activo) {
-		// begin-user-code
-		// TODO Auto-generated constructor stub
-		// end-user-code
-	}
-
 	public TProducto(int id, String nombre, int stock, double precio, int ref, int idMarca, boolean activo) {
 		this.id = id;
 		this.nombre = nombre;
@@ -107,5 +83,11 @@ public class TProducto {
 
 	public void setIdMarca(int idMarca) {
 		this.idMarca = idMarca;
+	}
+	
+	@Override
+	public String toString(){
+		return "id: " + this.id + "\nnombre: " + this.nombre + "\nstock: " + this.stock + "\nprecio: " + this.precio + 
+				"\nref: " + this.ref + "\nidMarca: " + this.idMarca + "\nactivo: " + this.activo + "\n";
 	}
 }

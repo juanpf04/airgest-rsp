@@ -115,8 +115,14 @@ public class FactoriaVistasImp2 extends FactoriaVistasImp {
 			case VISTA_CONSULTAR_PRODUCTO_POR_ID:
 				vista = new VistaConsultarProductoPorId();
 				break;
+			case VISTA_RESULTADO_CONSULTAR_PRODUCTO_POR_ID:
+				vista = new VistaResultadoConsultarProductoPorId();
+				break;
 			case VISTA_RESULTADO_CONSULTAR_PRODUCTOS:
 				vista = new VistaResultadoConsultarProductos();
+				break;
+			case VISTA_MODIFICAR_PRODUCTO_ID:
+				vista = new VistaModificarIdProducto();
 				break;
 			case VISTA_MODIFICAR_PRODUCTO:
 				vista = new VistaModificarProducto();
@@ -126,6 +132,18 @@ public class FactoriaVistasImp2 extends FactoriaVistasImp {
 				break;
 			case VISTA_FALLO_MODIFICAR_PRODUCTO:
 				vista = new VistaFalloModificarProducto();
+				break;
+			case VISTA_CONSULTAR_PRODUCTOS_POR_MARCA:
+				vista = new VistaConsultarProductosPorMarca();
+				break;
+			case VISTA_RESULTADO_CONSULTAR_PRODUCTOS_POR_MARCA:
+				vista = new VistaResultadoConsultarProductosPorMarca();
+				break;
+			case VISTA_CONSULTAR_PRODUCTOS_POR_PROVEEDOR:
+				vista = new VistaConsultarProductosPorProveedor();
+				break;
+			case VISTA_RESULTADO_CONSULTAR_PRODUCTOS_POR_PROVEEDOR:
+				vista = new VistaResultadoConsultarProductosPorProveedor();
 				break;
 
 			// Empleado

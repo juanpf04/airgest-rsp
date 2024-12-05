@@ -1,27 +1,51 @@
-/**
- * 
- */
 package presentacion.producto;
 
+import java.awt.BorderLayout;
+import java.awt.Font;
+
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+
 import presentacion.Observador;
+import presentacion.UtilidadesP;
+import presentacion.controlador.Contexto;
+import presentacion.controlador.Controlador;
+import presentacion.controlador.Evento;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author javia
-* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-*/
 public class VistaFalloModificarProducto extends JFrame implements Observador {
-	/** 
-	* (non-Javadoc)
-	* @see Observador#actualizar(Object datos)
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
-	public void actualizar(Object datos) {
-		// begin-user-code
-		// TODO Auto-generated method stub
 
-		// end-user-code
-	}
+    private static final long serialVersionUID = 1L;
+
+    @Override
+    public void actualizar(Object datos) {
+        UtilidadesP.setAirGestRSP(this);
+        this.setSize(600, 660);
+
+        // Panel principal
+        JPanel principal = new JPanel();
+        principal.setLayout(new BorderLayout());
+
+        // Etiqueta para mostrar el mensaje de fallo
+        JLabel fallo = new JLabel("Modificación de Producto fallida! :(");
+        fallo.setFont(new Font("Tahoma", Font.PLAIN, 29));
+        fallo.setHorizontalAlignment(SwingConstants.CENTER);
+        principal.add(fallo, BorderLayout.PAGE_START);
+
+        // Etiqueta para mostrar la imagen de fallo
+        JLabel imagen = new JLabel();
+        imagen.setIcon(new ImageIcon("recursos/iconos/fallo.png"));
+        principal.add(imagen, BorderLayout.CENTER);
+        Controlador controlador = Controlador.getInstance();
+		controlador.accion(new Contexto(Evento.VISTA_PRODUCTO));
+
+        // Configuración final
+        this.setContentPane(principal);
+        this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        this.setVisible(true);
+        this.setLocation(200, 200);
+        this.setResizable(false);
+    }
 }

@@ -14,6 +14,7 @@ import javax.persistence.Version;
 import negocio.marca.Marca;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
+
 import java.util.List;
 import negocio.proveedor.Proveedor;
 import javax.persistence.ManyToMany;
@@ -22,6 +23,7 @@ import javax.persistence.ManyToMany;
 @NamedQueries({
 		@NamedQuery(name = "negocio.producto.Producto.findByid", query = "select obj from Producto obj where :id = obj.id "),
 		@NamedQuery(name = "negocio.producto.Producto.findBymarca", query = "select obj from Producto obj where :marca = obj.marca "),
+		@NamedQuery(name = "negocio.producto.Producto.findAll", query = "select obj from Producto obj "),
 		@NamedQuery(name = "negocio.producto.Producto.findByproveedores", query = "select obj from Producto obj where :proveedores MEMBER OF obj.proveedores "),
 		@NamedQuery(name = "negocio.producto.Producto.findBynombre", query = "select obj from Producto obj where :nombre = obj.nombre "),
 		@NamedQuery(name = "negocio.producto.Producto.findBystock", query = "select obj from Producto obj where :stock = obj.stock "),
@@ -118,19 +120,6 @@ public class Producto implements Serializable {
 
 	public List<Proveedor> getProveedores() {
 		return proveedores;
-	}
-
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @param proveedores
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
-	public void setProveedores(Proveedor... proveedores) {
-		// begin-user-code
-		// TODO Auto-generated method stub
-
-		// end-user-code
 	}
 
 	public void setProveedores(List<Proveedor> proveedores) {
