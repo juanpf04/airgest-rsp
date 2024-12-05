@@ -61,6 +61,22 @@ public class VistaAltaEmpleado extends JFrame implements Observador {
 		JPanel panelBotones = new JPanel();
 		principal.add(panelBotones);
 		panelBotones.setAlignmentX(CENTER_ALIGNMENT);
+		
+		JButton atras = new JButton("ATRAS"); // boton para volver a la ventana
+		// principal
+		atras.setToolTipText("Esto vuelve a la ventana anterior");
+		atras.addActionListener(new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			dispose();
+			if (datos == null)
+				ctrl.accion(new Contexto(Evento.VISTA_EMPLEADO, null));
+			else
+				ctrl.accion(new Contexto(Evento.VISTA_ALTA_EMPLEADO, null));
+			}
+		
+		});
 
 		if (datos == null) {
 			JPanel botones = new JPanel();
@@ -94,7 +110,8 @@ public class VistaAltaEmpleado extends JFrame implements Observador {
 			dependiente.setAlignmentX(CENTER_ALIGNMENT);
 			botones.add(dependiente);
 			botones.add(panelBotones);
-
+			
+			panelBotones.add(atras);
 			principal.add(botones);
 
 			// -----------------------------------------------------
@@ -221,27 +238,12 @@ public class VistaAltaEmpleado extends JFrame implements Observador {
 				}
 
 			});
-
+			panelBotones.add(atras);
 			panelBotones.add(aceptar);
 
 		}
 
-		JButton atras = new JButton("ATRAS"); // boton para volver a la ventana
-												// principal
-		atras.setToolTipText("Esto vuelve a la ventana anterior");
-		atras.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-				if (datos == null)
-					ctrl.accion(new Contexto(Evento.VISTA_EMPLEADO, null));
-				else
-					ctrl.accion(new Contexto(Evento.VISTA_ALTA_EMPLEADO, null));
-			}
-
-		});
-		panelBotones.add(atras);
+		
 		panelBotones.add(panelAceptar);
 		
 		
