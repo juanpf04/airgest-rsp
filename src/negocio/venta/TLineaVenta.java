@@ -53,4 +53,9 @@ public class TLineaVenta {
 	public void setPrecio(double precio) {
 		this.precio = precio;
 	}
+	
+	public String toString() {
+		return "id venta: " + this.idVenta + "\nid producto: " + this.idProducto + "\ncantidad: " + this.cantidad
+				+ "\nprecio: " + this.precio;
+	}
 }

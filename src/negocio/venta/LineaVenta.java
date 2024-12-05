@@ -50,7 +50,7 @@ public class LineaVenta implements Serializable {
 		// TODO Clave???
 		this.cantidad = transfer.getCantidad();
 		this.precio = transfer.getPrecio();
-		this.id = new Clave(transfer.getIdVenta(), transfer.getIdProducto());
+		//this.id = new Clave(transfer.getIdVenta(), transfer.getIdProducto());
 	}
 
 	public Clave getId() {

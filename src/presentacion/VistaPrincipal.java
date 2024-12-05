@@ -298,7 +298,7 @@ public class VistaPrincipal extends JFrame implements Observador {
 				
 
 				em.close();
-				emf.getEMF().close();
+				//emf.getEMF().close();
 			}
 		});
 		nuclear.setToolTipText("nuclear");
