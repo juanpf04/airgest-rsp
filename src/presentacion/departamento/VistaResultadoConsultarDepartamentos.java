@@ -1,27 +1,61 @@
-/**
- * 
- */
+
 package presentacion.departamento;
 
+import java.awt.BorderLayout;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
+
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+
+import negocio.departamento.TDepartamento;
 import presentacion.Observador;
+import presentacion.UtilidadesP;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author javia
-* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-*/
 public class VistaResultadoConsultarDepartamentos extends JFrame implements Observador {
-	/** 
-	* (non-Javadoc)
-	* @see Observador#actualizar(Object datos)
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
-	public void actualizar(Object datos) {
-		// begin-user-code
-		// TODO Auto-generated method stub
 
-		// end-user-code
+	public void actualizar(Object datos) {
+		UtilidadesP.setAirGestRSP(this);
+		this.setSize(600, 650);
+
+		JPanel principal = new JPanel();
+		principal.setLayout(new BorderLayout());
+
+		@SuppressWarnings("unchecked")
+		List<TDepartamento> tdep = (List<TDepartamento>) datos;
+
+		String s = "";
+		for (TDepartamento dep : tdep)
+			s += dep.toString() + "\n";
+
+		JTextArea exito = new JTextArea(s);
+		exito.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		exito.setEditable(false);
+		principal.add(exito, BorderLayout.PAGE_START);
+		JScrollPane scroll = new JScrollPane(exito, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		principal.add(scroll, BorderLayout.CENTER);
+
+		JButton atras = new JButton("ATRAS");
+		atras.setToolTipText("Esto vuelve a la ventana anterior");
+		atras.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
+
+		principal.add(atras, BorderLayout.SOUTH);
+
+		this.setContentPane(principal);
+		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		this.setVisible(true);
+		this.setLocation(200, 200);
 	}
 }

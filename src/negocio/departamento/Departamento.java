@@ -23,7 +23,9 @@ import javax.persistence.Version;
 		@NamedQuery(name = "negocio.departamento.Departamento.findBysueldoHora", query = "select obj from Departamento obj where :sueldoHora = obj.sueldoHora "),
 		@NamedQuery(name = "negocio.departamento.Departamento.findByempleados", query = "select obj from Departamento obj where :empleados MEMBER OF obj.empleados "),
 		@NamedQuery(name = "negocio.departamento.Departamento.findByactivo", query = "select obj from Departamento obj where :activo = obj.activo "),
-		@NamedQuery(name = "negocio.departamento.Departamento.findByversion", query = "select obj from Departamento obj where :version = obj.version ") })
+		@NamedQuery(name = "negocio.departamento.Departamento.findByversion", query = "select obj from Departamento obj where :version = obj.version "),
+		@NamedQuery(name = "negocio.departamento.Departamento.findAll", query = "select obj from Departamento obj ")})
+
 public class Departamento implements Serializable {
 
 	private static final long serialVersionUID = 0;
@@ -99,26 +101,8 @@ public class Departamento implements Serializable {
 		this.activo = activo;
 	}
 
-	public double calcularNomina() {
-		// TODO Departamento::calcularNomina()
-		return 0;
-	}
-
 	public List<Empleado> getEmpleados() {
 		return this.empleados;
-	}
-
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @param empleados
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
-	public void setEmpleados(Empleado... empleados) {
-		// begin-user-code
-		// TODO Auto-generated method stub
-
-		// end-user-code
 	}
 
 	public void setEmpleados(List<Empleado> empleados) {

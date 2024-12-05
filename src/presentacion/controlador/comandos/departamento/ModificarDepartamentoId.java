@@ -1,27 +1,27 @@
-/**
- * 
- */
 package presentacion.controlador.comandos.departamento;
 
 import presentacion.controlador.comandos.Comando;
-import presentacion.controlador.Contexto;
 
-/** 
-* <!-- begin-UML-doc -->
-* <!-- end-UML-doc -->
-* @author javia
-* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-*/
+import java.util.ArrayList;
+
+import negocio.departamento.SADepartamento;
+import negocio.departamento.TDepartamento;
+import negocio.factoria.FactoriaNegocioMall;
+import presentacion.controlador.Contexto;
+import presentacion.controlador.Evento;
+
 public class ModificarDepartamentoId implements Comando {
-	/** 
-	* (non-Javadoc)
-	* @see Comando#ejecutar(Object datos)
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
+
 	public Contexto ejecutar(Object datos) {
-		// begin-user-code
-		// TODO Auto-generated method stub
-		return null;
-		// end-user-code
+		FactoriaNegocioMall fn = FactoriaNegocioMall.getInstance();
+		SADepartamento sd = fn.crearSADepartamento();
+		TDepartamento tdep = sd.consultarDepartamentoPorId((int) datos);
+		Evento evento;
+		if(tdep != null && tdep.getActivo()) {
+			evento = Evento.VISTA_MODIFICAR_DEPARTAMENTO;
+		}else {
+			evento = Evento.VISTA_FALLO_MODIFICAR_DEPARTAMENTO;
+		}
+		return new Contexto(evento, tdep);
 	}
 }
