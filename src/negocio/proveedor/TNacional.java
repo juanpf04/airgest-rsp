@@ -3,22 +3,27 @@ package negocio.proveedor;
 
 public class TNacional extends TProveedor {
 
-	private int codigoPostal;
+	private String codigoPostal;
 
 	public TNacional() {
 
 	}
 
-	public TNacional(int id, String nombre, boolean activo, int cp) {
+	public TNacional(int id, String nombre, boolean activo, String cp) {
 		super(id, nombre, activo);
 		this.codigoPostal = cp;
 	}
 
-	public int getCodigoPostal() {
+	public String getCodigoPostal() {
 		return this.codigoPostal;
 	}
 
-	public void setCodigoPostal(int cp) {
+	public void setCodigoPostal(String cp) {
 		this.codigoPostal = cp;
+	}
+	
+	@Override
+	public String toString() {
+		return super.toString() + "\nCodigo Postal: " + this.getCodigoPostal();
 	}
 }

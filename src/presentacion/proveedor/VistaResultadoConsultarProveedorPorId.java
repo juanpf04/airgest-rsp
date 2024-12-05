@@ -1,28 +1,40 @@
-/**
- * 
- */
 package presentacion.proveedor;
 
 import javax.swing.JFrame;
 import presentacion.Observador;
 
-/** 
- * <!-- begin-UML-doc -->
- * <!-- end-UML-doc -->
- * @author javia
- * @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
- */
+import java.awt.BorderLayout;
+import java.awt.Font;
+
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+
+import negocio.proveedor.TProveedor;
+import presentacion.UtilidadesP;
+
 public class VistaResultadoConsultarProveedorPorId extends JFrame implements Observador {
 
-	/** 
-	* (non-Javadoc)
-	* @see Observador#actualizar(Object datos)
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
-	public void actualizar(Object datos) {
-		// begin-user-code
-		// TODO Auto-generated method stub
+	private static final long serialVersionUID = 1L;
 
-		// end-user-code
+	public void actualizar(Object datos) {
+		UtilidadesP.setAirGestRSP(this);
+
+		JPanel principal = new JPanel();
+		principal.setLayout(new BorderLayout());
+
+		String proveedor = datos == null ? "" : ((TProveedor) datos).toString();
+
+		JTextArea exito = new JTextArea(proveedor);
+		exito.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		exito.setAlignmentX(CENTER_ALIGNMENT);
+		exito.setEditable(false);
+		principal.add(exito, BorderLayout.PAGE_START);
+
+		this.setContentPane(principal);
+		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		this.setVisible(true);
+		this.setLocation(200, 200);
+		this.pack();
+
 	}
 }

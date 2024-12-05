@@ -3,26 +3,50 @@
  */
 package presentacion.proveedor;
 
-import javax.swing.JFrame;
-import presentacion.Observador;
+import java.awt.BorderLayout;
+import java.awt.Font;
 
-/** 
- * <!-- begin-UML-doc -->
- * <!-- end-UML-doc -->
- * @author javia
- * @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
- */
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+
+import presentacion.Observador;
+import presentacion.UtilidadesP;
+import presentacion.controlador.Contexto;
+import presentacion.controlador.Controlador;
+import presentacion.controlador.Evento;
+
 public class VistaFalloModificarProveedor extends JFrame implements Observador {
 
-	/** 
-	* (non-Javadoc)
-	* @see Observador#actualizar(Object datos)
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
-	public void actualizar(Object datos) {
-		// begin-user-code
-		// TODO Auto-generated method stub
+	private static final long serialVersionUID = 1L;
 
-		// end-user-code
+	public void actualizar(Object datos) {
+		UtilidadesP.setAirGestRSP(this);
+		this.setSize(600, 660);
+
+		JPanel principal = new JPanel();
+		principal.setLayout(new BorderLayout());
+
+		JLabel exito = new JLabel("Modificación de Proveedor fallida! :(");
+		exito.setFont(new Font("Tahoma", Font.PLAIN, 29));
+		exito.setHorizontalAlignment(SwingConstants.CENTER);
+		principal.add(exito, BorderLayout.PAGE_START);
+
+		JLabel imagen = new JLabel();
+		imagen.setIcon(new ImageIcon("recursos/iconos/fallo.png"));
+		principal.add(imagen, BorderLayout.CENTER);
+		
+		Controlador controlador = Controlador.getInstance();
+		controlador.accion(new Contexto(Evento.VISTA_PROVEEDOR));
+
+		this.setContentPane(principal);
+		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		this.setVisible(true);
+		this.setLocation(200, 200);
+		this.setResizable(false);
+		;
+
 	}
 }

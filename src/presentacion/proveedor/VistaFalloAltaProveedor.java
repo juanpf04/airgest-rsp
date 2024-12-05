@@ -5,17 +5,42 @@ package presentacion.proveedor;
 
 import presentacion.Observador;
 
-/** 
- * <!-- begin-UML-doc -->
- * <!-- end-UML-doc -->
- * @author javia
- * @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
- */
-public class VistaFalloAltaProveedor implements Observador {
+import java.awt.BorderLayout;
+import java.awt.Font;
 
-	@Override
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+
+import presentacion.UtilidadesP;
+public class VistaFalloAltaProveedor extends JFrame implements Observador {
+
+	private static final long serialVersionUID = 1L;
+
 	public void actualizar(Object datos) {
-		// TODO Auto-generated method stub
-		
+		UtilidadesP.setAirGestRSP(this);
+		this.setSize(600, 660);
+
+		JPanel principal = new JPanel();
+		principal.setLayout(new BorderLayout());
+
+		JLabel exito = new JLabel("Alta de Proveedor fallida! :(");
+		exito.setFont(new Font("Tahoma", Font.PLAIN, 29));
+		exito.setHorizontalAlignment(SwingConstants.CENTER);
+		principal.add(exito, BorderLayout.PAGE_START);
+
+		JLabel imagen = new JLabel();
+		imagen.setIcon(new ImageIcon("recursos/iconos/fallo.png"));
+		principal.add(imagen, BorderLayout.CENTER);
+
+		this.setContentPane(principal);
+		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		this.setVisible(true);
+		this.setLocation(200, 200);
+		this.setResizable(false);
+		;
+
 	}
 }

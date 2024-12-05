@@ -2,7 +2,6 @@ package presentacion.proveedor;
 
 import javax.swing.JFrame;
 import presentacion.Observador;
-
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -17,8 +16,8 @@ import javax.swing.JTextArea;
 import negocio.proveedor.TProveedor;
 import presentacion.UtilidadesP;
 
-public class VistaResultadoConsultarTodosProveedores extends JFrame implements Observador {
 
+public class VistaConsultarTodosProveedores extends JFrame implements Observador {
 	private static final long serialVersionUID = 1L;
 
 	@Override
@@ -62,5 +61,6 @@ public class VistaResultadoConsultarTodosProveedores extends JFrame implements O
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		this.setVisible(true);
 		this.setLocation(200, 200);
+		this.pack();
 	}
 }

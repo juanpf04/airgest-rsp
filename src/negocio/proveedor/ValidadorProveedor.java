@@ -1,65 +1,41 @@
-/**
- * 
- */
 package negocio.proveedor;
 
-/** 
- * <!-- begin-UML-doc -->
- * <!-- end-UML-doc -->
- * @author javia
- * @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
- */
+
 public class ValidadorProveedor {
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @param datos
-	* @return
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
+	
 	public static boolean comprobarDatos(TProveedor datos) {
-		return false;
+		if(datos instanceof TNacional)
+			return comprobarNombre(datos.getNombre()) && comprobarNacional((TNacional)datos);
+		else
+			return comprobarNombre(datos.getNombre()) && comprobarInternacional((TInternacional)datos);
+	}
+	
+	public static boolean comprobarNombre(String nombre)
+	{
+		return nombre.matches("[a-zA-Z]+");
 	}
 
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @param nacional
-	* @return
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
+	public static boolean comprobarCodigoPostal(String cp)
+	{
+		return cp.matches("[0-9]{5}");
+	}
+	
 	public static boolean comprobarNacional(TNacional nacional) {
-		// begin-user-code
-		// TODO Auto-generated method stub
-		return false;
-		// end-user-code
+		return comprobarCodigoPostal(nacional.getCodigoPostal());
 	}
 
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @param internacional
-	* @return
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
+	public static boolean comprobarPais(String pais)
+	{
+		return pais.matches("[a-zA-Z]+");
+	}
+	
+	public static boolean comprobarImpuestos(double imp)
+	{
+		return imp >= 0;
+	}
+	
 	public static boolean comprobarInternacional(TInternacional internacional) {
-		// begin-user-code
-		// TODO Auto-generated method stub
-		return false;
-		// end-user-code
+		return comprobarPais(internacional.getPais()) && comprobarImpuestos(internacional.getImpuesto());
 	}
 
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @param proveedor
-	* @return
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
-	public static boolean comprobarInfo(TProveedor proveedor) {
-		// begin-user-code
-		// TODO Auto-generated method stub
-		return false;
-		// end-user-code
-	}
 }

@@ -21,7 +21,8 @@ import javax.persistence.NamedQueries;
 		@NamedQuery(name = "negocio.proveedor.Proveedor.findByproductos", query = "select obj from Proveedor obj where :productos MEMBER OF obj.productos "),
 		@NamedQuery(name = "negocio.proveedor.Proveedor.findBynombre", query = "select obj from Proveedor obj where :nombre = obj.nombre "),
 		@NamedQuery(name = "negocio.proveedor.Proveedor.findByactivo", query = "select obj from Proveedor obj where :activo = obj.activo "),
-		@NamedQuery(name = "negocio.proveedor.Proveedor.findByversion", query = "select obj from Proveedor obj where :version = obj.version ") })
+		@NamedQuery(name = "negocio.proveedor.Proveedor.findByversion", query = "select obj from Proveedor obj where :version = obj.version "),
+		@NamedQuery(name = "negocio.proveedor.Proveedor.findAll", query = "select obj from Proveedor obj ")})
 public class Proveedor implements Serializable {
 
 	private static final long serialVersionUID = 0;
@@ -79,18 +80,6 @@ public class Proveedor implements Serializable {
 		return this.productos;
 	}
 
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @param productos
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
-	public void setProductos(Producto... productos) {
-		// begin-user-code
-		// TODO Auto-generated method stub
-
-		// end-user-code
-	}
 
 	public void setProductos(List<Producto> productos) {
 		this.productos = productos;
