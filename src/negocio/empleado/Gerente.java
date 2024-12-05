@@ -48,4 +48,10 @@ public class Gerente extends Empleado implements Serializable {
 		return new TGerente(getId(), getTag(), getHorasMensuales(), getDepartamento().getId(), getActivo(),
 				this.despacho, this.horasExtra);
 	}
+
+	@Override
+	public double calcularSueldo() {
+		double sueldoDepartamento = super.getDepartamento().getSueldoHora();
+		return sueldoDepartamento * super.getHorasMensuales() + (sueldoDepartamento * 1.2) * this.horasExtra;
+	}
 }

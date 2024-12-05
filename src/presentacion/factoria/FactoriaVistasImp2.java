@@ -126,11 +126,23 @@ public class FactoriaVistasImp2 extends FactoriaVistasImp {
 			case VISTA_CONSULTAR_EMPLEADO_POR_ID:
 				vista = new VistaConsultarEmpleadoPorId();
 				break;
+			case VISTA_CONSULTAR_EMPLEADOS_POR_DEPARTAMENTO:
+				vista = new VistaConsultarEmpleadosDeUnDepartamento();
+				break;
+			case VISTA_RESULTADO_CONSULTAR_EMPLEADO_POR_ID:
+				vista = new VistaResultadoConsultarEmpleadoPorId();
+				break;
 			case VISTA_RESULTADO_CONSULTAR_EMPLEADOS:
 				vista = new VistaResultadoConsultarEmpleados();
 				break;
+			case VISTA_RESULTADO_CONSULTAR_EMPLEADOS_POR_DEPARTAMENTO:
+				vista = new VistaResultadoConsultarEmpleadosDeUnDepartamento();
+				break;
 			case VISTA_MODIFICAR_EMPLEADO:
 				vista = new VistaModificarEmpleado();
+				break;
+			case VISTA_MODIFICAR_EMPLEADO_ID:
+				vista = new VistaModificarEmpleadoId();
 				break;
 			case VISTA_EXITO_MODIFICAR_EMPLEADO:
 				vista = new VistaExitoModificarEmpleado();

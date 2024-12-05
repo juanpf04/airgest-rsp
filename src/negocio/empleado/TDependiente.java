@@ -33,4 +33,9 @@ public class TDependiente extends TEmpleado {
 	public void setNoches(boolean noches) {
 		this.noches = noches;
 	}
+	
+	@Override
+	public String toString() {
+		return super.toString()  + "\n Seccion: " + seccion + "\n Noches: " + noches + "\n";
+	}
 }

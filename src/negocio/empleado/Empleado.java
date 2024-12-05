@@ -25,8 +25,9 @@ import javax.persistence.Version;
 		@NamedQuery(name = "negocio.empleado.Empleado.findBytag", query = "select obj from Empleado obj where :tag = obj.tag "),
 		@NamedQuery(name = "negocio.empleado.Empleado.findByhorasMensuales", query = "select obj from Empleado obj where :horasMensuales = obj.horasMensuales "),
 		@NamedQuery(name = "negocio.empleado.Empleado.findByactivo", query = "select obj from Empleado obj where :activo = obj.activo "),
-		@NamedQuery(name = "negocio.empleado.Empleado.findByversion", query = "select obj from Empleado obj where :version = obj.version ") })
-public class Empleado implements Serializable {
+		@NamedQuery(name = "negocio.empleado.Empleado.findByversion", query = "select obj from Empleado obj where :version = obj.version "),
+		@NamedQuery(name = "negocio.empleado.Empleado.findAll", query = "select obj from Empleado obj") })
+public abstract class Empleado implements Serializable {
 
 	private static final long serialVersionUID = 0;
 
@@ -77,19 +78,6 @@ public class Empleado implements Serializable {
 		return this.ventas;
 	}
 
-	/** 
-	* <!-- begin-UML-doc -->
-	* <!-- end-UML-doc -->
-	* @param ventas
-	* @generated "UML a JPA (com.ibm.xtools.transform.uml2.ejb3.java.jpa.internal.UML2JPATransform)"
-	*/
-	public void setVentas(Venta... ventas) {
-		// begin-user-code
-		// TODO Auto-generated method stub
-
-		// end-user-code
-	}
-
 	public int getHorasMensuales() {
 		return this.horasMensuales;
 	}
@@ -126,4 +114,5 @@ public class Empleado implements Serializable {
 		return new TEmpleado(this.id, this.tag, this.horasMensuales, this.departamento.getId(), this.activo);
 	}
 
+	public abstract double calcularSueldo();
 }

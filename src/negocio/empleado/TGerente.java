@@ -33,4 +33,9 @@ public class TGerente extends TEmpleado {
 	public void setHorasExtra(int horasExtra) {
 		this.horasExtra = horasExtra;
 	}
+	
+	@Override
+	public String toString() {
+		return super.toString()  + "\n Despacho: " + despacho + "\n Horas Extra: " + horasExtra + "\n";
+	}
 }
