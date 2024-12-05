@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import integracion.factoria.EMFSingleton;
 import negocio.empleado.Empleado;
+import negocio.empleado.Gerente;
 import negocio.empleado.TEmpleado;
 import negocio.empleado.TGerente;
 import negocio.factoria.FactoriaNegocioMall;
@@ -59,7 +60,7 @@ public class SADepartamentoImpTest {
 		em.getTransaction().begin();
 		
 		Departamento dep = em.find(Departamento.class, 1);
-		Empleado emp = new Empleado(new TGerente(0, 1, 160, dep.getId(), false, 1, 10));
+		Empleado emp = new Gerente(new TGerente(0, 1, 160, dep.getId(), false, 1, 10));
 		emp.setDepartamento(dep);
 		dep.getEmpleados().add(emp);
 		em.persist(emp);
