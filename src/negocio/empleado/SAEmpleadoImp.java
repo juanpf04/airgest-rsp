@@ -33,6 +33,7 @@ public class SAEmpleadoImp implements SAEmpleado {
 		if (!ValidadorEmpleado.comprobarDatos(templeado))
 			return -1;
 		EntityManager em = null;
+		int id = -1;
 		try {
 			em = EMFSingleton.getInstance().getEMF().createEntityManager();
 
@@ -55,34 +56,45 @@ public class SAEmpleadoImp implements SAEmpleado {
 				em.persist(empleado);
 				em.getTransaction().commit();
 
-				return empleado.getId();
+				id = empleado.getId();
+				
 
 			} else {
 				empleado = lista.get(0);
 				if (empleado.getActivo()) {
 					em.getTransaction().rollback();
-					return -1;
+					return id;
 					
 				} else {
 					if(templeado instanceof TGerente && empleado instanceof Gerente){
 						((Gerente)empleado).setHorasExtra(((TGerente) templeado).getHorasExtra());
 						((Gerente)empleado).setDespacho(((TGerente) templeado).getDespacho());
+						empleado.getDepartamento().getEmpleados().remove(empleado);
+						empleado.setActivo(true);
+						empleado.setDepartamento(departamento);
+						empleado.setHorasMensuales(templeado.getHorasMensuales());
+						empleado.setTag(templeado.getTag());
+						departamento.getEmpleados().add(empleado);
+						em.persist(empleado);
+						em.getTransaction().commit();
+						id = empleado.getId();
 					}
 					else if (templeado instanceof TDependiente && empleado instanceof Dependiente){
 						((Dependiente)empleado).setSeccion(((TDependiente) templeado).getSeccion());
 						((Dependiente)empleado).setNoches(((TDependiente) templeado).getNoches());
+						empleado.getDepartamento().getEmpleados().remove(empleado);
+						empleado.setActivo(true);
+						empleado.setDepartamento(departamento);
+						empleado.setHorasMensuales(templeado.getHorasMensuales());
+						empleado.setTag(templeado.getTag());
+						departamento.getEmpleados().add(empleado);
+						em.persist(empleado);
+						em.getTransaction().commit();
+						id = empleado.getId();
 					}
 					else em.getTransaction().rollback();
 					//elimino del antiguo dpto
-					empleado.getDepartamento().getEmpleados().remove(empleado);
-					empleado.setActivo(true);
-					empleado.setDepartamento(departamento);
-					empleado.setHorasMensuales(templeado.getHorasMensuales());
-					empleado.setTag(templeado.getTag());
-					departamento.getEmpleados().add(empleado);
-					em.persist(empleado);
-					em.getTransaction().commit();
-					return empleado.getId();
+					
 				}
 			}
 
@@ -94,6 +106,8 @@ public class SAEmpleadoImp implements SAEmpleado {
 			if (em != null)
 				em.close();
 		}
+		
+		return id;
 	}
 
 	public boolean bajaEmpleado(int id) {
@@ -213,19 +227,20 @@ public class SAEmpleadoImp implements SAEmpleado {
 					
 					empleado.setDepartamento(departamento);
 					departamento.getEmpleados().add(empleado);
-					if (templeado instanceof TGerente) {
+					if (templeado instanceof TGerente && listaEmpleados.get(0) instanceof Gerente) {
 						TGerente tgerente = (TGerente) templeado;
 
 						((Gerente) empleado).setDespacho(tgerente.getDespacho());
 						((Gerente) empleado).setHorasExtra(tgerente.getHorasExtra());
-					} else {
+						exito = true;
+					} else if (templeado instanceof TDependiente && listaEmpleados.get(0) instanceof Dependiente) {
 						TDependiente tdependiente = (TDependiente) templeado;
 
 						((Dependiente) empleado).setNoches(tdependiente.getNoches());
 						((Dependiente) empleado).setSeccion(tdependiente.getSeccion());
-
+						exito = true;
 					}
-					exito = true;
+					
 				}
 
 			}
