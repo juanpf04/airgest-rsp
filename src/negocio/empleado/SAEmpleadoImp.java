@@ -63,6 +63,15 @@ public class SAEmpleadoImp implements SAEmpleado {
 					em.getTransaction().rollback();
 					return -1;
 				} else {
+					if(templeado instanceof TGerente && empleado instanceof Gerente){
+						((Gerente)empleado).setHorasExtra(((TGerente) templeado).getHorasExtra());
+						((Gerente)empleado).setDespacho(((TGerente) templeado).getDespacho());
+					}
+					else if (templeado instanceof TDependiente && empleado instanceof Dependiente){
+						((Dependiente)empleado).setSeccion(((TDependiente) templeado).getSeccion());
+						((Dependiente)empleado).setNoches(((TDependiente) templeado).getNoches());
+					}
+					else em.getTransaction().rollback();
 					//elimino del antiguo dpto
 					empleado.getDepartamento().getEmpleados().remove(empleado);
 					empleado.setActivo(true);
