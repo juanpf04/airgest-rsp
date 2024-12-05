@@ -55,7 +55,7 @@ public class VistaModificarDepartamento extends JFrame implements Observador {
 		
 		JLabel etiquetaNombre = new JLabel("nombre:");
 		etiquetaNombre.setFont(new Font("Tahoma", Font.BOLD, 25));
-		JTextField textoNombre = new JTextField();
+		JTextField textoNombre = new JTextField(tDep.getNombre());
 		textoNombre.setToolTipText("letras-numeros");
 
 		textoNombre.setMaximumSize(new Dimension(200, 30));
@@ -69,7 +69,7 @@ public class VistaModificarDepartamento extends JFrame implements Observador {
 
 		JLabel etiquetaSala = new JLabel("sala");
 		etiquetaSala.setFont(new Font("Tahoma", Font.BOLD, 25));
-		JTextField textoSala = new JTextField();
+		JTextField textoSala = new JTextField(""+tDep.getSala());
 		textoSala.setToolTipText("NUMERO");
 		textoSala.setMaximumSize(new Dimension(200, 30));
 		textoSala.setMinimumSize(new Dimension(200, 30));
@@ -78,7 +78,7 @@ public class VistaModificarDepartamento extends JFrame implements Observador {
 		
 		JLabel etiquetaSueldoHora = new JLabel("sueldo/hora");
 		etiquetaSueldoHora.setFont(new Font("Tahoma", Font.BOLD, 25));
-		JTextField textoSueldoHora = new JTextField();
+		JTextField textoSueldoHora = new JTextField(""+tDep.getSueldoHora());
 		textoSueldoHora.setToolTipText("{numero double");
 		textoSueldoHora.setMaximumSize(new Dimension(200, 30));
 		textoSueldoHora.setMinimumSize(new Dimension(200, 30));

@@ -7,7 +7,7 @@ public class ValidadorDepartamento {
 		
 		String nombreDpt = departamento.getNombre();
 		boolean condicion = (departamento.getSala() > 0) && (departamento.getSueldoHora() > 0);
-		return nombreDpt.matches("[a-zA-Z]+[0-9]+") && condicion ; //el nombre del departamento es una cadena con letras y numeros, sin orden definido 
+		return nombreDpt.matches("[a-zA-Z]+") && condicion ; //el nombre del departamento es una cadena con letras y numeros, sin orden definido 
 		
 	}
 }
