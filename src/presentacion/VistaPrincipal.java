@@ -75,8 +75,9 @@ public class VistaPrincipal extends JFrame implements Observador {
 		Controlador ctrl = Controlador.getInstance();
 		
 		JLabel imagen = new JLabel();
-        imagen.setIcon(new ImageIcon("recursos/iconos/team.jpg"));
+        imagen.setIcon(new ImageIcon("recursos/iconos/team2.jpeg"));
         principal.add(imagen, BorderLayout.PAGE_END);
+
 		
 
 		//-------------------------------------------

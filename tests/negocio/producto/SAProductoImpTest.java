@@ -15,7 +15,9 @@ import integracion.factoria.EMFSingleton;
 import negocio.departamento.Departamento;
 import negocio.departamento.TDepartamento;
 import negocio.empleado.Empleado;
+import negocio.empleado.Gerente;
 import negocio.empleado.TEmpleado;
+import negocio.empleado.TGerente;
 import negocio.factoria.FactoriaNegocioMall;
 import negocio.marca.Marca;
 import negocio.marca.TMarca;
@@ -115,7 +117,7 @@ public class SAProductoImpTest {
 		em.getTransaction().begin();
 		Departamento d1 = new Departamento(new TDepartamento(1,  "El_Macas", 1, 12.50, true));
 		em.persist(d1);
-		Empleado e1 = new Empleado(new TEmpleado(1, 12345, 40, 1, true));
+		Empleado e1 = new Gerente(new TGerente(1, 12345, 40, 1, true, 10, 10));
 		em.persist(e1);
 		Venta v1 = new Venta(new TVenta(1, 5.99, "01-12-2024", 1));
 		em.persist(v1);
