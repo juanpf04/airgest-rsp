@@ -87,7 +87,7 @@ public class VistaCarritoVenta extends JFrame implements Observador {
 		cerrar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				dispose();
+				//dispose();
 				LocalDate fechaActual = LocalDate.now();
 				DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 				String fechaHoy = fechaActual.format(formato);
