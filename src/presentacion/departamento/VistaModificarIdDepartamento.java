@@ -24,9 +24,7 @@ import presentacion.controlador.Evento;
 
 
 public class VistaModificarIdDepartamento extends JFrame implements Observador {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 
 	public void actualizar(Object datos) {

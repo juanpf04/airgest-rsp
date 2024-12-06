@@ -29,7 +29,8 @@ import presentacion.controlador.Evento;
 
 public class VistaAltaDepartamento extends JFrame implements Observador {
 
-	
+	private static final long serialVersionUID = 1L;
+
 	public void actualizar(Object datos) {
 		UtilidadesP.setAirGestRSP(this);
 		this.setSize(400, 240);

@@ -7,7 +7,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -27,6 +26,8 @@ import presentacion.controlador.Controlador;
 import presentacion.controlador.Evento;
 
 public class VistaModificarDepartamento extends JFrame implements Observador {
+
+	private static final long serialVersionUID = 1L;
 
 	public void actualizar(Object datos) {
 		UtilidadesP.setAirGestRSP(this);
@@ -110,13 +111,14 @@ public class VistaModificarDepartamento extends JFrame implements Observador {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try{
+					dispose();
 					String nombreLeido = textoNombre.getText();
 					int salaLeida = Integer.valueOf(textoSala.getText());
 					double sueldoLeido = Double.valueOf(textoSueldoHora.getText());
 					TDepartamento transfer = new TDepartamento(tDep.getId(), nombreLeido, salaLeida, sueldoLeido, true);
 					controlador.accion(new Contexto(Evento.MODIFICAR_DEPARTAMENTO, transfer));
-					
 				}catch(Exception ex){
+					dispose();
 					controlador.accion(new Contexto(Evento.VISTA_FALLO_MODIFICAR_DEPARTAMENTO, new TDepartamento()));
 				}
 			}

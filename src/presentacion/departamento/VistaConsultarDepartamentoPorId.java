@@ -25,6 +25,9 @@ import presentacion.controlador.Controlador;
 import presentacion.controlador.Evento;
 
 public class VistaConsultarDepartamentoPorId extends JFrame implements Observador {
+
+	private static final long serialVersionUID = 1L;
+
 	public void actualizar(Object datos) {
 		UtilidadesP.setAirGestRSP(this);
 		this.setSize(540, 180);

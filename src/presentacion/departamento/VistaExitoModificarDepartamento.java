@@ -18,6 +18,8 @@ import presentacion.controlador.Evento;
 
 public class VistaExitoModificarDepartamento extends JFrame implements Observador {
 
+	private static final long serialVersionUID = 1L;
+
 	public void actualizar(Object datos) {
 		UtilidadesP.setAirGestRSP(this);
 		this.setSize(500, 430);

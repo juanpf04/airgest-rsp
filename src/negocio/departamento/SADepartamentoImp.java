@@ -256,7 +256,7 @@ public class SADepartamentoImp implements SADepartamento {
 						em.getTransaction().commit();
 				}else{
 					em.getTransaction().rollback();
-					return -1;
+					nomina = -1;
 				}
 				
 			}catch(Exception e){
@@ -268,7 +268,7 @@ public class SADepartamentoImp implements SADepartamento {
 				
 				if(em != null) em.close();
 			}
-		}
+		}else nomina = -1;
 		
 		return nomina;
 	}

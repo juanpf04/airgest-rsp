@@ -15,9 +15,9 @@ import presentacion.UtilidadesP;
 
 
 public class VistaExitoBajaDepartamento extends JFrame implements Observador {
-	
-	
-	//NO SE PUEDE PROBAR
+
+	private static final long serialVersionUID = 1L;
+
 	public void actualizar(Object datos) {
 		UtilidadesP.setAirGestRSP(this);
 		this.setSize(480, 430);

@@ -2,8 +2,6 @@ package presentacion.controlador.comandos.departamento;
 
 import presentacion.controlador.comandos.Comando;
 
-import java.util.ArrayList;
-
 import negocio.departamento.SADepartamento;
 import negocio.departamento.TDepartamento;
 import negocio.factoria.FactoriaNegocioMall;

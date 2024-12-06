@@ -4,9 +4,6 @@ import presentacion.controlador.comandos.Comando;
 
 import java.util.List;
 
-import negocio.contrato.SAContrato;
-import negocio.contrato.TContrato;
-import negocio.factoria.FactoriaNegocio;
 import negocio.factoria.FactoriaNegocioMall;
 import negocio.venta.SAVenta;
 import negocio.venta.TVenta;
