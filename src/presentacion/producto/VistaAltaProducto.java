@@ -141,7 +141,7 @@ public class VistaAltaProducto extends JFrame implements Observador {
 					int stockLeido = Integer.parseInt(textoStock.getText());
 					double precioLeido = Double.parseDouble(textoPrecio.getText());
 					int refLeido = Integer.parseInt(textoRef.getText());
-					int idMarcaLeido = Integer.parseInt(textoRef.getText());
+					int idMarcaLeido = Integer.parseInt(textoIdMarca.getText());
 					TProducto transfer = new TProducto(0, nombreLeido, stockLeido, precioLeido, refLeido, idMarcaLeido, true);
 					controlador.accion(new Contexto(Evento.ALTA_PRODUCTO, transfer));
 				} catch (NumberFormatException n) {

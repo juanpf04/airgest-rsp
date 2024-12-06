@@ -56,7 +56,7 @@ public class VistaAltaDepartamento extends JFrame implements Observador {
 		JLabel etiquetaNombre = new JLabel("nombre:");
 		etiquetaNombre.setFont(new Font("Tahoma", Font.BOLD, 25));
 		JTextField textoNombre = new JTextField();
-		textoNombre.setToolTipText("letras-numeros");
+		textoNombre.setToolTipText("letras");
 
 		textoNombre.setMaximumSize(new Dimension(200, 30));
 		textoNombre.setMinimumSize(new Dimension(200, 30));

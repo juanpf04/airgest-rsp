@@ -250,8 +250,7 @@ public class SADepartamentoImp implements SADepartamento {
 						em.lock(emp, LockModeType.OPTIMISTIC);
 						
 						if (emp.getActivo()){
-							
-							//nomina += emp.calcularSueldo();
+							nomina += emp.calcularSueldo();
 						}
 					}
 						em.getTransaction().commit();
