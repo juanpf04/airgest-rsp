@@ -40,6 +40,7 @@ public class VistaExitoVincularProveedorProducto extends JFrame implements Obser
 		this.setVisible(true);
 		this.setLocation(200, 200);
 		this.setResizable(false);
+		this.pack();
 
 	}
 }
