@@ -3,7 +3,6 @@ package negocio.venta;
 
 import java.util.List;
 import negocio.empleado.TEmpleado;
-import negocio.lineaContrato.TLineaContrato;
 
 import java.util.HashMap;
 import negocio.producto.TProducto;

@@ -3,8 +3,6 @@ package negocio.venta;
 import java.io.Serializable;
 
 import javax.persistence.Embeddable;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.MapsId;
 
 @Embeddable
 public class Clave implements Serializable {

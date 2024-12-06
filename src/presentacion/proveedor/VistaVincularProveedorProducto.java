@@ -15,7 +15,6 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
-import negocio.modeloAerolinea.TModeloAerolinea;
 import presentacion.Observador;
 import presentacion.UtilidadesP;
 import presentacion.controlador.Contexto;
