@@ -69,7 +69,7 @@ public class VistaModificarEmpleadoId extends JFrame implements Observador {
 					int id = Integer.parseInt(textoId.getText());
 					controlador.accion(new Contexto(Evento.MODIFICAR_EMPLEADO_ID, id));
 				} catch (NumberFormatException n) {
-					controlador.accion(new Contexto(Evento.MODIFICAR_EMPLEADO_ID, 0));
+					controlador.accion(new Contexto(Evento.VISTA_FALLO_MODIFICAR_EMPLEADO));
 				}
 			}
 		});

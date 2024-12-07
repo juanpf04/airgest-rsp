@@ -83,7 +83,7 @@ public class VistaModificarMarcaId extends JFrame implements Observador {
                     controlador.accion(new Contexto(Evento.MODIFICAR_MARCA_ID, idLeido));
                 } catch (NumberFormatException n) {
                     dispose();
-                    controlador.accion(new Contexto(Evento.MODIFICAR_MARCA_ID, 0));
+                    controlador.accion(new Contexto(Evento.VISTA_FALLO_MODIFICAR_MARCA));
                 }
 
             }

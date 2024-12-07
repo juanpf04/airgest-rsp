@@ -106,10 +106,16 @@ public class VistaAltaMarca extends JFrame implements Observador {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                String nombreLeido = textoA.getText();
-                String origenLeido = textoB.getText();
-                TMarca transfer = new TMarca(0, nombreLeido, origenLeido, true);
-                ctrl.accion(new Contexto(Evento.ALTA_MARCA, transfer));
+            	try{
+            		String nombreLeido = textoA.getText();
+                    String origenLeido = textoB.getText();
+                    TMarca transfer = new TMarca(0, nombreLeido, origenLeido, true);
+                    ctrl.accion(new Contexto(Evento.ALTA_MARCA, transfer));
+            		
+            	}catch(Exception ex){
+            		ctrl.accion(new Contexto(Evento.VISTA_FALLO_ALTA_MARCA));
+            	}
+                
             }
         });
 

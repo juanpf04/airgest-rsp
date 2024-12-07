@@ -84,7 +84,7 @@ public class VistaModificarIdDepartamento extends JFrame implements Observador {
 					controlador.accion(new Contexto(Evento.MODIFICAR_DEPARTAMENTO_ID, idLeido));
 				} catch (NumberFormatException n) {
 					dispose();
-					controlador.accion(new Contexto(Evento.MODIFICAR_DEPARTAMENTO_ID, 0));
+					controlador.accion(new Contexto(Evento.VISTA_FALLO_MODIFICAR_DEPARTAMENTO));
 				}
 
 			}

@@ -80,7 +80,7 @@ public class VistaModificarIdProducto extends JFrame implements Observador {
                     int id = Integer.parseInt(textoId.getText());
                     controlador.accion(new Contexto(Evento.MODIFICAR_PRODUCTO_ID, id));
                 } catch (NumberFormatException n) {
-                    controlador.accion(new Contexto(Evento.MODIFICAR_PRODUCTO_ID, 0));
+                    controlador.accion(new Contexto(Evento.VISTA_FALLO_MODIFICAR_PRODUCTO));
                 }
             }
         });

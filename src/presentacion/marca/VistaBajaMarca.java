@@ -70,7 +70,7 @@ public class VistaBajaMarca extends JFrame implements Observador {
                     int id = Integer.parseInt(textoId.getText());
                     controlador.accion(new Contexto(Evento.BAJA_MARCA, id));
                 } catch (NumberFormatException n) {
-                    controlador.accion(new Contexto(Evento.BAJA_MARCA, 0));
+                    controlador.accion(new Contexto(Evento.VISTA_FALLO_BAJA_MARCA));
                 }
             }
 

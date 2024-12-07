@@ -145,8 +145,7 @@ public class VistaAltaProducto extends JFrame implements Observador {
 					TProducto transfer = new TProducto(0, nombreLeido, stockLeido, precioLeido, refLeido, idMarcaLeido, true);
 					controlador.accion(new Contexto(Evento.ALTA_PRODUCTO, transfer));
 				} catch (NumberFormatException n) {
-					TProducto producto = new TProducto(0, "", 0, 0, 0, 0, false);
-					controlador.accion(new Contexto(Evento.ALTA_PRODUCTO, producto));
+					controlador.accion(new Contexto(Evento.VISTA_FALLO_ALTA_PRODUCTO));
 				}
 			}
 

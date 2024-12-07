@@ -142,7 +142,7 @@ public class VistaModificarProducto extends JFrame implements Observador {
                     dispose();
                 } catch (NumberFormatException n) {
                     dispose();
-                    controlador.accion(new Contexto(Evento.MODIFICAR_PRODUCTO, new TProducto()));
+                    controlador.accion(new Contexto(Evento.VISTA_FALLO_MODIFICAR_PRODUCTO));
                 }
             }
         });

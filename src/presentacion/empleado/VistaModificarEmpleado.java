@@ -265,7 +265,7 @@ public class VistaModificarEmpleado extends JFrame implements Observador {
 						ctrl.accion(new Contexto(Evento.MODIFICAR_EMPLEADO, transfer));
 					} catch (Exception ex) {
 						dispose();
-						ctrl.accion(new Contexto(Evento.VISTA_FALLO_MODIFICAR_EMPLEADO, null));
+						ctrl.accion(new Contexto(Evento.VISTA_FALLO_MODIFICAR_EMPLEADO));
 					}
 				}
 

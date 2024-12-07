@@ -101,7 +101,7 @@ public class VistaVincularProveedorProducto extends JFrame implements Observador
 					parametros[1] = idProveedorLeido;
 					controlador.accion(new Contexto(Evento.VINCULAR_PROVEEDOR, parametros));
 				} catch (NumberFormatException n) {
-					controlador.accion(new Contexto(Evento.VISTA_FALLO_VINCULAR_PROVEEDOR)); //creo
+					controlador.accion(new Contexto(Evento.VISTA_FALLO_VINCULAR_PROVEEDOR)); 
 				}
 			}
 

@@ -89,7 +89,7 @@ public class VistaBajaProducto extends JFrame implements Observador {
 					int idProducto = Integer.parseInt(textoId.getText());
 					controlador.accion(new Contexto(Evento.BAJA_PRODUCTO, idProducto));
 				} catch (NumberFormatException n) {
-					controlador.accion(new Contexto(Evento.BAJA_PRODUCTO, 0)); // O manejar un error específico
+					controlador.accion(new Contexto(Evento.VISTA_FALLO_BAJA_PRODUCTO));
 				}
 			}
 		});

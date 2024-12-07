@@ -97,7 +97,7 @@ public class VistaModificarMarca extends JFrame implements Observador {
                     dispose();
                 } catch (NumberFormatException n) {
                     dispose();
-                    controlador.accion(new Contexto(Evento.MODIFICAR_MARCA, new TMarca()));
+                    controlador.accion(new Contexto(Evento.VISTA_FALLO_MODIFICAR_MARCA));
                 }
 
             }

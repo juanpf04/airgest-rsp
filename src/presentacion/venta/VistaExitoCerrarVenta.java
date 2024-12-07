@@ -2,8 +2,6 @@
 package presentacion.venta;
 
 import java.awt.BorderLayout;
-
-
 import java.awt.Font;
 
 import javax.swing.ImageIcon;
@@ -14,9 +12,6 @@ import javax.swing.SwingConstants;
 
 import presentacion.Observador;
 import presentacion.UtilidadesP;
-import presentacion.controlador.Contexto;
-import presentacion.controlador.Controlador;
-import presentacion.controlador.Evento;
 
 public class VistaExitoCerrarVenta extends JFrame implements Observador {
 
@@ -40,12 +35,6 @@ public class VistaExitoCerrarVenta extends JFrame implements Observador {
 
 		this.setContentPane(principal);
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		this.addWindowListener(new java.awt.event.WindowAdapter() { //LO NUEVO
-		    @Override
-		    public void windowClosing(java.awt.event.WindowEvent e) {
-	            Controlador.getInstance().accion(new Contexto(Evento.VISTA_VENTA, null));
-	        }
-		});
 		this.setVisible(true);
 		this.setLocation(200, 200);
 		this.setResizable(false);
