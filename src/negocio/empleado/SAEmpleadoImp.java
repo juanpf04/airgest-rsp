@@ -211,12 +211,13 @@ public class SAEmpleadoImp implements SAEmpleado {
 
 				Departamento departamento = em.find(Departamento.class, tEmpleado.getIdDepartamento(),
 						LockModeType.OPTIMISTIC_FORCE_INCREMENT);
-				Empleado empleado = em.find(Empleado.class, tEmpleado.getId(), LockModeType.OPTIMISTIC);
+				Empleado empleado = em.find(Empleado.class, tEmpleado.getId());
 
 				if (empleado != null && departamento != null && empleado.getActivo() && departamento.getActivo()) {
 
 					List<Empleado> empleados = em
 							.createNamedQuery("negocio.empleado.Empleado.findBytag", Empleado.class)
+							.setLockMode(LockModeType.OPTIMISTIC)
 							.setParameter("tag", tEmpleado.getTag()).getResultList();
 
 					if (empleados.size() == 0 || empleados.get(0).equals(empleado)) {
