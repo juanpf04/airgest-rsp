@@ -1,4 +1,3 @@
-
 package negocio.empleado;
 
 import javax.persistence.Column;
@@ -52,7 +51,6 @@ public abstract class Empleado implements Serializable {
 	private int version;
 
 	public Empleado() {
-
 	}
 
 	public Empleado(TEmpleado transfer) {

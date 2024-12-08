@@ -24,7 +24,7 @@ import javax.persistence.NamedQueries;
 		@NamedQuery(name = "negocio.marca.Marca.findByorigen", query = "select obj from Marca obj where :origen = obj.origen "),
 		@NamedQuery(name = "negocio.marca.Marca.findByactivo", query = "select obj from Marca obj where :activo = obj.activo "),
 		@NamedQuery(name = "negocio.marca.Marca.findByversion", query = "select obj from Marca obj where :version = obj.version "),
-		@NamedQuery(name = "negocio.marca.Marca.findAll", query = "select obj from Marca obj ")})
+		@NamedQuery(name = "negocio.marca.Marca.findAll", query = "select obj from Marca obj ") })
 public class Marca implements Serializable {
 
 	private static final long serialVersionUID = 0;

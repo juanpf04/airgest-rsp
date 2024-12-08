@@ -84,10 +84,10 @@ public class TProducto {
 	public void setIdMarca(int idMarca) {
 		this.idMarca = idMarca;
 	}
-	
+
 	@Override
-	public String toString(){
-		return "id: " + this.id + "\nnombre: " + this.nombre + "\nstock: " + this.stock + "\nprecio: " + this.precio + 
-				"\nref: " + this.ref + "\nidMarca: " + this.idMarca + "\nactivo: " + this.activo + "\n";
+	public String toString() {
+		return "id: " + this.id + "\nnombre: " + this.nombre + "\nstock: " + this.stock + "\nprecio: " + this.precio
+				+ "\nref: " + this.ref + "\nidMarca: " + this.idMarca + "\nactivo: " + this.activo + "\n";
 	}
 }

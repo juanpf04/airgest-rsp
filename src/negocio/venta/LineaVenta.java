@@ -43,14 +43,11 @@ public class LineaVenta implements Serializable {
 	private int version;
 
 	public LineaVenta() {
-
 	}
 
 	public LineaVenta(TLineaVenta transfer) {
-		// TODO Clave???
 		this.cantidad = transfer.getCantidad();
 		this.precio = transfer.getPrecio();
-		//this.id = new Clave(transfer.getIdVenta(), transfer.getIdProducto());
 	}
 
 	public Clave getId() {

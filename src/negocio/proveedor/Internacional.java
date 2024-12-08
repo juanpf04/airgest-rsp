@@ -1,4 +1,3 @@
-
 package negocio.proveedor;
 
 import javax.persistence.Entity;
@@ -19,7 +18,6 @@ public class Internacional extends Proveedor implements Serializable {
 	private Double impuesto;
 
 	public Internacional() {
-
 	}
 
 	public Internacional(TInternacional transfer) {

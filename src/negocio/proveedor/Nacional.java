@@ -1,4 +1,3 @@
-
 package negocio.proveedor;
 
 import javax.persistence.Entity;
@@ -14,7 +13,6 @@ public class Nacional extends Proveedor implements Serializable {
 	private String codigoPostal;
 
 	public Nacional() {
-
 	}
 
 	public Nacional(TNacional transfer) {

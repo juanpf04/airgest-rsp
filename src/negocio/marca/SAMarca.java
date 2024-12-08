@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface SAMarca {
 
-	public int altaMarca(TMarca marca);
+	public int altaMarca(TMarca tMarca);
 
 	public boolean bajaMarca(int id);
 
@@ -12,5 +12,5 @@ public interface SAMarca {
 
 	public List<TMarca> consultarMarcas();
 
-	public boolean modificarMarca(TMarca marca);
+	public boolean modificarMarca(TMarca tMarca);
 }

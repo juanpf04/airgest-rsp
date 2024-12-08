@@ -1,15 +1,14 @@
-
 package negocio.venta;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class TCarritoVenta {
-	
+
 	private int idEmpleado;
-	
+
 	private List<TLineaVenta> lineasVenta;
-	
+
 	private TVenta tVenta;
 
 	public TCarritoVenta(int idEmpleado) {
@@ -19,7 +18,6 @@ public class TCarritoVenta {
 	}
 
 	public TCarritoVenta() {
-		
 	}
 
 	public int getIdEmpleado() {
@@ -39,16 +37,11 @@ public class TCarritoVenta {
 	}
 
 	public void anyadirLinea(TLineaVenta linea) {
-		lineasVenta.add(linea);
+		this.lineasVenta.add(linea);
 	}
 
 	public void eliminarLinea(int idProducto) {
-		for (TLineaVenta linea : lineasVenta){
-			if (linea.getIdProducto() == idProducto){
-				this.lineasVenta.remove(linea);
-				return;
-			}
-		}
+		this.lineasVenta.removeIf(l -> l.getIdProducto() == idProducto);
 	}
 
 	public List<TLineaVenta> getLineasVenta() {

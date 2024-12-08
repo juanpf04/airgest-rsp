@@ -22,7 +22,7 @@ import javax.persistence.NamedQueries;
 		@NamedQuery(name = "negocio.proveedor.Proveedor.findBynombre", query = "select obj from Proveedor obj where :nombre = obj.nombre "),
 		@NamedQuery(name = "negocio.proveedor.Proveedor.findByactivo", query = "select obj from Proveedor obj where :activo = obj.activo "),
 		@NamedQuery(name = "negocio.proveedor.Proveedor.findByversion", query = "select obj from Proveedor obj where :version = obj.version "),
-		@NamedQuery(name = "negocio.proveedor.Proveedor.findAll", query = "select obj from Proveedor obj ")})
+		@NamedQuery(name = "negocio.proveedor.Proveedor.findAll", query = "select obj from Proveedor obj ") })
 public class Proveedor implements Serializable {
 
 	private static final long serialVersionUID = 0;
@@ -49,7 +49,6 @@ public class Proveedor implements Serializable {
 	}
 
 	public Proveedor() {
-
 	}
 
 	public Integer getId() {
@@ -79,7 +78,6 @@ public class Proveedor implements Serializable {
 	public List<Producto> getProductos() {
 		return this.productos;
 	}
-
 
 	public void setProductos(List<Producto> productos) {
 		this.productos = productos;

@@ -1,4 +1,3 @@
-
 package negocio.empleado;
 
 public class TEmpleado {
@@ -14,7 +13,6 @@ public class TEmpleado {
 	private int idDepartamento;
 
 	public TEmpleado() {
-
 	}
 
 	public TEmpleado(int id, int tag, int horasMensuales, int idDepartamento, boolean activo) {
@@ -64,9 +62,10 @@ public class TEmpleado {
 	public void setIdDepartamento(int idDepartamento) {
 		this.idDepartamento = idDepartamento;
 	}
-	
+
 	@Override
 	public String toString() {
-		return " id: " + id + "\n Tag: " + tag + "\n Horas Mensuales: " + horasMensuales + "\n Id Departamento: " + idDepartamento + "\n activo: " + activo + "\n";
+		return " id: " + id + "\n Tag: " + tag + "\n Horas Mensuales: " + horasMensuales + "\n Id Departamento: "
+				+ idDepartamento + "\n activo: " + activo + "\n";
 	}
 }

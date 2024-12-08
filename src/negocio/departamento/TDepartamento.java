@@ -1,4 +1,3 @@
-
 package negocio.departamento;
 
 public class TDepartamento {
@@ -14,7 +13,6 @@ public class TDepartamento {
 	private boolean activo;
 
 	public TDepartamento() {
-
 	}
 
 	public TDepartamento(int id, String nombre, int sala, double sueldoHora, boolean activo) {
@@ -64,9 +62,10 @@ public class TDepartamento {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+
 	@Override
-	public String toString(){
-		return " ID: " + id + "\n Nombre: " + nombre + "\n Sala: " + sala + "\n Sueldo por hora: " + sueldoHora + "\n Activo: " + activo; 
+	public String toString() {
+		return " ID: " + id + "\n Nombre: " + nombre + "\n Sala: " + sala + "\n Sueldo por hora: " + sueldoHora
+				+ "\n Activo: " + activo;
 	}
 }

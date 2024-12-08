@@ -1,4 +1,3 @@
-
 package negocio.venta;
 
 public class TVenta {
@@ -12,7 +11,6 @@ public class TVenta {
 	private int idEmpleado;
 
 	public TVenta() {
-
 	}
 
 	public TVenta(int id, double precio, String fecha, int idEmpleado) {
@@ -21,7 +19,7 @@ public class TVenta {
 		this.fecha = fecha;
 		this.idEmpleado = idEmpleado;
 	}
-	
+
 	public TVenta(int idEmpleado) {
 		this.idEmpleado = idEmpleado;
 	}
@@ -57,8 +55,9 @@ public class TVenta {
 	public void setIdEmpleado(int idEmpleado) {
 		this.idEmpleado = idEmpleado;
 	}
-	
+
 	public String toString() {
-		return "id: " + this.id + "\nid empleado: " + this.idEmpleado + "\nprecio: " + this.precio + "\nfecha: " + this.fecha + "\n";
+		return "id: " + this.id + "\nid empleado: " + this.idEmpleado + "\nprecio: " + this.precio + "\nfecha: "
+				+ this.fecha + "\n";
 	}
 }

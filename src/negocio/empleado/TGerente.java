@@ -1,4 +1,3 @@
-
 package negocio.empleado;
 
 public class TGerente extends TEmpleado {
@@ -8,7 +7,6 @@ public class TGerente extends TEmpleado {
 	private int horasExtra;
 
 	public TGerente() {
-
 	}
 
 	public TGerente(int id, int tag, int horasMensuales, int idDepartamento, boolean activo, int despacho,
@@ -33,9 +31,9 @@ public class TGerente extends TEmpleado {
 	public void setHorasExtra(int horasExtra) {
 		this.horasExtra = horasExtra;
 	}
-	
+
 	@Override
 	public String toString() {
-		return super.toString()  + "\n Despacho: " + despacho + "\n Horas Extra: " + horasExtra + "\n";
+		return super.toString() + "\n Despacho: " + despacho + "\n Horas Extra: " + horasExtra + "\n";
 	}
 }

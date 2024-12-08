@@ -1,4 +1,3 @@
-
 package negocio.proveedor;
 
 public class TInternacional extends TProveedor {
@@ -14,7 +13,6 @@ public class TInternacional extends TProveedor {
 	}
 
 	public TInternacional() {
-
 	}
 
 	public String getPais() {
@@ -32,7 +30,7 @@ public class TInternacional extends TProveedor {
 	public void setImpuesto(double impuesto) {
 		this.impuesto = impuesto;
 	}
-	
+
 	@Override
 	public String toString() {
 		return super.toString() + "\nPais: " + this.getPais() + "\nImpuesto: " + this.getImpuesto();

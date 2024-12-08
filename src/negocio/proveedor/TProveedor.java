@@ -1,4 +1,3 @@
-
 package negocio.proveedor;
 
 public class TProveedor {
@@ -16,7 +15,6 @@ public class TProveedor {
 	}
 
 	public TProveedor() {
-
 	}
 
 	public int getId() {
@@ -42,7 +40,7 @@ public class TProveedor {
 	public void setActivo(boolean activo) {
 		this.activo = activo;
 	}
-	
+
 	public String toString() {
 		return "\nId: " + this.id + "\nNombre: " + this.nombre + "\nActivo: " + this.activo;
 	}

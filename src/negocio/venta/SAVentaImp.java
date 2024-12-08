@@ -1,4 +1,3 @@
-
 package negocio.venta;
 
 import java.util.ArrayList;
@@ -13,9 +12,8 @@ import negocio.empleado.Empleado;
 import negocio.producto.Producto;
 import negocio.producto.TProducto;
 
-
 public class SAVentaImp implements SAVenta {
-	
+
 	public TCarritoVenta abrirCarrito(int idEmpleado) {
 		return new TCarritoVenta(idEmpleado);
 	}
@@ -23,41 +21,44 @@ public class SAVentaImp implements SAVenta {
 	public int cerrarVenta(TCarritoVenta carrito) {
 		EntityManager em = null;
 		int id = -1;
-		
+
 		try {
 			em = EMFSingleton.getInstance().getEMF().createEntityManager();
 			em.getTransaction().begin();
-			
-			//Comprobamos que el empleado existe, está activo y que hay productos en el carrito
+
+			// Comprobamos que el empleado existe, está activo y que hay
+			// productos en el carrito
 			Empleado empleado = em.find(Empleado.class, carrito.getIdEmpleado(), LockModeType.OPTIMISTIC);
-			
-			if (empleado != null && empleado.getActivo() && !carrito.getLineasVenta().isEmpty()){
-				
-				//Comprobamos que no hay productos repetidos
-				for (TLineaVenta linea : carrito.getLineasVenta()){
-					for (TLineaVenta l : carrito.getLineasVenta()){
-						if (l != linea && l.getIdProducto() == linea.getIdProducto()){
+
+			if (empleado != null && empleado.getActivo() && !carrito.getLineasVenta().isEmpty()) {
+
+				// Comprobamos que no hay productos repetidos
+				for (TLineaVenta linea : carrito.getLineasVenta()) {
+					for (TLineaVenta l : carrito.getLineasVenta()) {
+						if (l != linea && l.getIdProducto() == linea.getIdProducto()) {
 							em.getTransaction().rollback();
 							return id;
 						}
 					}
 				}
-				
-				//Doy de alta la venta con precio 0
+
+				// Doy de alta la venta con precio 0
 				Venta venta = new Venta(carrito.getVenta());
 				// TODO igual no hace falta, depende de las vistas
 				venta.setPrecio(0);
 				venta.setEmpleado(empleado);
-				
+
 				double precioTotal = 0;
-				//Recorro las lineas de venta y compruebo que los productos existan, estén activos y disponibles
-				for (TLineaVenta linea : carrito.getLineasVenta()){
+				// Recorro las lineas de venta y compruebo que los productos
+				// existan, estén activos y disponibles
+				for (TLineaVenta linea : carrito.getLineasVenta()) {
 					Producto prod = em.find(Producto.class, linea.getIdProducto(), LockModeType.OPTIMISTIC);
-					
-					if (prod != null && prod.getActivo() && prod.getStock() >= linea.getCantidad() && linea.getCantidad() > 0){
+
+					if (prod != null && prod.getActivo() && prod.getStock() >= linea.getCantidad()
+							&& linea.getCantidad() > 0) {
 						int nuevoStock = prod.getStock() - linea.getCantidad();
 						prod.setStock(nuevoStock);
-						
+
 						LineaVenta lineaVenta = new LineaVenta(linea);
 						lineaVenta.setVenta(venta);
 						lineaVenta.setProducto(prod);
@@ -65,16 +66,16 @@ public class SAVentaImp implements SAVenta {
 						lineaVenta.setPrecio(precioLinea);
 						em.persist(lineaVenta);
 						precioTotal += precioLinea;
-					} else{
+					} else {
 						em.getTransaction().rollback();
 						return id;
 					}
 				}
-				
+
 				venta.setPrecio(precioTotal);
 				em.persist(venta);
 				empleado.getVentas().add(venta);
-				
+
 				em.getTransaction().commit();
 				id = venta.getId();
 			} else {
@@ -82,7 +83,7 @@ public class SAVentaImp implements SAVenta {
 			}
 
 		} catch (Exception e) {
-								
+
 			if (em != null && em.getTransaction().isActive()) {
 				em.getTransaction().rollback();
 			}
@@ -92,9 +93,9 @@ public class SAVentaImp implements SAVenta {
 				em.close();
 			}
 		}
-		
+
 		return id;
-		
+
 	}
 
 	public TInfoVenta consultarVentaPorId(int id) {
@@ -104,42 +105,41 @@ public class SAVentaImp implements SAVenta {
 		try {
 			em = EMFSingleton.getInstance().getEMF().createEntityManager();
 			em.getTransaction().begin();
-			
+
 			Venta venta = em.find(Venta.class, id);
-			
-			if (venta != null){
+
+			if (venta != null) {
 				tInfo = new TInfoVenta();
-				
+
 				// Asigno a la venta
 				tInfo.setVenta(venta.toTransfer());
-				
+
 				// Asigno el empleado
 				tInfo.setEmpleado(venta.getEmpleado().toTransfer());
-				
+
 				// Asigno las lineas de venta y productos
-				List<LineaVenta> lineasVenta = em.createNamedQuery("negocio.venta.LineaVenta.findByventa", LineaVenta.class)
-						.setParameter("venta", venta)
-						.getResultList();
-				
+				List<LineaVenta> lineasVenta = em
+						.createNamedQuery("negocio.venta.LineaVenta.findByventa", LineaVenta.class)
+						.setParameter("venta", venta).getResultList();
+
 				List<TLineaVenta> listaTransfersLV = new ArrayList<>();
 				HashMap<Integer, TProducto> productos = new HashMap<>();
-				
-				for (LineaVenta linea : lineasVenta){
+
+				for (LineaVenta linea : lineasVenta) {
 					listaTransfersLV.add(linea.toTransfer());
-					
+
 					Producto prod = linea.getProducto();
 					productos.put(prod.getId(), prod.toTransfer());
 				}
-				
+
 				tInfo.setLineasVenta(listaTransfersLV);
 				tInfo.setProductos(productos);
 			}
-			
-			
-			em.getTransaction().commit();	
+
+			em.getTransaction().commit();
 
 		} catch (Exception e) {
-								
+
 			if (em != null && em.getTransaction().isActive()) {
 				em.getTransaction().rollback();
 			}
@@ -149,29 +149,29 @@ public class SAVentaImp implements SAVenta {
 				em.close();
 			}
 		}
-		
+
 		return tInfo;
 	}
 
 	public List<TVenta> consultarVentas() {
-		
+
 		EntityManager em = null;
 		List<TVenta> listaVentas = new ArrayList<TVenta>();
 
 		try {
 			em = EMFSingleton.getInstance().getEMF().createEntityManager();
 			em.getTransaction().begin();
-			
+
 			List<Venta> ventas = em.createNamedQuery("negocio.venta.Venta.findAll", Venta.class).getResultList();
-			
-			for (Venta venta : ventas){
+
+			for (Venta venta : ventas) {
 				listaVentas.add(venta.toTransfer());
 			}
-			
-			em.getTransaction().commit();	
+
+			em.getTransaction().commit();
 
 		} catch (Exception e) {
-								
+
 			if (em != null && em.getTransaction().isActive()) {
 				em.getTransaction().rollback();
 			}
@@ -181,76 +181,74 @@ public class SAVentaImp implements SAVenta {
 				em.close();
 			}
 		}
-		
+
 		return listaVentas;
 	}
 
 	public boolean devolucion(TLineaVenta tLineaVenta) {
-	    EntityManager em = null;
-	    boolean exito = false;
-	    
-	    if (ValidadorLineaVenta.comprobarDatos(tLineaVenta)){
-	    	try {
-		        em = EMFSingleton.getInstance().getEMF().createEntityManager();
-		        em.getTransaction().begin();
+		EntityManager em = null;
+		boolean exito = false;
 
-		        LineaVenta lineaVenta = em.find(LineaVenta.class, 
-		            new Clave(tLineaVenta.getIdVenta(), tLineaVenta.getIdProducto()), 
-		            LockModeType.OPTIMISTIC);
+		if (ValidadorLineaVenta.comprobarDatos(tLineaVenta)) {
+			try {
+				em = EMFSingleton.getInstance().getEMF().createEntityManager();
+				em.getTransaction().begin();
 
-		        if (lineaVenta != null) {
-		            Producto prod = lineaVenta.getProducto();
-		            em.lock(prod, LockModeType.OPTIMISTIC);
-		            
-		            Venta venta = lineaVenta.getVenta();
-		            em.lock(venta, LockModeType.OPTIMISTIC);
+				LineaVenta lineaVenta = em.find(LineaVenta.class,
+						new Clave(tLineaVenta.getIdVenta(), tLineaVenta.getIdProducto()), LockModeType.OPTIMISTIC);
 
-		            int cantidadDevolver = tLineaVenta.getCantidad();
+				if (lineaVenta != null) {
+					Producto prod = lineaVenta.getProducto();
+					em.lock(prod, LockModeType.OPTIMISTIC);
 
-		            if (cantidadDevolver <= lineaVenta.getCantidad()) {
-		                // Actualizar la cantidad de la línea de venta
-		                int nuevaCantidad = lineaVenta.getCantidad() - cantidadDevolver;
-		                lineaVenta.setCantidad(nuevaCantidad);
+					Venta venta = lineaVenta.getVenta();
+					em.lock(venta, LockModeType.OPTIMISTIC);
 
-		                // Actualizar el precio total de la línea de venta
-		                double nuevoPrecioLinea = nuevaCantidad * prod.getPrecio();
-		                double precioAnteriorLinea = lineaVenta.getPrecio();
-		                lineaVenta.setPrecio(nuevoPrecioLinea);
+					int cantidadDevolver = tLineaVenta.getCantidad();
 
-		                // Actualizar el precio total de la venta
-		                venta.setPrecio(venta.getPrecio() - precioAnteriorLinea + nuevoPrecioLinea);
+					if (cantidadDevolver <= lineaVenta.getCantidad()) {
+						// Actualizar la cantidad de la línea de venta
+						int nuevaCantidad = lineaVenta.getCantidad() - cantidadDevolver;
+						lineaVenta.setCantidad(nuevaCantidad);
 
-		                // Si la cantidad es 0, eliminar la línea de venta
-		                if (nuevaCantidad == 0) {
-		                    em.remove(lineaVenta);
-		                }
+						// Actualizar el precio total de la línea de venta
+						double nuevoPrecioLinea = nuevaCantidad * prod.getPrecio();
+						double precioAnteriorLinea = lineaVenta.getPrecio();
+						lineaVenta.setPrecio(nuevoPrecioLinea);
 
-		                prod.setStock(prod.getStock() + cantidadDevolver);
+						// Actualizar el precio total de la venta
+						venta.setPrecio(venta.getPrecio() - precioAnteriorLinea + nuevoPrecioLinea);
 
-		                exito = true;
-		            }
-		        }
+						// Si la cantidad es 0, eliminar la línea de venta
+						if (nuevaCantidad == 0) {
+							em.remove(lineaVenta);
+						}
 
-		        if (exito){
-		        	em.getTransaction().commit();
-		        } else{
-		        	em.getTransaction().rollback();
-		        }
-		    } catch (Exception e) {
-		        if (em != null && em.getTransaction().isActive()) {
-		            em.getTransaction().rollback();
-		        }
-		        e.printStackTrace();
-		    } finally {
-		        if (em != null) {
-		            em.close();
-		        }
-		    }
-	    }
+						prod.setStock(prod.getStock() + cantidadDevolver);
 
-	    return exito;
+						exito = true;
+					}
+				}
+
+				if (exito) {
+					em.getTransaction().commit();
+				} else {
+					em.getTransaction().rollback();
+				}
+			} catch (Exception e) {
+				if (em != null && em.getTransaction().isActive()) {
+					em.getTransaction().rollback();
+				}
+				e.printStackTrace();
+			} finally {
+				if (em != null) {
+					em.close();
+				}
+			}
+		}
+
+		return exito;
 	}
-
 
 	public List<TVenta> consultarVentasPorEmpleado(int id) {
 		EntityManager em = null;
@@ -259,21 +257,21 @@ public class SAVentaImp implements SAVenta {
 		try {
 			em = EMFSingleton.getInstance().getEMF().createEntityManager();
 			em.getTransaction().begin();
-			
+
 			Empleado emp = em.find(Empleado.class, id);
-			
-			if (emp != null){
-				for (Venta venta : emp.getVentas()){
+
+			if (emp != null) {
+				for (Venta venta : emp.getVentas()) {
 					listaVentas.add(venta.toTransfer());
 				}
-				
+
 				em.getTransaction().commit();
 			} else {
 				em.getTransaction().rollback();
 			}
 
 		} catch (Exception e) {
-								
+
 			if (em != null && em.getTransaction().isActive()) {
 				em.getTransaction().rollback();
 			}
@@ -283,7 +281,7 @@ public class SAVentaImp implements SAVenta {
 				em.close();
 			}
 		}
-		
+
 		return listaVentas;
 	}
 
@@ -295,13 +293,14 @@ public class SAVentaImp implements SAVenta {
 			try {
 				em = EMFSingleton.getInstance().getEMF().createEntityManager();
 				em.getTransaction().begin();
-				
+
 				Venta venta = em.find(Venta.class, tVenta.getId());
-				
-				if (venta != null){
-					Empleado emp = em.find(Empleado.class, tVenta.getIdEmpleado(), LockModeType.OPTIMISTIC_FORCE_INCREMENT);
-					
-					if (emp != null && emp.getActivo()){
+
+				if (venta != null) {
+					Empleado emp = em.find(Empleado.class, tVenta.getIdEmpleado(),
+							LockModeType.OPTIMISTIC_FORCE_INCREMENT);
+
+					if (emp != null && emp.getActivo()) {
 						venta.getEmpleado().getVentas().remove(venta);
 						venta.setEmpleado(emp);
 						venta.setFecha(tVenta.getFecha());
@@ -309,15 +308,15 @@ public class SAVentaImp implements SAVenta {
 						emp.getVentas().add(venta);
 						em.getTransaction().commit();
 						exito = true;
-					} else{
+					} else {
 						em.getTransaction().rollback();
 					}
 				} else {
 					em.getTransaction().rollback();
 				}
-				
-			} catch (Exception e) { 
-									
+
+			} catch (Exception e) {
+
 				if (em != null && em.getTransaction().isActive()) {
 					em.getTransaction().rollback();
 				}

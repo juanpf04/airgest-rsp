@@ -1,4 +1,3 @@
-
 package negocio.venta;
 
 public class TLineaVenta {
@@ -19,7 +18,6 @@ public class TLineaVenta {
 	}
 
 	public TLineaVenta() {
-
 	}
 
 	public int getIdVenta() {
@@ -53,7 +51,7 @@ public class TLineaVenta {
 	public void setPrecio(double precio) {
 		this.precio = precio;
 	}
-	
+
 	public String toString() {
 		return "id venta: " + this.idVenta + "\nid producto: " + this.idProducto + "\ncantidad: " + this.cantidad
 				+ "\nprecio: " + this.precio;

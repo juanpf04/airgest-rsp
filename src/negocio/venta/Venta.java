@@ -1,4 +1,3 @@
-
 package negocio.venta;
 
 import javax.persistence.Entity;
@@ -21,7 +20,7 @@ import javax.persistence.NamedQueries;
 		@NamedQuery(name = "negocio.venta.Venta.findByprecio", query = "select obj from Venta obj where :precio = obj.precio "),
 		@NamedQuery(name = "negocio.venta.Venta.findByfecha", query = "select obj from Venta obj where :fecha = obj.fecha "),
 		@NamedQuery(name = "negocio.venta.Venta.findByversion", query = "select obj from Venta obj where :version = obj.version "),
-		@NamedQuery(name = "negocio.venta.Venta.findAll", query = "select obj from Venta obj ")})
+		@NamedQuery(name = "negocio.venta.Venta.findAll", query = "select obj from Venta obj ") })
 public class Venta implements Serializable {
 
 	private static final long serialVersionUID = 0;

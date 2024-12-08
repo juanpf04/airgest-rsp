@@ -1,4 +1,3 @@
-
 package negocio.empleado;
 
 import javax.persistence.Entity;
@@ -19,7 +18,6 @@ public class Gerente extends Empleado implements Serializable {
 	private int horasExtra;
 
 	public Gerente() {
-
 	}
 
 	public Gerente(TGerente transfer) {

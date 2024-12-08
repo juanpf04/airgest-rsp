@@ -1,4 +1,3 @@
-
 package negocio.departamento;
 
 import javax.persistence.Column;
@@ -24,7 +23,7 @@ import javax.persistence.Version;
 		@NamedQuery(name = "negocio.departamento.Departamento.findByempleados", query = "select obj from Departamento obj where :empleados MEMBER OF obj.empleados "),
 		@NamedQuery(name = "negocio.departamento.Departamento.findByactivo", query = "select obj from Departamento obj where :activo = obj.activo "),
 		@NamedQuery(name = "negocio.departamento.Departamento.findByversion", query = "select obj from Departamento obj where :version = obj.version "),
-		@NamedQuery(name = "negocio.departamento.Departamento.findAll", query = "select obj from Departamento obj ")})
+		@NamedQuery(name = "negocio.departamento.Departamento.findAll", query = "select obj from Departamento obj ") })
 
 public class Departamento implements Serializable {
 
@@ -50,7 +49,6 @@ public class Departamento implements Serializable {
 	private int version;
 
 	public Departamento() {
-
 	}
 
 	public Departamento(TDepartamento transfer) {

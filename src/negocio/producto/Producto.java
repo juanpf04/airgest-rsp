@@ -1,4 +1,3 @@
-
 package negocio.producto;
 
 import javax.persistence.Column;

@@ -1,4 +1,3 @@
-
 package negocio.venta;
 
 import java.util.List;
@@ -8,16 +7,17 @@ import java.util.HashMap;
 import negocio.producto.TProducto;
 
 public class TInfoVenta {
-	
+
 	private TVenta venta;
-	
+
 	private List<TLineaVenta> lineasVenta;
-	
+
 	private TEmpleado empleado;
-	
+
 	private HashMap<Integer, TProducto> productos;
 
-	public TInfoVenta(TVenta venta, TEmpleado empleado, List<TLineaVenta> lineasVenta, HashMap<Integer, TProducto> productos) {
+	public TInfoVenta(TVenta venta, TEmpleado empleado, List<TLineaVenta> lineasVenta,
+			HashMap<Integer, TProducto> productos) {
 		this.venta = venta;
 		this.empleado = empleado;
 		this.lineasVenta = lineasVenta;
@@ -25,7 +25,6 @@ public class TInfoVenta {
 	}
 
 	public TInfoVenta() {
-		
 	}
 
 	public TVenta getVenta() {
@@ -59,7 +58,7 @@ public class TInfoVenta {
 	public void setProductos(HashMap<Integer, TProducto> productos) {
 		this.productos = productos;
 	}
-	
+
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Información de la venta:\n");
