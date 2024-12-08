@@ -87,7 +87,7 @@ public class TProducto {
 
 	@Override
 	public String toString() {
-		return "id: " + this.id + "\nnombre: " + this.nombre + "\nstock: " + this.stock + "\nprecio: " + this.precio
-				+ "\nref: " + this.ref + "\nidMarca: " + this.idMarca + "\nactivo: " + this.activo + "\n";
+		return "Id: " + this.id + "\n Nombre: " + this.nombre + "\n Stock: " + this.stock + "\n Precio: " + this.precio
+				+ "\n Ref: " + this.ref + "\n idMarca: " + this.idMarca + "\n  Activo: " + this.activo + "\n";
 	}
 }

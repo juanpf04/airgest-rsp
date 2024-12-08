@@ -42,7 +42,7 @@ public class TProveedor {
 	}
 
 	public String toString() {
-		return "\nId: " + this.id + "\nNombre: " + this.nombre + "\nActivo: " + this.activo;
+		return "\n Id: " + this.id + "\n Nombre: " + this.nombre + "\n Activo: " + this.activo;
 	}
 
 }

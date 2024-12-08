@@ -22,6 +22,6 @@ public class TNacional extends TProveedor {
 
 	@Override
 	public String toString() {
-		return super.toString() + "\n Tipo: Nacional" +"\nCodigo Postal: " + this.getCodigoPostal();
+		return super.toString() + "\n Tipo: Nacional" +"\n Codigo Postal: " + this.getCodigoPostal();
 	}
 }

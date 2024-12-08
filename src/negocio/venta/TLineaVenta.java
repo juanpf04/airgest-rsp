@@ -53,7 +53,7 @@ public class TLineaVenta {
 	}
 
 	public String toString() {
-		return "id venta: " + this.idVenta + "\nid producto: " + this.idProducto + "\ncantidad: " + this.cantidad
-				+ "\nprecio: " + this.precio;
+		return " Id venta: " + this.idVenta + "\n Id producto: " + this.idProducto + "\n Cantidad: " + this.cantidad
+				+ "\n Precio: " + this.precio;
 	}
 }

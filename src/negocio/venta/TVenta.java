@@ -57,7 +57,7 @@ public class TVenta {
 	}
 
 	public String toString() {
-		return "id: " + this.id + "\nid empleado: " + this.idEmpleado + "\nprecio: " + this.precio + "\nfecha: "
+		return " Id: " + this.id + "\n id empleado: " + this.idEmpleado + "\n Precio: " + this.precio + "\n Fecha: "
 				+ this.fecha + "\n";
 	}
 }

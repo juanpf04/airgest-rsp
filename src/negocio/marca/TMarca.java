@@ -54,7 +54,7 @@ public class TMarca {
 
 	@Override
 	public String toString() {
-		return "\nId: " + this.id + "\nNombre: " + this.nombre + "\nOrigen: " + this.origen + "\nActivo: "
+		return "\n Id: " + this.id + "\n Nombre: " + this.nombre + "\n Origen: " + this.origen + "\n Activo: "
 				+ this.activo;
 	}
 }
