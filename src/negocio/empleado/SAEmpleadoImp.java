@@ -30,7 +30,7 @@ public class SAEmpleadoImp implements SAEmpleado {
 		EntityManager em = null;
 		int id = -1;
 
-		if (!ValidadorEmpleado.comprobarDatos(tEmpleado)) {
+		if (ValidadorEmpleado.comprobarDatos(tEmpleado)) {
 			try {
 				em = EMFSingleton.getInstance().getEMF().createEntityManager();
 
