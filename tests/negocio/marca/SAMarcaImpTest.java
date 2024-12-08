@@ -80,7 +80,7 @@ public class SAMarcaImpTest {
 		
 		// exito
 		tMarca.setId(1);
-		tMarca.setOrigen("españa");
+		tMarca.setOrigen("espanya");
 		tMarca.setNombre("nike");
 		boolean exito = sm.modificarMarca(tMarca);
 		assertTrue("se debería modificar marca", exito);
@@ -127,7 +127,7 @@ public class SAMarcaImpTest {
 		assertFalse("la marca esta inactiva", exito);
 		
 		// fallo tiene productos inactivos
-		tMarca = new TMarca(-1, "kalise", "españa", true);
+		tMarca = new TMarca(-1, "kalise", "espanya", true);
 		sm.altaMarca(tMarca);
 		
 		EntityManager em = EMFSingleton.getInstance().getEMF().createEntityManager();
