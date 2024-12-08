@@ -20,7 +20,7 @@ public class SAProveedorImpTest {
 		SAProveedor sa = FactoriaNegocioMall.getInstance().crearSAProveedor();
 		
 		//EXITO NACIONAL
-		TNacional tNacional = new TNacional(-1, "España", true, "28008");
+		TNacional tNacional = new TNacional(-1, "Espanya", true, "28008");
 		int id = sa.altaProveedor(tNacional);
 		assertEquals("El id debería ser 1", 1, id);
 		
@@ -37,11 +37,11 @@ public class SAProveedorImpTest {
 		assertEquals("El id debería ser -1 porque ya existe el proveedor", -1, id2);
 		
 		//REACTIVAR NACIONAL
-		tNacional.setNombre("EspañaReactivado");
+		tNacional.setNombre("EspanyaReactivado");
 		tNacional.setCodigoPostal("12345");
 		tNacional.setActivo(false);
 		sa.altaProveedor(tNacional);
-		tNacional.setNombre("EspañaReactivado");
+		tNacional.setNombre("EspanyaReactivado");
 		tNacional.setCodigoPostal("54321");
 		tNacional.setActivo(true);
 		id = sa.altaProveedor(tNacional);
@@ -72,10 +72,10 @@ public class SAProveedorImpTest {
 		assertEquals("El nombre debería ser Consulta", "Consulta", tNacional.getNombre());
 		
 		//EXITO INTERNACIONAL
-		TInternacional tInternacional = new TInternacional(-1, "Consulta2", true, "Chile", 2.0);
+		TInternacional tInternacional = new TInternacional(-1, "Consultaa", true, "Chile", 2.0);
 		sa.altaProveedor(tInternacional);
 		tInternacional = (TInternacional) sa.consultarProveedorPorId(2);
-		assertEquals("El nombre debería ser Consulta2", "Consulta2", tInternacional.getNombre());
+		assertEquals("El nombre debería ser Consultaa", "Consultaa", tInternacional.getNombre());
 		
 		//NO EXISTE
 		tNacional = (TNacional) sa.consultarProveedorPorId(10);
@@ -88,9 +88,9 @@ public class SAProveedorImpTest {
 		
 		TProveedor tProveedor = new TNacional(-1, "ConsultaTodos", true, "00000");
 		sa.altaProveedor(tProveedor);
-		tProveedor = new TInternacional(-1, "ConsultaTodos2", true, "Francia", 1.2);
+		tProveedor = new TInternacional(-1, "ConsultaTodoss", true, "Francia", 1.2);
 		sa.altaProveedor(tProveedor);
-		tProveedor = new TNacional(-1, "ConsultaTodos3", true, "11111");
+		tProveedor = new TNacional(-1, "ConsultaTodosss", true, "11111");
 		sa.altaProveedor(tProveedor);
 		
 		List<TProveedor> lista = sa.consultarProveedores();
@@ -154,7 +154,7 @@ public class SAProveedorImpTest {
 		TNacional tNacional = new TNacional(-1, "bajaNacional", true, "11111");
 		sa.altaProveedor(tNacional);
 		
-		TInternacional tInternacional = new TInternacional(-1, "ConsultaTodos2", true, "Francia", 1.2);
+		TInternacional tInternacional = new TInternacional(-1, "ConsultaTodoss", true, "Francia", 1.2);
 		sa.altaProveedor(tInternacional);
 		
 		// exito nacional
@@ -203,15 +203,15 @@ public class SAProveedorImpTest {
 		em.persist(p2);
 		em.getTransaction().commit();
 		
-		TNacional tProveedor1 = new TNacional(-1, "consultarPorProd1", true, "11111");
+		TNacional tProveedor1 = new TNacional(-1, "consultarPorProdUno", true, "11111");
 		sa.altaProveedor(tProveedor1);
 		sa.vincularProveedorProducto(1, 1);
 		
-		TInternacional tProveedor2 = new TInternacional(-1, "consultarPorProd2", true, "Francia", 1.2);
+		TInternacional tProveedor2 = new TInternacional(-1, "consultarPorProdDos", true, "Francia", 1.2);
 		sa.altaProveedor(tProveedor2);
 		sa.vincularProveedorProducto(1, 2);
 		
-		TInternacional tProveedor3 = new TInternacional(-1, "consultarPorProd3", true, "Argentina", 0.0);
+		TInternacional tProveedor3 = new TInternacional(-1, "consultarPorProdTres", true, "Argentina", 0.0);
 		sa.altaProveedor(tProveedor3);
 		sa.vincularProveedorProducto(2, 3);
 		
