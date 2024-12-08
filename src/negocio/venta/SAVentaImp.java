@@ -46,8 +46,6 @@ public class SAVentaImp implements SAVenta {
 
 				// Doy de alta la venta con precio 0
 				Venta venta = new Venta(tCarrito.getVenta());
-				// TODO igual no hace falta, depende de las vistas
-				venta.setPrecio(0);
 				venta.setEmpleado(empleado);
 
 				double precioTotal = 0;

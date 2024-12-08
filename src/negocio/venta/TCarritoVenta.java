@@ -41,7 +41,7 @@ public class TCarritoVenta {
 	}
 
 	public void eliminarLinea(int idProducto) {
-		this.lineasVenta.removeIf(l -> l.getIdProducto() == idProducto);
+		this.lineasVenta.removeIf(tLineaVenta -> tLineaVenta.getIdProducto() == idProducto);
 	}
 
 	public List<TLineaVenta> getLineasVenta() {
