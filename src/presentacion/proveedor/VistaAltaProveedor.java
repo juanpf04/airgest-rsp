@@ -111,6 +111,7 @@ public class VistaAltaProveedor extends JFrame implements Observador {
 			JLabel etiquetaNombre = new JLabel("Nombre: ");
 			etiquetaNombre.setFont(new Font("Tahoma", Font.BOLD, 25));
 			JTextField textoNombre = new JTextField();
+			textoNombre.setToolTipText("cadena de caracteres sin espacios");
 			textoNombre.setMaximumSize(new Dimension(200, 30));
 			textoNombre.setMinimumSize(new Dimension(200, 30));
 			textoNombre.setPreferredSize(new Dimension(200, 30));
@@ -123,24 +124,25 @@ public class VistaAltaProveedor extends JFrame implements Observador {
 			JLabel etiquetaCodigoPostal = new JLabel("Codigo Postal:    ");
 			etiquetaCodigoPostal.setFont(new Font("Tahoma", Font.BOLD, 25));
 			JTextField textoCodigoPostal = new JTextField();
+			textoCodigoPostal.setToolTipText("numero de 5 cifras");
 			textoCodigoPostal.setMaximumSize(new Dimension(200, 30));
 			textoCodigoPostal.setMinimumSize(new Dimension(200, 30));
 			textoCodigoPostal.setPreferredSize(new Dimension(200, 30));
 			textoCodigoPostal.setFont(new Font("Tahoma", Font.BOLD, 18));
-			textoCodigoPostal.setToolTipText("numero de 5 cifras");
 			
 			JLabel etiquetaImpuesto = new JLabel("Impuesto:    ");
 			etiquetaImpuesto.setFont(new Font("Tahoma", Font.BOLD, 25));
 			JTextField textoImpuesto = new JTextField();
+			textoImpuesto.setToolTipText("double mayor o igual que 0");
 			textoImpuesto.setMaximumSize(new Dimension(200, 30));
 			textoImpuesto.setMinimumSize(new Dimension(200, 30));
 			textoImpuesto.setPreferredSize(new Dimension(200, 30));
 			textoImpuesto.setFont(new Font("Tahoma", Font.BOLD, 18));
-			textoImpuesto.setToolTipText("numero a partir de 0");
 			
 			JLabel etiquetaPais = new JLabel("Pais:    ");
 			etiquetaPais.setFont(new Font("Tahoma", Font.BOLD, 25));
 			JTextField textoPais = new JTextField();
+			textoPais.setToolTipText("cadena de caracteres sin espacios");
 			textoPais.setMaximumSize(new Dimension(200, 30));
 			textoPais.setMinimumSize(new Dimension(200, 30));
 			textoPais.setPreferredSize(new Dimension(200, 30));

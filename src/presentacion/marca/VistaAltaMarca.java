@@ -81,6 +81,7 @@ public class VistaAltaMarca extends JFrame implements Observador {
         JLabel etiquetaA = new JLabel("Nombre: ");
         etiquetaA.setFont(new Font("Tahoma", Font.BOLD, 25));
         JTextField textoA = new JTextField();
+        textoA.setToolTipText("cadena de caracteres sin espacios");
         textoA.setMaximumSize(new Dimension(200, 30));
         textoA.setMinimumSize(new Dimension(200, 30));
         textoA.setPreferredSize(new Dimension(200, 30));
@@ -91,6 +92,7 @@ public class VistaAltaMarca extends JFrame implements Observador {
         JLabel etiquetaB = new JLabel("Origen: ");
         etiquetaB.setFont(new Font("Tahoma", Font.BOLD, 25));
         JTextField textoB = new JTextField();
+        textoB.setToolTipText("cadena de caracteres sin espacios");
         textoB.setMaximumSize(new Dimension(200, 30));
         textoB.setMinimumSize(new Dimension(200, 30));
         textoB.setPreferredSize(new Dimension(200, 30));

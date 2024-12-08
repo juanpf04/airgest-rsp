@@ -60,7 +60,7 @@ public class VistaAltaProducto extends JFrame implements Observador {
 		textoNombre.setMinimumSize(new Dimension(200, 30));
 		textoNombre.setPreferredSize(new Dimension(200, 30));
 		textoNombre.setFont(new Font("Tahoma", Font.BOLD, 18));
-		textoNombre.setToolTipText("letraSy/oNumeros");
+		textoNombre.setToolTipText("letras y/o numeros");
 
 		panel_etiquetas.add(etiquetaNombre);
 		panel_textfield.add(textoNombre);
