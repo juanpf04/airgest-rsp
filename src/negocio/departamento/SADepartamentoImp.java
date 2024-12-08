@@ -1,4 +1,3 @@
-
 package negocio.departamento;
 
 import java.util.ArrayList;
@@ -11,265 +10,231 @@ import integracion.factoria.EMFSingleton;
 import negocio.UtilidadesN;
 import negocio.empleado.Empleado;
 
-
 public class SADepartamentoImp implements SADepartamento {
-	
-	
+
 	public TDepartamento consultarDepartamentoPorId(int id) {
 		EntityManager em = null;
-		TDepartamento tDep = null;
-		
-		if(UtilidadesN.comprobarId(id)){
-			
-			try{
+		TDepartamento tDepartamento = null;
+
+		if (UtilidadesN.comprobarId(id)) {
+			try {
 				em = EMFSingleton.getInstance().getEMF().createEntityManager();
-				em.getTransaction().begin(); 
-				
-				Departamento dep = em.find(Departamento.class, id);
-				
-				if(dep != null)
-					tDep = dep.toTransfer();
-				
+
+				em.getTransaction().begin();
+
+				Departamento departamento = em.find(Departamento.class, id);
+
+				if (departamento != null)
+					tDepartamento = departamento.toTransfer();
+
 				em.getTransaction().commit();
-				
-				
-				
-			} catch(Exception e){
-				
+
+			} catch (Exception e) {
 				if (em != null && em.getTransaction().isActive())
 					em.getTransaction().rollback();
-				
-			} finally{
-				
-				if(em != null) em.close();
+			} finally {
+				if (em != null)
+					em.close();
 			}
 		}
-		
-		return tDep;
+
+		return tDepartamento;
 	}
 
-
-	public synchronized int altaDepartamento(TDepartamento departamento) {
-		
+	public synchronized int altaDepartamento(TDepartamento tDepartamento) {
 		EntityManager em = null;
 		int id = -1;
-		
-		if (ValidadorDepartamento.comprobarDatos(departamento)){
-			
-			try{
-				
+
+		if (ValidadorDepartamento.comprobarDatos(tDepartamento)) {
+			try {
 				em = EMFSingleton.getInstance().getEMF().createEntityManager();
+
 				em.getTransaction().begin();
-				Departamento dep;
-				
-				List<Departamento> listaResultado = em.createNamedQuery("negocio.departamento.Departamento.findBynombre", Departamento.class)
-						.setParameter("nombre", departamento.getNombre()).getResultList(); // el getSingleResult devolveria una excepcion si no encuentra y no null como pensabamos
-				
-				if(listaResultado.isEmpty()){
-					
-					dep = new Departamento(departamento);
-					em.persist(dep);
+
+				List<Departamento> departamentos = em
+						.createNamedQuery("negocio.departamento.Departamento.findBynombre", Departamento.class)
+						.setParameter("nombre", tDepartamento.getNombre()).getResultList();
+
+				if (departamentos.isEmpty()) {
+					Departamento departamento = new Departamento(tDepartamento);
+					em.persist(departamento);
+
 					em.getTransaction().commit();
-					id = dep.getId(); // el id se consigue tras cerrar la transacción 
-					
-				} else{
-					
-					dep = listaResultado.get(0); // la lista como mucho tendra un elemento (porque solamente habra 1 departamento con el mismo nombre)
-					
-					if(!dep.getActivo()){
-						
-						dep.setActivo(true);
-						dep.setSala(departamento.getSala());
-						dep.setSueldoHora(departamento.getSueldoHora());
+
+					id = departamento.getId();
+				} else {
+					Departamento departamento = departamentos.get(0);
+
+					if (!departamento.getActivo()) {
+
+						departamento.setActivo(true);
+						departamento.setSala(tDepartamento.getSala());
+						departamento.setSueldoHora(tDepartamento.getSueldoHora());
+
 						em.getTransaction().commit();
-						id = dep.getId();
-						
-					} else{
-						
+
+						id = departamento.getId();
+					} else
 						em.getTransaction().rollback();
-					}
 				}
-				
-			} catch(Exception e){
-				
+			} catch (Exception e) {
 				if (em != null && em.getTransaction().isActive())
 					em.getTransaction().rollback();
-				
-			} finally{
-				
-				if(em != null) em.close();
+			} finally {
+				if (em != null)
+					em.close();
 			}
-			
 		}
-		
+
 		return id;
 	}
 
-
 	public boolean bajaDepartamento(int id) {
-		
 		EntityManager em = null;
-		boolean ok = false;
-		
-		if(UtilidadesN.comprobarId(id)){
-			try{
-				
+		boolean exito = false;
+
+		if (UtilidadesN.comprobarId(id)) {
+			try {
 				em = EMFSingleton.getInstance().getEMF().createEntityManager();
+
 				em.getTransaction().begin();
-				Departamento dep;
-				
-				dep = em.find(Departamento.class, id);
-				
-				if(dep != null && dep.getActivo()){
-					
-					List<Empleado> listaEmpleados = dep.getEmpleados();
-					for(Empleado emp : listaEmpleados){
-						em.lock(emp, LockModeType.OPTIMISTIC);
-						
-						if(emp.getActivo()){
+
+				Departamento departamento = em.find(Departamento.class, id);
+
+				if (departamento != null && departamento.getActivo()) {
+
+					for (Empleado empleado : departamento.getEmpleados()) {
+						em.lock(empleado, LockModeType.OPTIMISTIC);
+
+						if (empleado.getActivo()) {
 							em.getTransaction().rollback();
-							return ok;
+							return exito;
 						}
 					}
-					
-					dep.setActivo(false);
-					ok = true;
+
+					departamento.setActivo(false);
+					exito = true;
+
 					em.getTransaction().commit();
-				}else{
+				} else
 					em.getTransaction().rollback();
-				}
-				
-			}catch(Exception e){
-				if (em != null && em.getTransaction().isActive()) {
+			} catch (Exception e) {
+				if (em != null && em.getTransaction().isActive())
 					em.getTransaction().rollback();
-				}
-			}finally{
-				
-				if(em != null) em.close();
+			} finally {
+				if (em != null)
+					em.close();
 			}
 		}
-		
-		return ok;	
-	}
 
+		return exito;
+	}
 
 	public List<TDepartamento> consultarDepartamentos() {
 		EntityManager em = null;
-		List<TDepartamento> listadepartamentos = new ArrayList<TDepartamento>();
-		
+		List<TDepartamento> tDepartamentos = new ArrayList<>();
+
 		try {
-			
 			em = EMFSingleton.getInstance().getEMF().createEntityManager();
+
 			em.getTransaction().begin();
-			
-			List<Departamento> listaResultado = em.createNamedQuery("negocio.departamento.Departamento.findAll", Departamento.class).getResultList();
-			
-			for(Departamento dpt : listaResultado){
-				
-				listadepartamentos.add(dpt.toTransfer());
-			}
-			
+
+			List<Departamento> departamentos = em
+					.createNamedQuery("negocio.departamento.Departamento.findAll", Departamento.class).getResultList();
+
+			for (Departamento departamento : departamentos)
+				tDepartamentos.add(departamento.toTransfer());
+
 			em.getTransaction().commit();
-			
-		} catch(Exception e){
-			
+
+		} catch (Exception e) {
 			if (em != null && em.getTransaction().isActive())
 				em.getTransaction().rollback();
-			
-		} finally{
-			
-			if (em != null) em.close();
+		} finally {
+			if (em != null)
+				em.close();
 		}
-		
-		return listadepartamentos;
+
+		return tDepartamentos;
 
 	}
 
-
-	public boolean modificarDepartamento(TDepartamento departamento) {
+	public boolean modificarDepartamento(TDepartamento tDepartamento) {
 		EntityManager em = null;
-		boolean ok = false;
-		
-		if (!ValidadorDepartamento.comprobarDatos(departamento)) return false;
-			
-			try{
-				
+		boolean exito = false;
+
+		if (ValidadorDepartamento.comprobarDatos(tDepartamento)) {
+			try {
 				em = EMFSingleton.getInstance().getEMF().createEntityManager();
+
 				em.getTransaction().begin();
-				Departamento dep;
-				
-				dep = em.find(Departamento.class, departamento.getId());
-				
-				if(dep != null){
-					List<Departamento> listaResultado = em.createNamedQuery("negocio.departamento.Departamento.findBynombre", Departamento.class)
-							.setParameter("nombre", departamento.getNombre()).setLockMode(LockModeType.OPTIMISTIC).getResultList(); 
-					
-					if(dep.getActivo() && (dep.getNombre().equals(departamento.getNombre()) || listaResultado.isEmpty())){
-						
-						ok = true;
-						dep.setNombre(departamento.getNombre());
-						dep.setSala(departamento.getSala());
-						dep.setSueldoHora(departamento.getSueldoHora());
-						
-						em.getTransaction().commit();
-					} else{
-						em.getTransaction().rollback();
-					}
-				}else
-					em.getTransaction().rollback();
-				
-				} catch(Exception e){
-					
-					if (em != null && em.getTransaction().isActive())
-						em.getTransaction().rollback();
-					
-				} finally{
-					
-					if(em != null) em.close();
-				}
-			
-		
-		return ok;
-	}
 
-	
-	public double calcularNomina(int id) {
-		EntityManager em = null;
-		double nomina = 0.0;
-		
-		if(UtilidadesN.comprobarId(id)){
-			
-			try{
-				em = EMFSingleton.getInstance().getEMF().createEntityManager();
-				em.getTransaction().begin(); 
-				
-				Departamento dep = em.find(Departamento.class, id, LockModeType.OPTIMISTIC);
-				
-				if(dep != null){
-					for (Empleado emp : dep.getEmpleados()) {
-						em.lock(emp, LockModeType.OPTIMISTIC);
-						
-						if (emp.getActivo()){
-							nomina += emp.calcularSueldo();
-						}
-					}
+				Departamento departamento = em.find(Departamento.class, tDepartamento.getId());
+
+				if (departamento != null && departamento.getActivo()) {
+					List<Departamento> departamentos = em
+							.createNamedQuery("negocio.departamento.Departamento.findBynombre", Departamento.class)
+							.setParameter("nombre", tDepartamento.getNombre()).setLockMode(LockModeType.OPTIMISTIC)
+							.getResultList();
+
+					if (departamento.getNombre().equals(tDepartamento.getNombre()) || departamentos.isEmpty()) {
+
+						exito = true;
+						departamento.setNombre(tDepartamento.getNombre());
+						departamento.setSala(tDepartamento.getSala());
+						departamento.setSueldoHora(tDepartamento.getSueldoHora());
+
 						em.getTransaction().commit();
-				}else{
+					} else
+						em.getTransaction().rollback();
+				} else
 					em.getTransaction().rollback();
-					nomina = -1;
-				}
-				
-			}catch(Exception e){
-				
+			} catch (Exception e) {
 				if (em != null && em.getTransaction().isActive())
 					em.getTransaction().rollback();
-				
-			} finally{
-				
-				if(em != null) em.close();
+			} finally {
+				if (em != null)
+					em.close();
 			}
-		}else nomina = -1;
-		
+		}
+
+		return exito;
+	}
+
+	public double calcularNomina(int id) {
+		EntityManager em = null;
+		double nomina = -1;
+
+		if (UtilidadesN.comprobarId(id)) {
+
+			try {
+				em = EMFSingleton.getInstance().getEMF().createEntityManager();
+
+				em.getTransaction().begin();
+
+				Departamento departamento = em.find(Departamento.class, id, LockModeType.OPTIMISTIC);
+
+				if (departamento != null) {
+					nomina = 0.0;
+					for (Empleado empleado : departamento.getEmpleados()) {
+						em.lock(empleado, LockModeType.OPTIMISTIC);
+
+						if (empleado.getActivo())
+							nomina += empleado.calcularSueldo();
+					}
+					em.getTransaction().commit();
+				} else
+					em.getTransaction().rollback();
+
+			} catch (Exception e) {
+				if (em != null && em.getTransaction().isActive())
+					em.getTransaction().rollback();
+			} finally {
+				if (em != null)
+					em.close();
+			}
+		}
+
 		return nomina;
 	}
 }

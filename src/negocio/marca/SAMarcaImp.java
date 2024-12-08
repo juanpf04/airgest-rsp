@@ -19,51 +19,46 @@ public class SAMarcaImp implements SAMarca {
 		if (ValidadorMarca.comprobarDatos(tMarca)) {
 			try {
 				em = EMFSingleton.getInstance().getEMF().createEntityManager();
+
 				em.getTransaction().begin();
 
-				Marca marca;
+				// Utilizamos .getResultList() para evitarnos excepcion en caso
+				// de no encontrar niguna marca con el nombre
+				List<Marca> marcas = em.createNamedQuery("negocio.marca.Marca.findBynombre", Marca.class)
+						.setParameter("nombre", tMarca.getNombre()).getResultList();
 
-				// Hay que comprobar si la marca existe ya, devuelve lista
-				// porque esta función no lanza excepción y es mas facil de
-				// tratar
-				List<Marca> resultados = em.createNamedQuery("negocio.marca.Marca.findBynombre", Marca.class)
-						.setParameter("nombre", tMarca.getNombre())
-						// .setLockMode(arg0)
-						.getResultList();
-				// Si es necesario bloquear añadir -> .setLockMode
+				if (marcas.isEmpty()) { // si esta vacia, no hay marca con
+										// ese nombre
+					Marca marca = new Marca(tMarca);
 
-				if (resultados.isEmpty()) { // Si la lista está vacía quiere
-											// decir que no hay marcas con ese
-											// nombre
-					marca = new Marca(tMarca);
 					em.persist(marca);
+
 					em.getTransaction().commit();
-					// IMPORTANTE si quieres obtener el id se hace
-					// obligatoriamente después de hacer el commit
-					id = marca.getId();
-				} else { // Si no está vacía hay un único registro, porque
-							// nombre es unique
-					marca = resultados.get(0);
-					if (!marca.getActivo()) { // Si está inactivo, lo reactivo y asignamos datos de entrada para modificarlos. Para modificar una entidad basta con hacer sets y commit
+
+					id = marca.getId(); // El id despues del commit para que se
+										// genere
+
+				} else { // si hay marca con ese nombre comprobamos su estado en
+							// la base de datos
+					Marca marca = marcas.get(0);
+
+					if (!marca.getActivo()) {
+
 						marca.setActivo(true);
 						marca.setOrigen(tMarca.getOrigen());
+
 						em.getTransaction().commit();
+
 						id = marca.getId();
-					} else { // Si está activa no puedo reactivarla
+					} else
 						em.getTransaction().rollback();
-					}
 				}
-			} catch (Exception e) { // excepcion por si falla algo de
-									// transaccion
-				if (em != null && em.getTransaction().isActive()) {
+			} catch (Exception e) {
+				if (em != null && em.getTransaction().isActive())
 					em.getTransaction().rollback();
-				}
-
 			} finally {
-				if (em != null) {
+				if (em != null)
 					em.close();
-				}
-
 			}
 		}
 
@@ -71,44 +66,39 @@ public class SAMarcaImp implements SAMarca {
 	}
 
 	public boolean bajaMarca(int id) {
-
 		EntityManager em = null;
 		boolean exito = false;
 
 		if (UtilidadesN.comprobarId(id)) {
 			try {
 				em = EMFSingleton.getInstance().getEMF().createEntityManager();
+
 				em.getTransaction().begin();
 
-				Marca marca;
-				
-				marca = em.find(Marca.class, id);
-				
-				if (marca != null && marca.getActivo()){	// Si existe y está activa
-					for (Producto prod : marca.getProductos()){
-						em.lock(prod, LockModeType.OPTIMISTIC);
-						if (prod.getActivo()){ // tiene productos activos, no lo puedo dar de baja
+				Marca marca = em.find(Marca.class, id);
+
+				if (marca != null && marca.getActivo()) {
+					for (Producto producto : marca.getProductos()) {
+						em.lock(producto, LockModeType.OPTIMISTIC);
+						if (producto.getActivo()) {
 							em.getTransaction().rollback();
 							return exito;
 						}
 					}
-					
+					// si no hay ningun producto activo con la marca
 					marca.setActivo(false);
 					exito = true;
+
 					em.getTransaction().commit();
-				} else{
+				} else
 					em.getTransaction().rollback();
-				}
-			} catch (Exception e) { 
-				if (em != null && em.getTransaction().isActive()) {
-					em.getTransaction().rollback();
-				}
 
+			} catch (Exception e) {
+				if (em != null && em.getTransaction().isActive())
+					em.getTransaction().rollback();
 			} finally {
-				if (em != null) {
+				if (em != null)
 					em.close();
-				}
-
 			}
 		}
 
@@ -122,27 +112,22 @@ public class SAMarcaImp implements SAMarca {
 		if (UtilidadesN.comprobarId(id)) {
 			try {
 				em = EMFSingleton.getInstance().getEMF().createEntityManager();
+
 				em.getTransaction().begin();
 
 				Marca marca = em.find(Marca.class, id);
 
-				if (marca != null) {
+				if (marca != null)
 					tMarca = marca.toTransfer();
-				}
 
 				em.getTransaction().commit();
 
-			} catch (Exception e) { // excepcion por si falla algo de
-									// transaccion
-				if (em != null && em.getTransaction().isActive()) {
+			} catch (Exception e) {
+				if (em != null && em.getTransaction().isActive())
 					em.getTransaction().rollback();
-				}
-
 			} finally {
-				if (em != null) {
+				if (em != null)
 					em.close();
-				}
-
 			}
 		}
 
@@ -151,34 +136,29 @@ public class SAMarcaImp implements SAMarca {
 
 	public List<TMarca> consultarMarcas() {
 		EntityManager em = null;
-		List<TMarca> listaMarcas = new ArrayList<TMarca>();
+		List<TMarca> tMarcas = new ArrayList<>();
 
 		try {
 			em = EMFSingleton.getInstance().getEMF().createEntityManager();
+
 			em.getTransaction().begin();
 
-			List<Marca> resultados = em.createNamedQuery("negocio.marca.Marca.findAll", Marca.class).getResultList();
+			List<Marca> marcas = em.createNamedQuery("negocio.marca.Marca.findAll", Marca.class).getResultList();
 
-			for (Marca marca : resultados) {
-				listaMarcas.add(marca.toTransfer());
-			}
+			for (Marca marca : marcas)
+				tMarcas.add(marca.toTransfer());
 
 			em.getTransaction().commit();
 
-		} catch (Exception e) { // excepcion por si falla algo de
-								// transaccion
-			if (em != null && em.getTransaction().isActive()) {
+		} catch (Exception e) {
+			if (em != null && em.getTransaction().isActive())
 				em.getTransaction().rollback();
-			}
-
 		} finally {
-			if (em != null) {
+			if (em != null)
 				em.close();
-			}
 		}
 
-		return listaMarcas;
-
+		return tMarcas;
 	}
 
 	public boolean modificarMarca(TMarca tMarca) {
@@ -188,41 +168,32 @@ public class SAMarcaImp implements SAMarca {
 		if (ValidadorMarca.comprobarDatos(tMarca)) {
 			try {
 				em = EMFSingleton.getInstance().getEMF().createEntityManager();
+
 				em.getTransaction().begin();
 
-				Marca marca;
-				
-				marca = em.find(Marca.class, tMarca.getId());
-				
-				if (marca != null) {
-					List<Marca> resultados = em.createNamedQuery("negocio.marca.Marca.findBynombre", Marca.class)
-							.setParameter("nombre", tMarca.getNombre())
-							.setLockMode(LockModeType.OPTIMISTIC)
+				Marca marca = em.find(Marca.class, tMarca.getId());
+
+				if (marca != null && marca.getActivo()) {
+					List<Marca> marcas = em.createNamedQuery("negocio.marca.Marca.findBynombre", Marca.class)
+							.setParameter("nombre", tMarca.getNombre()).setLockMode(LockModeType.OPTIMISTIC)
 							.getResultList();
-					
-					if (marca.getActivo()																	// Puedo modificar la marca si esta activa y si no existe marca con ese nombre
-							&& (marca.getNombre().equals(tMarca.getNombre()) || resultados.isEmpty())) {	// o la que estoy modicando es la que he leido por nombre
+
+					if (marca.getNombre().equals(tMarca.getNombre()) || marcas.isEmpty()) {
 						exito = true;
 						marca.setNombre(tMarca.getNombre());
 						marca.setOrigen(tMarca.getOrigen());
+
 						em.getTransaction().commit();
-					} else{
+					} else
 						em.getTransaction().rollback();
-					}
-				} else{
+				} else
 					em.getTransaction().rollback();
-				}
-			} catch (Exception e) { // excepcion por si falla algo de
-									// transaccion
-				if (em != null && em.getTransaction().isActive()) {
+			} catch (Exception e) {
+				if (em != null && em.getTransaction().isActive())
 					em.getTransaction().rollback();
-				}
-
 			} finally {
-				if (em != null) {
+				if (em != null)
 					em.close();
-				}
-
 			}
 		}
 

@@ -19,13 +19,14 @@ public class SAProveedorImp implements SAProveedor {
 		if (ValidadorProveedor.comprobarDatos(tProveedor)) {
 			try {
 				em = EMFSingleton.getInstance().getEMF().createEntityManager();
+
 				em.getTransaction().begin();
 
-				List<Proveedor> resultados = em
+				List<Proveedor> proveedores = em
 						.createNamedQuery("negocio.proveedor.Proveedor.findBynombre", Proveedor.class)
 						.setParameter("nombre", tProveedor.getNombre()).getResultList();
 
-				if (resultados.isEmpty()) {
+				if (proveedores.isEmpty()) {
 					if (tProveedor instanceof TNacional) {
 						Nacional nacional = new Nacional((TNacional) tProveedor);
 						em.persist(nacional);
@@ -37,9 +38,9 @@ public class SAProveedorImp implements SAProveedor {
 						em.getTransaction().commit();
 						id = internacional.getId();
 					}
-
 				} else {
-					Proveedor proveedor = resultados.get(0);
+					Proveedor proveedor = proveedores.get(0);
+
 					if (!proveedor.getActivo()) {
 						if (tProveedor instanceof TNacional && proveedor instanceof Nacional) {
 							((Nacional) proveedor).setCodigoPostal(((TNacional) tProveedor).getCodigoPostal());
@@ -52,24 +53,17 @@ public class SAProveedorImp implements SAProveedor {
 							proveedor.setActivo(true);
 							em.getTransaction().commit();
 							id = proveedor.getId();
-						} else {
+						} else
 							em.getTransaction().rollback();
-						}
-
-					} else {
+					} else
 						em.getTransaction().rollback();
-					}
 				}
 			} catch (Exception e) {
-				if (em != null && em.getTransaction().isActive()) {
+				if (em != null && em.getTransaction().isActive())
 					em.getTransaction().rollback();
-				}
-
 			} finally {
-				if (em != null) {
+				if (em != null)
 					em.close();
-				}
-
 			}
 		}
 
@@ -83,36 +77,28 @@ public class SAProveedorImp implements SAProveedor {
 		if (UtilidadesN.comprobarId(id)) {
 			try {
 				em = EMFSingleton.getInstance().getEMF().createEntityManager();
+
 				em.getTransaction().begin();
 
-				Proveedor proveedor;
+				Proveedor proveedor = em.find(Proveedor.class, id);
 
-				proveedor = em.find(Proveedor.class, id);
 				if (proveedor != null && proveedor.getActivo()) {
 
-					if (proveedor.getProductos().size() == 0) {// si no
-																// tieneproductos
-																// vinculados
+					if (proveedor.getProductos().isEmpty()) {
 						proveedor.setActivo(false);
 						em.getTransaction().commit();
 						exito = true;
-					} else {
+					} else
 						em.getTransaction().rollback();
-					}
-
-				} else {
+				} else
 					em.getTransaction().rollback();
-				}
+
 			} catch (Exception e) {
-				if (em != null && em.getTransaction().isActive()) {
+				if (em != null && em.getTransaction().isActive())
 					em.getTransaction().rollback();
-				}
-
 			} finally {
-				if (em != null) {
+				if (em != null)
 					em.close();
-				}
-
 			}
 		}
 
@@ -126,26 +112,22 @@ public class SAProveedorImp implements SAProveedor {
 		if (UtilidadesN.comprobarId(id)) {
 			try {
 				em = EMFSingleton.getInstance().getEMF().createEntityManager();
+
 				em.getTransaction().begin();
 
 				Proveedor proveedor = em.find(Proveedor.class, id);
 
-				if (proveedor != null) {
+				if (proveedor != null)
 					tProveedor = proveedor.toTransfer();
-				}
 
 				em.getTransaction().commit();
 
 			} catch (Exception e) {
-				if (em != null && em.getTransaction().isActive()) {
+				if (em != null && em.getTransaction().isActive())
 					em.getTransaction().rollback();
-				}
-
 			} finally {
-				if (em != null) {
+				if (em != null)
 					em.close();
-				}
-
 			}
 		}
 
@@ -154,68 +136,59 @@ public class SAProveedorImp implements SAProveedor {
 
 	public List<TProveedor> consultarProveedores() {
 		EntityManager em = null;
-		List<TProveedor> listaProveedores = new ArrayList<TProveedor>();
+		List<TProveedor> tProveedores = new ArrayList<>();
 
 		try {
 			em = EMFSingleton.getInstance().getEMF().createEntityManager();
 			em.getTransaction().begin();
 
-			List<Proveedor> resultados = em.createNamedQuery("negocio.proveedor.Proveedor.findAll", Proveedor.class)
+			List<Proveedor> proveedores = em.createNamedQuery("negocio.proveedor.Proveedor.findAll", Proveedor.class)
 					.getResultList();
 
-			for (Proveedor proveedor : resultados) {
-				listaProveedores.add(proveedor.toTransfer());
-			}
+			for (Proveedor proveedor : proveedores)
+				tProveedores.add(proveedor.toTransfer());
 
 			em.getTransaction().commit();
 
-		} catch (Exception e) { // excepcion por si falla algo de
-								// transaccion
-			if (em != null && em.getTransaction().isActive()) {
+		} catch (Exception e) {
+			if (em != null && em.getTransaction().isActive())
 				em.getTransaction().rollback();
-			}
-
 		} finally {
-			if (em != null) {
+			if (em != null)
 				em.close();
-			}
 		}
 
-		return listaProveedores;
+		return tProveedores;
 	}
 
 	public List<TProveedor> consultarProveedoresPorProducto(int idProducto) {
 		EntityManager em = null;
-		List<TProveedor> listaProveedores = new ArrayList<TProveedor>();
+		List<TProveedor> tProveedores = new ArrayList<>();
 
 		try {
 			em = EMFSingleton.getInstance().getEMF().createEntityManager();
+
 			em.getTransaction().begin();
 
-			Producto p = em.find(Producto.class, idProducto);
+			Producto producto = em.find(Producto.class, idProducto);
 
-			if (p != null) {
-				List<Proveedor> resultados = p.getProveedores();
-				for (Proveedor proveedor : resultados) {
-					listaProveedores.add(proveedor.toTransfer());
-				}
-			}
+			if (producto != null) {
+				for (Proveedor proveedor : producto.getProveedores())
+					tProveedores.add(proveedor.toTransfer());
 
-			em.getTransaction().commit();
-
-		} catch (Exception e) { // excepcion por si falla algo de
-								// transaccion
-			if (em != null && em.getTransaction().isActive()) {
+				em.getTransaction().commit();
+			} else
 				em.getTransaction().rollback();
-			}
 
+		} catch (Exception e) {
+			if (em != null && em.getTransaction().isActive())
+				em.getTransaction().rollback();
 		} finally {
-			if (em != null) {
+			if (em != null)
 				em.close();
-			}
 		}
 
-		return listaProveedores;
+		return tProveedores;
 	}
 
 	public boolean modificarProveedor(TProveedor tProveedor) {
@@ -225,20 +198,18 @@ public class SAProveedorImp implements SAProveedor {
 		if (ValidadorProveedor.comprobarDatos(tProveedor)) {
 			try {
 				em = EMFSingleton.getInstance().getEMF().createEntityManager();
+
 				em.getTransaction().begin();
 
-				Proveedor proveedor;
+				Proveedor proveedor = em.find(Proveedor.class, tProveedor.getId());
 
-				proveedor = em.find(Proveedor.class, tProveedor.getId());
-
-				if (proveedor != null) {
-					List<Proveedor> resultados = em
+				if (proveedor != null && proveedor.getActivo()) {
+					List<Proveedor> proveedores = em
 							.createNamedQuery("negocio.proveedor.Proveedor.findBynombre", Proveedor.class)
 							.setParameter("nombre", tProveedor.getNombre()).setLockMode(LockModeType.OPTIMISTIC)
 							.getResultList();
 
-					if (proveedor.getActivo()
-							&& (proveedor.getNombre().equals(tProveedor.getNombre()) || resultados.isEmpty())) {
+					if (proveedor.getNombre().equals(tProveedor.getNombre()) || proveedores.isEmpty()) {
 						if (proveedor instanceof Nacional && tProveedor instanceof TNacional) {
 							((Nacional) proveedor).setCodigoPostal(((TNacional) tProveedor).getCodigoPostal());
 							proveedor.setNombre(tProveedor.getNombre());
@@ -250,27 +221,19 @@ public class SAProveedorImp implements SAProveedor {
 							proveedor.setNombre(tProveedor.getNombre());
 							em.getTransaction().commit();
 							exito = true;
-						} else {
+						} else
 							em.getTransaction().rollback();
-
-						}
-					} else {
+					} else
 						em.getTransaction().rollback();
-					}
-				} else {
+				} else
 					em.getTransaction().rollback();
-				}
-			} catch (Exception e) { // excepcion por si falla algo de
-									// transaccion
-				if (em != null && em.getTransaction().isActive()) {
-					em.getTransaction().rollback();
-				}
 
+			} catch (Exception e) {
+				if (em != null && em.getTransaction().isActive())
+					em.getTransaction().rollback();
 			} finally {
-				if (em != null) {
+				if (em != null)
 					em.close();
-				}
-
 			}
 		}
 
@@ -280,16 +243,16 @@ public class SAProveedorImp implements SAProveedor {
 	public boolean vincularProveedorProducto(int idProducto, int idProveedor) {
 		EntityManager em = null;
 		boolean exito = false;
+
 		if (UtilidadesN.comprobarId(idProducto) && UtilidadesN.comprobarId(idProveedor)) {
 			try {
 				em = EMFSingleton.getInstance().getEMF().createEntityManager();
+
 				em.getTransaction().begin();
 
-				Proveedor proveedor;
-				proveedor = em.find(Proveedor.class, idProveedor, LockModeType.OPTIMISTIC_FORCE_INCREMENT);
+				Proveedor proveedor = em.find(Proveedor.class, idProveedor, LockModeType.OPTIMISTIC_FORCE_INCREMENT);
 
-				Producto producto;
-				producto = em.find(Producto.class, idProducto, LockModeType.OPTIMISTIC_FORCE_INCREMENT);
+				Producto producto = em.find(Producto.class, idProducto, LockModeType.OPTIMISTIC_FORCE_INCREMENT);
 
 				if (proveedor != null && producto != null && proveedor.getActivo() && producto.getActivo()) {
 
@@ -302,15 +265,12 @@ public class SAProveedorImp implements SAProveedor {
 						em.getTransaction().commit();
 						exito = true;
 					}
-
-				} else {
+				} else
 					em.getTransaction().rollback();
-				}
 
 			} catch (Exception e) {
-				if (em != null && em.getTransaction().isActive()) {
+				if (em != null && em.getTransaction().isActive())
 					em.getTransaction().rollback();
-				}
 			} finally {
 				if (em != null)
 					em.close();
@@ -323,34 +283,29 @@ public class SAProveedorImp implements SAProveedor {
 	public boolean desvincularProveedorProducto(int idProducto, int idProveedor) {
 		EntityManager em = null;
 		boolean exito = false;
+
 		if (UtilidadesN.comprobarId(idProducto) && UtilidadesN.comprobarId(idProveedor)) {
 			try {
 				em = EMFSingleton.getInstance().getEMF().createEntityManager();
+
 				em.getTransaction().begin();
 
-				Proveedor proveedor;
-				proveedor = em.find(Proveedor.class, idProveedor, LockModeType.OPTIMISTIC_FORCE_INCREMENT);
+				Proveedor proveedor = em.find(Proveedor.class, idProveedor, LockModeType.OPTIMISTIC_FORCE_INCREMENT);
 
-				Producto producto;
-				producto = em.find(Producto.class, idProducto, LockModeType.OPTIMISTIC_FORCE_INCREMENT);
+				Producto producto = em.find(Producto.class, idProducto, LockModeType.OPTIMISTIC_FORCE_INCREMENT);
 
 				if (proveedor != null && producto != null && proveedor.getActivo() && producto.getActivo()) {
-					if (proveedor.getProductos().remove(producto) && producto.getProveedores().remove(proveedor))// se elimina el proveedor del producto y el producto del proveedor
-					{
+					if (proveedor.getProductos().remove(producto) && producto.getProveedores().remove(proveedor)) {
 						em.getTransaction().commit();
 						exito = true;
-					} else {
+					} else
 						em.getTransaction().rollback();
-					}
-				} else {
+				} else
 					em.getTransaction().rollback();
-				}
 
 			} catch (Exception e) {
-				if (em != null && em.getTransaction().isActive()) {
+				if (em != null && em.getTransaction().isActive())
 					em.getTransaction().rollback();
-					exito = false;
-				}
 			} finally {
 				if (em != null)
 					em.close();
