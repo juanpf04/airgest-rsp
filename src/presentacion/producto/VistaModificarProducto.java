@@ -81,7 +81,7 @@ public class VistaModificarProducto extends JFrame implements Observador {
         // Campo de texto para modificar la referencia (ref)
         JLabel etiquetaRef = new JLabel("Referencia: ");
         etiquetaRef.setFont(new Font("Tahoma", Font.BOLD, 25));
-        JTextField textoRef = new JTextField(producto.getRef());
+        JTextField textoRef = new JTextField(String.valueOf(producto.getRef()));
         textoRef.setMaximumSize(new Dimension(200, 30));
         textoRef.setMinimumSize(new Dimension(200, 30));
         textoRef.setPreferredSize(new Dimension(200, 30));

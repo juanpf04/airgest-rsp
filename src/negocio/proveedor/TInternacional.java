@@ -33,6 +33,6 @@ public class TInternacional extends TProveedor {
 
 	@Override
 	public String toString() {
-		return super.toString() + "\nPais: " + this.getPais() + "\nImpuesto: " + this.getImpuesto();
+		return super.toString() + "\n Tipo: Internacional" +"\nPais: " + this.getPais() + "\nImpuesto: " + this.getImpuesto();
 	}
 }

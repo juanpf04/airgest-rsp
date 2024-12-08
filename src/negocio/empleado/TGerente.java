@@ -34,6 +34,6 @@ public class TGerente extends TEmpleado {
 
 	@Override
 	public String toString() {
-		return super.toString() + "\n Despacho: " + despacho + "\n Horas Extra: " + horasExtra + "\n";
+		return super.toString() + "\n Tipo: Gerente" + "\n Despacho: " + despacho + "\n Horas Extra: " + horasExtra + "\n";
 	}
 }

@@ -34,6 +34,6 @@ public class TDependiente extends TEmpleado {
 
 	@Override
 	public String toString() {
-		return super.toString() + "\n Seccion: " + seccion + "\n Noches: " + noches + "\n";
+		return super.toString() + "\n Tipo: Dependiente" +"\n Seccion: " + seccion + "\n Noches: " + noches + "\n";
 	}
 }
