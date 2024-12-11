@@ -17,4 +17,10 @@ public class EMFSingletonImp extends EMFSingleton {
 	public EntityManagerFactory getEMF() {
 		return this.factory;
 	}
+	
+	@Override
+	public void finalize() {
+		if(this.factory != null && this.factory.isOpen())
+			this.factory.close();
+	}
 }
