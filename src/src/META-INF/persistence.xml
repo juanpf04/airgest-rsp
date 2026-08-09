@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1"
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="ms2425aeropuertocod"
+		transaction-type="RESOURCE_LOCAL">
+		<class>negocio.producto.Producto</class>
+		<class>negocio.venta.Venta</class>
+		<class>negocio.venta.Clave</class>
+		<class>negocio.venta.LineaVenta</class>
+		<class>negocio.departamento.Departamento</class>
+		<class>negocio.empleado.Gerente</class>
+		<class>negocio.empleado.Dependiente</class>
+		<class>negocio.empleado.Empleado</class>
+		<class>negocio.marca.Marca</class>
+		<class>negocio.proveedor.Proveedor</class>
+		<class>negocio.proveedor.Internacional</class>
+		<class>negocio.proveedor.Nacional</class>
+		<properties>
+			<property name="javax.persistence.jdbc.driver" value="java.sql.DriverManager" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/ms" />
+			<property name="javax.persistence.jdbc.user" value="root" />
+			<property name="javax.persistence.jdbc.password" value="root" />
+			<!-- enable this EclipseLink property to see SQL and other logging -->
+			<!-- property name="eclipselink.logging.level" value="FINE"/ -->
+			<!-- mucho más lenta que la propiedad EclipseLink <property name="javax.persistence.schema-generation.database.action" 
+				value="drop-and-create"/> -->
+			<property name="eclipselink.ddl-generation" value="drop-and-create-tables" />
+			<property name="eclipselink.ddl-generation.output-mode"
+				value="both" />
+			<property name="eclipselink.jdbc.batch-writing" value="JDBC" />
+		</properties>
+	</persistence-unit>
+</persistence>

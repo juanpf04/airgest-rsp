@@ -1,0 +1,39 @@
+package negocio.personal;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Test;
+
+
+public class ValidadorPersonalTest {
+
+	@Test
+	public void comprobarDatosTest() {
+
+		TPersonal personal;
+
+		personal = new TPSeguridad(0, "12345678P", "cámaras", true, 56);
+		assertTrue("debería ser valido", ValidadorPersonal.comprobarDatos(personal));
+
+		personal = new TPLimpieza(0, "12345678P", "baños", true, "desatascador");
+		assertTrue("debería ser valido", ValidadorPersonal.comprobarDatos(personal));
+
+		// Prueba con idEmpleado no válido
+		personal = new TPSeguridad(0, "0", "cámaras", true, 56);
+		assertFalse("debería ser inválido", ValidadorPersonal.comprobarDatos(personal));
+
+		// Prueba con área asignada vacía
+		personal = new TPLimpieza(0, "12345678P", "", true, "desatascador");
+		assertFalse("debería ser inválido", ValidadorPersonal.comprobarDatos(personal));
+
+		// Prueba con numPlaca no válido
+		personal = new TPSeguridad(0, "12345678P", "cámaras", true, 0);
+		assertFalse("debería ser inválido", ValidadorPersonal.comprobarDatos(personal));
+
+		// Prueba con rol vacío
+		personal = new TPLimpieza(0, "12345678P", "baños", true, "");
+		assertFalse("debería ser inválido", ValidadorPersonal.comprobarDatos(personal));
+	}
+
+}

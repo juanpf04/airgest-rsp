@@ -1,0 +1,23 @@
+package presentacion.controlador;
+
+import presentacion.Observador;
+import presentacion.controlador.comandos.Comando;
+import presentacion.factoria.FactoriaComandos;
+import presentacion.factoria.FactoriaVistas;
+
+public class ControladorImp extends Controlador {
+
+	@Override
+	public void accion(Contexto contexto) {
+		Comando comando = FactoriaComandos.getInstance().crearComando(contexto.getEvento());
+
+		// Si no existe un comando con ese evento, es una vista
+		if (comando != null)
+			contexto = comando.ejecutar(contexto.getInfo());
+
+		Observador vista = FactoriaVistas.getInstance().crearVista(contexto.getEvento());
+
+		vista.actualizar(contexto.getInfo());
+	}
+
+}
